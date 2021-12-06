@@ -227,9 +227,10 @@ public class Input
 	
 	public void getAction(int action) {
 		if(action == GLFW.GLFW_KEY_RIGHT) {
+			
 			System.out.println("test");
 			Balle balle = new Balle(1, 1, playerMove.getX(), playerMove.getY());
-			balle.setShoot(true);
+			
 			balle.drawBalle();
 		}
 	}

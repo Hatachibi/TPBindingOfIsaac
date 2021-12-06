@@ -2,7 +2,7 @@ package Model;
 
 import Vue.Render;
 
-public class Balle extends Entite {
+public class Balle extends Entite{
 	
 	private int speed;
 	private boolean isShoot;
@@ -17,7 +17,10 @@ public class Balle extends Entite {
 	}
 	
 	public void drawBalle() {
-		Render.getInstance().drawPoint(this.getX(), this.getY(), 80);
+		if(isShoot)
+		{
+			Render.getInstance().drawPoint(this.getX(), this.getY(), 80);
+		}
 	}
 
 	public int getSpeed() {
