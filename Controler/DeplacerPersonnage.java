@@ -4,31 +4,32 @@ import java.util.*;
 
 import org.lwjgl.opengl.GL11;
 
+import Model.Entite;
+import Model.Hitbox;
 import Shaders.Raycasting;
 import Vue.Render;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * 
- */
 public class DeplacerPersonnage {
 
 	private float x;
 	private float y;
 	private float a;
+	private int width;
+	private int heigth;
 	private float xmax;
 	private float ymax;
-	
-    /**
-     * Default constructor
-     */
-    public DeplacerPersonnage(float x, float y) {
+	private float distance;
+	private Hitbox hit;
+   
+    public DeplacerPersonnage(float x, float y, int width, int heigth) {
     	this.x = x;
     	this.y = y;
     	this.a = 0;
     	this.xmax = 5;
     	this.ymax = 5;
+    	this.hit = new Hitbox(new Entite(width, heigth));
     }
     
 	public float getXmax() {
@@ -72,17 +73,32 @@ public class DeplacerPersonnage {
     public void drawPlayer() {
     	Render.getInstance().drawPoint(x, y, 8);
     	Raycasting.drawRays3D(this, new int[]  {
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1,
-				1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    			1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1
 		});
     }
+
+	public float getDistance() {
+		return distance;
+	}
+
+	public void setDistance(float distance) {
+		this.distance = distance;
+	}
+
+	public Hitbox getHit() {
+		return hit;
+	}
+
+	public void setHit(Hitbox hit) {
+		this.hit = hit;
+	}
 
 }

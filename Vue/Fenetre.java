@@ -16,8 +16,8 @@ import Controler.Input;
 public class Fenetre {
 	
 	public final static Fenetre INSTANCE = new Fenetre();  
-	public final static Integer HeigthFenetre = 480;
-	public final static Integer	WidthFenetre = 640;
+	public final static Integer HeigthFenetre = 585;
+	public final static Integer	WidthFenetre = 585;
 
 	private long window;
 
@@ -54,10 +54,11 @@ public class Fenetre {
 
     	}
     	
-    	GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    //	GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     	
-    	glfwSetWindowPos(window, (videoMode.width() - 640) / 2, (videoMode.height() - 480) /2);
-    	glfwShowWindow(window);
+  
+ //   	glfwSetWindowPos(window, (videoMode.width() - Fenetre.WidthFenetre) / 2, (videoMode.height() - Fenetre.HeigthFenetre) /2);
+  //  	glfwShowWindow(window);
     }
     
     public boolean isClosed() {

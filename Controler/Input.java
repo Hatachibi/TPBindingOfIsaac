@@ -4,6 +4,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import org.lwjgl.glfw.*;
 
+import Model.Balle;
 import Shaders.Raycasting;
 import Vue.Render;
 
@@ -11,7 +12,7 @@ public class Input
 {
 	private static final Input INSTANCE = new Input();
 	
-	private DeplacerPersonnage playerMove = new DeplacerPersonnage(100, 100);
+	private DeplacerPersonnage playerMove = new DeplacerPersonnage(100, 100, 1, 1);
 	
 	private boolean keys[];
 	private boolean oldKeys[];
@@ -63,6 +64,7 @@ public class Input
 				if(action != GLFW_RELEASE)
 				{
 					getAWSDkeys(key);
+					getAction(key);
 					keys[key] = true;
 				}
 				else
@@ -196,31 +198,42 @@ public class Input
 		{
 		case GLFW.GLFW_KEY_A:
 			a = PI;
-			if(!Raycasting.isQCollision) x -= speed;
+			if(!playerMove.getHit().isQCollision()) x -= speed;
 			this.playerMove.update(x, y, a);
 			this.playerMove.drawPlayer();
 			break;
 		case GLFW.GLFW_KEY_D:
 			a = 0;
-	    	if(!Raycasting.isDCollision) x += speed;
+	    	if(!playerMove.getHit().isDCollision()) x += speed;
 			this.playerMove.update(x, y, a);
 			this.playerMove.drawPlayer();
 			break;
 		case GLFW.GLFW_KEY_W:
 			a = PI/2;
-			if(!Raycasting.isZCollision) y+=speed;
+			if(!playerMove.getHit().isZCollision()) y+=speed;
 			this.playerMove.update(x, y, a);
 			this.playerMove.drawPlayer();
 			break;
 		case GLFW.GLFW_KEY_S:
 			a = 3*(PI/2);
-			if(!Raycasting.isSCollision) y-= speed;
+			if(!playerMove.getHit().isSCollision()) y-= speed;
 			this.playerMove.update(x, y, a);
 			this.playerMove.drawPlayer();
 			break;
+		case GLFW.GLFW_KEY_RIGHT:
+			this.getAction(action);
 		}
 	}
 	
+	public void getAction(int action) {
+		if(action == GLFW.GLFW_KEY_RIGHT) {
+			System.out.println("test");
+			Balle balle = new Balle(1, 1, playerMove.getX(), playerMove.getY());
+			balle.setShoot(true);
+			balle.drawBalle();
+		}
+	}
+		
 	public boolean isKeyDown(int key)
 	{
 		return keys[key];

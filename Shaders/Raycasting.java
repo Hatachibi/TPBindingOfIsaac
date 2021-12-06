@@ -19,10 +19,6 @@ public class Raycasting {
     public Raycasting() {
     }
     
-    public static boolean isZCollision = false;
-    public static boolean isQCollision = false;
-    public static boolean isSCollision = false;
-    public static boolean isDCollision = false;
 
     /**
      * 
@@ -49,12 +45,11 @@ public class Raycasting {
     
     public static float OFFSET = 0.04f;
     
-    public final static Integer TAILLE_GRILLE_X = 48;
+    public final static Integer TAILLE_GRILLE_X = Render.TAILLE_CARRE;
     
-    public final static Integer TAILLE_GRILLE_Y = 48;
-      
-    private float pa;
-    
+    public final static Integer TAILLE_GRILLE_Y = Render.TAILLE_CARRE;
+     
+  
     /**
      * Décrit la taille du mur en fonction de la grille.
      * Plus est grand, plus le mur apparaîtra grand.
@@ -86,7 +81,7 @@ public class Raycasting {
     			mdx = player.getX() + (float) Math.cos(pa)*i;       //50 pê modifier
     			mdy = player.getY() + (float) Math.sin(pa)*i;
     			OFFSET = dist(sx, sy, player.getX(), player.getY())/1000;
-    			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)+14*(int)(mdy/TAILLE_GRILLE_Y)]==1) {   //A régler avec les collisions
+    			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)+9*(int)(mdy/TAILLE_GRILLE_Y)]==1) {   //A régler avec les collisions
     				sx=mdx;
     				sy=mdy;
     				break;
@@ -98,27 +93,7 @@ public class Raycasting {
     		Render.getInstance().drawTrait(player.getX()+player.getXmax(), player.getY(), mdx+player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX(), player.getY()-player.getYmax(), mdx, mdy-player.getYmax());
     		Render.getInstance().drawTrait(player.getX(), player.getY()+player.getYmax(), mdx, mdy+player.getYmax()); 
-    		if(dist <= 7) {
-    			if(pa == PI) isQCollision = true;
-    			if(pa == PI/2) isZCollision = true;
-    			if(pa == 3*(PI/2)) isSCollision = true;
-    			if(pa == 0) isDCollision = true;
-    		} else {
-    			if(pa == PI) isQCollision = false;
-    			if(pa == PI/2) isZCollision = false;
-    			if(pa == 3*(PI/2)) isSCollision = false;
-    			if(pa == 0) isDCollision = false;
-    		}
-    		if(player.getX() > width) {
-    			player.setX(5);
-    			isQCollision = false;
-    			isDCollision = false;
-    		}
-    		if(player.getX() < 0) {
-    			player.setX(width - 5);
-    			isQCollision = false;
-    			isDCollision = false;
-    		}
-    		System.out.println(dist);
+    		player.setDistance(dist);
+    		player.getHit().collisionPlayer(player);
     }
 }

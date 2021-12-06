@@ -10,10 +10,12 @@ import java.net.URL;
 
 import org.lwjgl.opengl.GL;
 import Controler.Input;
+import Model.Balle;
 
 public class Render {
 	
 	public final static Render INSTANCE = new Render();
+	public final static int TAILLE_CARRE = 65;
 	
 	private Render() {};
 	
@@ -26,7 +28,7 @@ public class Render {
     	GL.createCapabilities();
     	glEnable(GL_ALPHA_TEST);  	
     	glLoadIdentity();
-    	glOrtho(0, 640, 0, 480, -1, 1);
+    	glOrtho(0, Fenetre.WidthFenetre, 0, Fenetre.HeigthFenetre, -1, 1);
 	}
 
 	public void drawTrait(float x1, float y1, float x2, float y2) {
@@ -88,28 +90,26 @@ public class Render {
 		
 	public void mapTest() {
 		int[] map = {
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1,
-				1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1
 		};
-		int taille = 48;
-		for(int y=0; y<10; y++) {
-			for(int x=0; x<14; x++) {
-				if(map[(y*14)+x]==1) {
+		for(int y=0; y<9; y++) {
+			for(int x=0; x<9; x++) {
+				if(map[(y*9)+x]==1) {
 					glColor3f(1, 1, 0);
 				} else {
 					glColor3f(1, 0, 1);
 				}
-				int xo = x*taille;
-				int yo = y*taille;
-				this.drawSquare(xo, yo, xo, yo+taille, xo+taille, yo+taille, xo+taille, yo);
+				int xo = x*TAILLE_CARRE;
+				int yo = y*TAILLE_CARRE;
+				this.drawSquare(xo, yo, xo, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo);
 			}
 		}
 		
@@ -119,6 +119,7 @@ public class Render {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		this.mapTest();
 		Input.getInstance().getPlayerMove().drawPlayer();
+		
 	}
 	
 }
