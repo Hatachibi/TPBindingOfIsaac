@@ -12,6 +12,7 @@ public class Input
 {
 	private static final Input INSTANCE = new Input();
 	
+	private ListeBalle liste = new ListeBalle();
 	private DeplacerPersonnage playerMove = new DeplacerPersonnage(100, 100, 1, 1);
 	
 	private boolean keys[];
@@ -45,7 +46,11 @@ public class Input
     public final static float P2 = (float) (PI/2);
     public final static Float RADIAN = 0.0174533f;
 	
-	
+	public void drawBalle() {
+		System.out.println("pass");
+		liste.drawBalle();
+	}
+    
 	public DeplacerPersonnage getPlayerMove() {
 		return playerMove;
 	}
@@ -64,7 +69,6 @@ public class Input
 				if(action != GLFW_RELEASE)
 				{
 					getAWSDkeys(key);
-					getAction(key);
 					keys[key] = true;
 				}
 				else
@@ -221,16 +225,8 @@ public class Input
 			this.playerMove.drawPlayer();
 			break;
 		case GLFW.GLFW_KEY_RIGHT:
-			this.getAction(action);
-		}
-	}
-	
-	public void getAction(int action) {
-		if(action == GLFW.GLFW_KEY_RIGHT) {
-			System.out.println("test");
-			Balle balle = new Balle(1, 1, playerMove.getX(), playerMove.getY());
-			balle.setShoot(true);
-			balle.drawBalle();
+			liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY()));
+			break;
 		}
 	}
 		

@@ -119,7 +119,7 @@ public class Render {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		this.mapTest();
 		Input.getInstance().getPlayerMove().drawPlayer();
-		
+		Input.getInstance().drawBalle();
 	}
 	
 }
