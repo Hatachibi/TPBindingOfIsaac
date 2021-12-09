@@ -8,11 +8,19 @@ public class Balle extends Entite{
 	private boolean isShoot;
 	private double coolDown;
 	private double degats;
+	/**
+	 * 1 = gauche
+	 * 2 = droite
+	 * 3 = haut
+	 * 4 = bas
+	 */
+	private int direction;
 	
-	public Balle(int width, int heigth, float x, float y) {
+	public Balle(int width, int heigth, float x, float y, int direction) {
 		super(width, heigth);
 		this.setX(x);
 		this.setY(y);
+		this.setDirection(direction);
 		this.isShoot = false;
 	}
 	
@@ -53,6 +61,14 @@ public class Balle extends Entite{
 
 	public void setDegats(double degats) {
 		this.degats = degats;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 	
 	

@@ -2,6 +2,8 @@ package Controler;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import java.util.TreeSet;
+
 import org.lwjgl.glfw.*;
 
 import Model.Balle;
@@ -24,8 +26,11 @@ public class Input
 	private double scrollX;
 	private double scrollY;
 	private int textChar; 
+	private TreeSet<Integer> currentKeysDown; 
 	
 	private GLFWKeyCallback keyboard;
+	private GLFWKeyCallback keyCallBack;
+	            
 	private GLFWMouseButtonCallback button;
 	private GLFWCursorPosCallback mouseMotion;
 	private GLFWScrollCallback scroll;
@@ -47,7 +52,7 @@ public class Input
     public final static Float RADIAN = 0.0174533f;
 	
 	public void drawBalle() {
-		System.out.println("pass");
+		//System.out.println("pass");
 		liste.drawBalle();
 	}
     
@@ -61,23 +66,41 @@ public class Input
 		oldKeys = new boolean[GLFW_KEY_LAST];
 		buttons = new boolean[GLFW_MOUSE_BUTTON_LAST];
 		oldButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
-		
+		//currentKeysDown = new TreeSet<Integer>();
 		keyboard = new GLFWKeyCallback()
 		{
 			public void invoke(long window, int key, int scancode, int action, int mods)
 			{
-				if(action != GLFW_RELEASE)
+				System.out.println(key);
+				if(action == GLFW.GLFW_RELEASE)
 				{
-					getAWSDkeys(key);
+					System.out.println("released");
+					oldKeys[key] = true;
+					keys[key] = false;
+				}
+				else if(action == GLFW.GLFW_PRESS)
+				{
+					System.out.println("Pressed");
+					//getAWSDkeys(key);
+					//getShotsKeys(key);
+					getAWSDkeys();
+					getShotsKeys(key);
+					oldKeys[key] = false;
 					keys[key] = true;
+					
 				}
 				else
 				{
-					keys[key] = false;
+					System.out.println("hold");
+					//getAWSDkeys(key);
+					getAWSDkeys();
+					//getShotsKeys();
+					getShotsKeys(key);
 				}
 				updateKeys = true;
 			}
 		};
+		
 		
 		button = new GLFWMouseButtonCallback()
 		{
@@ -195,38 +218,61 @@ public class Input
 		int ipy_sub_yo = (int) ((y-yo)/64f);
 	}*/
 	
-	public void getAWSDkeys(int action)
+	public void getAWSDkeys()
 	{
+		for(int i = 0; i<keys.length; i++)
+		{
+			if(keys[i])
+			{
+				switch(i)
+				{
+				case GLFW.GLFW_KEY_A:
+					a = PI;
+					if(!playerMove.getHit().isQCollision()) x -= speed;
+					this.playerMove.update(x, y, a);
+					this.playerMove.drawPlayer();
+					break;
+				case GLFW.GLFW_KEY_D:
+					a = 0;
+			    	if(!playerMove.getHit().isDCollision()) x += speed;
+					this.playerMove.update(x, y, a);
+					this.playerMove.drawPlayer();
+					break;
+				case GLFW.GLFW_KEY_W:
+					a = PI/2;
+					if(!playerMove.getHit().isZCollision()) y+=speed;
+					this.playerMove.update(x, y, a);
+					this.playerMove.drawPlayer();
+					break;
+				case GLFW.GLFW_KEY_S:
+					a = 3*(PI/2);
+					if(!playerMove.getHit().isSCollision()) y-= speed;
+					this.playerMove.update(x, y, a);
+					this.playerMove.drawPlayer();
+					break;
+				
+				}
+			}
+		}
 		
+	}
+	
+	public void getShotsKeys(int action)
+	{
 		switch(action)
 		{
-		case GLFW.GLFW_KEY_A:
-			a = PI;
-			if(!playerMove.getHit().isQCollision()) x -= speed;
-			this.playerMove.update(x, y, a);
-			this.playerMove.drawPlayer();
-			break;
-		case GLFW.GLFW_KEY_D:
-			a = 0;
-	    	if(!playerMove.getHit().isDCollision()) x += speed;
-			this.playerMove.update(x, y, a);
-			this.playerMove.drawPlayer();
-			break;
-		case GLFW.GLFW_KEY_W:
-			a = PI/2;
-			if(!playerMove.getHit().isZCollision()) y+=speed;
-			this.playerMove.update(x, y, a);
-			this.playerMove.drawPlayer();
-			break;
-		case GLFW.GLFW_KEY_S:
-			a = 3*(PI/2);
-			if(!playerMove.getHit().isSCollision()) y-= speed;
-			this.playerMove.update(x, y, a);
-			this.playerMove.drawPlayer();
-			break;
-		case GLFW.GLFW_KEY_RIGHT:
-			liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY()));
-			break;
+			case GLFW.GLFW_KEY_UP:
+				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 3));
+				break;
+			case GLFW.GLFW_KEY_DOWN:
+				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 4));
+				break;
+			case GLFW.GLFW_KEY_RIGHT:
+				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 2));
+				break;
+			case GLFW.GLFW_KEY_LEFT:
+				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 1));
+				break;
 		}
 	}
 		
