@@ -220,7 +220,8 @@ public class Input
 	
 	public void getAWSDkeys()
 	{
-		for(int i = 0; i<keys.length; i++)
+		int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S};
+		for(int i : listeInput)
 		{
 			if(keys[i])
 			{
