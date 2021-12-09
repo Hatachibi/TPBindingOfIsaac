@@ -87,8 +87,6 @@ public class Input
 					keys[key] = true;
 					getAWSDkeys();
 					getShotsKeys(key);
-					
-					
 				}
 				else
 				{
@@ -221,6 +219,8 @@ public class Input
 	
 	public void getAWSDkeys()
 	{
+		/*int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S,
+				GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};*/
 		int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S};
 		for(int i : listeInput)
 		{
@@ -252,6 +252,22 @@ public class Input
 					this.playerMove.update(x, y, a);
 					this.playerMove.drawPlayer();
 					break;
+				/*case GLFW.GLFW_KEY_UP:
+					System.out.println("Haut");
+					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 3));
+					break;
+				case GLFW.GLFW_KEY_DOWN:
+					System.out.println("Bas");
+					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 4));
+					break;
+				case GLFW.GLFW_KEY_RIGHT:
+					System.out.println("Droite");
+					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 2));
+					break;
+				case GLFW.GLFW_KEY_LEFT:
+					System.out.println("Gauche");
+					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 1));
+					break;*/
 				
 				}
 			}
@@ -264,15 +280,19 @@ public class Input
 		switch(action)
 		{
 			case GLFW.GLFW_KEY_UP:
+				System.out.println("Haut");
 				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 3));
 				break;
 			case GLFW.GLFW_KEY_DOWN:
+				System.out.println("Bas");
 				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 4));
 				break;
 			case GLFW.GLFW_KEY_RIGHT:
+				System.out.println("Droite");
 				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 2));
 				break;
 			case GLFW.GLFW_KEY_LEFT:
+				System.out.println("Gauche");
 				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 1));
 				break;
 		}

@@ -68,8 +68,8 @@ public class Fenetre {
     public void run() {
     	
     	while(!Fenetre.getInstance().isClosed()) {
-    		Render.getInstance().render();
     		Input.getInstance().handleEvents();
+    		Render.getInstance().render();
     		glfwPollEvents();
     		glfwSwapBuffers(window);
     	}

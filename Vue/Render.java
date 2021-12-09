@@ -16,6 +16,18 @@ public class Render {
 	
 	public final static Render INSTANCE = new Render();
 	public final static int TAILLE_CARRE = 65;
+	private int[] map = {
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 0, 0, 0, 0, 0, 0, 0, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1
+	};
+	private int[][] maps = new int[100][];
 	
 	private Render() {};
 	
@@ -66,13 +78,13 @@ public class Render {
 	
 	public void drawSquare(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
 		//	glColor4f(0f, 1f, 0f, 1f);
-			glBegin(GL_QUADS);
-			glVertex2f(x1, y1);
-			glVertex2f(x2, y2);
-			glVertex2f(x3, y3);
-			glVertex2f(x4, y4);
-			glEnd();
-		}
+		glBegin(GL_QUADS);
+		glVertex2f(x1, y1);
+		glVertex2f(x2, y2);
+		glVertex2f(x3, y3);
+		glVertex2f(x4, y4);
+		glEnd();
+	}
 	
 	public void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
 		glColor4f(0f, 1f, 0f, 1f);
@@ -88,21 +100,11 @@ public class Render {
 		this.drawTrait(x+20, y, x-20, y);
 	}
 		
-	public void mapTest() {
-		int[] map = {
-				1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1
-		};
+	public void mapTest(int numMap) {
+		maps[1] = map;
 		for(int y=0; y<9; y++) {
 			for(int x=0; x<9; x++) {
-				if(map[(y*9)+x]==1) {
+				if(maps[numMap][(y*9)+x]==1) {
 					glColor3f(1, 1, 0);
 				} else {
 					glColor3f(1, 0, 1);
@@ -117,7 +119,7 @@ public class Render {
 	
 	public void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		this.mapTest();
+		this.mapTest(1);
 		Input.getInstance().getPlayerMove().drawPlayer();
 		Input.getInstance().drawBalle();
 	}

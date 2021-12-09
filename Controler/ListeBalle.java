@@ -19,7 +19,7 @@ public class ListeBalle {
 	public void drawBalle() {
 		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();
 		for(Balle b: liste) {
-			
+		
 			if(b.getDirection() == 1)
 			{
 				b.drawBalle();

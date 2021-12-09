@@ -25,9 +25,9 @@ public class Balle extends Entite{
 	}
 	
 	public void drawBalle() {
-		if(isShoot)
+		if(!isShoot)
 		{
-			Render.getInstance().drawPoint(this.getX(), this.getY(), 80);
+			Render.getInstance().drawPoint(this.getX(), this.getY(), 10);
 		}
 	}
 
