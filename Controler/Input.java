@@ -83,10 +83,11 @@ public class Input
 					System.out.println("Pressed");
 					//getAWSDkeys(key);
 					//getShotsKeys(key);
-					getAWSDkeys();
-					getShotsKeys(key);
 					oldKeys[key] = false;
 					keys[key] = true;
+					getAWSDkeys();
+					getShotsKeys(key);
+					
 					
 				}
 				else
