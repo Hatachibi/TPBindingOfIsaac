@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import Model.Entite;
 import Model.Hitbox;
+import Model.Jeu;
 import Shaders.Raycasting;
 import Vue.Render;
 
@@ -13,23 +14,17 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class DeplacerPersonnage {
 
-	private float x;
-	private float y;
-	private float a;
-	private int width;
-	private int heigth;
+	private double a;
 	private float xmax;
 	private float ymax;
 	private float distance;
 	private Hitbox hit;
    
-    public DeplacerPersonnage(float x, float y, int width, int heigth) {
-    	this.x = x;
-    	this.y = y;
+    public DeplacerPersonnage(Entite e) {
     	this.a = 0;
     	this.xmax = 5;
     	this.ymax = 5;
-    	this.hit = new Hitbox(new Entite(width, heigth));
+    	this.hit = new Hitbox(e);
     }
     
 	public float getXmax() {
@@ -40,45 +35,29 @@ public class DeplacerPersonnage {
 		return ymax;
 	}
 
-	public float getA() {
+	public double getA() {
 		return a;
 	}
 
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public void setA(float a) {
+	public void setA(double a) {
 		this.a = a;
 	}
 
-	public void update(float x, float y, float a) {
-    	this.x = x;
-    	this.y = y;
+	public void update(double x, double y, double a) {
+    	hit.getEntity().setX(x);
+    	hit.getEntity().setY(y);
     	this.a = a;
     }
         
     public void drawPlayer() {
-    	Render.getInstance().drawPoint(x, y, 8);
+    	Render.getInstance().drawPoint((float) hit.getEntity().getX(),(float) hit.getEntity().getY(), 8); //Obliger de cast en float car sinon on ne peut pas draw les ractangles
     	Raycasting.drawRays3D(this, new int[]  {
     			1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,
 				1, 1, 1, 1, 1, 1, 1, 1, 1

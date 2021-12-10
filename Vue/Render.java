@@ -99,12 +99,22 @@ public class Render {
 		this.drawTrait(x, y+20, x, y-20);
 		this.drawTrait(x+20, y, x-20, y);
 	}
-		
-	public void mapTest(int numMap) {
-		maps[1] = map;
+	
+	public void drawMap() {
+		int[] map = {
+				1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1
+		};
 		for(int y=0; y<9; y++) {
 			for(int x=0; x<9; x++) {
-				if(maps[numMap][(y*9)+x]==1) {
+				if(map[(y*9)+x]==1) {
 					glColor3f(1, 1, 0);
 				} else {
 					glColor3f(1, 0, 1);
@@ -119,7 +129,7 @@ public class Render {
 	
 	public void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		this.mapTest(1);
+		this.drawMap();
 		Input.getInstance().getPlayerMove().drawPlayer();
 		Input.getInstance().drawBalle();
 	}

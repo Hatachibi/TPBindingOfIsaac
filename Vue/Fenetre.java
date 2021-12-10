@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 
 import Controler.DeplacerPersonnage;
 import Controler.Input;
+import Model.Jeu;
 
 
 /**
@@ -54,24 +55,63 @@ public class Fenetre {
 
     	}
     	
-    //	GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    	GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     	
   
- //   	glfwSetWindowPos(window, (videoMode.width() - Fenetre.WidthFenetre) / 2, (videoMode.height() - Fenetre.HeigthFenetre) /2);
-  //  	glfwShowWindow(window);
+    	glfwSetWindowPos(window, (videoMode.width() - Fenetre.WidthFenetre) / 2, (videoMode.height() - Fenetre.HeigthFenetre) /2);
+    	glfwShowWindow(window);
     }
     
     public boolean isClosed() {
     	return glfwWindowShouldClose(window);
     }
     
+    public static double getTime() {
+    	return (double)System.nanoTime() / (double)1000000000L;
+    }
+    
     public void run() {
     	
+    	double frameCap = 1.0/60.0; //On CAP à 60 FPS
+    	double timer = getTime();
+    	double unprocessed = 0;
+    	
+    	double frameTime = 0;
+    	int frames = 0;
+    	
     	while(!Fenetre.getInstance().isClosed()) {
-    		Input.getInstance().handleEvents();
-    		Render.getInstance().render();
-    		glfwPollEvents();
-    		glfwSwapBuffers(window);
+    		double timerLoop = getTime();
+    		double passed = timerLoop - timer;
+    		unprocessed += passed;
+    		frameTime+=passed;
+    		boolean canRender = false;
+    		timer = timerLoop;
+    		
+    		while(unprocessed >= frameCap) {
+    			unprocessed -= frameCap;
+    			canRender = true;
+    			glfwPollEvents();
+        		Input.getInstance().handleEvents();
+        		if(frameTime >= 1.0) {
+        			frameTime = 0;
+        //			System.out.println("FPS: " + frames);
+        			frames = 0;
+        		}
+        		if(!Jeu.Isaac.getMunitions().isNotShot()) {
+    				Jeu.Isaac.getMunitions().setCoolDown(Jeu.Isaac.getMunitions().getCoolDown()+1);
+    				System.out.println(Jeu.Isaac.getMunitions().getCoolDown());
+    				if(Jeu.Isaac.getMunitions().getCoolDown() == 30) {
+    					Jeu.Isaac.getMunitions().setCoolDown(0);
+    					Jeu.Isaac.getMunitions().setShot(true);
+    				};
+    			}
+    		}
+    		
+    		if(canRender) {
+    			Render.getInstance().render();
+        		glfwSwapBuffers(window);
+        		frames++;
+    		}
     	}
     	
     	glfwTerminate();

@@ -7,16 +7,14 @@ import java.util.TreeSet;
 import org.lwjgl.glfw.*;
 
 import Model.Balle;
+import Model.Jeu;
 import Shaders.Raycasting;
 import Vue.Render;
 
 public class Input
 {
 	private static final Input INSTANCE = new Input();
-	
-	private ListeBalle liste = new ListeBalle();
-	private DeplacerPersonnage playerMove = new DeplacerPersonnage(100, 100, 1, 1);
-	
+		
 	private boolean keys[];
 	private boolean oldKeys[];
 	private boolean buttons[];
@@ -41,23 +39,23 @@ public class Input
 	private boolean updateScroll;
 	private boolean updateText;
 	
-	private float speed = 3;
+	private double speed = 5.85;
 	
-	private float x = playerMove.getX();
-	private float y = playerMove.getY();
-	private float a = playerMove.getA();
+	private double x = Jeu.Isaac.getDeplacement().getHit().getEntity().getX();
+	private double y = Jeu.Isaac.getDeplacement().getHit().getEntity().getY();
+	private double a = Jeu.Isaac.getDeplacement().getA();
 	
     public final static float PI = (float) 3.141592;
     public final static float P2 = (float) (PI/2);
     public final static Float RADIAN = 0.0174533f;
 	
 	public void drawBalle() {
-		//System.out.println("pass");
-		liste.drawBalle();
+
+		Jeu.Isaac.getMunitions().drawBalle();
 	}
     
 	public DeplacerPersonnage getPlayerMove() {
-		return playerMove;
+		return Jeu.Isaac.getDeplacement();
 	}
 	
 	private Input()
@@ -230,27 +228,27 @@ public class Input
 				{
 				case GLFW.GLFW_KEY_A:
 					a = PI;
-					if(!playerMove.getHit().isQCollision()) x -= speed;
-					this.playerMove.update(x, y, a);
-					this.playerMove.drawPlayer();
+					if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) x -= speed;
+					Jeu.Isaac.getDeplacement().update(x, y, a);
+					Jeu.Isaac.getDeplacement().drawPlayer();
 					break;
 				case GLFW.GLFW_KEY_D:
 					a = 0;
-			    	if(!playerMove.getHit().isDCollision()) x += speed;
-					this.playerMove.update(x, y, a);
-					this.playerMove.drawPlayer();
+					if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) x += speed;
+					Jeu.Isaac.getDeplacement().update(x, y, a);
+					Jeu.Isaac.getDeplacement().drawPlayer();
 					break;
 				case GLFW.GLFW_KEY_W:
 					a = PI/2;
-					if(!playerMove.getHit().isZCollision()) y+=speed;
-					this.playerMove.update(x, y, a);
-					this.playerMove.drawPlayer();
+					if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) y += speed;
+					Jeu.Isaac.getDeplacement().update(x, y, a);
+					Jeu.Isaac.getDeplacement().drawPlayer();
 					break;
 				case GLFW.GLFW_KEY_S:
 					a = 3*(PI/2);
-					if(!playerMove.getHit().isSCollision()) y-= speed;
-					this.playerMove.update(x, y, a);
-					this.playerMove.drawPlayer();
+					if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) y -= speed;
+					Jeu.Isaac.getDeplacement().update(x, y, a);
+					Jeu.Isaac.getDeplacement().drawPlayer();
 					break;
 				/*case GLFW.GLFW_KEY_UP:
 					System.out.println("Haut");
@@ -280,20 +278,16 @@ public class Input
 		switch(action)
 		{
 			case GLFW.GLFW_KEY_UP:
-				System.out.println("Haut");
-				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 3));
+				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3));
 				break;
 			case GLFW.GLFW_KEY_DOWN:
-				System.out.println("Bas");
-				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 4));
+				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 4));
 				break;
 			case GLFW.GLFW_KEY_RIGHT:
-				System.out.println("Droite");
-				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 2));
+				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 2));
 				break;
 			case GLFW.GLFW_KEY_LEFT:
-				System.out.println("Gauche");
-				liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 1));
+				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 1));
 				break;
 		}
 	}
