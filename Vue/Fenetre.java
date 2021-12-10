@@ -71,7 +71,7 @@ public class Fenetre {
     
     public void run() {
     	
-    	double frameCap = 1.0/120.0; //On CAP à 60 FPS
+    	double frameCap = 1.0/60.0; //On CAP à 60 FPS
     	double timer = getTime();
     	double unprocessed = 0;
     	

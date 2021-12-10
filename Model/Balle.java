@@ -5,9 +5,8 @@ import Vue.Render;
 public class Balle extends Entite{
 	
 	private int speed;
-	private boolean isShoot;
-	private double coolDown;
 	private double degats;
+	private double coolDown;
 	/**
 	 * 1 = gauche
 	 * 2 = droite
@@ -21,14 +20,10 @@ public class Balle extends Entite{
 		this.setX(x);
 		this.setY(y);
 		this.setDirection(direction);
-		this.isShoot = true;
 	}
 	
 	public void drawBalle() {
-		if(isShoot)
-		{
-			Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 80);
-		}
+		Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 80);
 	}
 
 	public int getSpeed() {
@@ -37,22 +32,6 @@ public class Balle extends Entite{
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
-	}
-
-	public boolean isShoot() {
-		return isShoot;
-	}
-
-	public void setShoot(boolean isShoot) {
-		this.isShoot = isShoot;
-	}
-
-	public double getCoolDown() {
-		return coolDown;
-	}
-
-	public void setCoolDown(double coolDown) {
-		this.coolDown = coolDown;
 	}
 
 	public double getDegats() {
@@ -69,6 +48,14 @@ public class Balle extends Entite{
 
 	public void setDirection(int direction) {
 		this.direction = direction;
+	}
+
+	public double getCoolDown() {
+		return coolDown;
+	}
+
+	public void setCoolDown(double coolDown) {
+		this.coolDown = coolDown;
 	}
 	
 	

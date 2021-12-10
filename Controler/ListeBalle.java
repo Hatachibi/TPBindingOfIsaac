@@ -10,15 +10,19 @@ public class ListeBalle {
 	
 	
 	private LinkedList<Balle> liste;
+	private boolean isNotShot;
+	private double dernierAjout;
 	
 	public ListeBalle() {
 		this.liste = new LinkedList<Balle>();
+		this.isNotShot = true;
+		this.dernierAjout = 0;
 	}
 	
 	public void drawBalle() {
 		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();
 		for(Balle b: liste) {
-			double speed = 1;
+			double speed = 10;
 			if(b.getDirection() == 1)
 			{
 				b.drawBalle();
@@ -48,12 +52,24 @@ public class ListeBalle {
 	}
 	
 	public void addBalle(Balle b) {
-		this.liste.add(b);
+		double time = (double) System.nanoTime()/10000000;
+		if(time - dernierAjout >= 25) {
+			System.out.println(time - dernierAjout);
+			this.liste.add(b);
+			dernierAjout = time;
+		}
 	}
 
 	public LinkedList<Balle> getListe() {
 		return liste;
 	}
-	
-	
+
+	public boolean isNotShot() {
+		return isNotShot;
+	}
+
+	public void setShot(boolean isNotShot) {
+		this.isNotShot = isNotShot;
+	}
+
 }

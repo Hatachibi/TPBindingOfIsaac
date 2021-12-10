@@ -88,8 +88,8 @@ public class Raycasting {
     			} 	
     		}
     		float dist = (float) ((dist(sx, sy, player.getHit().getEntity().getX(), player.getHit().getEntity().getY()))); 
-    		Render.getInstance().drawTrait((float)player.getHit().getEntity().getX(), (float) player.getHit().getEntity().getY(),(float) mdx, (float)mdy);
-    	/*	Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
+    	/*	Render.getInstance().drawTrait((float)player.getHit().getEntity().getX(), (float) player.getHit().getEntity().getY(),(float) mdx, (float)mdy);
+    		Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX()+player.getXmax(), player.getY(), mdx+player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX(), player.getY()-player.getYmax(), mdx, mdy-player.getYmax());
     		Render.getInstance().drawTrait(player.getX(), player.getY()+player.getYmax(), mdx, mdy+player.getYmax());  */

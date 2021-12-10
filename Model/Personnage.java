@@ -119,5 +119,4 @@ public class Personnage {
 		this.url = url;
 	}
     
-
 }

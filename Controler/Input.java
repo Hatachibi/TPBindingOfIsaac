@@ -50,6 +50,7 @@ public class Input
     public final static Float RADIAN = 0.0174533f;
 	
 	public void drawBalle() {
+
 		Jeu.Isaac.getMunitions().drawBalle();
 	}
     
