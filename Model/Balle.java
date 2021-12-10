@@ -16,18 +16,18 @@ public class Balle extends Entite{
 	 */
 	private int direction;
 	
-	public Balle(int width, int heigth, float x, float y, int direction) {
-		super(width, heigth);
+	public Balle(int width, int heigth, double x, double y, int direction) {
+		super(width, heigth, x, y);
 		this.setX(x);
 		this.setY(y);
 		this.setDirection(direction);
-		this.isShoot = false;
+		this.isShoot = true;
 	}
 	
 	public void drawBalle() {
 		if(isShoot)
 		{
-			Render.getInstance().drawPoint(this.getX(), this.getY(), 80);
+			Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 80);
 		}
 	}
 

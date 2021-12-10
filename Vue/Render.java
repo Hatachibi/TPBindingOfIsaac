@@ -88,7 +88,7 @@ public class Render {
 		this.drawTrait(x+20, y, x-20, y);
 	}
 		
-	public void mapTest() {
+	public void drawMap() {
 		int[] map = {
 				1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -117,7 +117,7 @@ public class Render {
 	
 	public void render() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		this.mapTest();
+		this.drawMap();
 		Input.getInstance().getPlayerMove().drawPlayer();
 		Input.getInstance().drawBalle();
 	}

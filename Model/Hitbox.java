@@ -7,7 +7,7 @@ import Vue.Fenetre;
 
 public class Hitbox {
 	
-	Entite entity;
+	private Entite entity;
 	
 	private boolean isZCollision;
 	private boolean isQCollision;

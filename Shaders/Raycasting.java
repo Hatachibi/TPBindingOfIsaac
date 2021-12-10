@@ -56,7 +56,7 @@ public class Raycasting {
      */
     public final static Integer TAILLE_MUR_3D = 4800;
     
-    public static float dist(float ax, float ay, float bx, float by) {
+    public static float dist(double ax, double ay, double bx, double by) {
     	return (float) (Math.sqrt((bx-ax)*(bx-ax) + (by-ay)*(by-ay)));
     }
     
@@ -73,26 +73,26 @@ public class Raycasting {
     }
     
     public static void drawRays3D(DeplacerPersonnage player, int[] map) {
-    	float mdx=0, mdy=0, sx=0, sy=0;
-    	float pa = player.getA();
+    	double mdx=0, mdy=0, sx=0, sy=0;
+    	double pa = player.getA();
     	int heigth = Fenetre.HeigthFenetre;
     	int width = Fenetre.WidthFenetre;
     		for(float i=0; i<PRECISION_TIRE_TRAIT; i+=OFFSET){   
-    			mdx = player.getX() + (float) Math.cos(pa)*i;       //50 pê modifier
-    			mdy = player.getY() + (float) Math.sin(pa)*i;
-    			OFFSET = dist(sx, sy, player.getX(), player.getY())/1000;
+    			mdx = player.getHit().getEntity().getX() +  Math.cos(pa)*i;       //50 pê modifier
+    			mdy = player.getHit().getEntity().getY() +  Math.sin(pa)*i;
+    			OFFSET = dist(sx, sy, player.getHit().getEntity().getX(), player.getHit().getEntity().getY())/1000;
     			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)+9*(int)(mdy/TAILLE_GRILLE_Y)]==1) {   //A régler avec les collisions
     				sx=mdx;
     				sy=mdy;
     				break;
     			} 	
     		}
-    		float dist = (float) ((dist(sx, sy, player.getX(), player.getY()))); 
-    		Render.getInstance().drawTrait(player.getX(), player.getY(), mdx, mdy);
-    		Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
+    		float dist = (float) ((dist(sx, sy, player.getHit().getEntity().getX(), player.getHit().getEntity().getY()))); 
+    		Render.getInstance().drawTrait((float)player.getHit().getEntity().getX(), (float) player.getHit().getEntity().getY(),(float) mdx, (float)mdy);
+    	/*	Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX()+player.getXmax(), player.getY(), mdx+player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX(), player.getY()-player.getYmax(), mdx, mdy-player.getYmax());
-    		Render.getInstance().drawTrait(player.getX(), player.getY()+player.getYmax(), mdx, mdy+player.getYmax()); 
+    		Render.getInstance().drawTrait(player.getX(), player.getY()+player.getYmax(), mdx, mdy+player.getYmax());  */
     		player.setDistance(dist);
     		player.getHit().collisionPlayer(player);
     }

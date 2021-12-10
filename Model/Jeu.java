@@ -9,6 +9,10 @@ import Controler.Input;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Jeu {
+	
+	public static Personnage Isaac = new Personnage(10, 100, 100, 200, 200);
+	public static Room room = new Room(Isaac);
+	
     public static void main(String[] args) 
     {    	
     	Fenetre.getInstance().init();

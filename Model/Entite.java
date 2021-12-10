@@ -4,29 +4,31 @@ public class Entite {
 	
 	private int width;
 	private int heigth;
-	protected float x;
-	protected float y;
+	protected double x;
+	protected double y;
 	private String url;
 	
-	public Entite(int width, int heigth) {
+	public Entite(int width, int heigth, double x, double y) {
 		this.width = width;
 		this.heigth = heigth;
+		this.x = x;
+		this.y = y;
 	}
 	
 	
-	public float getX() {
+	public double getX() {
 		return x;
 	}
 
-	public float getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setX(float x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public void setY(float y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
