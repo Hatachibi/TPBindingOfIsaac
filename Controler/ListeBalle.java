@@ -11,12 +11,14 @@ public class ListeBalle {
 	
 	private LinkedList<Balle> liste;
 	private boolean isNotShot;
+	private int coolDown;
 	private double dernierAjout;
 	
 	public ListeBalle() {
 		this.liste = new LinkedList<Balle>();
 		this.isNotShot = true;
 		this.dernierAjout = 0;
+		this.setCoolDown(0);
 	}
 	
 	public void drawBalle() {
@@ -52,12 +54,15 @@ public class ListeBalle {
 	}
 	
 	public void addBalle(Balle b) {
-		double time = (double) System.nanoTime()/10000000;
+	/*	double time = (double) System.nanoTime()/10000000;
 		if(time - dernierAjout >= 25) {
-			System.out.println(time - dernierAjout);
+			System.out.println(time - dernierAjout); */
+		if(this.isNotShot) {
 			this.liste.add(b);
-			dernierAjout = time;
 		}
+		//	dernierAjout = time;
+		//}
+			this.isNotShot = false;
 	}
 
 	public LinkedList<Balle> getListe() {
@@ -70,6 +75,14 @@ public class ListeBalle {
 
 	public void setShot(boolean isNotShot) {
 		this.isNotShot = isNotShot;
+	}
+
+	public int getCoolDown() {
+		return coolDown;
+	}
+
+	public void setCoolDown(int coolDown) {
+		this.coolDown = coolDown;
 	}
 
 }

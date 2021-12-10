@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 
 import Controler.DeplacerPersonnage;
 import Controler.Input;
+import Model.Jeu;
 
 
 /**
@@ -75,23 +76,41 @@ public class Fenetre {
     	double timer = getTime();
     	double unprocessed = 0;
     	
+    	double frameTime = 0;
+    	int frames = 0;
+    	
     	while(!Fenetre.getInstance().isClosed()) {
     		double timerLoop = getTime();
     		double passed = timerLoop - timer;
     		unprocessed += passed;
+    		frameTime+=passed;
     		boolean canRender = false;
     		timer = timerLoop;
     		
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
-        		glfwPollEvents();
+    			canRender = true;
+    			glfwPollEvents();
         		Input.getInstance().handleEvents();
-        		canRender = true;
+        		if(frameTime >= 1.0) {
+        			frameTime = 0;
+        //			System.out.println("FPS: " + frames);
+        			frames = 0;
+        		}
+        		if(!Jeu.Isaac.getMunitions().isNotShot()) {
+    				Jeu.Isaac.getMunitions().setCoolDown(Jeu.Isaac.getMunitions().getCoolDown()+1);
+    				System.out.println(Jeu.Isaac.getMunitions().getCoolDown());
+    				if(Jeu.Isaac.getMunitions().getCoolDown() == 30) {
+    					Jeu.Isaac.getMunitions().setCoolDown(0);
+    					Jeu.Isaac.getMunitions().setShot(true);
+    				};
+    			}
     		}
     		
     		if(canRender) {
     			Render.getInstance().render();
         		glfwSwapBuffers(window);
+        		frames++;
     		}	
     	}
     	

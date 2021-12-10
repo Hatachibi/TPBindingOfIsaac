@@ -39,7 +39,7 @@ public class Input
 	private boolean updateScroll;
 	private boolean updateText;
 	
-	private float speed = 3;
+	private double speed = 5.85;
 	
 	private double x = Jeu.Isaac.getDeplacement().getHit().getEntity().getX();
 	private double y = Jeu.Isaac.getDeplacement().getHit().getEntity().getY();
