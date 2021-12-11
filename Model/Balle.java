@@ -2,7 +2,7 @@ package Model;
 
 import Vue.Render;
 
-public class Balle extends Entite{
+public class Balle extends Entite {
 	
 	private int speed;
 	private double degats;

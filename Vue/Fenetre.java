@@ -90,8 +90,10 @@ public class Fenetre {
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
     			canRender = true;
+    			Input.getInstance().deplacement();
+    			Input.getInstance().tire();
     			glfwPollEvents();
-        		Input.getInstance().handleEvents();
+        		//Input.getInstance().handleEvents();
         		if(frameTime >= 1.0) {
         			frameTime = 0;
         //			System.out.println("FPS: " + frames);

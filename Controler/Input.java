@@ -2,6 +2,9 @@ package Controler;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 import org.lwjgl.glfw.*;
@@ -9,350 +12,293 @@ import org.lwjgl.glfw.*;
 import Model.Balle;
 import Model.Jeu;
 import Shaders.Raycasting;
+import Vue.Fenetre;
 import Vue.Render;
 
 public class Input
 {
 	private static final Input INSTANCE = new Input();
-		
-	private boolean keys[];
-	private boolean oldKeys[];
-	private boolean buttons[];
-	private boolean oldButtons[];
-	private double mouseX;
-	private double mouseY;
-	private double scrollX;
-	private double scrollY;
-	private int textChar; 
-	private TreeSet<Integer> currentKeysDown; 
 	
-	private GLFWKeyCallback keyboard;
-	private GLFWKeyCallback keyCallBack;
-	            
-	private GLFWMouseButtonCallback button;
-	private GLFWCursorPosCallback mouseMotion;
-	private GLFWScrollCallback scroll;
-	private GLFWCharCallback text;
-	
-	private boolean updateKeys;
-	private boolean updateButtons;
-	private boolean updateScroll;
-	private boolean updateText;
-	
-	private double speed = 5.85;
-	
-	private double x = Jeu.Isaac.getDeplacement().getHit().getEntity().getX();
+	public final static float PI = (float) 3.141592;
+    public final static float P2 = (float) (PI/2);
+    
+    private double x = Jeu.Isaac.getDeplacement().getHit().getEntity().getX();
 	private double y = Jeu.Isaac.getDeplacement().getHit().getEntity().getY();
 	private double a = Jeu.Isaac.getDeplacement().getA();
 	
-    public final static float PI = (float) 3.141592;
-    public final static float P2 = (float) (PI/2);
-    public final static Float RADIAN = 0.0174533f;
+	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S,
+			GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
 	
-	public void drawBalle() {
+	private double speed = 5.85;
 
+	public void drawBalle() 
+	{
 		Jeu.Isaac.getMunitions().drawBalle();
 	}
-    
+	
 	public DeplacerPersonnage getPlayerMove() {
 		return Jeu.Isaac.getDeplacement();
 	}
 	
+	private GLFWKeyCallback keyboard;
+	
+	//private HashMap<Integer, Boolean> mappageTouches;
+	
 	private Input()
 	{
-		keys = new boolean[GLFW_KEY_LAST];
-		oldKeys = new boolean[GLFW_KEY_LAST];
-		buttons = new boolean[GLFW_MOUSE_BUTTON_LAST];
-		oldButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
-		//currentKeysDown = new TreeSet<Integer>();
-		keyboard = new GLFWKeyCallback()
+		/*mappageTouches = new HashMap<Integer, Boolean>();
+		
+		for(int key:listeInput)
 		{
-			public void invoke(long window, int key, int scancode, int action, int mods)
+			mappageTouches.put(key, false);
+		}*/
+
+		/*keyboard = new GLFWKeyCallback()
+		{
+
+			@Override
+			public void invoke(long window, int key, int scancode, int action, int mods) 
 			{
-				System.out.println(key);
-				if(action == GLFW.GLFW_RELEASE)
-				{
-					System.out.println("released");
-					oldKeys[key] = true;
-					keys[key] = false;
-				}
-				else if(action == GLFW.GLFW_PRESS)
+				if(glfwGetKey(window, key) == GLFW_PRESS)
 				{
 					System.out.println("Pressed");
-					//getAWSDkeys(key);
-					//getShotsKeys(key);
-					oldKeys[key] = false;
-					keys[key] = true;
-					getAWSDkeys();
-					getShotsKeys(key);
+					getAWSDkeys(window);
+					getShotsKeys(window);
 				}
-				else
+				if(glfwGetKey(window, key) == GLFW_RELEASE)
 				{
-					System.out.println("hold");
-					//getAWSDkeys(key);
-					getAWSDkeys();
-					//getShotsKeys();
-					getShotsKeys(key);
+					glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
+					System.out.println("Released");
 				}
-				updateKeys = true;
-			}
-		};
-		
-		
-		button = new GLFWMouseButtonCallback()
-		{
-			public void invoke(long window, int button, int action, int mods)
-			{
-				buttons[button] = (action != GLFW_RELEASE);
-				updateButtons = true;
-			}
-		};
-
-		mouseMotion = new GLFWCursorPosCallback()
-		{
-			public void invoke(long window, double xpos, double ypos)
-			{
-				mouseX = xpos;
-				mouseY = ypos;
-			}
-		};
-		
-		scroll = new GLFWScrollCallback()
-		{
-			public void invoke(long window, double offsetx, double offsety)
-			{
-				scrollX += offsetx;
-				scrollY += offsety;
-				updateScroll = true;
-			}			
-		};
-		
-		text = new GLFWCharCallback()
-		{
-			public void invoke(long window, int text)
-			{
-				textChar = text;
-				updateText = true;
 			}
 			
-		};
+		};*/
 	}
+	
+	public void deplacement()
+	{
+		for(Integer key:listeInput)
+		{
+			getDeplacement(Fenetre.getInstance().getWindow(), key);
+		}
+	}
+	
+	public void tire()
+	{
+		for(Integer key:listeInput)
+		{
+			getTire(Fenetre.getInstance().getWindow(), key);
+		}
+	}
+	
+	public void getDeplacement(long window, int key)
+	{
+		if(glfwGetKey(window, key) == GLFW_PRESS)
+		{
+			System.out.println("Pressed");
+			getAWSDkeys(window);
+		}
+		if(glfwGetKey(window, key) == GLFW_RELEASE)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
+			System.out.println("Released");
+		}
+	}
+	
+	public void getTire(long window, int key)
+	{
+		if(glfwGetKey(window, key) == GLFW_PRESS)
+		{
+			System.out.println("Pressed");
+			getShotsKeys(window);
+		}
+		if(glfwGetKey(window, key) == GLFW_RELEASE)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
+			System.out.println("Released");
+		}
+	}
+	
+	public void moveUp()
+	{
+		a = PI/2;
+		if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) y += speed;
+		Jeu.Isaac.getDeplacement().update(x, y, a);
+		Jeu.Isaac.getDeplacement().drawPlayer();
+	}
+	
+	public void moveDown()
+	{
+		a = 3*(PI/2);
+		if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) y -= speed;
+		Jeu.Isaac.getDeplacement().update(x, y, a);
+		Jeu.Isaac.getDeplacement().drawPlayer();
+	}
+	
+	public void moveRight()
+	{
+		a = 0;
+		if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) x += speed;
+		Jeu.Isaac.getDeplacement().update(x, y, a);
+		Jeu.Isaac.getDeplacement().drawPlayer();
+	}
+	
+	public void moveLeft()
+	{
+		a = PI;
+		if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) x -= speed;
+		Jeu.Isaac.getDeplacement().update(x, y, a);
+		Jeu.Isaac.getDeplacement().drawPlayer();
+	}
+	
+	public void shootUp()
+	{
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3));
+	}
+	
+	public void shootDown()
+	{
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 4));
+	}
+	
+	public void shootRight()
+	{
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 2));
+	}
+	
+	public void shootLeft()
+	{
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 1));
+
+	}
+	
+	public void getAWSDkeys(long window)
+	{
+		if(glfwGetKey(window, GLFW_KEY_W) == GLFW.GLFW_PRESS)
+		{
+			moveUp();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_S) == GLFW.GLFW_PRESS)
+		{
+			moveDown();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_D) == GLFW.GLFW_PRESS)
+		{
+			moveRight();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_A) == GLFW.GLFW_PRESS)
+		{
+			moveLeft();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+	}
+	
+	public void getShotsKeys(long window)
+	{
+		if(glfwGetKey(window, GLFW_KEY_UP) == GLFW.GLFW_PRESS)
+		{
+			shootUp();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_DOWN) == GLFW.GLFW_PRESS)
+		{
+			shootDown();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW.GLFW_PRESS)
+		{
+			shootRight();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW.GLFW_PRESS)
+		{
+			shootLeft();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+	}
+	
 	
 	public static Input getInstance()
 	{
 		return INSTANCE;
 	}
-	
+
 	public void init(long window)
 	{
-		glfwSetKeyCallback(window, keyboard);
-		glfwSetMouseButtonCallback(window, button);
-		glfwSetCursorPosCallback(window, mouseMotion);
-		glfwSetScrollCallback(window, scroll);
-		glfwSetCharCallback(window, text);
+		/*for(Integer key:listeInput)
+		{
+			keyPolling(window, key);
+		}*/	
+		//glfwSetKeyCallback(window, keyboard);
+		/*keyPolling(window, key);
+		glfwPollEvents();*/
 	}
 	
-	public void handleEvents()
+	/*public void getAWSDkeys()
 	{
-		if(updateKeys)
+		for(Integer key:listeInput)
 		{
-			for(int i = 0; i < keys.length; i++)
+			if(mappageTouches.get(key))
 			{
-				oldKeys[i] = keys[i];
+				switch(key)
+				{
+					case GLFW.GLFW_KEY_A:
+						a = PI;
+						if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) x -= speed;
+						Jeu.Isaac.getDeplacement().update(x, y, a);
+						Jeu.Isaac.getDeplacement().drawPlayer();
+						break;
+					case GLFW.GLFW_KEY_D:
+						a = 0;
+						if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) x += speed;
+						Jeu.Isaac.getDeplacement().update(x, y, a);
+						Jeu.Isaac.getDeplacement().drawPlayer();
+						break;
+					case GLFW.GLFW_KEY_W:
+						a = PI/2;
+						if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) y += speed;
+						Jeu.Isaac.getDeplacement().update(x, y, a);
+						Jeu.Isaac.getDeplacement().drawPlayer();
+						break;
+					case GLFW.GLFW_KEY_S:
+						a = 3*(PI/2);
+						if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) y -= speed;
+						Jeu.Isaac.getDeplacement().update(x, y, a);
+						Jeu.Isaac.getDeplacement().drawPlayer();
+						break;
+				}
 			}
-			updateKeys = false;
 		}
-		
-		if(updateButtons)
-		{
-			
-			for(int i = 0; i < buttons.length; i++)
-			{
-				oldButtons[i] = buttons[i];
-			}
-			updateButtons = false;
-		}
-		
-		if(updateScroll)
-		{
-			scrollX = 0;
-			scrollY = 0;
-			updateScroll = false;
-		}
-		
-		if(updateText)
-		{
-			textChar = 	0;
-			updateText = false;
-		}
-	}
-	
-	/*private void playerHitbox()
-	{
-		int xo = 0;
-		if(Math.cos(a)<0)
-		{
-			xo =- 20;
-		}
-		else
-		{
-			xo=20;
-		}
-		int yo = 0;
-		if(-Math.sin(a)<0)
-		{
-			yo =- 20;
-		}
-		else
-		{
-			yo=20;
-		}
-		int ipx = (int) (x/64f);
-		int ipx_add_xo = (int) ((x+xo)/64f);
-		int ipx_sub_xo = (int) ((x-xo)/64f);
-		int ipy = (int) (x/64f);
-		int ipy_add_yo = (int) ((y+yo)/64f);
-		int ipy_sub_yo = (int) ((y-yo)/64f);
+
 	}*/
 	
-	public void getAWSDkeys()
+	/*public void getShotsKeys()
 	{
-		/*int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S,
-				GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};*/
-		int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S};
-		for(int i : listeInput)
+		for(Integer key:listeInput)
 		{
-			if(keys[i])
+			if(mappageTouches.get(key))
 			{
-				switch(i)
+				switch(key)
 				{
-				case GLFW.GLFW_KEY_A:
-					a = PI;
-					if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) x -= speed;
-					Jeu.Isaac.getDeplacement().update(x, y, a);
-					Jeu.Isaac.getDeplacement().drawPlayer();
-					break;
-				case GLFW.GLFW_KEY_D:
-					a = 0;
-					if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) x += speed;
-					Jeu.Isaac.getDeplacement().update(x, y, a);
-					Jeu.Isaac.getDeplacement().drawPlayer();
-					break;
-				case GLFW.GLFW_KEY_W:
-					a = PI/2;
-					if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) y += speed;
-					Jeu.Isaac.getDeplacement().update(x, y, a);
-					Jeu.Isaac.getDeplacement().drawPlayer();
-					break;
-				case GLFW.GLFW_KEY_S:
-					a = 3*(PI/2);
-					if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) y -= speed;
-					Jeu.Isaac.getDeplacement().update(x, y, a);
-					Jeu.Isaac.getDeplacement().drawPlayer();
-					break;
-				/*case GLFW.GLFW_KEY_UP:
-					System.out.println("Haut");
-					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 3));
-					break;
-				case GLFW.GLFW_KEY_DOWN:
-					System.out.println("Bas");
-					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 4));
-					break;
-				case GLFW.GLFW_KEY_RIGHT:
-					System.out.println("Droite");
-					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 2));
-					break;
-				case GLFW.GLFW_KEY_LEFT:
-					System.out.println("Gauche");
-					liste.getListe().add(new Balle(1, 1, playerMove.getX(), playerMove.getY(), 1));
-					break;*/
-				
+					case GLFW.GLFW_KEY_UP:
+						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3));
+						break;
+					case GLFW.GLFW_KEY_DOWN:
+						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 4));
+						break;
+					case GLFW.GLFW_KEY_RIGHT:
+						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 2));
+						break;
+					case GLFW.GLFW_KEY_LEFT:
+						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 1));
+						break;
 				}
 			}
 		}
 		
-	}
+	}*/
 	
-	public void getShotsKeys(int action)
-	{
-		switch(action)
-		{
-			case GLFW.GLFW_KEY_UP:
-				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3));
-				break;
-			case GLFW.GLFW_KEY_DOWN:
-				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 4));
-				break;
-			case GLFW.GLFW_KEY_RIGHT:
-				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 2));
-				break;
-			case GLFW.GLFW_KEY_LEFT:
-				Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 1));
-				break;
-		}
-	}
-		
-	public boolean isKeyDown(int key)
-	{
-		return keys[key];
-	}
-
-	public boolean isKeyPressed(int key)
-	{
-		return keys[key] && !oldKeys[key];
-	}
-	
-	public boolean isKeyReleased(int key)
-	{
-		return !keys[key] && oldKeys[key];
-	}
-	
-	public boolean isButtonDown(int button)
-	{
-		return buttons[button];
-	}
-	
-	public boolean IsButtonPressed(int button)
-	{
-		return buttons[button] && !oldButtons[button];
-	}
-	
-	public boolean isButtonReleased(int button)
-	{
-		return !buttons[button] && oldButtons[button];
-	}
-
-	public double getScrollX()
-	{
-		return scrollX;
-	}
-
-	public double getScrollY()
-	{
-		return scrollY;
-	}
-	
-	public double getMouseX()
-	{
-		return mouseX;
-	}
-	
-	public double getMouseY()
-	{
-		return mouseY;
-	}
-	
-	public char getChar()
-	{
-		return (char)textChar;
-	}
-	
-	public void free()
-	{
-		keyboard.free();
-		button.free();
-		mouseMotion.free();
-		scroll.free();
-		text.free();	
-	}
 }
