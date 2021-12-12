@@ -31,7 +31,7 @@ public class Personnage {
     	this.degat = 2;
     	this.multiplicator = 1.0;
     	this.life = new BarreDeVie(10);
-    	this.hitbox = new Hitbox(position);
+    	this.hitbox = new Hitbox(position, width, heigth);
     	this.munitions = new ListeBalle();
     	this.position = position;
 		this.size = size;
@@ -97,9 +97,9 @@ public class Personnage {
     
     public void drawPlayer() {
     	Texture.Isaac.bind();
-    	Render.getInstance().drawPicture((float)this.getPosition().getX(),(float)this.getPosition().getY(), 50, 50, 200, 200, new float[] {255, 255, 255, 255});
+    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
     	Texture.Isaac.unbind();
-   // 	Render.getInstance().drawPoint((float) hitbox.getEntity().getX(),(float) hitbox.getEntity().getY(), 20); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
+    //	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
     	Raycasting.drawRays3D(this, new int[]  {
     			1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,

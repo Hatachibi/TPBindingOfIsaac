@@ -1,5 +1,6 @@
 package Model;
 
+import Shaders.Vector2;
 import Vue.Render;
 import Vue.Texture;
 
@@ -8,6 +9,7 @@ public class Balle extends Entite{
 	private int speed;
 	private double degats;
 	private double coolDown;
+	private Hitbox hitbox;
 	/**
 	 * 1 = gauche
 	 * 2 = droite
@@ -21,13 +23,18 @@ public class Balle extends Entite{
 		this.setX(x);
 		this.setY(y);
 		this.setDirection(direction);
+		this.setHitbox(new Hitbox(new Vector2(x, y), width, heigth));
 	}
 	
 	public void drawBalle() {
 	//	Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 25);
-    	Texture.tears.bind();
+		Texture.tears.bind();
 		Render.getInstance().drawPicture((float)this.getX(), (float)this.getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
 		Texture.tears.unbind();
+	}
+	
+	public void updateHitbox() {
+		this.getHitbox().setPosition(new Vector2(x, y));
 	}
 
 	public int getSpeed() {
@@ -60,6 +67,14 @@ public class Balle extends Entite{
 
 	public void setCoolDown(double coolDown) {
 		this.coolDown = coolDown;
+	}
+
+	public Hitbox getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(Hitbox hitbox) {
+		this.hitbox = hitbox;
 	}
 	
 	
