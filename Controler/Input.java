@@ -36,7 +36,7 @@ public class Input
 	{
 		Jeu.Isaac.getMunitions().drawBalle();
 	}
-	
+
 	public Personnage getPlayerMove() {
 		return Jeu.Isaac;
 	}
@@ -79,7 +79,7 @@ public class Input
 	{
 		for(Integer key:listeInput)
 		{
-			getDeplacement(Fenetre.getInstance().getWindow(), key);
+			checkDeplacement(Fenetre.getInstance().getWindow(), key);
 		}
 		Jeu.Isaac.updateGameObject();
 	}
@@ -88,11 +88,20 @@ public class Input
 	{
 		for(Integer key:listeInput)
 		{
-			getTire(Fenetre.getInstance().getWindow(), key);
+			checkTire(Fenetre.getInstance().getWindow(), key);
 		}
 	}
 	
-	public void getDeplacement(long window, int key)
+	/**
+	 * Méthode qui vérifie si une touche a été pressée.
+	 * Si oui renvoie vers la méthode getAWSDkeys(window).
+	 * Si non, définie l'entrée rémanente à faux.
+	 * @param window
+	 * La fenêtre active.
+	 * @param key
+	 * La touche détectée à vérifier.
+	 */
+	public void checkDeplacement(long window, int key)
 	{
 		if(glfwGetKey(window, key) == GLFW_PRESS)
 		{
@@ -106,7 +115,7 @@ public class Input
 		}
 	}
 	
-	public void getTire(long window, int key)
+	public void checkTire(long window, int key)
 	{
 		if(glfwGetKey(window, key) == GLFW_PRESS)
 		{
@@ -224,84 +233,12 @@ public class Input
 		}
 	}
 	
-	
-	public static Input getInstance()
-	{
-		return INSTANCE;
-	}
-
 	public void init(long window)
 	{
-		/*for(Integer key:listeInput)
-		{
-			keyPolling(window, key);
-		}*/	
-		//glfwSetKeyCallback(window, keyboard);
-		/*keyPolling(window, key);
-		glfwPollEvents();*/
-	}
-	
-	/*public void getAWSDkeys()
-	{
-		for(Integer key:listeInput)
-		{
-			if(mappageTouches.get(key))
-			{
-				switch(key)
-				{
-					case GLFW.GLFW_KEY_A:
-						a = PI;
-						if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) x -= speed;
-						Jeu.Isaac.getDeplacement().update(x, y, a);
-						Jeu.Isaac.getDeplacement().drawPlayer();
-						break;
-					case GLFW.GLFW_KEY_D:
-						a = 0;
-						if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) x += speed;
-						Jeu.Isaac.getDeplacement().update(x, y, a);
-						Jeu.Isaac.getDeplacement().drawPlayer();
-						break;
-					case GLFW.GLFW_KEY_W:
-						a = PI/2;
-						if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) y += speed;
-						Jeu.Isaac.getDeplacement().update(x, y, a);
-						Jeu.Isaac.getDeplacement().drawPlayer();
-						break;
-					case GLFW.GLFW_KEY_S:
-						a = 3*(PI/2);
-						if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) y -= speed;
-						Jeu.Isaac.getDeplacement().update(x, y, a);
-						Jeu.Isaac.getDeplacement().drawPlayer();
-						break;
-				}
-			}
-		}
-	}*/
-	
-	/*public void getShotsKeys()
-	{
-		for(Integer key:listeInput)
-		{
-			if(mappageTouches.get(key))
-			{
-				switch(key)
-				{
-					case GLFW.GLFW_KEY_UP:
-						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3));
-						break;
-					case GLFW.GLFW_KEY_DOWN:
-						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 4));
-						break;
-					case GLFW.GLFW_KEY_RIGHT:
-						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 2));
-						break;
-					case GLFW.GLFW_KEY_LEFT:
-						Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 1));
-						break;
-				}
-			}
-		}
 		
-	}*/
-	
+	}
+
+	public static Input getInstance() {
+		return INSTANCE;
+	}
 }
