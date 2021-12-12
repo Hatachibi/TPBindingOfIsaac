@@ -1,6 +1,7 @@
 package Model;
 
 import Vue.Render;
+import Vue.Texture;
 
 public class Balle extends Entite{
 	
@@ -23,7 +24,10 @@ public class Balle extends Entite{
 	}
 	
 	public void drawBalle() {
-		Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 80);
+	//	Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 25);
+    	Texture.tears.bind();
+		Render.getInstance().drawPicture((float)this.getX(), (float)this.getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
+		Texture.tears.unbind();
 	}
 
 	public int getSpeed() {

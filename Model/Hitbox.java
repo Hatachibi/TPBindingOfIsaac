@@ -2,23 +2,26 @@ package Model;
 
 import java.util.*;
 
-import Controler.DeplacerPersonnage;
+import Shaders.Vector2;
 import Vue.Fenetre;
 
 public class Hitbox {
 	
-	private Entite entity;
+	private Vector2 position;
+	private int width;
+	private int heigth;
 	
 	private boolean isZCollision;
 	private boolean isQCollision;
 	private boolean isSCollision;
 	private boolean isDCollision;
 	
-    public Hitbox(Entite entity) {
-    	this.entity = entity;
-    }
+    public Hitbox(Vector2 position) {
+    	this.position = position;
+    } 
     
-    public void collisionPlayer(DeplacerPersonnage p) {
+    public void collisionPlayer(Personnage p) {
+    	Jeu.Isaac.updateHitbox();
     	float PI = (float) 3.141592;
     	if(p.getDistance() <= 7) {
     		System.out.println(p.getA() == PI/2);
@@ -33,14 +36,7 @@ public class Hitbox {
 			if(p.getA() == 0) this.isDCollision = false;
 		}
     }
-
-	public Entite getEntity() {
-		return entity;
-	}
-
-	public void setEntity(Entite entity) {
-		this.entity = entity;
-	}
+    
 
 	public boolean isZCollision() {
 		return isZCollision;
@@ -73,5 +69,31 @@ public class Hitbox {
 	public void setDCollision(boolean isDCollision) {
 		this.isDCollision = isDCollision;
 	}
+
+	public Vector2 getPosition() {
+		return position;
+	}
+
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeigth() {
+		return heigth;
+	}
+
+	public void setHeigth(int heigth) {
+		this.heigth = heigth;
+	}
+	
+	
     
 }
