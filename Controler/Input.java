@@ -19,8 +19,8 @@ public class Input
 {
 	private static final Input INSTANCE = new Input();
 	
-	public final static float PI = (float) 3.141592;
-    public final static float P2 = (float) (PI/2);
+	public final static double PI = (float) 3.141592;
+    public final static double P2 = (float) (PI/2);
     
     private double x = Jeu.Isaac.getDeplacement().getHit().getEntity().getX();
 	private double y = Jeu.Isaac.getDeplacement().getHit().getEntity().getY();
@@ -29,7 +29,7 @@ public class Input
 	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S,
 			GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
 	
-	private double speed = 5.85;
+	public static final double SPEED = 3;//5.85;
 
 	public void drawBalle() 
 	{
@@ -40,46 +40,11 @@ public class Input
 		return Jeu.Isaac.getDeplacement();
 	}
 	
-	private GLFWKeyCallback keyboard;
-	
-	//private HashMap<Integer, Boolean> mappageTouches;
-	
-	private Input()
-	{
-		/*mappageTouches = new HashMap<Integer, Boolean>();
-		
-		for(int key:listeInput)
-		{
-			mappageTouches.put(key, false);
-		}*/
-
-		/*keyboard = new GLFWKeyCallback()
-		{
-
-			@Override
-			public void invoke(long window, int key, int scancode, int action, int mods) 
-			{
-				if(glfwGetKey(window, key) == GLFW_PRESS)
-				{
-					System.out.println("Pressed");
-					getAWSDkeys(window);
-					getShotsKeys(window);
-				}
-				if(glfwGetKey(window, key) == GLFW_RELEASE)
-				{
-					glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
-					System.out.println("Released");
-				}
-			}
-			
-		};*/
-	}
-	
 	public void deplacement()
 	{
 		for(Integer key:listeInput)
 		{
-			getDeplacement(Fenetre.getInstance().getWindow(), key);
+			checkDeplacement(Fenetre.getInstance().getWindow(), key);
 		}
 	}
 	
@@ -87,11 +52,20 @@ public class Input
 	{
 		for(Integer key:listeInput)
 		{
-			getTire(Fenetre.getInstance().getWindow(), key);
+			checkTire(Fenetre.getInstance().getWindow(), key);
 		}
 	}
 	
-	public void getDeplacement(long window, int key)
+	/**
+	 * Méthode qui vérifie si une touche a été pressée.
+	 * Si oui renvoie vers la méthode getAWSDkeys(window).
+	 * Si non, définie l'entrée rémanente à faux.
+	 * @param window
+	 * La fenêtre active.
+	 * @param key
+	 * La touche détectée à vérifier.
+	 */
+	public void checkDeplacement(long window, int key)
 	{
 		if(glfwGetKey(window, key) == GLFW_PRESS)
 		{
@@ -105,7 +79,7 @@ public class Input
 		}
 	}
 	
-	public void getTire(long window, int key)
+	public void checkTire(long window, int key)
 	{
 		if(glfwGetKey(window, key) == GLFW_PRESS)
 		{
@@ -119,56 +93,76 @@ public class Input
 		}
 	}
 	
+	/**
+	 * Méthode qui fait se déplacer le personnage vers le haut.
+	 */
 	public void moveUp()
 	{
 		a = PI/2;
-		if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) y += speed;
+		if(!Jeu.Isaac.getDeplacement().getHit().isZCollision()) {
+			y += SPEED;
+		}
 		Jeu.Isaac.getDeplacement().update(x, y, a);
 		Jeu.Isaac.getDeplacement().drawPlayer();
 	}
 	
+	/**
+	 * Méthode qui fait se déplacer le personnage vers le bas.
+	 */
 	public void moveDown()
 	{
 		a = 3*(PI/2);
-		if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) y -= speed;
+		if(!Jeu.Isaac.getDeplacement().getHit().isSCollision()) {
+			y -= SPEED;
+		}
 		Jeu.Isaac.getDeplacement().update(x, y, a);
 		Jeu.Isaac.getDeplacement().drawPlayer();
 	}
 	
+	/**
+	 * Méthode qui fait se déplacer le personnage vers la droite.
+	 */
 	public void moveRight()
 	{
 		a = 0;
-		if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) x += speed;
+		if(!Jeu.Isaac.getDeplacement().getHit().isDCollision()) {
+			x += SPEED;
+		}
 		Jeu.Isaac.getDeplacement().update(x, y, a);
 		Jeu.Isaac.getDeplacement().drawPlayer();
 	}
 	
+	/**
+	 * Méthode qui fait se déplacer le personnage vers la gauche.
+	 */
 	public void moveLeft()
 	{
 		a = PI;
-		if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) x -= speed;
+		if(!Jeu.Isaac.getDeplacement().getHit().isQCollision()) {
+			x -= SPEED;
+		}
 		Jeu.Isaac.getDeplacement().update(x, y, a);
 		Jeu.Isaac.getDeplacement().drawPlayer();
 	}
 	
 	public void shootUp()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), PI/2));
 	}
 	
 	public void shootDown()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 4));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 3*(PI/2)));
 	}
 	
 	public void shootRight()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 2));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 0));
 	}
 	
 	public void shootLeft()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), 1));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getDeplacement().getHit().getEntity().getX(), Jeu.Isaac.getDeplacement().getHit().getEntity().getY(), PI));
 
 	}
 	
@@ -195,6 +189,7 @@ public class Input
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 	}
+	
 	
 	public void getShotsKeys(long window)
 	{
@@ -225,17 +220,58 @@ public class Input
 	{
 		return INSTANCE;
 	}
-
+	
 	public void init(long window)
 	{
-		/*for(Integer key:listeInput)
+		
+	}
+	
+	//private GLFWKeyCallback keyboard;
+
+	/*public void init(long window)
+	{
+		for(Integer key:listeInput)
 		{
 			keyPolling(window, key);
 		}*/	
 		//glfwSetKeyCallback(window, keyboard);
 		/*keyPolling(window, key);
-		glfwPollEvents();*/
-	}
+		glfwPollEvents();
+	}*/
+	
+	
+	//private HashMap<Integer, Boolean> mappageTouches;
+	
+		/*private Input()
+		{
+			mappageTouches = new HashMap<Integer, Boolean>();
+			
+			for(int key:listeInput)
+			{
+				mappageTouches.put(key, false);
+			}*/
+
+			/*keyboard = new GLFWKeyCallback()
+			{
+
+				@Override
+				public void invoke(long window, int key, int scancode, int action, int mods) 
+				{
+					if(glfwGetKey(window, key) == GLFW_PRESS)
+					{
+						System.out.println("Pressed");
+						getAWSDkeys(window);
+						getShotsKeys(window);
+					}
+					if(glfwGetKey(window, key) == GLFW_RELEASE)
+					{
+						glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
+						System.out.println("Released");
+					}
+				}
+				
+			};
+		}*/
 	
 	/*public void getAWSDkeys()
 	{

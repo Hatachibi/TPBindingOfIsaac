@@ -33,6 +33,22 @@ public class Hitbox {
 			if(p.getA() == 0) this.isDCollision = false;
 		}
     }
+    
+    public void collisionBalle(Balle b) {
+    	float PI = (float) 3.141592;
+    	if(b.getDistance() <= 7) {
+    		System.out.println(b.getDirection() == PI/2);
+			if(b.getDirection() == PI) this.isQCollision = true;
+			if(b.getDirection() == PI/2) this.isZCollision = true;
+			if(b.getDirection() == 3*(PI/2)) this.isSCollision = true;
+			if(b.getDirection() == 0) this.isDCollision = true;
+		} else {
+			if(b.getDirection() == PI) this.isQCollision = false;
+			if(b.getDirection() == PI/2) this.isZCollision = false;
+			if(b.getDirection() == 3*(PI/2)) this.isSCollision = false;
+			if(b.getDirection() == 0) this.isDCollision = false;
+		}
+    }
 
 	public Entite getEntity() {
 		return entity;
