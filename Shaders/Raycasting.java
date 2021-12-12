@@ -69,7 +69,7 @@ public class Raycasting {
         }
     }
     
-    public static void drawRays3D(Personnage personnage, int[] map) {
+    public static void drawRays3D(Personnage personnage, boolean[][] map) {
     	double mdx=0, mdy=0, sx=0, sy=0;
     	double pa = personnage.getA();
     	int heigth = Fenetre.HeigthFenetre;
@@ -78,7 +78,7 @@ public class Raycasting {
     			mdx = personnage.getPosition().getX() +  Math.cos(pa)*i;       //50 pê modifier
     			mdy = personnage.getPosition().getY() +  Math.sin(pa)*i;
     			OFFSET = dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY())/1000;
-    			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)+9*(int)(mdy/TAILLE_GRILLE_Y)]==1) {   //A régler avec les collisions
+    			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)][(int)(mdy/TAILLE_GRILLE_Y)]) {   //A régler avec les collisions
     				sx=mdx;
     				sy=mdy;
     				break;
@@ -86,10 +86,6 @@ public class Raycasting {
     		}
     		float dist = (float) ((dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY()))); 
     		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
-    	/*	Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
-    		Render.getInstance().drawTrait(player.getX()+player.getXmax(), player.getY(), mdx+player.getXmax(), mdy);
-    		Render.getInstance().drawTrait(player.getX(), player.getY()-player.getYmax(), mdx, mdy-player.getYmax());
-    		Render.getInstance().drawTrait(player.getX(), player.getY()+player.getYmax(), mdx, mdy+player.getYmax());  */
     		personnage.setDistance(dist);
     		personnage.getHitbox().collisionPlayer(personnage);
     }

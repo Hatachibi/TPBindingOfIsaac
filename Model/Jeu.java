@@ -11,8 +11,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Jeu {
 	
-	public static Personnage Isaac = new Personnage(10, 100, 100, 25, 25, new Vector2(100, 100), new Vector2(1, 1));
-	public static Room room = new Room(Isaac);
+	public static Personnage Isaac = new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "");
+	public static final Room room = new Room(Isaac);
 	
     public static void main(String[] args) 
     {    	

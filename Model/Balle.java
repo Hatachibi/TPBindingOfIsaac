@@ -18,10 +18,8 @@ public class Balle extends Entite{
 	 */
 	private int direction;
 	
-	public Balle(int width, int heigth, double x, double y, int direction) {
-		super(width, heigth, x, y);
-		this.setX(x);
-		this.setY(y);
+	public Balle(int width, int heigth, double x, double y, int direction, String url) {
+		super(width, heigth, new Vector2(x, y), url);
 		this.setDirection(direction);
 		this.speed = 10;
 		this.setHitbox(new Hitbox(new Vector2(x, y), width, heigth));
@@ -29,14 +27,14 @@ public class Balle extends Entite{
 	
 	public void drawBalle() {
 		Texture.tears.bind();
-		Render.getInstance().drawPicture((float)this.getX(), (float)this.getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
+		Render.getInstance().drawPicture((float)this.getPosition().getX(), (float)this.getPosition().getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
 		Texture.tears.unbind();
 	//	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
 		
 	}
 	
 	public void updateHitbox() {
-		this.getHitbox().setPosition(new Vector2(x, y));
+		this.getHitbox().setPosition(position);
 	}
 
 	public int getSpeed() {

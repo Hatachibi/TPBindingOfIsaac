@@ -7,6 +7,7 @@ import java.util.*;
 import org.lwjgl.glfw.GLFWVidMode;
 import Controler.Input;
 import Model.Jeu;
+import Model.Room;
 
 
 /**
@@ -87,8 +88,7 @@ public class Fenetre {
     		
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
-    			Input.getInstance().deplacement();
-    			Input.getInstance().tire();
+    			Jeu.room.updateRoom();
     			canRender = true;
     			glfwPollEvents();
         		if(frameTime >= 1.0) {
@@ -106,7 +106,7 @@ public class Fenetre {
     		}
     		
     		if(canRender) {
-    			Render.getInstance().render();
+    			Jeu.room.drawRoom();
         		glfwSwapBuffers(window);
         		frames++;
     		}

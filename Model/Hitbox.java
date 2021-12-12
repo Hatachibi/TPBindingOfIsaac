@@ -34,32 +34,22 @@ public class Hitbox {
      */
     public void collisionPlayer(Personnage p) {
     	Jeu.Isaac.updateHitbox();
-    	int[] map = new int[]  {
-    			1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1};
-    	if(this.collisionMur(p.getHitbox().getPositionX().getX() + p.getSpeed(), p.getHitbox().getPositionX().getY(), map) || this.collisionMur(p.getHitbox().getPositionXY().getX() + p.getSpeed(), p.getHitbox().getPositionXY().getY(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPositionX().getX() + p.getSpeed(), p.getHitbox().getPositionX().getY()) || this.collisionMur(p.getHitbox().getPositionXY().getX() + p.getSpeed(), p.getHitbox().getPositionXY().getY())) {
     		this.isDCollision = true;
     	} else {
     		this.isDCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPosition().getX() - p.getSpeed(), p.getHitbox().getPosition().getY(), map) || this.collisionMur(p.getHitbox().getPositionY().getX() - p.getSpeed(), p.getHitbox().getPositionY().getY(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPosition().getX() - p.getSpeed(), p.getHitbox().getPosition().getY()) || this.collisionMur(p.getHitbox().getPositionY().getX() - p.getSpeed(), p.getHitbox().getPositionY().getY())) {
     		this.isQCollision = true;
     	} else {
     		this.isQCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPositionY().getX(), p.getHitbox().getPositionY().getY() + p.getSpeed(), map) || this.collisionMur(p.getHitbox().getPositionXY().getX(), p.getHitbox().getPositionXY().getY() + p.getSpeed(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPositionY().getX(), p.getHitbox().getPositionY().getY() + p.getSpeed()) || this.collisionMur(p.getHitbox().getPositionXY().getX(), p.getHitbox().getPositionXY().getY() + p.getSpeed())) {
     		this.isZCollision = true;
     	}  else {
     		this.isZCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPosition().getX(), p.getHitbox().getPosition().getY() - p.getSpeed() - 3, map) || this.collisionMur(p.getHitbox().getPositionX().getX(), p.getHitbox().getPositionX().getY() - p.getSpeed() - 3, map)) {
+    	if(this.collisionMur(p.getHitbox().getPosition().getX(), p.getHitbox().getPosition().getY() - p.getSpeed() - 3) || this.collisionMur(p.getHitbox().getPositionX().getX(), p.getHitbox().getPositionX().getY() - p.getSpeed() - 3)) {
     		this.isSCollision = true;
     	}  else {
     		this.isSCollision = false;
@@ -74,10 +64,11 @@ public class Hitbox {
     	return (this.between(pos) || this.between(x) || this.between(y) || this.between(xy));
     }
     
-    public boolean collisionMur(double x, double y, int[] map) {
-    	int i = (int) x/65;
-    	int j = (int) y/65;
-    	return (map[i+9*j] == 1);
+    public boolean collisionMur(double x, double y) {
+    	int i = (int) (x/65);
+    	int j = (int) (y/65);
+    	System.out.println(Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
+    	return (Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
     }
     
     /**

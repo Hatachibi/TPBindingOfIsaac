@@ -8,32 +8,30 @@ import Shaders.Vector2;
 import Vue.Render;
 import Vue.Texture;
 
-public class Personnage {
+public class Personnage extends Entite{
 
 	private ListeBalle munitions;
 	private int degat;
 	private double multiplicator;
 	private int range;
 	private double speed;
-	private Hitbox hitbox;
-	private Vector2 position;
+//	private Hitbox hitbox;
+//	private Vector2 position;
 	private Vector2 size;
 	private Vector2 direction;
 	private BarreDeVie life;
 	private Inventaire inv;
 	private double a;
-	private float xmax;
-	private float ymax;
 	private float distance;
-	private String imagePath;
 	
-    public Personnage(int degat, double x, double y, int width, int heigth, Vector2 position, Vector2 size) {
+    public Personnage(int degat, int width, int heigth, Vector2 position, Vector2 size, String url) {
+    	super(width, heigth, position, url);
     	this.degat = 2;
     	this.multiplicator = 1.0;
     	this.life = new BarreDeVie(10);
-    	this.hitbox = new Hitbox(position, width, heigth);
+  //  	this.hitbox = new Hitbox(position, width, heigth);
     	this.munitions = new ListeBalle();
-    	this.position = position;
+  //  	this.position = position;
 		this.size = size;
 		this.speed = 5.85;
 		this.direction = new Vector2();
@@ -100,17 +98,7 @@ public class Personnage {
     	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
     	Texture.Isaac.unbind();
     	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
-    	Raycasting.drawRays3D(this, new int[]  {
-    			1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1
-		});
+    	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap()); 
     }
 
 	public ListeBalle getMunitions() {
@@ -177,22 +165,6 @@ public class Personnage {
 		this.a = a;
 	}
 
-	public float getXmax() {
-		return xmax;
-	}
-
-	public void setXmax(float xmax) {
-		this.xmax = xmax;
-	}
-
-	public float getYmax() {
-		return ymax;
-	}
-
-	public void setYmax(float ymax) {
-		this.ymax = ymax;
-	}
-
 	public float getDistance() {
 		return distance;
 	}
@@ -223,14 +195,6 @@ public class Personnage {
 
 	public void setDirection(Vector2 direction) {
 		this.direction = direction;
-	}
-
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
 	}
 
 	public Hitbox getHitbox() {

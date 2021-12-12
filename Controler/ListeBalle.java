@@ -27,25 +27,25 @@ public class ListeBalle {
 			if(b.getDirection() == 1)
 			{
 				b.drawBalle();
-				b.setX((float) (b.getX() - b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
 		//		if(b.getX() < 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			if(b.getDirection() == 2)
 			{
 				b.drawBalle();
-				b.setX((float) (b.getX() + b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
 	//			if(b.getX() > Fenetre.WidthFenetre - 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			if(b.getDirection() == 3)
 			{
 				b.drawBalle();
-				b.setY((float) (b.getY() + b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
 	//			if(b.getY() > Fenetre.HeigthFenetre - 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			if(b.getDirection() == 4)
 			{
 				b.drawBalle();
-				b.setY((float) (b.getY() - b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
 		//		if(b.getX() < 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			b.updateHitbox();
@@ -74,7 +74,7 @@ public class ListeBalle {
 	}
 	
 	public boolean doRemove(Balle b, int[] map) {
-		return b.getHitbox().collisionMur(b.getX(), b.getY(), map);
+		return b.getHitbox().collisionMur(b.getPosition().getX(), b.getPosition().getY());
 	}
 
 	public LinkedList<Balle> getListe() {

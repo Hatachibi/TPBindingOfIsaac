@@ -42,7 +42,8 @@ public class Texture {
     public static Texture murHaut = loadTexture("libImg/murHaut.png");
     public static Texture murBas = loadTexture("libImg/murBas.png");
     public static Texture rock = loadTexture("libImg/Rock.png");
-    public static Texture emptyCell = loadTexture("libImg/emptyCell.png");
+    public static Texture closeDoor = loadTexture("libImg/closed_door.png");
+    public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
 
     public Texture() {
         id = glGenTextures();
