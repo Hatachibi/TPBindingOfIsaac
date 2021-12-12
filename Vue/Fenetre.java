@@ -90,6 +90,8 @@ public class Fenetre {
     			Input.getInstance().deplacement();
     			Input.getInstance().tire();
     			canRender = true;
+    			Input.getInstance().deplacement();
+    			Input.getInstance().tire();
     			glfwPollEvents();
         	//	Input.getInstance().handleEvents();
         		if(frameTime >= 1.0) {
@@ -111,7 +113,7 @@ public class Fenetre {
     			Render.getInstance().render();
         		glfwSwapBuffers(window);
         		frames++;
-    		}	
+    		}
     	}
     	
     	glfwTerminate();

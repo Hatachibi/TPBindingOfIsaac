@@ -4,7 +4,7 @@ import Shaders.Vector2;
 import Vue.Render;
 import Vue.Texture;
 
-public class Balle extends Entite{
+public class Balle extends Entite {
 	
 	private int speed;
 	private double degats;
@@ -16,9 +16,10 @@ public class Balle extends Entite{
 	 * 3 = haut
 	 * 4 = bas
 	 */
-	private int direction;
+	private double direction;
+	private float distance;
 	
-	public Balle(int width, int heigth, double x, double y, int direction) {
+	public Balle(int width, int heigth, double x, double y, double direction) {
 		super(width, heigth, x, y);
 		this.setX(x);
 		this.setY(y);
@@ -53,11 +54,11 @@ public class Balle extends Entite{
 		this.degats = degats;
 	}
 
-	public int getDirection() {
+	public double getDirection() {
 		return direction;
 	}
 
-	public void setDirection(int direction) {
+	public void setDirection(double direction) {
 		this.direction = direction;
 	}
 

@@ -21,6 +21,7 @@ public class Hitbox {
 	private boolean isQCollision;
 	private boolean isSCollision;
 	private boolean isDCollision;
+	private Entite entity;
 	
     public Hitbox(Vector2 position, int width, int heigth) {
     	this.position = position;
