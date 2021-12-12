@@ -1,10 +1,7 @@
 package Shaders;
 
 import java.util.*;
-
-
-
-import Controler.DeplacerPersonnage;
+import Model.Personnage;
 import Vue.Fenetre;
 import Vue.Render;
 
@@ -72,28 +69,28 @@ public class Raycasting {
         }
     }
     
-    public static void drawRays3D(DeplacerPersonnage player, int[] map) {
+    public static void drawRays3D(Personnage personnage, int[] map) {
     	double mdx=0, mdy=0, sx=0, sy=0;
-    	double pa = player.getA();
+    	double pa = personnage.getA();
     	int heigth = Fenetre.HeigthFenetre;
     	int width = Fenetre.WidthFenetre;
     		for(float i=0; i<PRECISION_TIRE_TRAIT; i+=OFFSET){   
-    			mdx = player.getHit().getEntity().getX() +  Math.cos(pa)*i;       //50 pê modifier
-    			mdy = player.getHit().getEntity().getY() +  Math.sin(pa)*i;
-    			OFFSET = dist(sx, sy, player.getHit().getEntity().getX(), player.getHit().getEntity().getY())/1000;
+    			mdx = personnage.getPosition().getX() +  Math.cos(pa)*i;       //50 pê modifier
+    			mdy = personnage.getPosition().getY() +  Math.sin(pa)*i;
+    			OFFSET = dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY())/1000;
     			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)+9*(int)(mdy/TAILLE_GRILLE_Y)]==1) {   //A régler avec les collisions
     				sx=mdx;
     				sy=mdy;
     				break;
     			} 	
     		}
-    		float dist = (float) ((dist(sx, sy, player.getHit().getEntity().getX(), player.getHit().getEntity().getY()))); 
-    	/*	Render.getInstance().drawTrait((float)player.getHit().getEntity().getX(), (float) player.getHit().getEntity().getY(),(float) mdx, (float)mdy);
-    		Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
+    		float dist = (float) ((dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY()))); 
+    		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
+    	/*	Render.getInstance().drawTrait(player.getX()-player.getXmax(), player.getY(), mdx-player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX()+player.getXmax(), player.getY(), mdx+player.getXmax(), mdy);
     		Render.getInstance().drawTrait(player.getX(), player.getY()-player.getYmax(), mdx, mdy-player.getYmax());
     		Render.getInstance().drawTrait(player.getX(), player.getY()+player.getYmax(), mdx, mdy+player.getYmax());  */
-    		player.setDistance(dist);
-    		player.getHit().collisionPlayer(player);
+    		personnage.setDistance(dist);
+    		personnage.getHitbox().collisionPlayer(personnage);
     }
 }

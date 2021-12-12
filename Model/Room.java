@@ -12,6 +12,10 @@ public class Room {
 		this.player = player;
 		this.mapEnCours = MapPath.start;
 	}
+	
+	public void updateRoom() {
+		
+	}
 
 	public Personnage getPlayer() {
 		return player;

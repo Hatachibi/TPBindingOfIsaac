@@ -5,8 +5,6 @@ import static org.lwjgl.glfw.GLFW.*;
 import java.util.*;
 
 import org.lwjgl.glfw.GLFWVidMode;
-
-import Controler.DeplacerPersonnage;
 import Controler.Input;
 import Model.Jeu;
 
@@ -89,12 +87,14 @@ public class Fenetre {
     		
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
+    			Input.getInstance().deplacement();
+    			Input.getInstance().tire();
     			canRender = true;
     			glfwPollEvents();
-        		Input.getInstance().handleEvents();
+        	//	Input.getInstance().handleEvents();
         		if(frameTime >= 1.0) {
         			frameTime = 0;
-        //			System.out.println("FPS: " + frames);
+        			System.out.println("FPS: " + frames);  
         			frames = 0;
         		}
         		if(!Jeu.Isaac.getMunitions().isNotShot()) {

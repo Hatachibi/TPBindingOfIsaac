@@ -95,6 +95,17 @@ public class Render {
 		glEnd();
 	}
 	
+	public void drawPicture(float x, float y, int w, int h, int xo, int yo, float[] color) {
+		glEnable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+//		glColor4f(color[0], color[1], color[2], color[3]);
+		glTexCoord2f(0, 0); glVertex2f(x, y);
+		glTexCoord2f(1, 0); glVertex2f(x + w, y);
+		glTexCoord2f(1, 1); glVertex2f(x + w, y + h);
+		glTexCoord2f(0, 1); glVertex2f(x, y + h);
+		glEnd();
+	}
+	
 	public void drawCroix(float x, float y) {
 		this.drawTrait(x, y+20, x, y-20);
 		this.drawTrait(x+20, y, x-20, y);
@@ -115,15 +126,19 @@ public class Render {
 		for(int y=0; y<9; y++) {
 			for(int x=0; x<9; x++) {
 				if(map[(y*9)+x]==1) {
-					glColor3f(1, 1, 0);
+					Texture.coin.bind();
 				} else {
-					glColor3f(1, 0, 1);
+					Texture.emptyCell.bind();
 				}
 				int xo = x*TAILLE_CARRE;
 				int yo = y*TAILLE_CARRE;
-				this.drawSquare(xo, yo, xo, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo);
+				glEnable(GL_TEXTURE_2D);
+				Render.getInstance().drawPicture(x*TAILLE_CARRE, y*TAILLE_CARRE, TAILLE_CARRE, TAILLE_CARRE, 0, 0, new float[] {});
+			//	this.drawSquare(xo, yo, xo, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo);
 			}
 		}
+		Texture.coin.unbind();
+		Texture.emptyCell.unbind();
 		
 	}
 	

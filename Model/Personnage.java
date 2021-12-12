@@ -2,29 +2,41 @@ package Model;
 
 import java.util.*;
 
-import Controler.DeplacerPersonnage;
 import Controler.ListeBalle;
+import Shaders.Raycasting;
+import Shaders.Vector2;
+import Vue.Render;
+import Vue.Texture;
 
 public class Personnage {
 
-	private DeplacerPersonnage deplacement;
 	private ListeBalle munitions;
 	private int degat;
 	private double multiplicator;
 	private int range;
+	private double speed;
+	private Hitbox hitbox;
+	private Vector2 position;
+	private Vector2 size;
+	private Vector2 direction;
 	private BarreDeVie life;
 	private Inventaire inv;
-	private Hitbox hit;
-	private Entite entity;
-	private String url;
+	private double a;
+	private float xmax;
+	private float ymax;
+	private float distance;
+	private String imagePath;
 	
-    public Personnage(int degat, double x, double y, int width, int heigth) {
+    public Personnage(int degat, double x, double y, int width, int heigth, Vector2 position, Vector2 size) {
     	this.degat = 2;
-    	this.entity = new Entite(width, heigth, x, y);
     	this.multiplicator = 1.0;
     	this.life = new BarreDeVie(10);
-    	this.deplacement = new DeplacerPersonnage(new Entite(width, heigth, x, y));
+    	this.hitbox = new Hitbox(position);
     	this.munitions = new ListeBalle();
+    	this.position = position;
+		this.size = size;
+		this.speed = 5.85;
+		this.direction = new Vector2();
     }
     
     public double attaque() {
@@ -36,16 +48,70 @@ public class Personnage {
     }
     
     public boolean isAlive() {
-    	return life.getVieEnCours() <= 0;
+    	return life.getVieEnCours() >= 0;
+    }
+    
+    public void updateGameObject()
+	{
+		move();
+	}
+    
+    public void updateHitbox() {
+    	this.getHitbox().setPosition(position);
     }
 
-	public DeplacerPersonnage getDeplacement() {
-		return deplacement;
+	private void move()
+	{
+		Vector2 normalizedDirection = getNormalizedDirection();
+		Vector2 positionAfterMoving = getPosition().addVector(normalizedDirection);
+		setPosition(positionAfterMoving);
+		direction = new Vector2();
+	}
+	
+	public void goUpNext()
+	{
+		getDirection().addY(1);
 	}
 
-	public void setDeplacement(DeplacerPersonnage deplacement) {
-		this.deplacement = deplacement;
+	public void goDownNext()
+	{
+		getDirection().addY(-1);
 	}
+
+	public void goLeftNext()
+	{
+		getDirection().addX(-1);
+	}
+
+	public void goRightNext()
+	{
+		getDirection().addX(1);
+	}
+	
+	public Vector2 getNormalizedDirection()
+	{
+		Vector2 normalizedVector = new Vector2(direction);
+		normalizedVector.euclidianNormalize(speed);
+		return normalizedVector;
+	}
+    
+    public void drawPlayer() {
+    	Texture.Isaac.bind();
+    	Render.getInstance().drawPicture((float)this.getPosition().getX(),(float)this.getPosition().getY(), 50, 50, 200, 200, new float[] {255, 255, 255, 255});
+    	Texture.Isaac.unbind();
+   // 	Render.getInstance().drawPoint((float) hitbox.getEntity().getX(),(float) hitbox.getEntity().getY(), 20); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
+    	Raycasting.drawRays3D(this, new int[]  {
+    			1, 1, 1, 1, 1, 1, 1, 1, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 1, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 0, 0, 0, 0, 0, 0, 0, 1,
+				1, 1, 1, 1, 1, 1, 1, 1, 1
+		});
+    }
 
 	public ListeBalle getMunitions() {
 		return munitions;
@@ -95,28 +161,86 @@ public class Personnage {
 		this.inv = inv;
 	}
 
-	public Hitbox getHit() {
-		return hit;
+	public double getSpeed() {
+		return speed;
 	}
 
-	public void setHit(Hitbox hit) {
-		this.hit = hit;
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
-	public Entite getEntity() {
-		return entity;
+	public double getA() {
+		return a;
 	}
 
-	public void setEntity(Entite entity) {
-		this.entity = entity;
+	public void setA(double a) {
+		this.a = a;
 	}
 
-	public String getUrl() {
-		return url;
+	public float getXmax() {
+		return xmax;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setXmax(float xmax) {
+		this.xmax = xmax;
 	}
+
+	public float getYmax() {
+		return ymax;
+	}
+
+	public void setYmax(float ymax) {
+		this.ymax = ymax;
+	}
+
+	public float getDistance() {
+		return distance;
+	}
+
+	public void setDistance(float distance) {
+		this.distance = distance;
+	}
+
+	public Vector2 getPosition() {
+		return position;
+	}
+
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
+
+	public Vector2 getSize() {
+		return size;
+	}
+
+	public void setSize(Vector2 size) {
+		this.size = size;
+	}
+
+	public Vector2 getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Vector2 direction) {
+		this.direction = direction;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public Hitbox getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(Hitbox hitbox) {
+		this.hitbox = hitbox;
+	}
+	
+	
     
 }
