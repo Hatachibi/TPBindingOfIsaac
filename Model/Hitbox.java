@@ -21,7 +21,6 @@ public class Hitbox {
 	private boolean isQCollision;
 	private boolean isSCollision;
 	private boolean isDCollision;
-	private Entite entity;
 	
     public Hitbox(Vector2 position, int width, int heigth) {
     	this.position = position;
@@ -29,6 +28,10 @@ public class Hitbox {
     	this.heigth = heigth;
     } 
     
+    
+    /**
+     * @note Valeur pour les collisions a voir
+     */
     public void collisionPlayer(Personnage p) {
     	Jeu.Isaac.updateHitbox();
     	int[] map = new int[]  {
@@ -46,17 +49,17 @@ public class Hitbox {
     	} else {
     		this.isDCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPosition().getX() - p.getSpeed(), p.getHitbox().getPosition().getY(), map) || this.collisionMur(p.getHitbox().getPositionY().getX() - p.getSpeed(), p.getHitbox().getPositionY().getY(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPosition().getX() - p.getSpeed() - 5, p.getHitbox().getPosition().getY(), map) || this.collisionMur(p.getHitbox().getPositionY().getX() - p.getSpeed() - 5, p.getHitbox().getPositionY().getY(), map)) {
     		this.isQCollision = true;
     	} else {
     		this.isQCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPositionY().getX(), p.getHitbox().getPositionY().getY() + p.getSpeed(), map) || this.collisionMur(p.getHitbox().getPositionXY().getX(), p.getHitbox().getPositionXY().getY() + p.getSpeed(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPositionY().getX(), p.getHitbox().getPositionY().getY() + p.getSpeed() + 5, map) || this.collisionMur(p.getHitbox().getPositionXY().getX(), p.getHitbox().getPositionXY().getY() + p.getSpeed() + 5, map)) {
     		this.isZCollision = true;
     	}  else {
     		this.isZCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPosition().getX(), p.getHitbox().getPosition().getY() - p.getSpeed(), map) || this.collisionMur(p.getHitbox().getPositionX().getX(), p.getHitbox().getPositionX().getY() - p.getSpeed(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPosition().getX(), p.getHitbox().getPosition().getY() - p.getSpeed() - 3, map) || this.collisionMur(p.getHitbox().getPositionX().getX(), p.getHitbox().getPositionX().getY() - p.getSpeed() - 3, map)) {
     		this.isSCollision = true;
     	}  else {
     		this.isSCollision = false;

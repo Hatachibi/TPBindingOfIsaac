@@ -99,7 +99,7 @@ public class Personnage {
     	Texture.Isaac.bind();
     	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
     	Texture.Isaac.unbind();
-    //	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
+    	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
     	Raycasting.drawRays3D(this, new int[]  {
     			1, 1, 1, 1, 1, 1, 1, 1, 1,
 				1, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -242,5 +242,4 @@ public class Personnage {
 	}
 	
 	
-    
 }

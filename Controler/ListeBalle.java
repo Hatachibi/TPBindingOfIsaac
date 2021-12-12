@@ -21,18 +21,6 @@ public class ListeBalle {
 		this.setCoolDown(0);
 	}
 	
-	/**
-	 * 1 = gauche
-	 * 2 = droite
-	 * 3 = haut
-	 * 4 = bas
-	 */
-	
-	/**
-	 * Méthode qui invoque la méthode drawBalle() de la classe balle.
-	 * Modifie la position de la balle en fonction de sa direction.
-	 * Vérifie si elle n'attend pas un mur.
-	 */
 	public void drawBalle() {
 		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();
 		for(Balle b: liste) {
@@ -80,11 +68,6 @@ public class ListeBalle {
 		liste = copieListe;
 	}
 	
-	/**
-	 * Méthode qui ajoute une balle à la liste des balles si le joueur est autorisé à tirer.
-	 * @param b
-	 * De classe Balle ou héritière, correspond à la balle à ajouter à la liste.
-	 */
 	public void addBalle(Balle b) {
 		if(this.isNotShot) {
 			this.liste.add(b);
