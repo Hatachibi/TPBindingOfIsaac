@@ -33,9 +33,17 @@ public class Texture {
    
     public static Texture Isaac = loadTexture("libImg/Isaac.png");
     public static Texture tears = loadTexture("libImg/tear.png");
-    public static Texture coin = loadTexture("libImg/coin.png");
+    public static Texture coinBG = loadTexture("libImg/coinBG.png");
+    public static Texture coinBD = loadTexture("libImg/coinBD.png");
+    public static Texture coinHG = loadTexture("libImg/coinHG.png");
+    public static Texture coinHD = loadTexture("libImg/coinHD.png");
+    public static Texture murDroite = loadTexture("libImg/murDroite.png");
+    public static Texture murGauche = loadTexture("libImg/murGauche.png");
+    public static Texture murHaut = loadTexture("libImg/murHaut.png");
+    public static Texture murBas = loadTexture("libImg/murBas.png");
+    public static Texture rock = loadTexture("libImg/Rock.png");
     public static Texture emptyCell = loadTexture("libImg/emptyCell.png");
-      
+
     public Texture() {
         id = glGenTextures();
     }

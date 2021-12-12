@@ -23,14 +23,16 @@ public class Balle extends Entite{
 		this.setX(x);
 		this.setY(y);
 		this.setDirection(direction);
+		this.speed = 10;
 		this.setHitbox(new Hitbox(new Vector2(x, y), width, heigth));
 	}
 	
 	public void drawBalle() {
-	//	Render.getInstance().drawPoint((float)this.getX(), (float)this.getY(), 25);
 		Texture.tears.bind();
 		Render.getInstance().drawPicture((float)this.getX(), (float)this.getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
 		Texture.tears.unbind();
+	//	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
+		
 	}
 	
 	public void updateHitbox() {

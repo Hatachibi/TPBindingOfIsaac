@@ -113,21 +113,42 @@ public class Render {
 	
 	public void drawMap() {
 		int[] map = {
-				1, 1, 1, 1, 1, 1, 1, 1, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 1, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 0, 0, 0, 0, 0, 0, 0, 1,
-				1, 1, 1, 1, 1, 1, 1, 1, 1
+				4, 5, 5, 5, 5, 5, 5, 5, 3,
+				6, 0, 0, 0, 0, 0, 0, 0, 8,
+				6, 0, 0, 0, 0, 0, 0, 0, 8,
+				6, 0, 0, 0, 9, 0, 0, 0, 8,
+				6, 0, 0, 0, 9, 0, 0, 0, 8,
+				6, 0, 0, 0, 9, 0, 0, 0, 8,
+				6, 0, 0, 0, 0, 0, 0, 0, 8,
+				6, 0, 0, 0, 0, 0, 0, 0, 8,
+				1, 7, 7, 7, 7, 7, 7, 7, 2
 		};
 		for(int y=0; y<9; y++) {
 			for(int x=0; x<9; x++) {
 				if(map[(y*9)+x]==1) {
-					Texture.coin.bind();
-				} else {
+					Texture.coinHG.bind();
+				} else if(map[(y*9)+x]==2) {
+					Texture.coinHD.bind();
+				} else if(map[(y*9)+x]==3) {
+					Texture.coinBD.bind();
+				} else if(map[(y*9)+x]==4) {
+					Texture.coinBG.bind();
+				} 
+				else if(map[(y*9)+x]==5) {
+					Texture.murBas.bind();
+				} 
+				else if(map[(y*9)+x]==6) {
+					Texture.murGauche.bind();
+				} 
+				else if(map[(y*9)+x]==7) {
+					Texture.murHaut.bind();
+				} 
+				else if(map[(y*9)+x]==8) {
+					Texture.murDroite.bind();
+				} else if(map[(y*9)+x]==9) {
+					Texture.rock.bind();
+				} 
+				else {
 					Texture.emptyCell.bind();
 				}
 				int xo = x*TAILLE_CARRE;
@@ -137,9 +158,16 @@ public class Render {
 			//	this.drawSquare(xo, yo, xo, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo+TAILLE_CARRE, xo+TAILLE_CARRE, yo);
 			}
 		}
-		Texture.coin.unbind();
+		Texture.coinHG.unbind();
+		Texture.coinHD.unbind();
+		Texture.coinBG.unbind();
+		Texture.coinBD.unbind();
+		Texture.murHaut.unbind();
+		Texture.murBas.unbind();
+		Texture.murGauche.unbind();
+		Texture.murDroite.unbind();
+		Texture.rock.unbind();
 		Texture.emptyCell.unbind();
-		
 	}
 	
 	public void render() {

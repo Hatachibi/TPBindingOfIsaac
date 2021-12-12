@@ -90,10 +90,7 @@ public class Fenetre {
     			Input.getInstance().deplacement();
     			Input.getInstance().tire();
     			canRender = true;
-    			Input.getInstance().deplacement();
-    			Input.getInstance().tire();
     			glfwPollEvents();
-        	//	Input.getInstance().handleEvents();
         		if(frameTime >= 1.0) {
         			frameTime = 0;
         			System.out.println("FPS: " + frames);  
@@ -101,7 +98,6 @@ public class Fenetre {
         		}
         		if(!Jeu.Isaac.getMunitions().isNotShot()) {
     				Jeu.Isaac.getMunitions().setCoolDown(Jeu.Isaac.getMunitions().getCoolDown()+1);
-    				System.out.println(Jeu.Isaac.getMunitions().getCoolDown());
     				if(Jeu.Isaac.getMunitions().getCoolDown() == 30) {
     					Jeu.Isaac.getMunitions().setCoolDown(0);
     					Jeu.Isaac.getMunitions().setShot(true);

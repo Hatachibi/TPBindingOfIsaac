@@ -169,20 +169,20 @@ public class Input
 	
 	public void shootUp()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 3));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 3));
 	}
 	
 	public void shootDown()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 4));	}
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 4));	}
 	
 	public void shootRight()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 2));	}
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 2));	}
 	
 	public void shootLeft()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(1, 1, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 1));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 1));
 	}
 	
 	public void getAWSDkeys(long window)

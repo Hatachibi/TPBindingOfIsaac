@@ -49,12 +49,12 @@ public class Hitbox {
     	} else {
     		this.isDCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPosition().getX() - p.getSpeed() - 5, p.getHitbox().getPosition().getY(), map) || this.collisionMur(p.getHitbox().getPositionY().getX() - p.getSpeed() - 5, p.getHitbox().getPositionY().getY(), map)) {
+    	if(this.collisionMur(p.getHitbox().getPosition().getX() - p.getSpeed(), p.getHitbox().getPosition().getY(), map) || this.collisionMur(p.getHitbox().getPositionY().getX() - p.getSpeed(), p.getHitbox().getPositionY().getY(), map)) {
     		this.isQCollision = true;
     	} else {
     		this.isQCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPositionY().getX(), p.getHitbox().getPositionY().getY() + p.getSpeed() + 5, map) || this.collisionMur(p.getHitbox().getPositionXY().getX(), p.getHitbox().getPositionXY().getY() + p.getSpeed() + 5, map)) {
+    	if(this.collisionMur(p.getHitbox().getPositionY().getX(), p.getHitbox().getPositionY().getY() + p.getSpeed(), map) || this.collisionMur(p.getHitbox().getPositionXY().getX(), p.getHitbox().getPositionXY().getY() + p.getSpeed(), map)) {
     		this.isZCollision = true;
     	}  else {
     		this.isZCollision = false;
