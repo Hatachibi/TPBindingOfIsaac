@@ -35,7 +35,7 @@ public class Fenetre {
     	{
     		throw new IllegalStateException("Failed to initialize GLFW");
     	}
-    	this.window = glfwCreateWindow(WidthFenetre, HeigthFenetre, "My window", 0, 0);
+    	this.window = glfwCreateWindow(WidthFenetre, HeigthFenetre, "Harry Potter et la Chambre des secrets", 0, 0);
     	glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     	Render.getInstance().init(window);
     }

@@ -8,6 +8,8 @@ public class MapPath {
 		Map start = new Map();
 		start.generateMap(true, true, true, true);
 		start.getMapobject()[3][3].setRenderMap(11);
+		start.getMapobject()[4][4].setRenderMap(9);
+		start.getMapobject()[4][5].setRenderMap(9);
 		start.generateCollisionMap();
 		return start;
 	}

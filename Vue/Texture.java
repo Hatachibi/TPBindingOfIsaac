@@ -172,7 +172,7 @@ public class Texture {
         texture.setParameter(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         texture.uploadData(GL_RGBA8, width, height, GL_RGBA, data);
-
+        
         return texture;
     }
 

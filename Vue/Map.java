@@ -22,17 +22,25 @@ public class Map {
 		if(getRenderMap()[x][y] == 10) {
 			if(x==4 && y==8) {
 				Jeu.room.getPlayer().getPosition().setY(65);
+				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX()][(int) (Jeu.room.getEtageCoos().getY() + 1)]);
+				Jeu.room.getEtageCoos().setY(Jeu.room.getEtageCoos().getY() + 1);
 			}
 			if(x==4 && y==0) {
 				Jeu.room.getPlayer().getPosition().setY(520);
+				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX()][(int) (Jeu.room.getEtageCoos().getY() - 1)]);
+				Jeu.room.getEtageCoos().setY(Jeu.room.getEtageCoos().getY() - 1);
 			}
 			if(x==8 && y==4) {
 				Jeu.room.getPlayer().getPosition().setX(65);
+				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX() - 1][(int) (Jeu.room.getEtageCoos().getY())]);
+				Jeu.room.getEtageCoos().setX(Jeu.room.getEtageCoos().getX() - 1);
 			}
 			if(x==0 && y==4) {
 				Jeu.room.getPlayer().getPosition().setX(520);
+				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX() + 1][(int) (Jeu.room.getEtageCoos().getY())]);
+				Jeu.room.getEtageCoos().setX(Jeu.room.getEtageCoos().getX() + 1);
 			}
-			Jeu.room.setMapEnCours(MapPath.mapShop());
+		//	Jeu.room.setMapEnCours(MapPath.mapShop());
 		}
 	
 	}
