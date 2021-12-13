@@ -16,18 +16,6 @@ public class Render {
 	
 	public final static Render INSTANCE = new Render();
 	public final static int TAILLE_CARRE = 65;
-	private int[] map = {
-			1, 1, 1, 1, 1, 1, 1, 1, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 0, 0, 0, 0, 0, 0, 0, 1,
-			1, 1, 1, 1, 1, 1, 1, 1, 1
-	};
-	private int[][] maps = new int[100][];
 	
 	private Render() {};
 	
@@ -84,6 +72,17 @@ public class Render {
 		glVertex2f(x3, y3);
 		glVertex2f(x4, y4);
 		glEnd();
+	}
+	
+	public void drawSquare(float x, float y, float width, float heigth, float[] color) {
+		glColor4f(color[0], color[1], color[2], color[3]);
+		glBegin(GL_QUADS);
+		glVertex2f(x, y);
+		glVertex2f(x+width, y);
+		glVertex2f(x+width, y+heigth);
+		glVertex2f(x, y+heigth);
+		glEnd();
+		glColor4f(1f, 1f, 1f, 1f);
 	}
 	
 	public void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
