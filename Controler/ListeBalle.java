@@ -49,17 +49,7 @@ public class ListeBalle {
 		//		if(b.getX() < 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			b.updateHitbox();
-			int[] map = new int[]  {
-	    			1, 1, 1, 1, 1, 1, 1, 1, 1,
-					1, 0, 0, 0, 0, 0, 0, 0, 1,
-					1, 0, 0, 0, 0, 0, 0, 0, 1,
-					1, 0, 0, 0, 1, 0, 0, 0, 1,
-					1, 0, 0, 0, 1, 0, 0, 0, 1,
-					1, 0, 0, 0, 1, 0, 0, 0, 1,
-					1, 0, 0, 0, 0, 0, 0, 0, 1,
-					1, 0, 0, 0, 0, 0, 0, 0, 1,
-					1, 1, 1, 1, 1, 1, 1, 1, 1};
-			if(doRemove(b,  map)) {
+			if(doRemove(b)) {
 				copieListe.remove(b);
 			}
 		}
@@ -73,8 +63,8 @@ public class ListeBalle {
 			this.isNotShot = false;
 	}
 	
-	public boolean doRemove(Balle b, int[] map) {
-		return b.getHitbox().collisionMur(b.getPosition().getX(), b.getPosition().getY());
+	public boolean doRemove(Balle b) {
+		return b.getHitbox().collisionMurEntite(b);
 	}
 
 	public LinkedList<Balle> getListe() {

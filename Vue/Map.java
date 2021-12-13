@@ -17,9 +17,9 @@ public class Map {
 	}
 	
 	public void changeMap() {
-		int x = (int) ((1+Jeu.room.getPlayer().getPosition().getX())/65);
-		int y = (int) ((1+Jeu.room.getPlayer().getPosition().getY())/65);
-		if(getRendeMap()[x][y] == 10) {
+		int x = (int) ((Jeu.room.getPlayer().getPosition().getX())/65);
+		int y = (int) ((Jeu.room.getPlayer().getPosition().getY())/65);
+		if(getRenderMap()[x][y] == 10) {
 			if(x==4 && y==8) {
 				Jeu.room.getPlayer().getPosition().setY(65);
 			}
@@ -47,7 +47,7 @@ public class Map {
 		return map;
 	}
 	
-	public int[][] getRendeMap() {
+	public int[][] getRenderMap() {
 		int[][] map = new int[mapobject.length][mapobject[0].length];
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -71,6 +71,7 @@ public class Map {
 				switch(mapobject[i][j].getRenderMap()){
 				case 0: mapobject[i][j].setCollisionMap(false); break;
 				case 10: mapobject[i][j].setCollisionMap(false); break;
+				case 11: mapobject[i][j].setCollisionMap(false); break;
 				default: mapobject[i][j].setCollisionMap(true); break;
 				}
 			}
@@ -130,7 +131,6 @@ public class Map {
 		if(down)generateDownDoor();
 		if(left)generateLeftDoor();
 		if(right)generateRightDoor();
-		generateCollisionMap();
 	}
 	
 	public void drawMap() {
@@ -156,7 +156,9 @@ public class Map {
 					Texture.rock.bind();
 				} else if(mapobject[i][j].getRenderMap()==10) {
 					Texture.closeDoor.bind();
-				}  
+				} else if(mapobject[i][j].getRenderMap()==11) {
+					Texture.spikes.bind();
+				}
 				else {
 					Texture.emptyCell.bind();
 				}
@@ -174,6 +176,7 @@ public class Map {
 		Texture.murDroite.unbind();
 		Texture.rock.unbind();
 		Texture.closeDoor.unbind();
+		Texture.spikes.unbind();
 		Texture.emptyCell.unbind();
 	}
 

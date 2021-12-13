@@ -7,10 +7,10 @@ import java.util.*;
  */
 public class BarreDeVie {
 
-    /**
-     * Default constructor
-     */
+    private int life;
+	
     public BarreDeVie() {
+    	
     }
 
 }

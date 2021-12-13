@@ -43,6 +43,11 @@ public class Texture {
     public static Texture murBas = loadTexture("libImg/murBas.png");
     public static Texture rock = loadTexture("libImg/Rock.png");
     public static Texture closeDoor = loadTexture("libImg/closed_door.png");
+    public static Texture openDoor = loadTexture("libImg/opened_door.png");
+    public static Texture spikes = loadTexture("libImg/Spikes.png");
+    public static Texture heart = loadTexture("libImg/HUD_heart_red_full.png");
+    public static Texture halfHeart = loadTexture("libImg/HUD_heart_red_half.png");
+    public static Texture gameOver = loadTexture("libImg/lose.png");
     public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
 
     public Texture() {

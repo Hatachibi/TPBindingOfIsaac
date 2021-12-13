@@ -2,6 +2,11 @@ package Model;
 
 import java.util.*;
 
+import javax.annotation.processing.AbstractProcessor;
+
+import Vue.Render;
+import Vue.Texture;
+
 /**
  * 
  */
@@ -23,6 +28,23 @@ public class BarreDeVie {
     public BarreDeVie(int tailleVie) {
     	this.setViePleine(tailleVie);
     	this.setVieEnCours(tailleVie);
+    }
+    
+    public void drawBarDeVie() {
+    	float x = 25;
+    	float y = 540;
+    	for(int i=0; i<vieEnCours; i+=2) {
+    		if(i==vieEnCours-1) {
+    			Texture.halfHeart.bind();
+    			Render.getInstance().drawPicture(x, y, 25, 25, 1, 1, new float[]{});
+    		} else {
+    			Texture.heart.bind();
+    			Render.getInstance().drawPicture(x, y, 25, 25, 1, 1, new float[]{});
+    		}
+    		x += 25;
+    	}
+    	Texture.halfHeart.unbind();
+    	Texture.heart.unbind();
     }
 
     public Integer getViePleine() {

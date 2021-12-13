@@ -55,7 +55,7 @@ public class Hitbox {
     		this.isSCollision = false;
     	}
     }
-    
+        
     /**
      * @param pos est la position 1, x la 3, y la 2 et xy la 4 (voir schéma ligne 10)
      * return si 2 Hitbox sont en contact
@@ -65,17 +65,21 @@ public class Hitbox {
     }
     
     public boolean collisionMur(double x, double y) {
-    	int i = (int) (x/65);
-    	int j = (int) (y/65);
-    	System.out.println(Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
-    	return (Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
+    	return (Jeu.room.getMapEnCours().getCollisionMap()[(int) x/65][(int) y/65]);
+    }
+    
+    public boolean collisionMurEntite(Entite e) {
+    	return (Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
+    		 || Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPositionX().getX()/65][(int) e.getHitbox().getPositionX().getY()/65]
+    		 || Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPositionY().getX()/65][(int) e.getHitbox().getPositionY().getY()/65]		
+    		 || Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPositionXY().getX()/65][(int) e.getHitbox().getPositionXY().getY()/65]	);
     }
     
     /**
      * return si un Vecteur est compris dans la Hitbox
      */
     public boolean between(Vector2 pos) {
-    	return (pos.getX() > position.getX() && pos.getX() < getPositionX().getX() && pos.getY() < getPositionY().getY() && pos.getY() > position.getY());
+    	return ((pos.getX() > position.getX() && pos.getX() < getPositionX().getX()) && (pos.getY() < getPositionY().getY() && pos.getY() > position.getY()));
     }
     
     /**

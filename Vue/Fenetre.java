@@ -103,6 +103,13 @@ public class Fenetre {
     					Jeu.Isaac.getMunitions().setShot(true);
     				};
     			}
+        		if(Jeu.Isaac.isTouch()) {
+    				Jeu.Isaac.setCooldownDegat((Jeu.Isaac.getCooldownDegat()+1));
+    				if(Jeu.Isaac.getCooldownDegat() == 60) {
+    					Jeu.Isaac.setCooldownDegat(0);
+    					Jeu.Isaac.setTouch(false);
+    				};
+    			}
     		}
     		
     		if(canRender) {

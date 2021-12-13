@@ -8,6 +8,7 @@ import Controler.Input;
 import Ressource.MapPath;
 import Vue.Map;
 import Vue.Render;
+import Vue.Texture;
 
 public class Room {
 
@@ -26,10 +27,17 @@ public class Room {
 	}
 	
 	public void drawRoom() {	
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
-		mapEnCours.drawMap();
-		Input.getInstance().getPlayerMove().drawPlayer();
-		Input.getInstance().drawBalle();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if(this.getPlayer().isAlive()) {
+			mapEnCours.drawMap();
+			this.getPlayer().getLife().drawBarDeVie();
+			Input.getInstance().getPlayerMove().drawPlayer();
+			Input.getInstance().drawBalle();
+		} else {
+			Texture.gameOver.bind();
+			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
+			Texture.gameOver.unbind();
+		}
 	}
 
 	public Personnage getPlayer() {

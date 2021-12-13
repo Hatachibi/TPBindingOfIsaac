@@ -21,6 +21,8 @@ public class Personnage extends Entite{
 	private Vector2 direction;
 	private BarreDeVie life;
 	private Inventaire inv;
+	private int cooldownDegat;
+	private boolean isTouch;
 	private double a;
 	private float distance;
 	
@@ -28,12 +30,14 @@ public class Personnage extends Entite{
     	super(width, heigth, position, url);
     	this.degat = 2;
     	this.multiplicator = 1.0;
-    	this.life = new BarreDeVie(10);
+    	this.life = new BarreDeVie(6);
   //  	this.hitbox = new Hitbox(position, width, heigth);
     	this.munitions = new ListeBalle();
   //  	this.position = position;
 		this.size = size;
 		this.speed = 5.85;
+		this.setTouch(false);
+		this.cooldownDegat = 0;
 		this.direction = new Vector2();
     }
     
@@ -56,6 +60,10 @@ public class Personnage extends Entite{
     
     public void updateHitbox() {
     	this.getHitbox().setPosition(position);
+    	if(this.isTouch == false && this.getHitbox().collisionHitbox(new Vector2(195, 195), new Vector2(260, 195), new Vector2(195, 260), new Vector2(260, 260))) {
+    		this.subitDegats(1);
+    		this.setTouch(true);
+    	}
     }
 
 	private void move()
@@ -92,12 +100,12 @@ public class Personnage extends Entite{
 		normalizedVector.euclidianNormalize(speed);
 		return normalizedVector;
 	}
-    
+	
     public void drawPlayer() {
     	Texture.Isaac.bind();
     	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
     	Texture.Isaac.unbind();
-    	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
+   // 	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
     	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap()); 
     }
 
@@ -203,6 +211,22 @@ public class Personnage extends Entite{
 
 	public void setHitbox(Hitbox hitbox) {
 		this.hitbox = hitbox;
+	}
+
+	public boolean isTouch() {
+		return isTouch;
+	}
+
+	public void setTouch(boolean isTouch) {
+		this.isTouch = isTouch;
+	}
+
+	public int getCooldownDegat() {
+		return cooldownDegat;
+	}
+
+	public void setCooldownDegat(int cooldownDegat) {
+		this.cooldownDegat = cooldownDegat;
 	}
 	
 	

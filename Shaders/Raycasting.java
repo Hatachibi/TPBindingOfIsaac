@@ -85,7 +85,7 @@ public class Raycasting {
     			} 	
     		}
     		float dist = (float) ((dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY()))); 
-    		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
+    //		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
     		personnage.setDistance(dist);
     		personnage.getHitbox().collisionPlayer(personnage);
     }
