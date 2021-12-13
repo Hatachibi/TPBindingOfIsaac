@@ -3,6 +3,11 @@ package Vue;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glEnable;
 
+import java.awt.image.BufferedImage;
+
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
+
 import Model.Jeu;
 import Model.MapObject;
 import Ressource.MapPath;
@@ -134,10 +139,13 @@ public class Map {
 	}
 	
 	public void drawMap() {
+		Shaders.Texture testImage = new Shaders.Texture("/res/Bomb.png");
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
 				if(mapobject[i][j].getRenderMap()==1) {
 					Texture.coinHG.bind();
+					
+					
 				} else if(mapobject[i][j].getRenderMap()==2) {
 					Texture.coinHD.bind();
 				} else if(mapobject[i][j].getRenderMap()==3) {

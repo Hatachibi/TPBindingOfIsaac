@@ -31,19 +31,19 @@ public class Texture {
 
     /** Creates a texture. */
    
-    public static Texture Isaac = loadTexture("libImg/Isaac.png");
-    public static Texture tears = loadTexture("libImg/tear.png");
-    public static Texture coinBG = loadTexture("libImg/coinBG.png");
-    public static Texture coinBD = loadTexture("libImg/coinBD.png");
-    public static Texture coinHG = loadTexture("libImg/coinHG.png");
-    public static Texture coinHD = loadTexture("libImg/coinHD.png");
-    public static Texture murDroite = loadTexture("libImg/murDroite.png");
-    public static Texture murGauche = loadTexture("libImg/murGauche.png");
-    public static Texture murHaut = loadTexture("libImg/murHaut.png");
-    public static Texture murBas = loadTexture("libImg/murBas.png");
-    public static Texture rock = loadTexture("libImg/Rock.png");
-    public static Texture closeDoor = loadTexture("libImg/closed_door.png");
-    public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
+    public static Texture Isaac = loadTexture("res/Isaac.png");
+    public static Texture tears = loadTexture("res/tear.png");
+    public static Texture coinBG = loadTexture("res/coinBG.png");
+    public static Texture coinBD = loadTexture("res/coinBD.png");
+    public static Texture coinHG = loadTexture("res/coinHG.png");
+    public static Texture coinHD = loadTexture("res/coinHD.png");
+    public static Texture murDroite = loadTexture("res/murDroite.png");
+    public static Texture murGauche = loadTexture("res/murGauche.png");
+    public static Texture murHaut = loadTexture("res/murHaut.png");
+    public static Texture murBas = loadTexture("res/murBas.png");
+    public static Texture rock = loadTexture("res/Rock.png");
+    public static Texture closeDoor = loadTexture("res/closed_door.png");
+    public static Texture emptyCell = loadTexture("res/emptyCell.png");  
 
     public Texture() {
         id = glGenTextures();
