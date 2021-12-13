@@ -50,7 +50,7 @@ public class Personnage extends Entite{
     }
     
     public boolean isAlive() {
-    	return life.getVieEnCours() >= 0;
+    	return life.getVieEnCours() > 0;
     }
     
     public void updateGameObject()
@@ -108,7 +108,25 @@ public class Personnage extends Entite{
    // 	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
     	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap()); 
     }
-
+    
+    public void boucleCooldownJoueur()
+    {
+    	if(!this.getMunitions().isNotShot()) {
+    		this.getMunitions().setCoolDown(this.getMunitions().getCoolDown()+1);
+			if(this.getMunitions().getCoolDown() == 30) {
+				this.getMunitions().setCoolDown(0);
+				this.getMunitions().setShot(true);
+			};
+		}
+    	if(isTouch()) {
+			setCooldownDegat((Jeu.Isaac.getCooldownDegat()+1));
+			if(getCooldownDegat() == 60) {
+				setCooldownDegat(0);
+				setTouch(false);
+			};
+		}
+    }
+   
 	public ListeBalle getMunitions() {
 		return munitions;
 	}

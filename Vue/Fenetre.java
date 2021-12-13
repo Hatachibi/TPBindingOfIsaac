@@ -95,21 +95,8 @@ public class Fenetre {
         			frameTime = 0;
         			System.out.println("FPS: " + frames);  
         			frames = 0;
-        		}
-        		if(!Jeu.Isaac.getMunitions().isNotShot()) {
-    				Jeu.Isaac.getMunitions().setCoolDown(Jeu.Isaac.getMunitions().getCoolDown()+1);
-    				if(Jeu.Isaac.getMunitions().getCoolDown() == 30) {
-    					Jeu.Isaac.getMunitions().setCoolDown(0);
-    					Jeu.Isaac.getMunitions().setShot(true);
-    				};
-    			}
-        		if(Jeu.Isaac.isTouch()) {
-    				Jeu.Isaac.setCooldownDegat((Jeu.Isaac.getCooldownDegat()+1));
-    				if(Jeu.Isaac.getCooldownDegat() == 60) {
-    					Jeu.Isaac.setCooldownDegat(0);
-    					Jeu.Isaac.setTouch(false);
-    				};
-    			}
+        		} 
+        		
     		}
     		
     		if(canRender) {

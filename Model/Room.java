@@ -24,6 +24,7 @@ public class Room {
 		Input.getInstance().deplacement();
 		Input.getInstance().tire();
 		Jeu.room.getMapEnCours().changeMap();
+		Jeu.room.getPlayer().boucleCooldownJoueur();
 	}
 	
 	public void drawRoom() {	
