@@ -31,6 +31,7 @@ public class Hitbox {
     
     /**
      * @note Valeur pour les collisions a voir
+     * @param p
      */
     public void collisionPlayer(Personnage p) {
     	Jeu.Isaac.updateHitbox();
@@ -58,49 +59,60 @@ public class Hitbox {
     
     /**
      * @param pos est la position 1, x la 3, y la 2 et xy la 4 (voir schéma ligne 10)
-     * return si 2 Hitbox sont en contact
+     * @return si 2 Hitbox sont en contact
      */
     public boolean collisionHitbox(Vector2 pos, Vector2 x, Vector2 y, Vector2 xy) {
     	return (this.between(pos) || this.between(x) || this.between(y) || this.between(xy));
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean collisionMur(double x, double y) {
     	int i = (int) (x/65);
     	int j = (int) (y/65);
-    	System.out.println(Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
-    	return (Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
+    	
+    	if(i<9 && i>=0 && j<9 && j>=0)
+    	{
+    		System.out.println(Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
+    		return (Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
+    	}
+    	return true;
     }
     
     /**
-     * return si un Vecteur est compris dans la Hitbox
+     * @return si un Vecteur est compris dans la Hitbox
      */
     public boolean between(Vector2 pos) {
     	return (pos.getX() > position.getX() && pos.getX() < getPositionX().getX() && pos.getY() < getPositionY().getY() && pos.getY() > position.getY());
     }
     
     /**
-     * return la posision du point 1 (voir schéma ligne 10)
+     * @return la posision du point 1 (voir schéma ligne 10)
      */
     public Vector2 getPosition() {
   		return position;
   	}
     
-    /*
-     * return la posision du point 2 (voir schéma ligne 10)
+    /**
+     * @return la posision du point 2 (voir schéma ligne 10)
      */
     public Vector2 getPositionY() {
     	return new Vector2(position.getX(), position.getY() + heigth);
     }
     
-    /*
-     * return la posision du point 3 (voir schéma ligne 10)
+    /**
+     * @return la posision du point 3 (voir schéma ligne 10)
      */
     public Vector2 getPositionX() {
     	return new Vector2(position.getX() + width, position.getY());
     }
     
-    /*
-     * return la posision du point 4 (voir schéma ligne 10)
+    /**
+     * @return la posision du point 4 (voir schéma ligne 10)
      */
     public Vector2 getPositionXY() {
     	return new Vector2(position.getX() + width, position.getY() + heigth);
