@@ -42,7 +42,10 @@ public class Texture {
     public static Texture murHaut = loadTexture("libImg/murHaut.png");
     public static Texture murBas = loadTexture("libImg/murBas.png");
     public static Texture rock = loadTexture("libImg/Rock.png");
-    public static Texture closeDoor = loadTexture("libImg/closed_door.png");
+    public static Texture closeDoor_up = loadTexture("libImg/closed_door_up.png");
+    public static Texture closeDoor_down = loadTexture("libImg/closed_door_down.png");
+    public static Texture closeDoor_right = loadTexture("libImg/closed_door_right.png");
+    public static Texture closeDoor_left = loadTexture("libImg/closed_door_left.png");
     public static Texture openDoor = loadTexture("libImg/opened_door.png");
     public static Texture spikes = loadTexture("libImg/Spikes.png");
     public static Texture heart = loadTexture("libImg/HUD_heart_red_full.png");

@@ -56,7 +56,7 @@ public class Personnage extends Entite{
     
     public void updateHitbox() {
     	this.getHitbox().setPosition(position);
-    	if(this.isTouch == false && Hitbox.rectangleCollision(position, new Vector2(25, 25), new Vector2(195, 195), new Vector2(65, 65))) {
+    	if(Jeu.room.getMapEnCours().getRenderMap()[3][3]==11 && this.isTouch == false && Hitbox.rectangleCollision(position, new Vector2(25, 25), new Vector2(195, 195), new Vector2(65, 65))) {
     		this.subitDegats(1);
     		this.setTouch(true);
     	}
