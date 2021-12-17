@@ -6,8 +6,8 @@ import Vue.Texture;
 
 public class Fly extends Ennemi{
 
-	public Fly(int width, int heigth, Vector2 position, String url) {
-		super(width, heigth, position, url);
+	public Fly(int width, int heigth, Vector2 position, String url, double speed) {
+		super(width, heigth, position, speed, url);
 	}
 	
 	public void drawFly() {
