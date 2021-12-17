@@ -60,6 +60,10 @@ public class Personnage extends Entite{
     		this.subitDegats(1);
     		this.setTouch(true);
     	}
+    	if(Jeu.room.fly.collisionEnnemi(this) && this.isTouch == false) {
+    		this.subitDegats(1);
+    		this.setTouch(true);
+    	}
     }
 
 	private void move()

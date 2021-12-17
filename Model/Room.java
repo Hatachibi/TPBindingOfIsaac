@@ -15,6 +15,7 @@ import Vue.Texture;
 public class Room {
 
 	private Personnage player;
+	public Fly fly = new Fly(25, 25, new Vector2(500, 500), "");
 	private Map mapEnCours;
 	private Map[][] etage;
 	private Vector2 etageCoos;
@@ -46,6 +47,7 @@ public class Room {
 		Jeu.room.getMapEnCours().changeMap();
 		Jeu.room.getPlayer().boucleCooldownJoueur();
 		Jeu.room.getPlayer().updateHitbox();
+		fly.IA(player);
 	}
 	
 	public void drawRoom() {	
@@ -56,6 +58,7 @@ public class Room {
 			this.getPlayer().getLife().drawBarDeVie();
 			Input.getInstance().getPlayerMove().drawPlayer();
 			Input.getInstance().drawBalle();
+			fly.drawFly();
 		} else {
 			Texture.gameOver.bind();
 			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});

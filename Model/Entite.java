@@ -19,7 +19,7 @@ public class Entite {
     	this.url = url;
     	this.hitbox = new Hitbox(position, width, heigth);
 	}
-
+	
 	public Vector2 getPosition() {
 		return position;
 	}
