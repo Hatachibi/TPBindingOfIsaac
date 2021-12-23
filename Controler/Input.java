@@ -12,6 +12,7 @@ import org.lwjgl.glfw.*;
 import Model.Balle;
 import Model.Jeu;
 import Model.Personnage;
+import Model.listeEnnemi;
 import Shaders.Raycasting;
 import Vue.Fenetre;
 import Vue.Render;
@@ -27,7 +28,7 @@ public class Input
 	private double y = Jeu.Isaac.getPosition().getX();
 	private double a = Jeu.Isaac.getA();
 	
-	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S,
+	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,
 			GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
 	
 	private double speed = 5.85;
@@ -205,6 +206,26 @@ public class Input
 		if(glfwGetKey(window, GLFW_KEY_A) == GLFW.GLFW_PRESS)
 		{
 			moveLeft();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_L) == GLFW.GLFW_PRESS)
+		{
+			Jeu.room.getPlayer().setSpeed(20);
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_I) == GLFW.GLFW_PRESS)
+		{
+			Jeu.room.getPlayer().setInvincible(true);
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_K) == GLFW.GLFW_PRESS)
+		{
+			Jeu.room.setListeEnnemi(new listeEnnemi());
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_P) == GLFW.GLFW_PRESS)
+		{
+			Jeu.room.getPlayer().setDegat(Integer.MAX_VALUE);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 	}

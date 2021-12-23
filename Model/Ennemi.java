@@ -9,7 +9,7 @@ public abstract class Ennemi extends Entite{
 	
 	private Vector2 direction;
 	private double speed;
-	private int life;
+	private double life;
 	private int cooldownDegat;
 	private boolean isTouch;
 	
@@ -68,12 +68,12 @@ public abstract class Ennemi extends Entite{
 		this.direction = direction;
 	}
 
-	public int getLife() {
+	public double getLife() {
 		return life;
 	}
 
-	public void setLife(int life) {
-		this.life = life;
+	public void setLife(double d) {
+		this.life = d;
 	}
 
 	public int getCooldownDegat() {

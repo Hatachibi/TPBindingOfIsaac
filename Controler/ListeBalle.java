@@ -51,7 +51,7 @@ public class ListeBalle {
 				if(Jeu.room.getListeEnnemi().getListe().get(i).collisionBalle(b)) {
 					copieListe.remove(b);
 					Jeu.room.getListeEnnemi().getListe().get(i).setTouch(true);
-					Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-1);
+					Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
 				};
 			}	
 		}

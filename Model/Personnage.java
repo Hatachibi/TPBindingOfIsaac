@@ -23,6 +23,7 @@ public class Personnage extends Entite{
 	private boolean isTouch;
 	private double a;
 	private float distance;
+	private boolean isInvincible;
 	
     public Personnage(int degat, int width, int heigth, Vector2 position, Vector2 size, String url) {
     	super(width, heigth, position, url);
@@ -35,6 +36,7 @@ public class Personnage extends Entite{
 		this.setTouch(false);
 		this.cooldownDegat = 0;
 		this.direction = new Vector2();
+		this.isInvincible = false;
     }
     
     public double attaque() {
@@ -42,7 +44,9 @@ public class Personnage extends Entite{
     }
     
     public void subitDegats(double degats) {
-    	life.setVieEnCours((int)(life.getVieEnCours() - degats));
+    	if(!isInvincible) {
+    		life.setVieEnCours((int)(life.getVieEnCours() - degats));
+    	}	
     }
     
     public boolean isAlive() {
@@ -251,6 +255,14 @@ public class Personnage extends Entite{
 
 	public void setCooldownDegat(int cooldownDegat) {
 		this.cooldownDegat = cooldownDegat;
+	}
+
+	public boolean isInvincible() {
+		return isInvincible;
+	}
+
+	public void setInvincible(boolean isInvincible) {
+		this.isInvincible = isInvincible;
 	}
 	
 	
