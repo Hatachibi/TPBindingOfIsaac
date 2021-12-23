@@ -3,6 +3,7 @@ package Controler;
 import java.util.LinkedList;
 
 import Model.Balle;
+import Model.Jeu;
 import Vue.Fenetre;
 import Vue.Render;
 
@@ -12,12 +13,10 @@ public class ListeBalle {
 	private LinkedList<Balle> liste;
 	private boolean isNotShot;
 	private int coolDown;
-	private double dernierAjout;
 	
 	public ListeBalle() {
 		this.liste = new LinkedList<Balle>();
 		this.isNotShot = true;
-		this.dernierAjout = 0;
 		this.setCoolDown(0);
 	}
 	
@@ -28,30 +27,33 @@ public class ListeBalle {
 			{
 				b.drawBalle();
 				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
-		//		if(b.getX() < 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			if(b.getDirection() == 2)
 			{
 				b.drawBalle();
 				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
-	//			if(b.getX() > Fenetre.WidthFenetre - 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			if(b.getDirection() == 3)
 			{
 				b.drawBalle();
 				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
-	//			if(b.getY() > Fenetre.HeigthFenetre - 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			if(b.getDirection() == 4)
 			{
 				b.drawBalle();
 				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
-		//		if(b.getX() < 65)copieListe.remove(copieListe.indexOf(b));
 			}
 			b.updateHitbox();
 			if(doRemove(b)) {
 				copieListe.remove(b);
 			}
+			for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
+				if(Jeu.room.getListeEnnemi().getListe().get(i).collisionBalle(b)) {
+					copieListe.remove(b);
+					Jeu.room.getListeEnnemi().getListe().get(i).setTouch(true);
+					Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-1);
+				};
+			}	
 		}
 		liste = copieListe;
 	}

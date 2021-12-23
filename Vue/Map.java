@@ -3,10 +3,12 @@ package Vue;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glEnable;
 
+import Model.Fly;
 import Model.Jeu;
 import Model.MapObject;
 import Ressource.MapPath;
 import Ressource.RoomInfos;
+import Shaders.Vector2;
 
 public class Map {	
 	
@@ -65,6 +67,10 @@ public class Map {
 		return map;
 	}
 	
+	public void setRenderMap(int i, int j, int k) {
+		mapobject[i][j].setRenderMap(k);
+	}
+	
 	public void initMapObject() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -90,7 +96,7 @@ public class Map {
 	}
 	
 	public void generateEnnemiMap() {
-		
+		mapobject[4][4].setEnnemiMap(1);
 	}
 	
 	/*4, 5, 5, 5, 5, 5, 5, 5, 3,
@@ -119,19 +125,19 @@ public class Map {
 	}
 	
 	public void generateUpDoor() {
-		mapobject[4][8].setRenderMap(-1);
+		mapobject[4][8].setRenderMap(12);
 	}
 	
 	public void generateDownDoor() {
-		mapobject[4][0].setRenderMap(-2);
+		mapobject[4][0].setRenderMap(13);
 	}
 	
 	public void generateLeftDoor() {
-		mapobject[8][4].setRenderMap(-3);
+		mapobject[8][4].setRenderMap(14);
 	}
 	
 	public void generateRightDoor() {
-		mapobject[0][4].setRenderMap(-4);
+		mapobject[0][4].setRenderMap(15);
 	}
 	
 	public void generateMap(boolean up, boolean down, boolean left, boolean right) {
@@ -165,16 +171,26 @@ public class Map {
 					Texture.murDroite.bind();
 				} else if(mapobject[i][j].getRenderMap()==9) {
 					Texture.rock.bind();
-				} else if(mapobject[i][j].getRenderMap()==-1) {
+			/*	} else if(mapobject[i][j].getRenderMap()==-1) {
 					Texture.closeDoor_up.bind();
 				} else if(mapobject[i][j].getRenderMap()==-2) {
 					Texture.closeDoor_down.bind();
 				} else if(mapobject[i][j].getRenderMap()==-3) {
 					Texture.closeDoor_right.bind();
 				} else if(mapobject[i][j].getRenderMap()==-4) {
-					Texture.closeDoor_left.bind();
+					Texture.closeDoor_left.bind(); */
 				} else if(mapobject[i][j].getRenderMap()==11) {
 					Texture.spikes.bind();
+				} else if(mapobject[i][j].getRenderMap()==12) {
+					Texture.closeDoor_up.bind();
+				} else if(mapobject[i][j].getRenderMap()==13) {
+					Texture.closeDoor_down.bind();
+				} else if(mapobject[i][j].getRenderMap()==14) {
+					Texture.closeDoor_right.bind();
+				} else if(mapobject[i][j].getRenderMap()==15) {
+					Texture.closeDoor_left.bind();
+				} else if(mapobject[i][j].getRenderMap()==-1 || mapobject[i][j].getRenderMap()==-2 || mapobject[i][j].getRenderMap()==-3 || mapobject[i][j].getRenderMap()==-4) {
+					Texture.openDoor.bind();
 				}
 				else {
 					Texture.emptyCell.bind();
@@ -192,6 +208,7 @@ public class Map {
 		Texture.murGauche.unbind();
 		Texture.murDroite.unbind();
 		Texture.rock.unbind();
+		Texture.openDoor.unbind();
 		Texture.closeDoor_up.unbind();
 		Texture.closeDoor_down.unbind();
 		Texture.closeDoor_right.unbind();

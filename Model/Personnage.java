@@ -52,18 +52,24 @@ public class Personnage extends Entite{
     public void updateGameObject()
 	{
 		move();
+		updateLife();
 	}
     
-    public void updateHitbox() {
-    	this.getHitbox().setPosition(position);
+    public void updateLife() {
     	if(Jeu.room.getMapEnCours().getRenderMap()[3][3]==11 && this.isTouch == false && Hitbox.rectangleCollision(position, new Vector2(25, 25), new Vector2(195, 195), new Vector2(65, 65))) {
     		this.subitDegats(1);
     		this.setTouch(true);
     	}
-    	if(Jeu.room.fly.collisionEnnemi(this) && this.isTouch == false) {
-    		this.subitDegats(1);
-    		this.setTouch(true);
-    	}
+    	for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
+    		if(Jeu.room.getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {
+        		this.subitDegats(1);
+        		this.setTouch(true);
+        	}
+    	}	
+    }
+    
+    public void updateHitbox() {
+    	this.getHitbox().setPosition(position);
     }
 
 	private void move()
