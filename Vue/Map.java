@@ -97,6 +97,8 @@ public class Map {
 	
 	public void generateEnnemiMap() {
 		mapobject[4][4].setEnnemiMap(1);
+		mapobject[4][0].setEnnemiMap(1);
+		mapobject[4][2].setEnnemiMap(1);
 	}
 	
 	/*4, 5, 5, 5, 5, 5, 5, 5, 3,

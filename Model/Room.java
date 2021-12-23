@@ -49,7 +49,7 @@ public class Room {
 		for(int i=0; i<mapEnCours.getMapobject().length; i++) {
 			for(int j=0; j<mapEnCours.getMapobject()[i].length; j++) {
 				switch(mapEnCours.getMapobject()[i][j].getEnnemiMap()){
-					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, i*65),"", 2, 3));break;
+					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"", 2, 3));break;
 				}
 			}
 		}
