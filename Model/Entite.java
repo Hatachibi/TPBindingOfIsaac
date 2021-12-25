@@ -2,6 +2,8 @@ package Model;
 
 import Controler.ListeBalle;
 import Shaders.Vector2;
+import Vue.Render;
+import Vue.Texture;
 
 public class Entite {
 	
@@ -18,6 +20,13 @@ public class Entite {
     	this.heigth = heigth;
     	this.url = url;
     	this.hitbox = new Hitbox(position, width, heigth);
+	}
+	
+	public void drawEntite() {
+		Texture entiteTexture = Texture.loadTexture(url);
+		entiteTexture.bind();
+		Render.getInstance().drawPicture((float)hitbox.getPosition().getX(),(float) hitbox.getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
+		entiteTexture.unbind();
 	}
 	
 	public Vector2 getPosition() {

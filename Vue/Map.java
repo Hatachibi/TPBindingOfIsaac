@@ -13,9 +13,11 @@ import Shaders.Vector2;
 public class Map {	
 	
 	private MapObject[][] mapobject;
+	private boolean isVisited;
 	
 	public Map() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
+		this.isVisited = false;
 	}
 	
 	public void changeMap() {
@@ -41,6 +43,9 @@ public class Map {
 				Jeu.room.getPlayer().getPosition().setX(520);
 				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX() + 1][(int) (Jeu.room.getEtageCoos().getY())]);
 				Jeu.room.getEtageCoos().setX(Jeu.room.getEtageCoos().getX() + 1);
+			}
+			if(!Jeu.room.getMapEnCours().isVisited) {
+				Jeu.room.addEnnemis();
 			}
 		//	Jeu.room.setMapEnCours(MapPath.mapShop());
 		}
@@ -71,6 +76,10 @@ public class Map {
 		mapobject[i][j].setRenderMap(k);
 	}
 	
+	public void setEnnemiMap(int i, int j, int k) {
+		mapobject[i][j].setEnnemiMap(k);
+	}
+	
 	public void initMapObject() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -96,9 +105,9 @@ public class Map {
 	}
 	
 	public void generateEnnemiMap() {
-		mapobject[4][4].setEnnemiMap(1);
-		mapobject[4][0].setEnnemiMap(1);
-		mapobject[4][2].setEnnemiMap(1);
+		mapobject[4][4].setEnnemiMap(1); 
+	/*	mapobject[4][0].setEnnemiMap(1);
+		mapobject[4][2].setEnnemiMap(1); */  
 	}
 	
 	/*4, 5, 5, 5, 5, 5, 5, 5, 3,
@@ -225,6 +234,14 @@ public class Map {
 
 	public void setMapobject(MapObject[][] mapobject) {
 		this.mapobject = mapobject;
+	}
+
+	public boolean isVisited() {
+		return isVisited;
+	}
+
+	public void setVisited(boolean isVisited) {
+		this.isVisited = isVisited;
 	}
 	
 	

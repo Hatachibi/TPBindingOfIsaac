@@ -25,6 +25,7 @@ public class GameWorld {
 				etage[i][j] = new Room(Jeu.Isaac);
 			}
 		}
+		etage[4][4] = Jeu.room;
 	}
 	
 	public void updateWorld() {

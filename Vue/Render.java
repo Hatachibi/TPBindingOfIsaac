@@ -105,6 +105,17 @@ public class Render {
 		glEnd();
 	}
 	
+	public void drawPicture(float x, float y, int w, int h) {
+		glEnable(GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+//		glColor4f(color[0], color[1], color[2], color[3]);
+		glTexCoord2f(0, 0); glVertex2f(x, y);
+		glTexCoord2f(1, 0); glVertex2f(x + w, y);
+		glTexCoord2f(1, 1); glVertex2f(x + w, y + h);
+		glTexCoord2f(0, 1); glVertex2f(x, y + h);
+		glEnd();
+	}
+	
 	public void drawCroix(float x, float y) {
 		this.drawTrait(x, y+20, x, y-20);
 		this.drawTrait(x+20, y, x-20, y);

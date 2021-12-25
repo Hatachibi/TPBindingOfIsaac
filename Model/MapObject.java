@@ -34,8 +34,6 @@ public class MapObject {
 
 	public void setEnnemiMap(int ennemiMap) {
 		this.ennemiMap = ennemiMap;
-	}
-	
-	
+	}	
 	
 }

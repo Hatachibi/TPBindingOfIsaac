@@ -83,6 +83,7 @@ public class Room {
 		listeEnnemi.updateEnnemis();
 		if(listeEnnemi.isEmpty()) {
 			unlockedDoors();
+			mapEnCours.setVisited(true);
 		}
 	}
 	

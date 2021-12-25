@@ -115,7 +115,7 @@ public class Personnage extends Entite{
     	Texture.Isaac.bind();
     	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
     	Texture.Isaac.unbind();
-    //	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
+    	//drawEntite();
     	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap()); 
     }
     
