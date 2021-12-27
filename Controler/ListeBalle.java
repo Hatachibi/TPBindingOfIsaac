@@ -1,20 +1,34 @@
 package Controler;
 
 import java.util.LinkedList;
-
 import Model.Balle;
 import Model.Jeu;
-import Vue.Fenetre;
-import Vue.Render;
 
 public class ListeBalle {
 	
-	
+	/*
+	 * Liste Chainée de Balle
+	 */
 	private LinkedList<Balle> liste;
+	
+	/*
+	 * Boolean qui permet de savoir si une balle à été tirée (sert pour le Cooldown du joueur)
+	 */
 	private boolean isNotShot;
+	
+	/*
+	 * Cooldown qui évite de spammer les balles
+	 */
 	private int coolDown;
+	
+	/*
+	 * Boolean qui sert à savoir s'il s'agit de balle ennemi
+	 */
 	private boolean isEnnemiBalle;
 	
+	/*
+	 * Constructeur
+	 */
 	public ListeBalle() {
 		this.liste = new LinkedList<Balle>();
 		this.isNotShot = true;
@@ -22,8 +36,11 @@ public class ListeBalle {
 		this.setEnnemiBalle(false);
 	}
 	
+	/**
+	 * @return Dessine l'ensemble des balles de la liste
+	 */
 	public void drawBalle() {
-		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();
+		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();  //On fait une copie de la liste pour éviter d'enlever ou d'ajouter une balle pendant durant l'execution 
 		for(Balle b: liste) {
 			if(b.getDirection() == 1)
 			{
@@ -73,7 +90,7 @@ public class ListeBalle {
 			if(doRemove(b)) {
 				copieListe.remove(b);
 			}
-			if(!isEnnemiBalle) {
+			if(!isEnnemiBalle) { //Si la liste de balle appartient au joueur on fait des dégâts aux ennemis
 				for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
 					if(Jeu.room.getListeEnnemi().getListe().get(i).collisionBalle(b)) {
 						copieListe.remove(b);
@@ -81,12 +98,12 @@ public class ListeBalle {
 						Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
 					};
 				}
-			} else {
+			} else {  //Sinon on fait des dégâts au joueur
 				for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
 					if(Jeu.room.getPlayer().collisionBalle(b)) {
 						copieListe.remove(b);
 						Jeu.room.getPlayer().setTouch(true);
-						Jeu.room.getPlayer().subitDegats(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
+						Jeu.room.getPlayer().subitDegats(Jeu.room.getListeEnnemi().getListe().get(i).getDegat());
 					};
 				}
 			}
@@ -94,6 +111,11 @@ public class ListeBalle {
 		liste = copieListe;
 	}
 	
+	/**
+	 * @param b une balle
+	 * Utilise la varaible isNotShot si il s'agit du joueur pour créer un cooldown
+	 * @return Ajoute une balle à la liste
+	 */
 	public void addBalle(Balle b) {
 		if(this.isNotShot || isEnnemiBalle) {
 			this.liste.add(b);
@@ -101,10 +123,17 @@ public class ListeBalle {
 		this.isNotShot = false;
 	}
 	
+	/**
+	 * @param b une balle
+	 * @return renvoie si on doit enlever une balle de la liste à cause d'une collision
+	 */
 	public boolean doRemove(Balle b) {
 		return b.getHitbox().collisionMurEntite(b);
 	}
 
+	/*
+	 * Getters & Setters
+	 */
 	public LinkedList<Balle> getListe() {
 		return liste;
 	}

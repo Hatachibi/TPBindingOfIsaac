@@ -2,24 +2,33 @@ package Vue;
 
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glEnable;
-
-import Model.Fly;
 import Model.Jeu;
 import Model.MapObject;
-import Ressource.MapPath;
 import Ressource.RoomInfos;
-import Shaders.Vector2;
 
 public class Map {	
 	
+	/*
+	 * Map avec tous les emplacements des objets, ennemis, ...
+	 */
 	private MapObject[][] mapobject;
+	
+	/*
+	 * Boolean qui indique si une pièce à déjà été visité
+	 */
 	private boolean isVisited;
 	
+	/*
+	 * Constructeur
+	 */
 	public Map() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		this.isVisited = false;
 	}
 	
+	/**
+	 * @return Change de Map quand le joueur passe dans une porte
+	 */
 	public void changeMap() {
 		int x = (int) ((Jeu.room.getPlayer().getPosition().getX())/65);
 		int y = (int) ((Jeu.room.getPlayer().getPosition().getY())/65);
@@ -47,11 +56,13 @@ public class Map {
 			if(!Jeu.room.getMapEnCours().isVisited) {
 				Jeu.room.addEnnemis();
 			}
-		//	Jeu.room.setMapEnCours(MapPath.mapShop());
 		}
 	
 	}
-	
+
+	/**
+	 * @return La map des collisisons
+	 */
 	public boolean[][] getCollisionMap() {
 		boolean[][] map = new boolean[mapobject.length][mapobject[0].length];
 		for(int i=0; i<mapobject.length; i++) {
@@ -62,6 +73,9 @@ public class Map {
 		return map;
 	}
 	
+	/**
+	 * @return La map des Rendus visuels 
+	 */
 	public int[][] getRenderMap() {
 		int[][] map = new int[mapobject.length][mapobject[0].length];
 		for(int i=0; i<mapobject.length; i++) {
@@ -72,14 +86,29 @@ public class Map {
 		return map;
 	}
 	
+	/**
+	 * @param i
+	 * @param j
+	 * @param k le numéro de la case à changé
+	 * @return change la case (i, j) avec la valeur k
+	 */
 	public void setRenderMap(int i, int j, int k) {
 		mapobject[i][j].setRenderMap(k);
 	}
 	
+	/**
+	 * @param i
+	 * @param j
+	 * @param k le numéro de la case à changé
+	 * @return change la case (i, j) avec la valeur k
+	 */
 	public void setEnnemiMap(int i, int j, int k) {
 		mapobject[i][j].setEnnemiMap(k);
 	}
 	
+	/**
+	 * @return Initialise la Map
+	 */
 	public void initMapObject() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -88,6 +117,9 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * @return Génère les collisions selon les tiles
+	 */
 	public void generateCollisionMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -104,10 +136,15 @@ public class Map {
 		}
 	}
 	
-	public void generateEnnemiMap() {
-		mapobject[4][4].setEnnemiMap(3);
-	/*	mapobject[4][0].setEnnemiMap(1);
-		mapobject[4][2].setEnnemiMap(1); */  
+	/**
+	 * @return Génère des obstacles random
+	 */
+	public void generateRandomObstacle(int nb) {
+		for(int i=0; i<nb; i++) {
+			int ran1 = 1+(int)(Math.random() * 5);
+			int ran2 = 1+(int)(Math.random() * 5);
+			mapobject[ran1][ran2].setRenderMap(9);
+		} 
 	}
 	
 	/*4, 5, 5, 5, 5, 5, 5, 5, 3,
@@ -119,6 +156,9 @@ public class Map {
 	6, 0, 0, 0, 0, 0, 0, 0, 8,
 	6, 0, 0, 0, 0, 0, 0, 0, 8,
 	1, 7, 7, 7, 7, 7, 7, 7, 2 */
+	/**
+	 * @return Génère la map des visuels
+	 */
 	public void generateRenderMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -135,25 +175,43 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * @return Génère une porte en Haut
+	 */
 	public void generateUpDoor() {
 		mapobject[4][8].setRenderMap(12);
 	}
 	
+	/**
+	 * @return Génère une porte en Bas
+	 */
 	public void generateDownDoor() {
 		mapobject[4][0].setRenderMap(13);
 	}
 	
+	/**
+	 * @return Génère une porte à Droite
+	 */
 	public void generateLeftDoor() {
 		mapobject[8][4].setRenderMap(14);
 	}
 	
+	/**
+	 * @return Génère une porte à Gauche
+	 */
 	public void generateRightDoor() {
 		mapobject[0][4].setRenderMap(15);
 	}
 	
+	/**
+	 * @param up
+	 * @param down
+	 * @param left
+	 * @param right
+	 * @return Génrère une Map avec les portes selon les boolean up, down, left et right
+	 */
 	public void generateMap(boolean up, boolean down, boolean left, boolean right) {
 		initMapObject();
-		generateEnnemiMap();
 		generateRenderMap();
 		if(up)generateUpDoor();
 		if(down)generateDownDoor();
@@ -161,6 +219,9 @@ public class Map {
 		if(right)generateRightDoor();
 	}
 	
+	/**
+	 * @return Dessine la Map
+	 */
 	public void drawMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
@@ -227,7 +288,10 @@ public class Map {
 		Texture.spikes.unbind();
 		Texture.emptyCell.unbind();
 	}
-
+	
+	/*
+	 * Getters & Setters
+	 */
 	public MapObject[][] getMapobject() {
 		return mapobject;
 	}

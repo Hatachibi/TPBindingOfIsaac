@@ -1,17 +1,6 @@
 package Model;
 
-import java.util.*;
-
-/**
- * 
- */
 public class ObjetsInventaire {
-
-    /**
-     * Default constructor
-     */
-    public ObjetsInventaire() {
-    }
 
     /**
      * 
@@ -27,6 +16,11 @@ public class ObjetsInventaire {
      * 
      */
     private Integer quantite;
-
+	
+    /**
+     * Constructeur
+     */
+    public ObjetsInventaire() {
+    }
 
 }

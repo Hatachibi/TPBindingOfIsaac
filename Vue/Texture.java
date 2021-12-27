@@ -52,6 +52,8 @@ public class Texture {
     public static Texture halfHeart = loadTexture("libImg/HUD_heart_red_half.png");
     public static Texture gameOver = loadTexture("libImg/lose.png");
     public static Texture fly = loadTexture("libImg/fly.png");  
+    public static Texture boss1 = loadTexture("libImg/boss1.png");
+    public static Texture boss2 = loadTexture("libImg/boss2.png");
     public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
 
     public Texture() {

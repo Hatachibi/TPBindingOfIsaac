@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.*;
-
 import Controler.ListeBalle;
 import Shaders.Raycasting;
 import Shaders.Vector2;
@@ -10,21 +8,79 @@ import Vue.Texture;
 
 public class Personnage extends Entite{
 
+	/*
+	 * Liste de balle du joueur
+	 */
 	private ListeBalle munitions;
+	
+	/*
+	 * Degat infligé par le joueur.
+	 */
 	private int degat;
+	
+	/*
+	 * Multiplicateur de degat
+	 */
 	private double multiplicator;
+	
+	/*
+	 * Portée des balles du joueur
+	 */
 	private int range;
+	
+	/*
+	 * Vitesse du joueur
+	 */
 	private double speed;
+	
+	/*
+	 * Taille du joueur
+	 */
 	private Vector2 size;
+	
+	/*
+	 * Direction de deplacement du joueur
+	 */
 	private Vector2 direction;
+	
+	/*
+	 * Bar de Vie du joueur
+	 */
 	private BarreDeVie life;
+	
+	/*
+	 * Inventaire du joueur
+	 */
 	private Inventaire inv;
+	
+	/*
+	 * Compteur permettant la mise en place d'un cooldown
+	 */
 	private int cooldownDegat;
+	
+	/*
+	 * Boolean qui indique si le joueur est touché (permet de mettre un cooldown)
+	 */
 	private boolean isTouch;
+	
+	/*
+	 * Angle du joueur (pour les pièces en Raycastings)
+	 */
 	private double a;
+	
+	/*
+	 * Distance du joueur au mur (pour les pièces en Raycasting)
+	 */
 	private float distance;
+	
+	/*
+	 * Boolean qui indique si le joueur est invisible 
+	 */
 	private boolean isInvincible;
 	
+	/*
+	 * Constructeur
+	 */
     public Personnage(int degat, int width, int heigth, Vector2 position, Vector2 size, String url) {
     	super(width, heigth, position, url);
     	this.degat = 2;
@@ -39,43 +95,61 @@ public class Personnage extends Entite{
 		this.isInvincible = false;
     }
     
+    /**
+     * @return le nombre de degat qu'inflige le joueur quand il attaque
+     */
     public double attaque() {
     	return degat*multiplicator;
     }
     
+    /**
+     * @param degats subit par le joueur
+     * @return Enlève la vie correspondante aux nombres de degats au joueur sauf s'il est invisible
+     */
     public void subitDegats(double degats) {
     	if(!isInvincible) {
     		life.setVieEnCours((int)(life.getVieEnCours() - degats));
     	}	
     }
     
+    /**
+     * @return si le joueur est en vie
+     */
     public boolean isAlive() {
     	return life.getVieEnCours() > 0;
     }
     
+    /**
+     * @return Update les caractéristiques du joueur
+     */
     public void updateGameObject()
 	{
 		move();
 		updateLife();
 	}
     
+    /**
+     * @return Update la vie du joueur
+     */
     public void updateLife() {
-    	if(Jeu.room.getMapEnCours().getRenderMap()[3][3]==11 && this.isTouch == false && Hitbox.rectangleCollision(position, new Vector2(25, 25), new Vector2(195, 195), new Vector2(65, 65))) {
-    		this.subitDegats(1);
-    		this.setTouch(true);
-    	}
     	for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
     		if(Jeu.room.getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {
-        		this.subitDegats(1);
+        		this.subitDegats(Jeu.room.getListeEnnemi().getListe().get(i).getDegat());
         		this.setTouch(true);
         	}
     	}	
     }
     
+    /**
+     * @return Update la Hitbox du joueur
+     */
     public void updateHitbox() {
     	this.getHitbox().setPosition(position);
     }
 
+    /**
+     * @return Deplacement du joueur
+     */
 	private void move()
 	{
 		Vector2 normalizedDirection = getNormalizedDirection();
@@ -84,26 +158,41 @@ public class Personnage extends Entite{
 		direction = new Vector2();
 	}
 	
+	/**
+	 * @return Ajoute 1 en Y pour la direction
+	 */
 	public void goUpNext()
 	{
 		getDirection().addY(1);
 	}
 
+	/**
+	 * @return Enlève 1 en Y pour la direction
+	 */
 	public void goDownNext()
 	{
 		getDirection().addY(-1);
 	}
 
+	/**
+	 * @return Enlève 1 en X pour la direction
+	 */
 	public void goLeftNext()
 	{
 		getDirection().addX(-1);
 	}
 
+	/**
+	 * @return Ajoute 1 en X pour la direction
+	 */
 	public void goRightNext()
 	{
 		getDirection().addX(1);
 	}
 	
+	/**
+	 * @return Le vecteur direction normalisée
+	 */
 	public Vector2 getNormalizedDirection()
 	{
 		Vector2 normalizedVector = new Vector2(direction);
@@ -111,24 +200,30 @@ public class Personnage extends Entite{
 		return normalizedVector;
 	}
 	
+	/**
+	 * @return Dessine le joueur
+	 */
     public void drawPlayer() {
     	Texture.Isaac.bind();
     	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
     	Texture.Isaac.unbind();
     	//drawEntite();
-    	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap()); 
+    	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap());  
     }
     
+    /**
+     * @return Calcul tous les cooldown en cours
+     */
     public void boucleCooldownJoueur()
     {
-    	if(!this.getMunitions().isNotShot()) {
+    	if(!this.getMunitions().isNotShot()) { //Cooldown balle
     		this.getMunitions().setCoolDown(this.getMunitions().getCoolDown()+1);
 			if(this.getMunitions().getCoolDown() == 30) {
 				this.getMunitions().setCoolDown(0);
 				this.getMunitions().setShot(true);
 			};
 		}
-    	if(isTouch()) {
+    	if(isTouch()) { //Cooldown degat
 			setCooldownDegat((Jeu.Isaac.getCooldownDegat()+1));
 			if(getCooldownDegat() == 30) {
 				setCooldownDegat(0);
@@ -136,7 +231,18 @@ public class Personnage extends Entite{
 			};
 		}
     }
-   
+    
+    /**
+     * @param b une balle
+     * @return si une balle ennemi est en collision avec le joueur
+     */
+    public boolean collisionBalle(Balle b) {
+		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
+	}
+    
+    /*
+     * Getters & Setters
+     */
 	public ListeBalle getMunitions() {
 		return munitions;
 	}
@@ -264,11 +370,6 @@ public class Personnage extends Entite{
 
 	public void setInvincible(boolean isInvincible) {
 		this.isInvincible = isInvincible;
-	}
-
-	public boolean collisionBalle(Balle b) {
-		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
-	}
-	
+	}	
 	
 }

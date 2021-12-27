@@ -6,18 +6,37 @@ import Vue.Texture;
 
 public class Balle extends Entite{
 	
+	/*
+	 * Vitesse de la balle
+	 */
 	private int speed;
+	
+	/*
+	 * Degat de la balle
+	 */
 	private double degats;
+	
+	/*
+	 * Compteur permettant un cooldown entre chaque tire (utile que pour le joueur)
+	 */
 	private double coolDown;
-	private Hitbox hitbox;
+	
 	/**
+	 * Direction dans laquelle part une balle
 	 * 1 = gauche
 	 * 2 = droite
 	 * 3 = haut
 	 * 4 = bas
+	 * 5 =
+	 * 6 = 
+	 * 7 =
+	 * 8 =
 	 */
 	private int direction;
 	
+	/*
+	 * Constructeur
+	 */
 	public Balle(int width, int heigth, double x, double y, int direction, String url) {
 		super(width, heigth, new Vector2(x, y), url);
 		this.setDirection(direction);
@@ -25,6 +44,9 @@ public class Balle extends Entite{
 		this.setHitbox(new Hitbox(new Vector2(x, y), width, heigth));
 	}
 	
+	/**
+	 * @return Dessine la balle
+	 */
 	public void drawBalle() {
 		Texture.tears.bind();
 		Render.getInstance().drawPicture((float)this.getPosition().getX(), (float)this.getPosition().getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
@@ -32,11 +54,17 @@ public class Balle extends Entite{
 	//	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
 		
 	}
-		
+	
+	/**
+	 * @return Update la position de la balle 
+	 */
 	public void updateHitbox() {
 		this.getHitbox().setPosition(position);
 	}
 
+	/*
+	 * Getters & Setters
+	 */
 	public int getSpeed() {
 		return speed;
 	}

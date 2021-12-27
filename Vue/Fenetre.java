@@ -1,18 +1,9 @@
 package Vue;
 
 import static org.lwjgl.glfw.GLFW.*;
-
-import java.util.*;
-
 import org.lwjgl.glfw.GLFWVidMode;
-import Controler.Input;
 import Model.Jeu;
-import Model.Room;
 
-
-/**
- * 
- */
 public class Fenetre {
 	
 	public final static Fenetre INSTANCE = new Fenetre();  
@@ -24,7 +15,7 @@ public class Fenetre {
 	private long window;
 
     /**
-     * Default constructor
+     * Constructeur
      */
     private Fenetre() {}
     

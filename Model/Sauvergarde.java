@@ -1,14 +1,9 @@
 package Model;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Sauvergarde {
 
-    /**
-     * Default constructor
+    /*
+     * Constructeur
      */
     public Sauvergarde() {
     }

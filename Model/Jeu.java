@@ -1,13 +1,8 @@
 package Model;
 
 import Vue.Fenetre;
-
-import static org.lwjgl.opengl.GL11.*;
-
 import Controler.Input;
 import Shaders.Vector2;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class Jeu {
 	

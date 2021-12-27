@@ -1,9 +1,6 @@
 package Model;
 
-import java.util.*;
-
 import Shaders.Vector2;
-import Vue.Fenetre;
 
 public class Hitbox {
 	
@@ -13,15 +10,44 @@ public class Hitbox {
 	 * 1------3
 	 */
 	
+	/*
+	 * position 1 sur le schéma
+	 */
 	private Vector2 position;
+	
+	/*
+	 * Largeur de la Hitbox
+	 */
 	private int width;
+	
+	/*
+	 * Longueur de la Hitbox
+	 */
 	private int heigth;
 	
+	/*
+	 * Boolean qui indique si il y a une collision en Haut
+	 */
 	private boolean isZCollision;
+	
+	/*
+	 * Boolean qui indique si il y a une collision à Gauche
+	 */
 	private boolean isQCollision;
+	
+	/*
+	 * Boolean qui indique si il y a une collision en Bas
+	 */
 	private boolean isSCollision;
+	
+	/*
+	 * Boolean qui indique si il y a une collision à Droite
+	 */
 	private boolean isDCollision;
 	
+	/*
+	 * Constructeur
+	 */
     public Hitbox(Vector2 position, int width, int heigth) {
     	this.position = position;
     	this.width = width;
@@ -30,7 +56,7 @@ public class Hitbox {
     
     
     /**
-     * @note Valeur pour les collisions a voir
+     * @return Calcul les collisions avec le joueur pour les murs
      */
     public void collisionPlayer(Personnage p) {
     	Jeu.Isaac.updateHitbox();
@@ -49,7 +75,7 @@ public class Hitbox {
     	}  else {
     		this.isZCollision = false;
     	}
-    	if(this.collisionMur(p.getHitbox().getPosition().getX(), p.getHitbox().getPosition().getY() - p.getSpeed() - 3) || this.collisionMur(p.getHitbox().getPositionX().getX(), p.getHitbox().getPositionX().getY() - p.getSpeed() - 3)) {
+    	if(this.collisionMur(p.getHitbox().getPosition().getX(), p.getHitbox().getPosition().getY() - p.getSpeed()) || this.collisionMur(p.getHitbox().getPositionX().getX(), p.getHitbox().getPositionX().getY() - p.getSpeed())) {
     		this.isSCollision = true;
     	}  else {
     		this.isSCollision = false;
@@ -64,6 +90,11 @@ public class Hitbox {
     	return (this.between(pos) || this.between(x) || this.between(y) || this.between(xy));
     }
     
+    /**
+     * @param x la coordonnée en x du joueur
+     * @param y la coordonnée en y du joueur
+     * @return si le joueur est en collision avec un mur
+     */
     public boolean collisionMur(double x, double y) {
     	int i = (int) x/65;
     	int j = (int) y/65;
@@ -74,6 +105,9 @@ public class Hitbox {
     	return true;
     }
     
+    /**
+     * @return Calcul les collisions entre le Mur et une entite
+     */
     public boolean collisionMurEntite(Entite e) {
     	if((int) e.getHitbox().getPosition().getX()/65 < 8 && (int) e.getHitbox().getPosition().getX()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 < 8) {
     		return (Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
@@ -148,6 +182,9 @@ public class Hitbox {
     	return new Vector2(position.getX() + width, position.getY() + heigth);
     }
 
+    /*
+     * Getters & Setters
+     */
 	public boolean isZCollision() {
 		return isZCollision;
 	}
@@ -200,6 +237,4 @@ public class Hitbox {
 		this.heigth = heigth;
 	}
 	
-	
-    
 }

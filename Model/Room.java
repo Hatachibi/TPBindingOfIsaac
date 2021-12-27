@@ -3,10 +3,8 @@ package Model;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
-
-import java.util.LinkedList;
-
 import Controler.Input;
+import Controler.listeEnnemi;
 import Ressource.MapPath;
 import Shaders.Vector2;
 import Vue.Fenetre;
@@ -16,12 +14,34 @@ import Vue.Texture;
 
 public class Room {
 
+	/*
+	 * Joueur dans la pièce
+	 */
 	private Personnage player;
+	
+	/*
+	 * Liste ennemie dans la pièce
+	 */
 	private listeEnnemi listeEnnemi;
+	
+	/*
+	 * Pièce en cours
+	 */
 	private Map mapEnCours;
+	
+	/*
+	 * Carte d'un étage
+	 */
 	private Map[][] etage;
+	
+	/*
+	 * Coordonées (x, y) de la pièce dans l'étage
+	 */
 	private Vector2 etageCoos;
 	
+	/*
+	 * Constructeur
+	 */
 	public Room(Personnage player) {
 		this.player = player;
 		this.mapEnCours = MapPath.mapStart();
@@ -31,32 +51,44 @@ public class Room {
 		this.addEnnemis();
 	}
 	
+	/**
+	 * @return L'étage initialisé avec les pièces générées
+	 */
 	public Map[][] initEtage(){
 		Map[][] map = new Map[9][9];
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
 				map[i][j] = new Map();
 				map[i][j].generateMap(j != map.length - 1, j != 0, i != 0, i != map.length - 1);
+				map[i][j].generateRandomObstacle((int) (Math.random()*3));
 				map[i][j].generateCollisionMap();
 			}
 		}
 		map[4][4] = MapPath.mapStart();
-	//	map[4][3] = MapPath.mapShop();
+		map[4][3] = MapPath.flyMap();
+		map[4][2] = MapPath.spiderMap();
+		map[4][1] = MapPath.bossMap();
 		return map;
 	}
 	
+	/**
+	 * @return Ajoute des ennemis à une pièces
+	 */
 	public void addEnnemis() {
 		for(int i=0; i<mapEnCours.getMapobject().length; i++) {
 			for(int j=0; j<mapEnCours.getMapobject()[i].length; j++) {
 				switch(mapEnCours.getMapobject()[i][j].getEnnemiMap()){
 					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"libImg/Fly.png", 2, 3));break;
 					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65), 5, "libImg/Spider.png", 3));break;
-					case 3: getListeEnnemi().addEnnemi(new Boss(25, 25, new Vector2(i*65, i*65),"libImg/Spider.png", 2, 3));break;
+					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"libImg/Spider.png", 2, 20));break;
 				}
 			}
 		}
 	}
 	
+	/**
+	 * @return Dévérouille les portes quand tous les ennemis sont morts
+	 */
 	public void unlockedDoors() {
 		if(mapEnCours.getRenderMap()[4][8] == 12) {
 			mapEnCours.setRenderMap(4, 8, -1);
@@ -76,6 +108,9 @@ public class Room {
 		}
 	}
 	
+	/**
+	 * @return Update tous les éléments de la salle
+	 */
 	public void updateRoom() {
 		Input.getInstance().deplacement();
 		Input.getInstance().tire();
@@ -89,6 +124,9 @@ public class Room {
 		}
 	}
 	
+	/**
+	 * @return Dessine tous les éléments de la salle 
+	 */
 	public void drawRoom() {	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if(this.getPlayer().isAlive()) {
@@ -105,6 +143,9 @@ public class Room {
 		}
 	}
 	
+	/**
+	 * @return Dessine la miniMap
+	 */
 	public void drawMiniMap() {
 		int coef = 2;
 		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre + 5*coef - 58.5*coef), 5, (float)58.5*coef,(float) 58.5*coef, new float[]{255f, 255f, 255f, 255f});
@@ -118,6 +159,9 @@ public class Room {
 		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 5.85*coef - 5.85*coef*etageCoos.getX()), (float)(5 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0f});
 	}
 
+	/*
+	 * Getters & Setters
+	 */
 	public Personnage getPlayer() {
 		return player;
 	}

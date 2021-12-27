@@ -1,21 +1,11 @@
 package Controler;
 
 import static org.lwjgl.glfw.GLFW.*;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.lwjgl.glfw.*;
-
 import Model.Balle;
 import Model.Jeu;
 import Model.Personnage;
-import Model.listeEnnemi;
-import Shaders.Raycasting;
 import Vue.Fenetre;
-import Vue.Render;
 
 public class Input
 {

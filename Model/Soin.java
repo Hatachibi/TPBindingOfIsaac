@@ -1,14 +1,11 @@
 package Model;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Soin extends ObjetsInventaire {
-
+	
+	private Integer santeEnPlus;
+	
     /**
-     * Default constructor
+     * Constructeur
      */
     public Soin() {
     }
@@ -20,10 +17,5 @@ public class Soin extends ObjetsInventaire {
 	public void setSanteEnPlus(Integer santeEnPlus) {
 		this.santeEnPlus = santeEnPlus;
 	}
-
-	/**
-     * 
-     */
-    private Integer santeEnPlus;
 
 }

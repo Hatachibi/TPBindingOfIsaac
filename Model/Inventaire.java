@@ -1,22 +1,28 @@
 package Model;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Inventaire {
+	
+	/*
+	 * Tableau contenant tout les objets du joueur
+	 */
+	private ObjetsInventaire[] objets;
 
-    /**
-     * Default constructor
-     */
+	/*
+	 * Constructeur
+	 */
     public Inventaire() {
+    	this.setObjets(new ObjetsInventaire[5]); 
     }
 
-    /**
-     * 
+    /*
+     * Getters & Setters
      */
-    private ObjetsInventaire objets;
+	public ObjetsInventaire[] getObjets() {
+		return objets;
+	}
 
+	public void setObjets(ObjetsInventaire[] objets) {
+		this.objets = objets;
+	}
 
 }
