@@ -13,11 +13,13 @@ public class ListeBalle {
 	private LinkedList<Balle> liste;
 	private boolean isNotShot;
 	private int coolDown;
+	private boolean isEnnemiBalle;
 	
 	public ListeBalle() {
 		this.liste = new LinkedList<Balle>();
 		this.isNotShot = true;
 		this.setCoolDown(0);
+		this.setEnnemiBalle(false);
 	}
 	
 	public void drawBalle() {
@@ -43,26 +45,60 @@ public class ListeBalle {
 				b.drawBalle();
 				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
 			}
+			if(b.getDirection() == 5)
+			{
+				b.drawBalle();
+				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
+			}
+			if(b.getDirection() == 6)
+			{
+				b.drawBalle();
+				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
+			}
+			if(b.getDirection() == 7)
+			{
+				b.drawBalle();
+				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
+			}
+			if(b.getDirection() == 8)
+			{
+				b.drawBalle();
+				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
+			}
 			b.updateHitbox();
 			if(doRemove(b)) {
 				copieListe.remove(b);
 			}
-			for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
-				if(Jeu.room.getListeEnnemi().getListe().get(i).collisionBalle(b)) {
-					copieListe.remove(b);
-					Jeu.room.getListeEnnemi().getListe().get(i).setTouch(true);
-					Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
-				};
-			}	
+			if(!isEnnemiBalle) {
+				for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
+					if(Jeu.room.getListeEnnemi().getListe().get(i).collisionBalle(b)) {
+						copieListe.remove(b);
+						Jeu.room.getListeEnnemi().getListe().get(i).setTouch(true);
+						Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
+					};
+				}
+			} else {
+				for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
+					if(Jeu.room.getPlayer().collisionBalle(b)) {
+						copieListe.remove(b);
+						Jeu.room.getPlayer().setTouch(true);
+						Jeu.room.getPlayer().subitDegats(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
+					};
+				}
+			}
 		}
 		liste = copieListe;
 	}
 	
 	public void addBalle(Balle b) {
-		if(this.isNotShot) {
+		if(this.isNotShot || isEnnemiBalle) {
 			this.liste.add(b);
 		}
-			this.isNotShot = false;
+		this.isNotShot = false;
 	}
 	
 	public boolean doRemove(Balle b) {
@@ -87,6 +123,14 @@ public class ListeBalle {
 
 	public void setCoolDown(int coolDown) {
 		this.coolDown = coolDown;
+	}
+
+	public boolean isEnnemiBalle() {
+		return isEnnemiBalle;
+	}
+
+	public void setEnnemiBalle(boolean isEnnemiBalle) {
+		this.isEnnemiBalle = isEnnemiBalle;
 	}
 
 }

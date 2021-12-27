@@ -152,6 +152,7 @@ public class Personnage extends Entite{
 	public void setDegat(int degat) {
 		this.degat = degat;
 	}
+	
 
 	public double getMultiplicator() {
 		return multiplicator;
@@ -263,6 +264,10 @@ public class Personnage extends Entite{
 
 	public void setInvincible(boolean isInvincible) {
 		this.isInvincible = isInvincible;
+	}
+
+	public boolean collisionBalle(Balle b) {
+		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
 	}
 	
 	

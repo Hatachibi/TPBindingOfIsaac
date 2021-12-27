@@ -18,6 +18,8 @@ public class Fenetre {
 	public final static Fenetre INSTANCE = new Fenetre();  
 	public final static Integer HeigthFenetre = 585;
 	public final static Integer	WidthFenetre = 585;
+	
+	public static int tick;
 
 	private long window;
 
@@ -89,10 +91,12 @@ public class Fenetre {
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
     			Jeu.room.updateRoom();
+    			tick++;
     			canRender = true;
     			glfwPollEvents();
         		if(frameTime >= 1.0) {
         			frameTime = 0;
+        			tick=0;
         			System.out.println("FPS: " + frames);  
         			frames = 0;
         		} 

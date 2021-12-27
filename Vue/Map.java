@@ -105,7 +105,7 @@ public class Map {
 	}
 	
 	public void generateEnnemiMap() {
-		mapobject[4][4].setEnnemiMap(1); 
+		mapobject[4][4].setEnnemiMap(3);
 	/*	mapobject[4][0].setEnnemiMap(1);
 		mapobject[4][2].setEnnemiMap(1); */  
 	}

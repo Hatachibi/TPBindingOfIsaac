@@ -13,7 +13,7 @@ public abstract class Ennemi extends Entite{
 	private int cooldownDegat;
 	private boolean isTouch;
 	
-	public Ennemi(int width, int heigth, Vector2 position, double speed,String url, int life) {
+	public Ennemi(int width, int heigth, Vector2 position, double speed, String url, int life) {
 		super(width, heigth, position, url);
 		this.speed = speed;
 		this.life = life;
@@ -91,7 +91,5 @@ public abstract class Ennemi extends Entite{
 	public void setTouch(boolean isTouch) {
 		this.isTouch = isTouch;
 	}
-	
-	
 	
 }
