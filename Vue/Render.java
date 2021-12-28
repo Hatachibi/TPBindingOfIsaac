@@ -4,6 +4,7 @@ package Vue;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -214,6 +215,11 @@ public class Render {
 		glTexCoord2f(0, 1); glVertex2f(x, y + h);
 		glEnd();
 	}
+	
+/*	public void drawText(float x, float y, String text) {
+		Font awtFont = new Font("Times New Roman", Font.BOLD, 12);
+		TrueTypeFont font = new TrueTypeFont();
+	} */
 	
 	/**
 	 * @param x

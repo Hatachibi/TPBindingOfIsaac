@@ -88,7 +88,8 @@ public class Fenetre {
         		if(frameTime >= 1.0) {
         			frameTime = 0;
         			tick=0;
-        			System.out.println("FPS: " + frames);  
+        			System.out.println("FPS: " + frames);
+        			System.out.println("Argent d'Isaac: " + Jeu.room.getPlayer().getCoin());
         			frames = 0;
         		} 
         		

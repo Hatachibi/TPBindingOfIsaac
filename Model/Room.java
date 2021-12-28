@@ -13,7 +13,7 @@ import Vue.Render;
 import Vue.Texture;
 
 public class Room {
-
+	
 	/*
 	 * Joueur dans la pièce
 	 */
@@ -118,6 +118,7 @@ public class Room {
 		getPlayer().boucleCooldownJoueur();
 		getPlayer().updateHitbox();
 		listeEnnemi.updateEnnemis();
+		mapEnCours.updateObject();
 		if(listeEnnemi.isEmpty()) {
 			unlockedDoors();
 			mapEnCours.setVisited(true);
@@ -136,11 +137,21 @@ public class Room {
 			Input.getInstance().getPlayerMove().drawPlayer();
 			Input.getInstance().drawBalle();
 			listeEnnemi.drawEnnemis();
+			this.drawItems();
+	//		mapEnCours.drawObject();
 		} else {
 			Texture.gameOver.bind();
 			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
 			Texture.gameOver.unbind();
 		}
+	}
+	
+	/*
+	 * Dessine tous les items en possession du joueur
+	 */
+	public void drawItems() {
+		Piece p = new Piece(10, 10, new Vector2(5, 510), "libImg/Penny.png", 0);
+		p.drawEntite();
 	}
 	
 	/**

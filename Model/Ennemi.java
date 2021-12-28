@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Shaders.Vector2;
 
 /*
@@ -38,12 +40,18 @@ public abstract class Ennemi extends Entite{
 	private boolean isTouch;
 	
 	/*
+	 * Loot de l'ennemi
+	 */
+	private ArrayList<ObjetsInventaire> loot;
+	
+	/*
 	 * Constructeur
 	 */
 	public Ennemi(int width, int heigth, Vector2 position, double speed, String url, int life) {
 		super(width, heigth, position, url);
 		this.speed = speed;
 		this.life = life;
+		this.loot = new  ArrayList<ObjetsInventaire>();
 	}
 	
 	/*
@@ -154,6 +162,14 @@ public abstract class Ennemi extends Entite{
 
 	public void setDegat(double degat) {
 		this.degat = degat;
+	}
+
+	public ArrayList<ObjetsInventaire> getLoot() {
+		return loot;
+	}
+
+	public void setLoot(ArrayList<ObjetsInventaire> loot) {
+		this.loot = loot;
 	}
 	
 }

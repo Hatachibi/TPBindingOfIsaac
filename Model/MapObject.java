@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class MapObject {
 	
 	/*
@@ -51,6 +53,6 @@ public class MapObject {
 
 	public void setEnnemiMap(int ennemiMap) {
 		this.ennemiMap = ennemiMap;
-	}	
+	}
 	
 }

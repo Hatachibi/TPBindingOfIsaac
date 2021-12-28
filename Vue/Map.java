@@ -2,8 +2,12 @@ package Vue;
 
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glEnable;
+
+import java.util.ArrayList;
+
 import Model.Jeu;
 import Model.MapObject;
+import Model.ObjetsInventaire;
 import Ressource.RoomInfos;
 
 public class Map {	
@@ -19,11 +23,17 @@ public class Map {
 	private boolean isVisited;
 	
 	/*
+	 * Liste qui contient tous les objets
+	 */
+	private ArrayList<ObjetsInventaire> objet;
+	
+	/*
 	 * Constructeur
 	 */
 	public Map() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		this.isVisited = false;
+		this.setObjet(new ArrayList<ObjetsInventaire>());
 	}
 	
 	/**
@@ -96,6 +106,18 @@ public class Map {
 		mapobject[i][j].setRenderMap(k);
 	}
 	
+	/*
+	 * Update les objets
+	 */
+	public void updateObject() {
+		for(int k=0; k<getObjet().size(); k++) {
+			getObjet().get(k).update();
+				if(getObjet().get(k).isTouch()) {
+					getObjet().remove(k);
+			}
+		}
+	}
+	
 	/**
 	 * @param i
 	 * @param j
@@ -141,10 +163,11 @@ public class Map {
 	 */
 	public void generateRandomObstacle(int nb) {
 		for(int i=0; i<nb; i++) {
-			int ran1 = 1+(int)(Math.random() * 5);
-			int ran2 = 1+(int)(Math.random() * 5);
+			int ran1 = 2+(int)(Math.random() * 5);
+			int ran2 = 2+(int)(Math.random() * 5);
 			mapobject[ran1][ran2].setRenderMap(9);
-		} 
+		}  
+
 	}
 	
 	/*4, 5, 5, 5, 5, 5, 5, 5, 3,
@@ -219,6 +242,15 @@ public class Map {
 		if(right)generateRightDoor();
 	}
 	
+	/*
+	 * Dessine les Objets
+	 */
+	public void drawObject(int i, int j) {
+		for(int k=0; k<getObjet().size(); k++) {
+			getObjet().get(k).drawEntite();
+		}
+	}
+	
 	/**
 	 * @return Dessine la Map
 	 */
@@ -287,6 +319,13 @@ public class Map {
 		Texture.closeDoor_left.unbind();
 		Texture.spikes.unbind();
 		Texture.emptyCell.unbind();
+		for(int i=0; i<mapobject.length; i++) {
+			for(int j=0; j<mapobject[i].length; j++) {
+				if(!getObjet().isEmpty()) {
+					this.drawObject(i, j);
+				}
+			}
+		}
 	}
 	
 	/*
@@ -307,7 +346,13 @@ public class Map {
 	public void setVisited(boolean isVisited) {
 		this.isVisited = isVisited;
 	}
-	
-	
+
+	public ArrayList<ObjetsInventaire> getObjet() {
+		return objet;
+	}
+
+	public void setObjet(ArrayList<ObjetsInventaire> objet) {
+		this.objet = objet;
+	}
 	
 }

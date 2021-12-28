@@ -49,6 +49,11 @@ public class Personnage extends Entite{
 	private BarreDeVie life;
 	
 	/*
+	 * Argent du joueur
+	 */
+	private int coin;
+	
+	/*
 	 * Inventaire du joueur
 	 */
 	private Inventaire inv;
@@ -370,6 +375,14 @@ public class Personnage extends Entite{
 
 	public void setInvincible(boolean isInvincible) {
 		this.isInvincible = isInvincible;
+	}
+
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int coin) {
+		this.coin = coin;
 	}	
 	
 }

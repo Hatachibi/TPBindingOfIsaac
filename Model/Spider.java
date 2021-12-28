@@ -19,6 +19,7 @@ public class Spider extends Ennemi{
 		super(width, heigth, position, speed, url, life);
 		this.random = new Vector2(0, 0);
 		this.setDegat(2);
+		this.getLoot().add(new Piece(10, 10, position, "libImg/Penny.png", 5));
 	}
 	
 	/**
@@ -42,7 +43,7 @@ public class Spider extends Ennemi{
 			random.setY(Math.random() - 0.5);
 		}
 		if(Fenetre.tick > 30) {
-			if(position.getX() > 65 && position.getX() < 520 && position.getY() > 65 && position.getY() < 520) {
+			if(position.getX() > 65 && position.getX() < 520-width && position.getY() > 65 && position.getY() < 520-heigth) {
 				setDirection(new Vector2(position.getX()*random.getX(), position.getY()*random.getY()));
 				this.move();
 			} else {
@@ -64,7 +65,7 @@ public class Spider extends Ennemi{
 			b.getRandom().setY(Math.random() - 0.5);
 		}
 		if(Fenetre.tick > 30) {
-			if(b.getPosition().getX() > 65 && b.getPosition().getX() < 520 && b.getPosition().getY() > 65 && b.getPosition().getY() < 520) {
+			if(b.getPosition().getX() > 65 && b.getPosition().getX() < 520-b.width && b.getPosition().getY() > 65 && b.getPosition().getY() < 520-b.heigth) {
 				b.setDirection((new Vector2(b.getPosition().getX()*b.getRandom().getX(), b.getPosition().getY()*b.getRandom().getY())));
 				b.move();
 			} else {

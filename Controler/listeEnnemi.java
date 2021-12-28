@@ -5,6 +5,7 @@ import java.util.List;
 
 import Model.Ennemi;
 import Model.Jeu;
+import Shaders.Vector2;
 
 public class listeEnnemi {
 
@@ -20,6 +21,18 @@ public class listeEnnemi {
 		this.liste = new LinkedList<Ennemi>();
 	}
 	
+	/*
+	 * Distribue le loot de l'ennemi
+	 */
+	public void randomLoot(Ennemi e) {
+		for(int i=0; i<e.getLoot().size(); i++) {
+			System.out.println("hello");
+			e.getLoot().get(i).setPosition(e.getPosition());
+			Jeu.room.getMapEnCours().getObjet().add(e.getLoot().get(i));
+			System.out.println(e.getLoot().get(i).getPosition().toString());
+		}
+	}
+	
 	/**
 	 * @return Update tous les ennemis
 	 */
@@ -28,6 +41,7 @@ public class listeEnnemi {
 		for(Ennemi e: liste) {  //On parcours un par un les ennemis
 			if(e.doRemove(e)) {  //On les enlèves si besoin
 				copieListe.remove(e);
+				this.randomLoot(e);
 			} else {
 				e.boucleCooldownEnnemi();
 				e.IAEnnemi(Jeu.room.getPlayer());

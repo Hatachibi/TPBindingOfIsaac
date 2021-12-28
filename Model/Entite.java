@@ -49,7 +49,7 @@ public class Entite {
 	public void drawEntite() {
 		Texture entiteTexture = Texture.loadTexture(url);
 		entiteTexture.bind();
-		Render.getInstance().drawPicture((float)hitbox.getPosition().getX(),(float) hitbox.getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
+		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
 		entiteTexture.unbind();
 	}
 	

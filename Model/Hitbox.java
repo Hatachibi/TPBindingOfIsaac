@@ -80,6 +80,11 @@ public class Hitbox {
     	}  else {
     		this.isSCollision = false;
     	}
+    	if(this.isDCollision || this.isQCollision || this.isSCollision || this.isZCollision()) {
+    		Jeu.room.getPlayer().setSpeed(2.85);
+    	} else {
+    		Jeu.room.getPlayer().setSpeed(5.85);
+    	}
     }
         
     /**
