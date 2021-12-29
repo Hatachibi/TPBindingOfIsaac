@@ -27,10 +27,10 @@ public class listeEnnemi {
 	 * Distribue le loot de l'ennemi
 	 */
 	public void randomLoot(Ennemi e) {
-		for(int i=0; i<e.getLoot().size(); i++) {
-			System.out.println("hello");
-			e.getLoot().get(i).setPosition(e.getPosition());
-			Jeu.room.getMapEnCours().getObjet().add(e.getLoot().get(i));
+		if(!e.getLoot().isEmpty() && Math.random() > 0.1) {
+			int randomItems = (int)(Math.random()*(e.getLoot().size()));
+			e.getLoot().get(randomItems).setPosition(e.getPosition());
+			Jeu.room.getMapEnCours().getObjet().add(e.getLoot().get(randomItems));
 		}
 	}
 	

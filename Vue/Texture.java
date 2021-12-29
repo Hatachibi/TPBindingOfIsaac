@@ -63,6 +63,7 @@ public class Texture {
     public static Texture haut = loadTexture("libImg/haut.png");
     public static Texture left = loadTexture("libImg/left.png");
     public static Texture left_right_isaac = loadTexture("libImg/top_bot_isaac.png");
+    public static Texture spawnDraw = loadTexture("libImg/spawnDraw.png");
     public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
 
     public Texture() {

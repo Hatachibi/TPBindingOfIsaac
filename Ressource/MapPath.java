@@ -21,9 +21,21 @@ public class MapPath {
 	 */
 	public static final Map mapShop() {
 		Map shop = new Map();
-		shop.generateMap(true, false, false, false);
+		shop.generateMap(true, true, true, true);
 		shop.generateCollisionMap();
-		//shop.getObjet().add(new Heart(25, 25, new Vector2(400, 400), "libImg/Half_Red_Heart.png"));
+		int random = (int) (1+Math.random()*9);
+		int cpt = 0;
+		int[] tab = new int[3];
+		while (cpt != 3 || random == tab[0] || random == tab[1] || random == tab[2]) {
+			if(random != tab[0] && random != tab[1] && random != tab[2]) {
+				tab[cpt] = random;
+				cpt ++;
+			}
+			random = (int) (1+Math.random()*9);
+		}
+		for(int i=0; i<tab.length; i++) {
+			shop.getObjet().add(new ObjetsInventaire(tab[i], 10, 10, new Vector2(130*(i+1), 292.5), ""));
+		}
 		return shop;
 	}
 	

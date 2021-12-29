@@ -40,7 +40,6 @@ public class Entite {
     	this.width = width;
     	this.heigth = heigth;
     	this.url = url;
-    	this.hitbox = new Hitbox(position, width, heigth);
 	}
 	
 	/**
@@ -48,6 +47,8 @@ public class Entite {
 	 */
 	public void drawEntite() {
 		Texture entiteTexture = Texture.loadTexture(url);
+		this.hitbox.setWidth(entiteTexture.getWidth());
+		this.hitbox.setHeigth(entiteTexture.getHeight());
 		entiteTexture.bind();
 		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
 		entiteTexture.unbind();

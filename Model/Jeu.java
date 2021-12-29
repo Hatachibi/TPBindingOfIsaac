@@ -31,12 +31,11 @@ public class Jeu {
     	Fenetre.getInstance().init();
     	Fenetre.getInstance().create();
     	Input.getInstance().init(Fenetre.getInstance().getWindow());
-    	try {
+    /*	try {
 			music("/libMusic/basement.wav", true);
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			e.printStackTrace();
-		}
-    	//music("/libMusic/fond.wav", true);
+		} */
     	Fenetre.getInstance().run();
     }
 

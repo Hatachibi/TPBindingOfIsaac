@@ -21,14 +21,18 @@ public class Fly extends Ennemi{
 	/*
 	 * Constructeur
 	 */
-	public Fly(int width, int heigth, Vector2 position, String url, double speed, int life) {
-		super(width, heigth, position, speed, url, life);
+	public Fly(int width, int heigth, Vector2 position, String url, double speed) {
+		super(width, heigth, position, speed, url);
 		this.munitions = new ListeBalle();
 		this.munitions.setEnnemiBalle(true);
-		this.setDegat(2);
+		this.setDegat(1);
+		this.setLife(3);
 		this.munitions.setRange(3);
 		this.munitions.setSpeed(8);
 		this.munitions.setDegats(1);  // Degat des projectiles
+		for(int i=1; i<13; i++) {
+			this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
+		}
 	}
 	
 	/**
@@ -52,11 +56,11 @@ public class Fly extends Ennemi{
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 2, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 3, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 4, ""));
-			try {
+	/*		try {
 				Jeu.music("/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
-			}
+			} */
 		} /*if(Fenetre.tick == 30%60) {
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 5, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 6, ""));

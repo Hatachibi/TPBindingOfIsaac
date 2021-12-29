@@ -43,23 +43,6 @@ public class BarreDeVie {
     	Texture.heart.unbind();
     }
     
-    public boolean absorbeImpact(int degats)
-	{
-		return (vieEnCours > degats);
-	}
-		
-	public void soin(Soin soin)
-	{
-		if((vieEnCours + soin.getSanteEnPlus()) <= viePleine)
-		{
-			vieEnCours+=soin.getSanteEnPlus();
-		}
-		else
-		{
-			vieEnCours = viePleine;
-		}
-	}
-
 	/*
 	 * Getters & Setters
 	 */

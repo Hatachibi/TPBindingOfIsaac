@@ -21,7 +21,7 @@ public class Personnage extends Entite{
 	/*
 	 * Degat infligé par le joueur.
 	 */
-	private int degat;
+	private double degat;
 	
 	/*
 	 * Multiplicateur de degat
@@ -31,7 +31,7 @@ public class Personnage extends Entite{
 	/*
 	 * Portée des balles du joueur
 	 */
-	private int range;
+	private double range;
 	
 	/*
 	 * Vitesse du joueur
@@ -240,7 +240,7 @@ public class Personnage extends Entite{
 	public Vector2 getNormalizedDirection()
 	{
 		Vector2 normalizedVector = new Vector2(direction);
-		normalizedVector.euclidianNormalize(speed);
+		normalizedVector.euclidianNormalize(this.getSpeed());
 		return normalizedVector;
 	}
 	
@@ -326,11 +326,11 @@ public class Personnage extends Entite{
 		this.munitions = munitions;
 	}
 
-	public int getDegat() {
+	public double getDegat() {
 		return degat;
 	}
 
-	public void setDegat(int degat) {
+	public void setDegat(double degat) {
 		this.degat = degat;
 	}
 	
@@ -343,11 +343,11 @@ public class Personnage extends Entite{
 		this.multiplicator = multiplicator;
 	}
 
-	public int getRange() {
+	public double getRange() {
 		return range;
 	}
 
-	public void setRange(int range) {
+	public void setRange(double range) {
 		this.range = range;
 	}
 

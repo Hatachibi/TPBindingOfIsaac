@@ -111,7 +111,7 @@ public class Map {
 	 */
 	public void updateObject() {
 		for(int k=0; k<getObjet().size(); k++) {
-			getObjet().get(k).update();
+			getObjet().get(k).updateTest();
 				if(getObjet().get(k).isTouch()) {
 					getObjet().remove(k);
 			}

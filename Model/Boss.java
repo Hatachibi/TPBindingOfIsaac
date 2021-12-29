@@ -37,13 +37,14 @@ public class Boss extends Ennemi{
 		/*
 		 * Constructeur
 		 */
-		public Boss(int width, int heigth, Vector2 position, String url, double speed, int life) {
-			super(width, heigth, position, speed, url, life);
+		public Boss(int width, int heigth, Vector2 position, String url, double speed) {
+			super(width, heigth, position, speed, url);
 			this.munitions = new ListeBalle();
 			this.munitions.setEnnemiBalle(true);
 			this.tickCoolDown = 0;
 			this.random = new Vector2(0, 0);
 			this.setDegat(3);
+			this.setLife(20);
 			this.firstPhase = true;
 			this.munitions.setRange(4);
 			this.munitions.setSpeed(12);

@@ -87,9 +87,9 @@ public class Room {
 		for(int i=0; i<mapEnCours.getMapobject().length; i++) {
 			for(int j=0; j<mapEnCours.getMapobject()[i].length; j++) {
 				switch(mapEnCours.getMapobject()[i][j].getEnnemiMap()){
-					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"libImg/Fly.png", 1.5, 3));break;
-					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65), 5, "libImg/Spider.png", 3));break;
-					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"libImg/Spider.png", 2, 20));break;
+					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"libImg/Fly.png", player.getSpeed()/8));break;
+					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65),"libImg/Spider.png", 11.7));break;
+					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"", 2));break;
 				}
 			}
 		}
@@ -143,13 +143,18 @@ public class Room {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if(this.getPlayer().isAlive()) {
 			mapEnCours.drawMap();
-			this.drawMiniMap();
-			this.getPlayer().getLife().drawBarDeVie();
+			if(etageCoos.equals(new Vector2(4, 4))) {
+				Texture.spawnDraw.bind();
+				Render.getInstance().drawPicture(100, 250, (int)(Texture.spawnDraw.getWidth()*1.3), (int)(Texture.spawnDraw.getHeight()*1.3));
+				Texture.spawnDraw.unbind();
+			}
 			Input.getInstance().drawBalle();
 			Input.getInstance().getPlayerMove().drawPlayer();
+			this.getPlayer().getLife().drawBarDeVie();
 			listeEnnemi.drawEnnemis();
-			this.drawItems();
+			drawItems();
 			mapEnCours.drawObject();
+			this.drawMiniMap();
 		} else {
 			if(first){
 				playDeathEffect((int)(Math.random()*3));
@@ -159,6 +164,14 @@ public class Room {
 			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
 			Texture.gameOver.unbind();
 		}
+	}
+	
+	/**
+	 * @return Dessine les icones des items sur le côté
+	 */
+	public void drawItems() {
+		ObjetsInventaire piece = new ObjetsInventaire(10, 10, 10, new Vector2(15, 510), "");
+		piece.drawEntite();
 	}
 	
 	private void playDeathEffect(int sound) {
@@ -184,29 +197,21 @@ public class Room {
 			break;
 		}
 	}
-
-	/*
-	 * Dessine tous les items en possession du joueur
-	 */
-	public void drawItems() {
-		Piece p = new Piece(10, 10, new Vector2(5, 510), "libImg/Penny.png", 0);
-		p.drawEntite();
-	}
 	
 	/**
 	 * @return Dessine la miniMap
 	 */
 	public void drawMiniMap() {
 		int coef = 2;
-		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre + 5*coef - 58.5*coef), 5, (float)58.5*coef,(float) 58.5*coef, new float[]{1f, 1f, 1f, 0.5f});
+		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre- 58.5*coef), 465, (float)(58.5*coef - 5*coef),(float) (58.5*coef - 5.85*coef), new float[]{1f, 1f, 1f, 0.5f});
 		for(int i=0; i<9; i++) {
 			for(int j=0; j<9; j++) {
 				if(etage[i][j].isVisited()) {
-					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 5.85*coef - 5.85*coef*i), (float)(5 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 1f, 0f});
+					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 1f, 1f, 0.5f});
 				}
 			}
 		}
-		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 5.85*coef - 5.85*coef*etageCoos.getX()), (float)(5 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0f});
+		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef -  5.85*coef*etageCoos.getX()), (float)(465 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0.5f});
 	}
 
 	/*
