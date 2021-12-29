@@ -245,7 +245,7 @@ public class Map {
 	/*
 	 * Dessine les Objets
 	 */
-	public void drawObject(int i, int j) {
+	public void drawObject() {
 		for(int k=0; k<getObjet().size(); k++) {
 			getObjet().get(k).drawEntite();
 		}
@@ -301,31 +301,25 @@ public class Map {
 				}
 				glEnable(GL_TEXTURE_2D);
 				Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+				Texture.coinHG.unbind();
+				Texture.coinHD.unbind();
+				Texture.coinBG.unbind();
+				Texture.coinBD.unbind();
+				Texture.murHaut.unbind();
+				Texture.murBas.unbind();
+				Texture.murGauche.unbind();
+				Texture.murDroite.unbind();
+				Texture.rock.unbind();
+				Texture.openDoor.unbind();
+				Texture.closeDoor_up.unbind();
+				Texture.closeDoor_down.unbind();
+				Texture.closeDoor_right.unbind();
+				Texture.closeDoor_left.unbind();
+				Texture.spikes.unbind();
+				Texture.emptyCell.unbind();
 			}
 		}
-		Texture.coinHG.unbind();
-		Texture.coinHD.unbind();
-		Texture.coinBG.unbind();
-		Texture.coinBD.unbind();
-		Texture.murHaut.unbind();
-		Texture.murBas.unbind();
-		Texture.murGauche.unbind();
-		Texture.murDroite.unbind();
-		Texture.rock.unbind();
-		Texture.openDoor.unbind();
-		Texture.closeDoor_up.unbind();
-		Texture.closeDoor_down.unbind();
-		Texture.closeDoor_right.unbind();
-		Texture.closeDoor_left.unbind();
-		Texture.spikes.unbind();
-		Texture.emptyCell.unbind();
-		for(int i=0; i<mapobject.length; i++) {
-			for(int j=0; j<mapobject[i].length; j++) {
-				if(!getObjet().isEmpty()) {
-					this.drawObject(i, j);
-				}
-			}
-		}
+		
 	}
 	
 	/*

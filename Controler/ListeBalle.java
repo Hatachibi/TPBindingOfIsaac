@@ -1,6 +1,11 @@
 package Controler;
 
+import java.io.IOException;
 import java.util.LinkedList;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Model.Balle;
 import Model.Jeu;
 

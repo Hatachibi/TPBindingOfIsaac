@@ -3,6 +3,12 @@ package Model;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
+
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Controler.Input;
 import Controler.listeEnnemi;
 import Ressource.MapPath;
@@ -38,6 +44,8 @@ public class Room {
 	 * Coordonées (x, y) de la pièce dans l'étage
 	 */
 	private Vector2 etageCoos;
+	
+	boolean first = true;
 	
 	/*
 	 * Constructeur
@@ -112,17 +120,19 @@ public class Room {
 	 * @return Update tous les éléments de la salle
 	 */
 	public void updateRoom() {
-		Input.getInstance().deplacement();
-		Input.getInstance().tire();
-		getMapEnCours().changeMap();
-		getPlayer().boucleCooldownJoueur();
-		getPlayer().updateHitbox();
-		listeEnnemi.updateEnnemis();
-		mapEnCours.updateObject();
-		if(listeEnnemi.isEmpty()) {
-			unlockedDoors();
-			mapEnCours.setVisited(true);
-		}
+		if(this.getPlayer().isAlive()) {
+			Input.getInstance().deplacement();
+			Input.getInstance().tire();
+			getMapEnCours().changeMap();
+			getPlayer().boucleCooldownJoueur();
+			getPlayer().updateHitbox();
+			listeEnnemi.updateEnnemis();
+			mapEnCours.updateObject();
+			if(listeEnnemi.isEmpty()) {
+				unlockedDoors();
+				mapEnCours.setVisited(true);
+			}
+		} 
 	}
 	
 	/**
@@ -138,14 +148,42 @@ public class Room {
 			Input.getInstance().drawBalle();
 			listeEnnemi.drawEnnemis();
 			this.drawItems();
-	//		mapEnCours.drawObject();
+			mapEnCours.drawObject();
 		} else {
+			if(first){
+				playDeathEffect((int)(Math.random()*3));
+			}
+			first = false;
 			Texture.gameOver.bind();
 			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
 			Texture.gameOver.unbind();
 		}
 	}
 	
+	private void playDeathEffect(int sound) {
+		System.out.println(sound);
+		switch(sound) {
+			case 0: try {
+				Jeu.music("/libMusic/Isaac_dies_1.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+			break;
+			case 1:try {
+				Jeu.music("/libMusic/Isaac_dies_2.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}	
+			break;
+			case 2:try {
+				Jeu.music("/libMusic/Isaac_dies_3.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+	}
+
 	/*
 	 * Dessine tous les items en possession du joueur
 	 */

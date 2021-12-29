@@ -1,8 +1,13 @@
 package Controler;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import Model.Boss;
 import Model.Ennemi;
 import Model.Jeu;
 import Shaders.Vector2;
@@ -42,12 +47,23 @@ public class listeEnnemi {
 			if(e.doRemove(e)) {  //On les enlèves si besoin
 				copieListe.remove(e);
 				this.randomLoot(e);
+				playDeathSound(e);
 			} else {
 				e.boucleCooldownEnnemi();
 				e.IAEnnemi(Jeu.room.getPlayer());
 			}
 		}
 		liste = copieListe;
+	}
+
+	private void playDeathSound(Ennemi e) {
+		if(e instanceof Boss) {
+			try {
+				Jeu.music("/libMusic/boss_death.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	/**

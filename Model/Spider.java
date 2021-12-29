@@ -1,5 +1,10 @@
 package Model;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Shaders.Vector2;
 import Vue.Fenetre;
 import Vue.Render;

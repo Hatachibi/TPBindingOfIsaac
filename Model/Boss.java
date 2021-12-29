@@ -1,5 +1,10 @@
 package Model;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Controler.ListeBalle;
 import Shaders.Vector2;
 import Vue.Render;
@@ -26,6 +31,8 @@ public class Boss extends Ennemi{
 		 * Cooldown entre chaque phase
 		 */
 		private int tickCoolDown;
+		
+		boolean playOnce = true;
 
 		/*
 		 * Constructeur
@@ -46,10 +53,20 @@ public class Boss extends Ennemi{
 		@Override
 		public void drawEnnemi() {
 			if(firstPhase) {
+				playOnce = true;
 				Texture.boss1.bind();
 				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75, 1, 1, new float[] {});
 				Texture.boss1.unbind();
 			} else {
+				if(playOnce){
+					try {
+						Jeu.music("/libMusic/boss_phase.wav", false);
+					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+						e.printStackTrace();
+					}
+					playOnce = false;
+				}
+					
 				Texture.boss2.bind();
 				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75, 1, 1, new float[] {});
 				Texture.boss2.unbind();

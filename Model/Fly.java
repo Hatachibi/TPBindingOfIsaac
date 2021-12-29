@@ -1,5 +1,10 @@
 package Model;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Controler.ListeBalle;
 import Shaders.Vector2;
 import Vue.Fenetre;
@@ -44,12 +49,17 @@ public class Fly extends Ennemi{
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 2, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 3, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 4, ""));
-		} if(Fenetre.tick == 30%60) {
+			try {
+				Jeu.music("/libMusic/boss_shoot.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+		} /*if(Fenetre.tick == 30%60) {
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 5, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 6, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 7, ""));
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 8, ""));
-		}
+		} */
 		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
 		this.move();
 	}
@@ -65,12 +75,22 @@ public class Fly extends Ennemi{
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 2, ""));
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 3, ""));
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 4, ""));
-		} if(Fenetre.tick == 30%60) {
+			try {
+				Jeu.music("/libMusic/boss_shoot.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+		}/* if(Fenetre.tick == 30%60) {
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 5, ""));
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 6, ""));
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 7, ""));
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 8, ""));
-		}
+			try {
+				Jeu.music("/libMusic/boss_shoot.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+		} */
 		b.setDirection(new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY()));
 		b.move();
 	}

@@ -1,5 +1,10 @@
 package Model;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import Controler.ListeBalle;
 import Shaders.Raycasting;
 import Shaders.Vector2;
@@ -90,7 +95,7 @@ public class Personnage extends Entite{
     	super(width, heigth, position, url);
     	this.degat = 2;
     	this.multiplicator = 1.0;
-    	this.life = new BarreDeVie(6);
+    	this.life = new BarreDeVie(600);
     	this.munitions = new ListeBalle();
 		this.size = size;
 		this.speed = 5.85;
@@ -114,8 +119,33 @@ public class Personnage extends Entite{
     public void subitDegats(double degats) {
     	if(!isInvincible) {
     		life.setVieEnCours((int)(life.getVieEnCours() - degats));
+    		playHurtEffect((int)(Math.random()*3));
     	}	
     }
+    
+    private void playHurtEffect(int sound) {
+		System.out.println(sound);
+		switch(sound) {
+			case 0: try {
+				Jeu.music("/libMusic/Hurt_grunt_1.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+			break;
+			case 1:try {
+				Jeu.music("/libMusic/Hurt_grunt_2.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}	
+			break;
+			case 2:try {
+				Jeu.music("/libMusic/Hurt_grunt_3.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+	}
     
     /**
      * @return si le joueur est en vie

@@ -10,6 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.lwjgl.opengl.GL;
+//import org.newdawn.slick.TrueTypeFont;
+
 import Controler.Input;
 import Model.Balle;
 
@@ -26,6 +28,14 @@ public class Render {
 	public static Render getInstance() {
 		return INSTANCE;
 	}
+	
+/*	public void drawStrings(int x, int y, String text) {
+		glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+ 
+        TrueTypeFont font = new TrueTypeFont(new Font("MS Sans Serif", Font.PLAIN, 30), true);
+		font.drawString(x, y, text);
+	} */
 	
 	/**
 	 * @return Initialise le visuel pour la fenêtre
