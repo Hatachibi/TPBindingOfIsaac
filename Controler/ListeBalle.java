@@ -22,6 +22,16 @@ public class ListeBalle {
 	private boolean isNotShot;
 	
 	/*
+	 * Vitesse de la balle
+	 */
+	private int speed;
+	
+	/*
+	 * Degat de la balle
+	 */
+	private double degats;
+	
+	/*
 	 * Cooldown qui évite de spammer les balles
 	 */
 	private int coolDown;
@@ -30,6 +40,11 @@ public class ListeBalle {
 	 * Boolean qui sert à savoir s'il s'agit de balle ennemi
 	 */
 	private boolean isEnnemiBalle;
+	
+	/*
+	 * Range des balles
+	 */
+	private double range;
 	
 	/*
 	 * Constructeur
@@ -50,46 +65,46 @@ public class ListeBalle {
 			if(b.getDirection() == 1)
 			{
 				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() - speed));
 			}
 			if(b.getDirection() == 2)
 			{
 				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() + speed));
 			}
 			if(b.getDirection() == 3)
 			{
 				b.drawBalle();
-				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() + speed));
 			}
 			if(b.getDirection() == 4)
 			{
 				b.drawBalle();
-				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
+				b.getPosition().setY((float) (b.getPosition().getY() - speed));
 			}
 			if(b.getDirection() == 5)
 			{
 				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
-				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() + speed));
+				b.getPosition().setY((float) (b.getPosition().getY() + speed));
 			}
 			if(b.getDirection() == 6)
 			{
 				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
-				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() - speed));
+				b.getPosition().setY((float) (b.getPosition().getY() - speed));
 			}
 			if(b.getDirection() == 7)
 			{
 				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() - b.getSpeed()));
-				b.getPosition().setY((float) (b.getPosition().getY() + b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() - speed));
+				b.getPosition().setY((float) (b.getPosition().getY() + speed));
 			}
 			if(b.getDirection() == 8)
 			{
 				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() + b.getSpeed()));
-				b.getPosition().setY((float) (b.getPosition().getY() - b.getSpeed()));
+				b.getPosition().setX((float) (b.getPosition().getX() + speed));
+				b.getPosition().setY((float) (b.getPosition().getY() - speed));
 			}
 			b.updateHitbox();
 			if(doRemove(b)) {
@@ -133,7 +148,27 @@ public class ListeBalle {
 	 * @return renvoie si on doit enlever une balle de la liste à cause d'une collision
 	 */
 	public boolean doRemove(Balle b) {
-		return b.getHitbox().collisionMurEntite(b);
+		return (b.getHitbox().collisionMurEntite(b) || outOfRange(b));
+	}
+
+	/**
+	 * @param b une balle
+	 * @return un boolean si la balle a dépassé sa range
+	 */
+	private boolean outOfRange(Balle b) {
+		if(b.getDirection() == 1) {
+			return (b.getPosition().getX() < (b.getPosOrigin().getX() - range*65));
+		}
+		if(b.getDirection() == 2) {
+			return (b.getPosition().getX() > (b.getPosOrigin().getX() + range*65));
+		}
+		if(b.getDirection() == 3) {
+			return (b.getPosition().getY() > (b.getPosOrigin().getY() + range*65));
+		}
+		if(b.getDirection() == 4) {
+			return (b.getPosition().getY() < (b.getPosOrigin().getY() - range*65));
+		}
+		return false;
 	}
 
 	/*
@@ -167,4 +202,36 @@ public class ListeBalle {
 		this.isEnnemiBalle = isEnnemiBalle;
 	}
 
+	public double getRange() {
+		return range;
+	}
+
+	public void setRange(double range) {
+		this.range = range;
+	}
+
+	public void setListe(LinkedList<Balle> liste) {
+		this.liste = liste;
+	}
+
+	public void setNotShot(boolean isNotShot) {
+		this.isNotShot = isNotShot;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public double getDegats() {
+		return degats;
+	}
+
+	public void setDegats(double degats) {
+		this.degats = degats;
+	}
+	
 }

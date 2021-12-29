@@ -89,13 +89,18 @@ public class Personnage extends Entite{
 	private boolean isInvincible;
 	
 	/*
+	 * Image du joueur
+	 */
+	private int face;
+	
+	/*
 	 * Constructeur
 	 */
     public Personnage(int degat, int width, int heigth, Vector2 position, Vector2 size, String url) {
     	super(width, heigth, position, url);
     	this.degat = 2;
     	this.multiplicator = 1.0;
-    	this.life = new BarreDeVie(600);
+    	this.life = new BarreDeVie(6);
     	this.munitions = new ListeBalle();
 		this.size = size;
 		this.speed = 5.85;
@@ -103,6 +108,10 @@ public class Personnage extends Entite{
 		this.cooldownDegat = 0;
 		this.direction = new Vector2();
 		this.isInvincible = false;
+		this.range = 4;
+		this.munitions.setRange(range);
+		this.munitions.setSpeed(10);
+		this.setFace(2);
     }
     
     /**
@@ -235,14 +244,45 @@ public class Personnage extends Entite{
 		return normalizedVector;
 	}
 	
-	/**
+	/**s
 	 * @return Dessine le joueur
 	 */
     public void drawPlayer() {
-    	Texture.Isaac.bind();
-    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5),(float)this.getPosition().getY() - 5, 50, 50, 200, 200, new float[] {255, 255, 255, 255});
-    	Texture.Isaac.unbind();
-    	//drawEntite();
+    	double coef = 1.2;
+    	switch(face) {
+    	case 1:
+    		Texture.top_bot_isaac.bind();
+        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(), (int)(25*coef), (int)(25*coef));
+        	Texture.top_bot_isaac.unbind();
+        	Texture.bas.bind();
+        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+        	Texture.bas.unbind();
+    		break;
+    	case 2:
+    		Texture.top_bot_isaac.bind();
+    		Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(),(int)(25*coef), (int)(25*coef));
+        	Texture.top_bot_isaac.unbind();
+        	Texture.haut.bind();
+        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 ,(int)(35*coef), (int)(35*coef));
+        	Texture.haut.unbind();
+    		break;
+    	case 3:
+    		Texture.left_right_isaac.bind();
+    		Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(), (int)(25*coef), (int)(25*coef));
+        	Texture.left_right_isaac.unbind();
+        	Texture.right.bind();
+        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+        	Texture.right.unbind();
+    		break;
+    	case 4:
+        	Texture.left_right_isaac.bind();
+        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(),(int) (25*coef), (int)(25*coef));
+        	Texture.left_right_isaac.unbind();
+        	Texture.left.bind();
+        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+        	Texture.left.unbind();
+        	break;
+    	}
     	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap());  
     }
     
@@ -413,6 +453,14 @@ public class Personnage extends Entite{
 
 	public void setCoin(int coin) {
 		this.coin = coin;
-	}	
+	}
+
+	public int getFace() {
+		return face;
+	}
+
+	public void setFace(int face) {
+		this.face = face;
+	}
 	
 }

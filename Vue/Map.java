@@ -274,27 +274,56 @@ public class Map {
 				} else if(mapobject[i][j].getRenderMap()==8) {
 					Texture.murDroite.bind();
 				} else if(mapobject[i][j].getRenderMap()==9) {
+					Texture.emptyCell.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.emptyCell.unbind();
 					Texture.rock.bind();
-			/*	} else if(mapobject[i][j].getRenderMap()==-1) {
-					Texture.closeDoor_up.bind();
+				} else if(mapobject[i][j].getRenderMap()==-1) {
+					Texture.murHaut.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murHaut.unbind();
+					Texture.top_openDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 				} else if(mapobject[i][j].getRenderMap()==-2) {
-					Texture.closeDoor_down.bind();
+					Texture.murBas.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murBas.unbind();
+					Texture.bot_openDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 				} else if(mapobject[i][j].getRenderMap()==-3) {
-					Texture.closeDoor_right.bind();
+					Texture.murDroite.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murDroite.unbind();
+					Texture.right_openDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 				} else if(mapobject[i][j].getRenderMap()==-4) {
-					Texture.closeDoor_left.bind(); */
+					Texture.murGauche.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murGauche.unbind();
+					Texture.left_openDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 				} else if(mapobject[i][j].getRenderMap()==11) {
 					Texture.spikes.bind();
 				} else if(mapobject[i][j].getRenderMap()==12) {
+					Texture.murHaut.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murHaut.unbind();
 					Texture.closeDoor_up.bind();
 				} else if(mapobject[i][j].getRenderMap()==13) {
+					Texture.murBas.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murBas.unbind();
 					Texture.closeDoor_down.bind();
 				} else if(mapobject[i][j].getRenderMap()==14) {
+					Texture.murDroite.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murDroite.unbind();
 					Texture.closeDoor_right.bind();
 				} else if(mapobject[i][j].getRenderMap()==15) {
+					Texture.murGauche.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murGauche.unbind();
 					Texture.closeDoor_left.bind();
-				} else if(mapobject[i][j].getRenderMap()==-1 || mapobject[i][j].getRenderMap()==-2 || mapobject[i][j].getRenderMap()==-3 || mapobject[i][j].getRenderMap()==-4) {
-					Texture.openDoor.bind();
 				}
 				else {
 					Texture.emptyCell.bind();
@@ -309,8 +338,11 @@ public class Map {
 				Texture.murBas.unbind();
 				Texture.murGauche.unbind();
 				Texture.murDroite.unbind();
+				Texture.top_openDoor.unbind();
+				Texture.bot_openDoor.unbind();
+				Texture.right_openDoor.unbind();
+				Texture.left_openDoor.unbind();
 				Texture.rock.unbind();
-				Texture.openDoor.unbind();
 				Texture.closeDoor_up.unbind();
 				Texture.closeDoor_down.unbind();
 				Texture.closeDoor_right.unbind();

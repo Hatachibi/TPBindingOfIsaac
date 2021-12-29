@@ -5,21 +5,16 @@ import Vue.Render;
 import Vue.Texture;
 
 public class Balle extends Entite{
-	
-	/*
-	 * Vitesse de la balle
-	 */
-	private int speed;
-	
-	/*
-	 * Degat de la balle
-	 */
-	private double degats;
-	
+		
 	/*
 	 * Compteur permettant un cooldown entre chaque tire (utile que pour le joueur)
 	 */
 	private double coolDown;
+	
+	/*
+	 * Position de départ de la balle
+	 */
+	private Vector2 posOrigin;
 	
 	/**
 	 * Direction dans laquelle part une balle
@@ -40,7 +35,7 @@ public class Balle extends Entite{
 	public Balle(int width, int heigth, double x, double y, int direction, String url) {
 		super(width, heigth, new Vector2(x, y), url);
 		this.setDirection(direction);
-		this.speed = 10;
+		this.setPosOrigin(new Vector2(x, y));
 		this.setHitbox(new Hitbox(new Vector2(x, y), width, heigth));
 	}
 	
@@ -65,22 +60,6 @@ public class Balle extends Entite{
 	/*
 	 * Getters & Setters
 	 */
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	public double getDegats() {
-		return degats;
-	}
-
-	public void setDegats(double degats) {
-		this.degats = degats;
-	}
-
 	public int getDirection() {
 		return direction;
 	}
@@ -103,6 +82,14 @@ public class Balle extends Entite{
 
 	public void setHitbox(Hitbox hitbox) {
 		this.hitbox = hitbox;
+	}
+
+	public Vector2 getPosOrigin() {
+		return posOrigin;
+	}
+
+	public void setPosOrigin(Vector2 posOrigin) {
+		this.posOrigin = posOrigin;
 	}
 	
 	

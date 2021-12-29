@@ -17,7 +17,7 @@ public class Fly extends Ennemi{
 	 * Liste de balle de l'ennemi
 	 */
 	private ListeBalle munitions;
-
+	
 	/*
 	 * Constructeur
 	 */
@@ -26,6 +26,9 @@ public class Fly extends Ennemi{
 		this.munitions = new ListeBalle();
 		this.munitions.setEnnemiBalle(true);
 		this.setDegat(2);
+		this.munitions.setRange(3);
+		this.munitions.setSpeed(8);
+		this.munitions.setDegats(1);  // Degat des projectiles
 	}
 	
 	/**

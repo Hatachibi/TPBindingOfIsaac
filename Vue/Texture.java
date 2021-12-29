@@ -46,7 +46,10 @@ public class Texture {
     public static Texture closeDoor_down = loadTexture("libImg/closed_door_down.png");
     public static Texture closeDoor_right = loadTexture("libImg/closed_door_right.png");
     public static Texture closeDoor_left = loadTexture("libImg/closed_door_left.png");
-    public static Texture openDoor = loadTexture("libImg/opened_door.png");
+    public static Texture top_openDoor = loadTexture("libImg/top_opened_door.png");
+    public static Texture bot_openDoor = loadTexture("libImg/bot_opened_door.png");
+    public static Texture right_openDoor = loadTexture("libImg/right_opened_door.png");
+    public static Texture left_openDoor = loadTexture("libImg/left_opened_door.png");
     public static Texture spikes = loadTexture("libImg/Spikes.png");
     public static Texture heart = loadTexture("libImg/HUD_heart_red_full.png");
     public static Texture halfHeart = loadTexture("libImg/HUD_heart_red_half.png");
@@ -54,6 +57,12 @@ public class Texture {
     public static Texture fly = loadTexture("libImg/fly.png");  
     public static Texture boss1 = loadTexture("libImg/boss1.png");
     public static Texture boss2 = loadTexture("libImg/boss2.png");
+    public static Texture right = loadTexture("libImg/right.png");
+    public static Texture top_bot_isaac = loadTexture("libImg/top_bot_isaac.png");
+    public static Texture bas = loadTexture("libImg/bas.png");
+    public static Texture haut = loadTexture("libImg/haut.png");
+    public static Texture left = loadTexture("libImg/left.png");
+    public static Texture left_right_isaac = loadTexture("libImg/top_bot_isaac.png");
     public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
 
     public Texture() {

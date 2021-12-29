@@ -1,5 +1,7 @@
 package Ressource;
 
+import Model.ObjetsInventaire;
+import Shaders.Vector2;
 import Vue.Map;
 
 public class MapPath {
@@ -21,6 +23,7 @@ public class MapPath {
 		Map shop = new Map();
 		shop.generateMap(true, false, false, false);
 		shop.generateCollisionMap();
+		//shop.getObjet().add(new Heart(25, 25, new Vector2(400, 400), "libImg/Half_Red_Heart.png"));
 		return shop;
 	}
 	

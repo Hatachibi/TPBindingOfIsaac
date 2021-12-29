@@ -1,29 +1,26 @@
 package Controler;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import Model.Boss;
 import Model.Ennemi;
 import Model.Jeu;
-import Shaders.Vector2;
 
 public class listeEnnemi {
 
 	/*
 	 * Liste Chainée d'ennemi
 	 */
-	private LinkedList<Ennemi> liste;
+	private ArrayList<Ennemi> liste;
 	
 	/*
 	 * Constructeur
 	 */
 	public listeEnnemi() {
-		this.liste = new LinkedList<Ennemi>();
+		this.liste = new ArrayList<Ennemi>();
 	}
 	
 	/*
@@ -34,7 +31,6 @@ public class listeEnnemi {
 			System.out.println("hello");
 			e.getLoot().get(i).setPosition(e.getPosition());
 			Jeu.room.getMapEnCours().getObjet().add(e.getLoot().get(i));
-			System.out.println(e.getLoot().get(i).getPosition().toString());
 		}
 	}
 	
@@ -42,7 +38,7 @@ public class listeEnnemi {
 	 * @return Update tous les ennemis
 	 */
 	public void updateEnnemis() {
-		LinkedList<Ennemi> copieListe = (LinkedList<Ennemi>) liste.clone();
+		ArrayList<Ennemi> copieListe = (ArrayList<Ennemi>) liste.clone();
 		for(Ennemi e: liste) {  //On parcours un par un les ennemis
 			if(e.doRemove(e)) {  //On les enlèves si besoin
 				copieListe.remove(e);
@@ -98,7 +94,7 @@ public class listeEnnemi {
 		return liste;
 	}
 
-	public void setListe(LinkedList<Ennemi> liste) {
+	public void setListe(ArrayList<Ennemi> liste) {
 		this.liste = liste;
 	}
 	

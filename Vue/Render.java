@@ -42,8 +42,9 @@ public class Render {
 	 */
 	public void init(long window) {
 		glfwMakeContextCurrent(window);
-    	GL.createCapabilities();
-    	glEnable(GL_ALPHA_TEST);  	
+    	GL.createCapabilities(); 	
+    	glEnable(GL_BLEND);
+    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     	glLoadIdentity();
     	glOrtho(0, Fenetre.WidthFenetre, 0, Fenetre.HeigthFenetre, -1, 1);
 	}

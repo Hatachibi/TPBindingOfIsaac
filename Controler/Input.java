@@ -126,6 +126,7 @@ public class Input
 			Jeu.Isaac.goUpNext();
 		}
 		Jeu.Isaac.setA(PI/2);
+		Jeu.Isaac.setFace(1);
 		Jeu.Isaac.drawPlayer();
 	}
 	
@@ -135,6 +136,7 @@ public class Input
 			Jeu.Isaac.goDownNext();
 		}
 		Jeu.Isaac.setA(3*PI/2);
+		Jeu.Isaac.setFace(2);
 		Jeu.Isaac.drawPlayer();
 	}
 	
@@ -145,6 +147,7 @@ public class Input
 			Jeu.Isaac.goRightNext();
 		}
 		Jeu.Isaac.setA(0);
+		Jeu.Isaac.setFace(3);
 		Jeu.Isaac.drawPlayer();
 	}
 	
@@ -155,6 +158,7 @@ public class Input
 			Jeu.Isaac.goLeftNext();
 		}
 		Jeu.Isaac.setA(PI);
+		Jeu.Isaac.setFace(4);
 		Jeu.Isaac.drawPlayer();
 	}
 	

@@ -45,6 +45,9 @@ public class Boss extends Ennemi{
 			this.random = new Vector2(0, 0);
 			this.setDegat(3);
 			this.firstPhase = true;
+			this.munitions.setRange(4);
+			this.munitions.setSpeed(12);
+			this.munitions.setDegats(1); // Degat des projectiles
 		}
 		
 		/**

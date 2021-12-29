@@ -72,6 +72,7 @@ public class Room {
 				map[i][j].generateCollisionMap();
 			}
 		}
+		map[4][5] = MapPath.mapShop();
 		map[4][4] = MapPath.mapStart();
 		map[4][3] = MapPath.flyMap();
 		map[4][2] = MapPath.spiderMap();
@@ -86,7 +87,7 @@ public class Room {
 		for(int i=0; i<mapEnCours.getMapobject().length; i++) {
 			for(int j=0; j<mapEnCours.getMapobject()[i].length; j++) {
 				switch(mapEnCours.getMapobject()[i][j].getEnnemiMap()){
-					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"libImg/Fly.png", 2, 3));break;
+					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"libImg/Fly.png", 1.5, 3));break;
 					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65), 5, "libImg/Spider.png", 3));break;
 					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"libImg/Spider.png", 2, 20));break;
 				}
@@ -144,8 +145,8 @@ public class Room {
 			mapEnCours.drawMap();
 			this.drawMiniMap();
 			this.getPlayer().getLife().drawBarDeVie();
-			Input.getInstance().getPlayerMove().drawPlayer();
 			Input.getInstance().drawBalle();
+			Input.getInstance().getPlayerMove().drawPlayer();
 			listeEnnemi.drawEnnemis();
 			this.drawItems();
 			mapEnCours.drawObject();
@@ -197,7 +198,7 @@ public class Room {
 	 */
 	public void drawMiniMap() {
 		int coef = 2;
-		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre + 5*coef - 58.5*coef), 5, (float)58.5*coef,(float) 58.5*coef, new float[]{255f, 255f, 255f, 255f});
+		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre + 5*coef - 58.5*coef), 5, (float)58.5*coef,(float) 58.5*coef, new float[]{1f, 1f, 1f, 0.5f});
 		for(int i=0; i<9; i++) {
 			for(int j=0; j<9; j++) {
 				if(etage[i][j].isVisited()) {

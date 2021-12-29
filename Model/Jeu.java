@@ -1,16 +1,12 @@
 package Model;
 
 import Vue.Fenetre;
-
 import java.io.IOException;
-
-import javax.print.DocFlavor.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import Controler.Input;
 import Shaders.Vector2;
 
@@ -26,6 +22,7 @@ public class Jeu {
 			clip.open(audioIn);
 		}
 		clip.start();
+		clip.stop();
 		if (again) clip.loop(Clip.LOOP_CONTINUOUSLY); 
 	}
 	
