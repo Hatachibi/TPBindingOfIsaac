@@ -62,6 +62,13 @@ public class Fenetre {
     	return (double)System.nanoTime() / (double)1000000000L;
     }
     
+    public void home() {
+    	boolean notRun = true;
+    	while (notRun) {
+    		
+    	}
+    }
+    
     public void run() {
     	
     	double frameCap = 1.0/60.0; //On CAP à 60 FPS

@@ -2,7 +2,7 @@ package Model;
 
 import Ressource.MapPath;
 import Shaders.Vector2;
-import Vue.Map;
+import Vue.Carte;
 
 public class GameWorld {
 	
@@ -14,18 +14,7 @@ public class GameWorld {
 	public GameWorld(Personnage player) {
 		this.etage = new Room[9][9];
 		this.player = player;
-		this.mapEnCours = new Room(player);
 		this.setEtageCoos(new Vector2(4, 4));
-		initRoom();
-	}
-
-	private void initRoom() {
-		for(int i=0; i<etage.length; i++) {
-			for(int j=0; j<etage[i].length; j++){
-				etage[i][j] = new Room(Jeu.Isaac);
-			}
-		}
-		etage[4][4] = Jeu.room;
 	}
 	
 	public void updateWorld() {

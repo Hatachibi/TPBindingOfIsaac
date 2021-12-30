@@ -2,15 +2,15 @@ package Ressource;
 
 import Model.ObjetsInventaire;
 import Shaders.Vector2;
-import Vue.Map;
+import Vue.Carte;
 
 public class MapPath {
 		
 	/**
 	 * @return Map de départ
 	 */
-	public static final Map mapStart() {
-		Map start = new Map();
+	public static final Carte mapStart() {
+		Carte start = new Carte();
 		start.generateMap(true, true, true, true);
 		start.generateCollisionMap();
 		return start;
@@ -19,8 +19,8 @@ public class MapPath {
 	/**
 	 * @return Map du shop
 	 */
-	public static final Map mapShop() {
-		Map shop = new Map();
+	public static final Carte mapShop() {
+		Carte shop = new Carte();
 		shop.generateMap(true, true, true, true);
 		shop.generateCollisionMap();
 		int random = (int) (1+Math.random()*9);
@@ -42,8 +42,8 @@ public class MapPath {
 	/**
 	 * @return Map avec l'ennemi fly
 	 */
-	public static final Map flyMap() {
-		Map flyMap = new Map();
+	public static final Carte flyMap() {
+		Carte flyMap = new Carte();
 		flyMap.generateMap(true, true, true, true);
 		flyMap.getMapobject()[4][4].setEnnemiMap(1);
 		flyMap.generateRandomObstacle(2);
@@ -54,8 +54,8 @@ public class MapPath {
 	/**
 	 * @return Map avec l'ennemi spider
 	 */
-	public static final Map spiderMap() {
-		Map spiderMap = new Map();
+	public static final Carte spiderMap() {
+		Carte spiderMap = new Carte();
 		spiderMap.generateMap(true, true, true, true);
 		spiderMap.getMapobject()[4][4].setEnnemiMap(2);
 		spiderMap.generateRandomObstacle(2);
@@ -66,8 +66,8 @@ public class MapPath {
 	/**
 	 * @return Map le boss
 	 */
-	public static final Map bossMap() {
-		Map bossMap = new Map();
+	public static final Carte bossMap() {
+		Carte bossMap = new Carte();
 		bossMap.generateMap(true, true, true, true);
 		bossMap.getMapobject()[4][4].setEnnemiMap(3);
 		bossMap.generateRandomObstacle(2);

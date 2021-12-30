@@ -66,21 +66,25 @@ public class ListeBalle {
 			{
 				b.drawBalle();
 				b.getPosition().setX((float) (b.getPosition().getX() - speed));
+				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(4);
 			}
 			if(b.getDirection() == 2)
 			{
 				b.drawBalle();
 				b.getPosition().setX((float) (b.getPosition().getX() + speed));
+				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(3);
 			}
 			if(b.getDirection() == 3)
 			{
 				b.drawBalle();
 				b.getPosition().setY((float) (b.getPosition().getY() + speed));
+				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(1);
 			}
 			if(b.getDirection() == 4)
 			{
 				b.drawBalle();
 				b.getPosition().setY((float) (b.getPosition().getY() - speed));
+				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(2);
 			}
 			if(b.getDirection() == 5)
 			{

@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import Controler.Input;
 import Controler.ListeBalle;
 import Shaders.Raycasting;
 import Shaders.Vector2;
@@ -173,6 +174,18 @@ public class Personnage extends Entite{
 	}
     
     /**
+     * @Note Update le joueur
+     */
+    public void updatePlayer() {
+    	updateGameObject();
+    	updateLife();
+    	Input.getInstance().deplacement();
+		Input.getInstance().tire();
+		boucleCooldownJoueur();
+		updateHitbox();
+    }
+    
+    /**
      * @return Update la vie du joueur
      */
     public void updateLife() {
@@ -283,6 +296,9 @@ public class Personnage extends Entite{
         	Texture.left.unbind();
         	break;
     	}
+		Input.getInstance().drawBalle();
+		Input.getInstance().getPlayerMove().drawPlayer();
+		life.drawBarDeVie();
     	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap());  
     }
     

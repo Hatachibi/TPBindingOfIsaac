@@ -14,7 +14,7 @@ import Controler.listeEnnemi;
 import Ressource.MapPath;
 import Shaders.Vector2;
 import Vue.Fenetre;
-import Vue.Map;
+import Vue.Carte;
 import Vue.Render;
 import Vue.Texture;
 
@@ -33,12 +33,12 @@ public class Room {
 	/*
 	 * Pièce en cours
 	 */
-	private Map mapEnCours;
+	private Carte mapEnCours;
 	
 	/*
 	 * Carte d'un étage
 	 */
-	private Map[][] etage;
+	private Carte[][] etage;
 	
 	/*
 	 * Coordonées (x, y) de la pièce dans l'étage
@@ -62,21 +62,20 @@ public class Room {
 	/**
 	 * @return L'étage initialisé avec les pièces générées
 	 */
-	public Map[][] initEtage(){
-		Map[][] map = new Map[9][9];
+	public Carte[][] initEtage(){
+		Carte[][] map = new Carte[9][9];
 		for(int i=0; i<map.length; i++) {
 			for(int j=0; j<map[i].length; j++) {
-				map[i][j] = new Map();
+				map[i][j] = new Carte();
 				map[i][j].generateMap(j != map.length - 1, j != 0, i != 0, i != map.length - 1);
 				map[i][j].generateRandomObstacle((int) (Math.random()*3));
+				map[i][j].getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].setEnnemiMap((int)(1+Math.random()*2));
 				map[i][j].generateCollisionMap();
 			}
 		}
 		map[4][5] = MapPath.mapShop();
 		map[4][4] = MapPath.mapStart();
-		map[4][3] = MapPath.flyMap();
-		map[4][2] = MapPath.spiderMap();
-		map[4][1] = MapPath.bossMap();
+		map[4][3] = MapPath.bossMap();
 		return map;
 	}
 	
@@ -117,18 +116,19 @@ public class Room {
 		}
 	}
 	
+	public void updateRoomObject() {
+		mapEnCours.changeMap();
+		listeEnnemi.updateEnnemis();
+		mapEnCours.updateObject();
+	}
+	
 	/**
 	 * @return Update tous les éléments de la salle
 	 */
 	public void updateRoom() {
 		if(this.getPlayer().isAlive()) {
-			Input.getInstance().deplacement();
-			Input.getInstance().tire();
-			getMapEnCours().changeMap();
-			getPlayer().boucleCooldownJoueur();
-			getPlayer().updateHitbox();
-			listeEnnemi.updateEnnemis();
-			mapEnCours.updateObject();
+			player.updatePlayer();
+			updateRoomObject();
 			if(listeEnnemi.isEmpty()) {
 				unlockedDoors();
 				mapEnCours.setVisited(true);
@@ -225,19 +225,19 @@ public class Room {
 		this.player = player;
 	}
 
-	public Map getMapEnCours() {
+	public Carte getMapEnCours() {
 		return mapEnCours;
 	}
 
-	public void setMapEnCours(Map mapEnCours) {
+	public void setMapEnCours(Carte mapEnCours) {
 		this.mapEnCours = mapEnCours;
 	}
 
-	public Map[][] getEtage() {
+	public Carte[][] getEtage() {
 		return etage;
 	}
 
-	public void setEtage(Map[][] etage) {
+	public void setEtage(Carte[][] etage) {
 		this.etage = etage;
 	}
 

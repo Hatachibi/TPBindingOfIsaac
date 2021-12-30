@@ -10,7 +10,7 @@ import Model.MapObject;
 import Model.ObjetsInventaire;
 import Ressource.RoomInfos;
 
-public class Map {	
+public class Carte {	
 	
 	/*
 	 * Map avec tous les emplacements des objets, ennemis, ...
@@ -30,7 +30,7 @@ public class Map {
 	/*
 	 * Constructeur
 	 */
-	public Map() {
+	public Carte() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		this.isVisited = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
