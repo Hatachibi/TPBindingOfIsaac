@@ -69,13 +69,12 @@ public class Room {
 				map[i][j] = new Map();
 				map[i][j].generateMap(j != map.length - 1, j != 0, i != 0, i != map.length - 1);
 				map[i][j].generateRandomObstacle((int) (Math.random()*3));
+				map[i][j].getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].setEnnemiMap((int)(1+Math.random()*2));
 				map[i][j].generateCollisionMap();
 			}
 		}
 		map[4][5] = MapPath.mapShop();
 		map[4][4] = MapPath.mapStart();
-		map[4][3] = MapPath.flyMap();
-		map[4][2] = MapPath.spiderMap();
 		map[4][1] = MapPath.bossMap();
 		return map;
 	}
