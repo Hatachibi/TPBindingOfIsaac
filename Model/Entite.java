@@ -1,34 +1,62 @@
-package Model;
+package com.projetpo.bindingofisaac.module.Model;
 
-import Controler.ListeBalle;
-import Shaders.Vector2;
-import Vue.Render;
-import Vue.Texture;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Render;
+import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public class Entite {
 	
+	/*
+	 * Position de l'entite
+	 */
 	protected Vector2 position;
+	
+	/*
+	 * Hitbox de l'entite
+	 */
 	protected Hitbox hitbox;
+	
+	/*
+	 * Largeur de l'entite
+	 */
 	protected int width;
+	
+	/*
+	 * Longueur de l'entite
+	 */
 	protected int heigth;
+	
+	/*
+	 * Url du fichier png
+	 */
 	protected String url;
 	
+	/*
+	 * Constructeur
+	 */
 	public Entite(int width, int heigth, Vector2 position, String url) {
     	this.hitbox = new Hitbox(position, width, heigth);
     	this.position = position;
     	this.width = width;
     	this.heigth = heigth;
     	this.url = url;
-    	this.hitbox = new Hitbox(position, width, heigth);
 	}
 	
+	/**
+	 * @return Dessine l'entite
+	 */
 	public void drawEntite() {
 		Texture entiteTexture = Texture.loadTexture(url);
+		this.hitbox.setWidth(entiteTexture.getWidth());
+		this.hitbox.setHeigth(entiteTexture.getHeight());
 		entiteTexture.bind();
-		Render.getInstance().drawPicture((float)hitbox.getPosition().getX(),(float) hitbox.getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
+		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
 		entiteTexture.unbind();
 	}
 	
+	/*
+	 * Getters & Setters
+	 */
 	public Vector2 getPosition() {
 		return position;
 	}

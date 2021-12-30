@@ -1,9 +1,7 @@
-package Shaders;
+package com.projetpo.bindingofisaac.module.Shaders;
 
-import java.util.*;
-import Model.Personnage;
-import Vue.Fenetre;
-import Vue.Render;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Vue.Render;
 
 /**
  * On va définir cette classe
@@ -70,7 +68,7 @@ public class Raycasting {
     }
     
     public static void drawRays3D(Personnage personnage, boolean[][] map) {
-    	double mdx=0, mdy=0, sx=0, sy=0;
+    /*	double mdx=0, mdy=0, sx=0, sy=0;
     	double pa = personnage.getA();
     	int heigth = Fenetre.HeigthFenetre;
     	int width = Fenetre.WidthFenetre;
@@ -86,7 +84,7 @@ public class Raycasting {
     		}
     		float dist = (float) ((dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY()))); 
     //		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
-    		personnage.setDistance(dist);
+    		personnage.setDistance(dist); */
     		personnage.getHitbox().collisionPlayer(personnage);
     }
 }

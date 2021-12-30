@@ -1,8 +1,6 @@
-package Model;
+package com.projetpo.bindingofisaac.module.Model;
 
-import Ressource.MapPath;
-import Shaders.Vector2;
-import Vue.Map;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class GameWorld {
 	

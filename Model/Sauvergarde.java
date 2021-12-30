@@ -1,14 +1,9 @@
-package Model;
+package com.projetpo.bindingofisaac.module.Model;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Sauvergarde {
 
-    /**
-     * Default constructor
+    /*
+     * Constructeur
      */
     public Sauvergarde() {
     }

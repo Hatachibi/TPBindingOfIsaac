@@ -1,4 +1,4 @@
-package Vue;
+package com.projetpo.bindingofisaac.module.Vue;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -31,28 +31,40 @@ public class Texture {
 
     /** Creates a texture. */
    
-    public static Texture Isaac = loadTexture("libImg/Isaac.png");
-    public static Texture tears = loadTexture("libImg/tear.png");
-    public static Texture coinBG = loadTexture("libImg/coinBG.png");
-    public static Texture coinBD = loadTexture("libImg/coinBD.png");
-    public static Texture coinHG = loadTexture("libImg/coinHG.png");
-    public static Texture coinHD = loadTexture("libImg/coinHD.png");
-    public static Texture murDroite = loadTexture("libImg/murDroite.png");
-    public static Texture murGauche = loadTexture("libImg/murGauche.png");
-    public static Texture murHaut = loadTexture("libImg/murHaut.png");
-    public static Texture murBas = loadTexture("libImg/murBas.png");
-    public static Texture rock = loadTexture("libImg/Rock.png");
-    public static Texture closeDoor_up = loadTexture("libImg/closed_door_up.png");
-    public static Texture closeDoor_down = loadTexture("libImg/closed_door_down.png");
-    public static Texture closeDoor_right = loadTexture("libImg/closed_door_right.png");
-    public static Texture closeDoor_left = loadTexture("libImg/closed_door_left.png");
-    public static Texture openDoor = loadTexture("libImg/opened_door.png");
-    public static Texture spikes = loadTexture("libImg/Spikes.png");
-    public static Texture heart = loadTexture("libImg/HUD_heart_red_full.png");
-    public static Texture halfHeart = loadTexture("libImg/HUD_heart_red_half.png");
-    public static Texture gameOver = loadTexture("libImg/lose.png");
-    public static Texture fly = loadTexture("libImg/fly.png");  
-    public static Texture emptyCell = loadTexture("libImg/emptyCell.png");  
+    public static Texture Isaac = loadTexture("src/main/resources/Isaac.png");
+    public static Texture tears = loadTexture("src/main/resources/tear.png");
+    public static Texture coinBG = loadTexture("src/main/resources/coinBG.png");
+    public static Texture coinBD = loadTexture("src/main/resources/coinBD.png");
+    public static Texture coinHG = loadTexture("src/main/resources/coinHG.png");
+    public static Texture coinHD = loadTexture("src/main/resources/coinHD.png");
+    public static Texture murDroite = loadTexture("src/main/resources/murDroite.png");
+    public static Texture murGauche = loadTexture("src/main/resources/murGauche.png");
+    public static Texture murHaut = loadTexture("src/main/resources/murHaut.png");
+    public static Texture murBas = loadTexture("src/main/resources/murBas.png");
+    public static Texture rock = loadTexture("src/main/resources/Rock.png");
+    public static Texture closeDoor_up = loadTexture("src/main/resources/closed_door_up.png");
+    public static Texture closeDoor_down = loadTexture("src/main/resources/closed_door_down.png");
+    public static Texture closeDoor_right = loadTexture("src/main/resources/closed_door_right.png");
+    public static Texture closeDoor_left = loadTexture("src/main/resources/closed_door_left.png");
+    public static Texture top_openDoor = loadTexture("src/main/resources/top_opened_door.png");
+    public static Texture bot_openDoor = loadTexture("src/main/resources/bot_opened_door.png");
+    public static Texture right_openDoor = loadTexture("src/main/resources/right_opened_door.png");
+    public static Texture left_openDoor = loadTexture("src/main/resources/left_opened_door.png");
+    public static Texture spikes = loadTexture("src/main/resources/Spikes.png");
+    public static Texture heart = loadTexture("src/main/resources/HUD_heart_red_full.png");
+    public static Texture halfHeart = loadTexture("src/main/resources/HUD_heart_red_half.png");
+    public static Texture gameOver = loadTexture("src/main/resources/lose.png");
+    public static Texture fly = loadTexture("src/main/resources/fly.png");  
+    public static Texture boss1 = loadTexture("src/main/resources/boss1.png");
+    public static Texture boss2 = loadTexture("src/main/resources/boss2.png");
+    public static Texture right = loadTexture("src/main/resources/right.png");
+    public static Texture top_bot_isaac = loadTexture("src/main/resources/top_bot_isaac.png");
+    public static Texture bas = loadTexture("src/main/resources/bas.png");
+    public static Texture haut = loadTexture("src/main/resources/haut.png");
+    public static Texture left = loadTexture("src/main/resources/left.png");
+    public static Texture left_right_isaac = loadTexture("src/main/resources/top_bot_isaac.png");
+    public static Texture spawnDraw = loadTexture("src/main/resources/spawnDraw.png");
+    public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {
         id = glGenTextures();

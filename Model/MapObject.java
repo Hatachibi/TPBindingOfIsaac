@@ -1,17 +1,34 @@
-package Model;
+package com.projetpo.bindingofisaac.module.Model;
 
 public class MapObject {
 	
+	/*
+	 * Boolean qui indique s'il il y a une collision
+	 */
 	private boolean collisionMap;
+	
+	/*
+	 * Entier qui indique la nature du fichier image à afficher
+	 */
 	private int renderMap;
+	
+	/*
+	 * Entier qui indique la nature de l'ennemi image à afficher
+	 */
 	private int ennemiMap;
 	
+	/*
+	 * Constructeur
+	 */
 	public MapObject() {
 		this.collisionMap = false;
 		this.renderMap = 0;
 		this.ennemiMap = 0;
 	}
 
+	/*
+	 * Getters & Setters
+	 */
 	public boolean getCollisionMap() {
 		return collisionMap;
 	}
@@ -34,6 +51,6 @@ public class MapObject {
 
 	public void setEnnemiMap(int ennemiMap) {
 		this.ennemiMap = ennemiMap;
-	}	
+	}
 	
 }

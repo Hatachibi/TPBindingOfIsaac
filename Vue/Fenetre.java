@@ -1,18 +1,23 @@
-package Vue;
+package com.projetpo.bindingofisaac.module.Vue;
 
-import static org.lwjgl.glfw.GLFW.*;
-
-import java.util.*;
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
+import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
 import org.lwjgl.glfw.GLFWVidMode;
-import Controler.Input;
-import Model.Jeu;
-import Model.Room;
 
+import com.projetpo.bindingofisaac.module.Model.Jeu;
 
-/**
- * 
- */
 public class Fenetre {
 	
 	public final static Fenetre INSTANCE = new Fenetre();  
@@ -24,7 +29,7 @@ public class Fenetre {
 	private long window;
 
     /**
-     * Default constructor
+     * Constructeur
      */
     private Fenetre() {}
     
@@ -97,7 +102,8 @@ public class Fenetre {
         		if(frameTime >= 1.0) {
         			frameTime = 0;
         			tick=0;
-        			System.out.println("FPS: " + frames);  
+        			System.out.println("FPS: " + frames);
+        			System.out.println("Argent d'Isaac: " + Jeu.room.getPlayer().getCoin());
         			frames = 0;
         		} 
         		

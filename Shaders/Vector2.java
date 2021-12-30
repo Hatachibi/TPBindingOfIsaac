@@ -1,4 +1,4 @@
-package Shaders;
+package com.projetpo.bindingofisaac.module.Shaders;
 
 import java.lang.Math;
 

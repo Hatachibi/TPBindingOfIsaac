@@ -1,6 +1,6 @@
-package Ressource;
+package com.projetpo.bindingofisaac.module.Ressource;
 
-import Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class HeroInfos
 {

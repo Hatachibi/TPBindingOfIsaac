@@ -1,21 +1,35 @@
-package Controler;
+package com.projetpo.bindingofisaac.module.Controler;
 
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_D;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_I;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_K;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_L;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_O;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.GLFW_STICKY_KEYS;
+import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
+import static org.lwjgl.glfw.GLFW.glfwGetKey;
+import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWKeyCallback;
 
-import org.lwjgl.glfw.*;
-
-import Model.Balle;
-import Model.Jeu;
-import Model.Personnage;
-import Model.listeEnnemi;
-import Shaders.Raycasting;
-import Vue.Fenetre;
-import Vue.Render;
+import com.projetpo.bindingofisaac.module.Model.Balle;
+import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Input
 {
@@ -28,8 +42,8 @@ public class Input
 	private double y = Jeu.Isaac.getPosition().getX();
 	private double a = Jeu.Isaac.getA();
 	
-	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,
-			GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
+	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,GLFW.GLFW_KEY_O,
+			GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
 	
 	private double speed = 5.85;
 
@@ -136,6 +150,7 @@ public class Input
 			Jeu.Isaac.goUpNext();
 		}
 		Jeu.Isaac.setA(PI/2);
+		Jeu.Isaac.setFace(1);
 		Jeu.Isaac.drawPlayer();
 	}
 	
@@ -145,6 +160,7 @@ public class Input
 			Jeu.Isaac.goDownNext();
 		}
 		Jeu.Isaac.setA(3*PI/2);
+		Jeu.Isaac.setFace(2);
 		Jeu.Isaac.drawPlayer();
 	}
 	
@@ -155,6 +171,7 @@ public class Input
 			Jeu.Isaac.goRightNext();
 		}
 		Jeu.Isaac.setA(0);
+		Jeu.Isaac.setFace(3);
 		Jeu.Isaac.drawPlayer();
 	}
 	
@@ -165,7 +182,12 @@ public class Input
 			Jeu.Isaac.goLeftNext();
 		}
 		Jeu.Isaac.setA(PI);
+		Jeu.Isaac.setFace(4);
 		Jeu.Isaac.drawPlayer();
+	}
+	
+	public void poseBomb() {
+		ObjetsInventaire bomb = new ObjetsInventaire(-1, 100, 100, Jeu.room.getPlayer().getPosition(), "");
 	}
 	
 	public void shootUp()
@@ -226,6 +248,16 @@ public class Input
 		if(glfwGetKey(window, GLFW_KEY_P) == GLFW.GLFW_PRESS)
 		{
 			Jeu.room.getPlayer().setDegat(Integer.MAX_VALUE);
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_O) == GLFW.GLFW_PRESS)
+		{
+			Jeu.room.getPlayer().setCoin(Jeu.room.getPlayer().getCoin() + 10); //TODO pas fini
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW.GLFW_PRESS)
+		{
+			poseBomb();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 	}
