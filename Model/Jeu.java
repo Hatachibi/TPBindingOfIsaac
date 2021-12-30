@@ -16,14 +16,13 @@ public class Jeu {
 	public static final Room room = new Room(Isaac);
 	
 	public static void music(String test, boolean again) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-		java.net.URL url = Jeu.class.getResource(test);
+	/*	java.net.URL url = Jeu.class.getResource(test);
 		final Clip clip = AudioSystem.getClip();
 		try(AudioInputStream audioIn = AudioSystem.getAudioInputStream(url)) {
 			clip.open(audioIn);
 		}
 		clip.start();
-		clip.stop();
-		if (again) clip.loop(Clip.LOOP_CONTINUOUSLY); 
+		if (again) clip.loop(Clip.LOOP_CONTINUOUSLY); */
 	}
 	
     public static void main(String[] args)
