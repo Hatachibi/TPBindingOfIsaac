@@ -69,7 +69,7 @@ public class Room {
 				map[i][j] = new Map();
 				map[i][j].generateMap(j != map.length - 1, j != 0, i != 0, i != map.length - 1);
 				map[i][j].generateRandomObstacle((int) (Math.random()*3));
-				map[i][j].getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].setEnnemiMap((int)(1+Math.random()*2));
+				map[i][j].getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].setEnnemiMap((int)(1+Math.random()*4));
 				map[i][j].generateCollisionMap();
 			}
 		}
@@ -89,6 +89,7 @@ public class Room {
 					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"src/main/resources/Fly.png", player.getSpeed()/8));break;
 					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65),"src/main/resources/Spider.png", 11.7));break;
 					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"", 2));break;
+					case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25, new Vector2(i*65, j*65),player.getSpeed()*3, "src/main/resources/Fly.png"));break;
 				}
 			}
 		}
