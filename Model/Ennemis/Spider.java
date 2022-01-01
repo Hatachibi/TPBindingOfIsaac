@@ -1,5 +1,9 @@
-package com.projetpo.bindingofisaac.module.Model;
+package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
+import com.projetpo.bindingofisaac.module.Model.Ennemi;
+import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 import com.projetpo.bindingofisaac.module.Vue.Render;
@@ -34,6 +38,7 @@ public class Spider extends Ennemi{
 		entiteTexture.bind();
 		Render.getInstance().drawPicture((float)getPosition().getX(),(float) getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
 		entiteTexture.unbind();
+	//	Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 	}
 	
 	public boolean isMur() {
@@ -76,7 +81,7 @@ public class Spider extends Ennemi{
 			b.getRandom().setY(Math.random() - 0.5);
 		}
 		if(Fenetre.tick > 30) {
-			if(b.getPosition().getX() > 65 && b.getPosition().getX() < 520-b.width && b.getPosition().getY() > 65 && b.getPosition().getY() < 520-b.heigth && !Spider.isMurStatic(b)) {
+			if(b.getPosition().getX() > 65 && b.getPosition().getX() < 520-b.getWidth() && b.getPosition().getY() > 65 && b.getPosition().getY() < 520-b.getHeigth() && !Spider.isMurStatic(b)) {
 				b.setDirection((new Vector2(b.getPosition().getX()*b.getRandom().getX(), b.getPosition().getY()*b.getRandom().getY())));
 				b.move();
 			} else {

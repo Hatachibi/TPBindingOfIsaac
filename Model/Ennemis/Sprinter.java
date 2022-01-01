@@ -1,5 +1,7 @@
-package com.projetpo.bindingofisaac.module.Model;
+package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
+import com.projetpo.bindingofisaac.module.Model.Ennemi;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class Sprinter extends Ennemi {
@@ -27,7 +29,8 @@ public class Sprinter extends Ennemi {
 
 	@Override
 	public void drawEnnemi() {
-		this.drawEntite();		
+		this.drawEntite();
+	//	Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 	}
 
 	@Override

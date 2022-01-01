@@ -123,7 +123,7 @@ public class ListeBalle {
 					if(Jeu.room.getPlayer().collisionBalle(b)) {
 						copieListe.remove(b);
 						Jeu.room.getPlayer().setTouch(true);
-						Jeu.room.getPlayer().subitDegats(Jeu.room.getListeEnnemi().getListe().get(i).getDegat());
+						Jeu.room.getPlayer().subitDegats(degats);
 					};
 				}
 			}

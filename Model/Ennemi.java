@@ -102,7 +102,7 @@ public abstract class Ennemi extends Entite{
 	/*
 	 * Fonction de deplacement
 	 */
-	protected void move()
+	public void move()
 	{
 		Vector2 normalizedDirection = getNormalizedDirection();
 		Vector2 positionAfterMoving = getPosition().addVector(normalizedDirection);

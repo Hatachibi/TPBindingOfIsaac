@@ -7,9 +7,9 @@ import java.util.List;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import com.projetpo.bindingofisaac.module.Model.Boss;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
 public class listeEnnemi {
 

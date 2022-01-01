@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model;
+package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
 import java.io.IOException;
 
@@ -6,10 +6,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
+import com.projetpo.bindingofisaac.module.Model.Balle;
+import com.projetpo.bindingofisaac.module.Model.Ennemi;
+import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
-import com.projetpo.bindingofisaac.module.Vue.Render;
-import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public class Fly extends Ennemi{
 	
@@ -40,9 +43,11 @@ public class Fly extends Ennemi{
 	 */
 	@Override
 	public void drawEnnemi() {
-		Texture.fly.bind();
+	/*	Texture.fly.bind();
 		Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 25, 25, 1, 1, new float[] {});
-		Texture.fly.unbind();
+		Texture.fly.unbind(); */
+		this.drawEntite();
+	//	Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 		munitions.drawBalle();
 	}
 

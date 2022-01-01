@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model;
+package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
 import java.io.IOException;
 
@@ -6,6 +6,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
+import com.projetpo.bindingofisaac.module.Model.Ennemi;
+import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
@@ -49,6 +53,9 @@ public class Boss extends Ennemi{
 			this.munitions.setRange(4);
 			this.munitions.setSpeed(12);
 			this.munitions.setDegats(1); // Degat des projectiles
+			for(int i=1; i<13; i++) {
+				this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
+			}
 		}
 		
 		/**
@@ -75,6 +82,7 @@ public class Boss extends Ennemi{
 				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75, 1, 1, new float[] {});
 				Texture.boss2.unbind();
 			}
+	//		Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 			munitions.drawBalle();
 		}
 
