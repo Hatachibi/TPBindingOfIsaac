@@ -11,19 +11,13 @@ public class MapObject {
 	 * Entier qui indique la nature du fichier image à afficher
 	 */
 	private int renderMap;
-	
-	/*
-	 * Entier qui indique la nature de l'ennemi image à afficher
-	 */
-	private int ennemiMap;
-	
+		
 	/*
 	 * Constructeur
 	 */
 	public MapObject() {
 		this.collisionMap = false;
 		this.renderMap = 0;
-		this.ennemiMap = 0;
 	}
 
 	/*
@@ -43,14 +37,6 @@ public class MapObject {
 
 	public void setRenderMap(int renderMap) {
 		this.renderMap = renderMap;
-	}
-
-	public int getEnnemiMap() {
-		return ennemiMap;
-	}
-
-	public void setEnnemiMap(int ennemiMap) {
-		this.ennemiMap = ennemiMap;
 	}
 	
 }

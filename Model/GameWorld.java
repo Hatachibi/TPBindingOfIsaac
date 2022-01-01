@@ -32,7 +32,8 @@ public class GameWorld {
 				Carte m = new Carte();
 				m.generateMap(j != etage.length - 1, j != 0, i != 0, i != etage.length - 1);
 				m.generateRandomObstacle((int) (Math.random()*3));
-				m.getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].setEnnemiMap((int)(1+Math.random()*5));
+				m.addEnnemi(65+Math.random()*520, 65+Math.random()*520, (int)(1+Math.random()*5));
+		//		m.getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].((int)(1+Math.random()*5));
 				m.generateCollisionMap();
 				etage[i][j] = new Room(Jeu.Isaac, m);
 			}

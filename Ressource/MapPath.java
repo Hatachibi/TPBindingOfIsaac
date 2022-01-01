@@ -45,7 +45,7 @@ public class MapPath {
 	public static final Carte flyMap() {
 		Carte flyMap = new Carte();
 		flyMap.generateMap(true, true, true, true);
-		flyMap.getMapobject()[4][4].setEnnemiMap(1);
+		flyMap.addEnnemi(4*65, 4*65, 1);
 		flyMap.generateRandomObstacle(2);
 		flyMap.generateCollisionMap();
 		return flyMap;
@@ -57,7 +57,7 @@ public class MapPath {
 	public static final Carte spiderMap() {
 		Carte spiderMap = new Carte();
 		spiderMap.generateMap(true, true, true, true);
-		spiderMap.getMapobject()[4][4].setEnnemiMap(2);
+		spiderMap.addEnnemi(4*65, 4*65, 2);
 		spiderMap.generateRandomObstacle(2);
 		spiderMap.generateCollisionMap();
 		return spiderMap;
@@ -69,7 +69,7 @@ public class MapPath {
 	public static final Carte bossMap() {
 		Carte bossMap = new Carte();
 		bossMap.generateMap(true, true, true, true);
-		bossMap.getMapobject()[4][4].setEnnemiMap(3);
+		bossMap.addEnnemi(4*65, 4*65, 3);
 		bossMap.generateRandomObstacle(2);
 		bossMap.generateCollisionMap();
 		return bossMap;

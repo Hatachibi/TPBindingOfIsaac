@@ -53,6 +53,7 @@ public class Texture {
     public static Texture spikes = loadTexture("src/main/resources/Spikes.png");
     public static Texture heart = loadTexture("src/main/resources/HUD_heart_red_full.png");
     public static Texture halfHeart = loadTexture("src/main/resources/HUD_heart_red_half.png");
+    public static Texture emptyHeart = loadTexture("src/main/resources/HUD_heart_red_empty.png");
     public static Texture gameOver = loadTexture("src/main/resources/lose.png");
     public static Texture fly = loadTexture("src/main/resources/fly.png");  
     public static Texture boss1 = loadTexture("src/main/resources/boss1.png");

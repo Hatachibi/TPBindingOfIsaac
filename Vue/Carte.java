@@ -4,11 +4,14 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glEnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.MapObject;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class Carte {	
 	
@@ -28,12 +31,18 @@ public class Carte {
 	private ArrayList<ObjetsInventaire> objet;
 	
 	/*
+	 * Carte des ennemis dans une room
+	 */
+	private HashMap<Vector2, Integer> ennemiMap;
+	
+	/*
 	 * Constructeur
 	 */
 	public Carte() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		this.isVisited = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
+		this.setEnnemiMap(new HashMap<Vector2, Integer>());
 	}
 	
 	/**
@@ -117,17 +126,7 @@ public class Carte {
 			}
 		}
 	}
-	
-	/**
-	 * @param i
-	 * @param j
-	 * @param k le numéro de la case à changé
-	 * @return change la case (i, j) avec la valeur k
-	 */
-	public void setEnnemiMap(int i, int j, int k) {
-		mapobject[i][j].setEnnemiMap(k);
-	}
-	
+		
 	/**
 	 * @return Initialise la Map
 	 */
@@ -156,6 +155,15 @@ public class Carte {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * @param i Coordonnée en x de l'ennemi
+	 * @param j Coordonnée en y de l'ennemi
+	 * @param k Type d'ennemi
+	 */
+	public void addEnnemi(double i, double j, int k) {
+		ennemiMap.put(new Vector2(i, j), k); 
 	}
 	
 	/**
@@ -379,6 +387,14 @@ public class Carte {
 
 	public void setObjet(ArrayList<ObjetsInventaire> objet) {
 		this.objet = objet;
+	}
+
+	public HashMap<Vector2, Integer> getEnnemiMap() {
+		return ennemiMap;
+	}
+
+	public void setEnnemiMap(HashMap<Vector2, Integer> ennemiMap) {
+		this.ennemiMap = ennemiMap;
 	}
 	
 }

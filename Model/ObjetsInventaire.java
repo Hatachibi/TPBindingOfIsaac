@@ -88,7 +88,7 @@ public class ObjetsInventaire extends Entite{
     public void update() {
     	BarreDeVie bdv = Jeu.gameWorld.getPlayer().getLife();
 		Personnage joueur = Jeu.gameWorld.getPlayer(); 
-    	if(this.collisionJoueur(Jeu.gameWorld.getPlayer()) && joueur.getCoin() - this.price >= 0) {
+    	if(this.collisionJoueur(Jeu.gameWorld.getPlayer())) {
     		switch(id){
     			case 1:
     				if(bdv.getVieEnCours() < bdv.getViePleine()) {
@@ -139,7 +139,6 @@ public class ObjetsInventaire extends Entite{
     				
     		}
     		this.setTouch(true);
-    		joueur.setCoin(joueur.getCoin() - this.price);
     	}
     }
 	

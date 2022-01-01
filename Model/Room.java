@@ -46,15 +46,13 @@ public class Room {
 	 * @return Ajoute des ennemis à une pièces
 	 */
 	public void addEnnemis() {
-		for(int i=0; i<carte.getMapobject().length; i++) {
-			for(int j=0; j<carte.getMapobject()[i].length; j++) {
-				switch(carte.getMapobject()[i][j].getEnnemiMap()){
-					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"src/main/resources/fly.png", player.getSpeed()/8));break;
-					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65),"src/main/resources/Spider.png", 11.7));break;
-					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"", 2));break;
-					case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25, new Vector2(i*65, j*65),player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
-					case 5: getListeEnnemi().addEnnemi(new Gorb(25, 25, new Vector2(i*65, j*65),player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
-				}
+		for(Vector2 v: carte.getEnnemiMap().keySet()) {
+			switch(carte.getEnnemiMap().get(v)){
+				case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, v,"src/main/resources/fly.png", player.getSpeed()/8));break;
+				case 2: getListeEnnemi().addEnnemi(new Spider(25, 25,  v,"src/main/resources/Spider.png", 11.7));break;
+				case 3: getListeEnnemi().addEnnemi(new Boss(75, 75,  v,"", 2));break;
+				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
+				case 5: getListeEnnemi().addEnnemi(new Gorb(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
 			}
 		}
 	}

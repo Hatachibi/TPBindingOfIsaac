@@ -41,6 +41,14 @@ public class BarreDeVie {
     	}
     	Texture.halfHeart.unbind();
     	Texture.heart.unbind();
+    	int max = viePleine-vieEnCours;
+    	if(max%2==1) max = viePleine-vieEnCours-1;
+    	for(int i=0; i<max; i+=2) {
+    			Texture.emptyHeart.bind();    	
+    			Render.getInstance().drawPicture(x, y, 25, 25, 1, 1, new float[]{});
+        	x += 25;
+    	}
+    	Texture.emptyHeart.unbind();
     }
     
 	/*
