@@ -10,7 +10,7 @@ import com.projetpo.bindingofisaac.module.Model.MapObject;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 
-public class Map {	
+public class Carte {	
 	
 	/*
 	 * Map avec tous les emplacements des objets, ennemis, ...
@@ -30,7 +30,7 @@ public class Map {
 	/*
 	 * Constructeur
 	 */
-	public Map() {
+	public Carte() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		this.isVisited = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
@@ -40,32 +40,32 @@ public class Map {
 	 * @return Change de Map quand le joueur passe dans une porte
 	 */
 	public void changeMap() {
-		int x = (int) ((Jeu.room.getPlayer().getPosition().getX())/65);
-		int y = (int) ((Jeu.room.getPlayer().getPosition().getY())/65);
+		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
+		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
 		if(getRenderMap()[x][y] < 0) {
 			if(x==4 && y==8) {
-				Jeu.room.getPlayer().getPosition().setY(65);
-				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX()][(int) (Jeu.room.getEtageCoos().getY() + 1)]);
-				Jeu.room.getEtageCoos().setY(Jeu.room.getEtageCoos().getY() + 1);
+				Jeu.gameWorld.getPlayer().getPosition().setY(65);
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() + 1)]);
+				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() + 1);
 			}
 			if(x==4 && y==0) {
-				Jeu.room.getPlayer().getPosition().setY(520);
-				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX()][(int) (Jeu.room.getEtageCoos().getY() - 1)]);
-				Jeu.room.getEtageCoos().setY(Jeu.room.getEtageCoos().getY() - 1);
+				Jeu.gameWorld.getPlayer().getPosition().setY(520);
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() - 1)]);
+				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() - 1);
 			}
 			if(x==8 && y==4) {
-				Jeu.room.getPlayer().getPosition().setX(65);
-				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX() - 1][(int) (Jeu.room.getEtageCoos().getY())]);
-				Jeu.room.getEtageCoos().setX(Jeu.room.getEtageCoos().getX() - 1);
+				Jeu.gameWorld.getPlayer().getPosition().setX(65);
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() - 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
+				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() - 1);
 			}
 			if(x==0 && y==4) {
-				Jeu.room.getPlayer().getPosition().setX(520);
-				Jeu.room.setMapEnCours(Jeu.room.getEtage()[(int) Jeu.room.getEtageCoos().getX() + 1][(int) (Jeu.room.getEtageCoos().getY())]);
-				Jeu.room.getEtageCoos().setX(Jeu.room.getEtageCoos().getX() + 1);
+				Jeu.gameWorld.getPlayer().getPosition().setX(520);
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() + 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
+				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() + 1);
 			}
-			if(!Jeu.room.getMapEnCours().isVisited) {
-				Jeu.room.addEnnemis();
-			}
+	/*		if(!Jeu.gameWorld.getMapEnCours().isVisited) {
+				Jeu.gameWorld.addEnnemis();
+			} */
 		}
 	
 	}
@@ -111,7 +111,7 @@ public class Map {
 	 */
 	public void updateObject() {
 		for(int k=0; k<getObjet().size(); k++) {
-			getObjet().get(k).updateTest();
+			getObjet().get(k).update();
 				if(getObjet().get(k).isTouch()) {
 					getObjet().remove(k);
 			}

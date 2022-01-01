@@ -110,7 +110,6 @@ public class Personnage extends Entite{
 		this.isInvincible = false;
 		this.range = 4;
 		this.munitions.setRange(range);
-		this.munitions.setSpeed(10);
 		this.setFace(2);
     }
     
@@ -176,9 +175,9 @@ public class Personnage extends Entite{
      * @return Update la vie du joueur
      */
     public void updateLife() {
-    	for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
-    		if(Jeu.room.getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {
-        		this.subitDegats(Jeu.room.getListeEnnemi().getListe().get(i).getDegat());
+    	for(int i=0; i<Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().size(); i++) {
+    		if(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {
+        		this.subitDegats(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).getDegat());
         		this.setTouch(true);
         	}
     	}	
@@ -283,7 +282,7 @@ public class Personnage extends Entite{
         	Texture.left.unbind();
         	break;
     	}
-    	Raycasting.drawRays3D(this, Jeu.room.getMapEnCours().getCollisionMap());  
+    	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
     }
     
     /**

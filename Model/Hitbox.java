@@ -105,7 +105,7 @@ public class Hitbox {
     	int j = (int) y/65;
     	if(i<9 && i>=0 && j<9 && j>=0)
     	{
-    		return (Jeu.room.getMapEnCours().getCollisionMap()[i][j]);
+    		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[i][j]);
     	}
     	return true;
     }
@@ -115,10 +115,10 @@ public class Hitbox {
      */
     public boolean collisionMurEntite(Entite e) {
     	if((int) e.getHitbox().getPosition().getX()/65 < 8 && (int) e.getHitbox().getPosition().getX()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 < 8) {
-    		return (Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
-    	    		 || Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPositionX().getX()/65][(int) e.getHitbox().getPositionX().getY()/65]
-    	    		 || Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPositionY().getX()/65][(int) e.getHitbox().getPositionY().getY()/65]		
-    	    		 || Jeu.room.getMapEnCours().getCollisionMap()[(int) e.getHitbox().getPositionXY().getX()/65][(int) e.getHitbox().getPositionXY().getY()/65]	);
+    		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
+    	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionX().getX()/65][(int) e.getHitbox().getPositionX().getY()/65]
+    	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionY().getX()/65][(int) e.getHitbox().getPositionY().getY()/65]		
+    	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionXY().getX()/65][(int) e.getHitbox().getPositionXY().getY()/65]	);
     	    }
     	return true;
     	}

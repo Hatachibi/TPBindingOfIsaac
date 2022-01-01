@@ -32,7 +32,7 @@ public class listeEnnemi {
 		if(!e.getLoot().isEmpty() && Math.random() > 0.1) {
 			int randomItems = (int)(Math.random()*(e.getLoot().size()));
 			e.getLoot().get(randomItems).setPosition(e.getPosition());
-			Jeu.room.getMapEnCours().getObjet().add(e.getLoot().get(randomItems));
+			Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class listeEnnemi {
 				playDeathSound(e);
 			} else {
 				e.boucleCooldownEnnemi();
-				e.IAEnnemi(Jeu.room.getPlayer());
+				e.IAEnnemi(Jeu.gameWorld.getPlayer());
 			}
 		}
 		liste = copieListe;

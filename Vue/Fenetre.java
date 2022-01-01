@@ -95,7 +95,8 @@ public class Fenetre {
     		
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
-    			Jeu.room.updateRoom();
+    		//	Jeu.room.updateRoom();
+    			Jeu.gameWorld.updateWorld();
     			tick++;
     			canRender = true;
     			glfwPollEvents();
@@ -103,14 +104,15 @@ public class Fenetre {
         			frameTime = 0;
         			tick=0;
         			System.out.println("FPS: " + frames);
-        			System.out.println("Argent d'Isaac: " + Jeu.room.getPlayer().getCoin());
+        			System.out.println("Argent d'Isaac: " + Jeu.gameWorld.getPlayer().getCoin());
         			frames = 0;
         		} 
         		
     		}
     		
     		if(canRender) {
-    			Jeu.room.drawRoom();
+    		//	Jeu.room.drawRoom();
+    			Jeu.gameWorld.drawWorld();
         		glfwSwapBuffers(window);
         		frames++;
     		}

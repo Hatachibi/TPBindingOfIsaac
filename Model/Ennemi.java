@@ -50,6 +50,7 @@ public abstract class Ennemi extends Entite{
 	public Ennemi(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, url);
 		this.speed = speed;
+		this.direction = new Vector2(0, 0);
 		this.loot = new  ArrayList<ObjetsInventaire>();
 	}
 	

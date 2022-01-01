@@ -3,12 +3,6 @@ package com.projetpo.bindingofisaac.module.Model;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
-
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
@@ -16,10 +10,8 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Gorb;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
-import com.projetpo.bindingofisaac.module.Ressource.MapPath;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
-import com.projetpo.bindingofisaac.module.Vue.Fenetre;
-import com.projetpo.bindingofisaac.module.Vue.Map;
+import com.projetpo.bindingofisaac.module.Vue.Carte;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
@@ -38,59 +30,25 @@ public class Room {
 	/*
 	 * Pièce en cours
 	 */
-	private Map mapEnCours;
-	
-	/*
-	 * Carte d'un étage
-	 */
-	private Map[][] etage;
-	
-	/*
-	 * Coordonées (x, y) de la pièce dans l'étage
-	 */
-	private Vector2 etageCoos;
-	
-	boolean first = true;
+	private Carte carte;
 	
 	/*
 	 * Constructeur
 	 */
-	public Room(Personnage player) {
+	public Room(Personnage player, Carte carte) {
 		this.player = player;
-		this.mapEnCours = MapPath.mapStart();
+		this.carte = carte;
 		this.listeEnnemi = new listeEnnemi();
-		this.setEtage(initEtage());
-		this.setEtageCoos(new Vector2(4, 4));
 		this.addEnnemis();
-	}
-	
-	/**
-	 * @return L'étage initialisé avec les pièces générées
-	 */
-	public Map[][] initEtage(){
-		Map[][] map = new Map[9][9];
-		for(int i=0; i<map.length; i++) {
-			for(int j=0; j<map[i].length; j++) {
-				map[i][j] = new Map();
-				map[i][j].generateMap(j != map.length - 1, j != 0, i != 0, i != map.length - 1);
-				map[i][j].generateRandomObstacle((int) (Math.random()*3));
-				map[i][j].getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].setEnnemiMap((int)(1+Math.random()*5));
-				map[i][j].generateCollisionMap();
-			}
-		}
-		map[4][5] = MapPath.mapShop();
-		map[4][4] = MapPath.mapStart();
-		map[4][1] = MapPath.bossMap();
-		return map;
 	}
 	
 	/**
 	 * @return Ajoute des ennemis à une pièces
 	 */
 	public void addEnnemis() {
-		for(int i=0; i<mapEnCours.getMapobject().length; i++) {
-			for(int j=0; j<mapEnCours.getMapobject()[i].length; j++) {
-				switch(mapEnCours.getMapobject()[i][j].getEnnemiMap()){
+		for(int i=0; i<carte.getMapobject().length; i++) {
+			for(int j=0; j<carte.getMapobject()[i].length; j++) {
+				switch(carte.getMapobject()[i][j].getEnnemiMap()){
 					case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, new Vector2(i*65, j*65),"src/main/resources/fly.png", player.getSpeed()/8));break;
 					case 2: getListeEnnemi().addEnnemi(new Spider(25, 25, new Vector2(i*65, i*65),"src/main/resources/Spider.png", 11.7));break;
 					case 3: getListeEnnemi().addEnnemi(new Boss(75, 75, new Vector2(i*65, i*65),"", 2));break;
@@ -105,21 +63,21 @@ public class Room {
 	 * @return Dévérouille les portes quand tous les ennemis sont morts
 	 */
 	public void unlockedDoors() {
-		if(mapEnCours.getRenderMap()[4][8] == 12) {
-			mapEnCours.setRenderMap(4, 8, -1);
-			mapEnCours.generateCollisionMap();
+		if(carte.getRenderMap()[4][8] == 12) {
+			carte.setRenderMap(4, 8, -1);
+			carte.generateCollisionMap();
 		}
-		if(mapEnCours.getRenderMap()[4][0] == 13) {
-			mapEnCours.setRenderMap(4, 0, -2);
-			mapEnCours.generateCollisionMap();
+		if(carte.getRenderMap()[4][0] == 13) {
+			carte.setRenderMap(4, 0, -2);
+			carte.generateCollisionMap();
 		}
-		if(mapEnCours.getRenderMap()[8][4] == 14) {
-			mapEnCours.setRenderMap(8, 4, -3);
-			mapEnCours.generateCollisionMap();
+		if(carte.getRenderMap()[8][4] == 14) {
+			carte.setRenderMap(8, 4, -3);
+			carte.generateCollisionMap();
 		}
-		if(mapEnCours.getRenderMap()[0][4] == 15) {
-			mapEnCours.setRenderMap(0, 4, -4);
-			mapEnCours.generateCollisionMap();
+		if(carte.getRenderMap()[0][4] == 15) {
+			carte.setRenderMap(0, 4, -4);
+			carte.generateCollisionMap();
 		}
 	}
 	
@@ -130,14 +88,14 @@ public class Room {
 		if(this.getPlayer().isAlive()) {
 			Input.getInstance().deplacement();
 			Input.getInstance().tire();
-			getMapEnCours().changeMap();
+			getcarte().changeMap();
 			getPlayer().boucleCooldownJoueur();
 			getPlayer().updateHitbox();
 			listeEnnemi.updateEnnemis();
-			mapEnCours.updateObject();
+			carte.updateObject();
 			if(listeEnnemi.isEmpty()) {
 				unlockedDoors();
-				mapEnCours.setVisited(true);
+				carte.setVisited(true);
 			}
 		} 
 	}
@@ -147,29 +105,18 @@ public class Room {
 	 */
 	public void drawRoom() {	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if(this.getPlayer().isAlive()) {
-			mapEnCours.drawMap();
-			if(etageCoos.equals(new Vector2(4, 4))) {
-				Texture.spawnDraw.bind();
-				Render.getInstance().drawPicture(100, 250, (int)(Texture.spawnDraw.getWidth()*1.3), (int)(Texture.spawnDraw.getHeight()*1.3));
-				Texture.spawnDraw.unbind();
-			}
-			Input.getInstance().drawBalle();
-			Input.getInstance().getPlayerMove().drawPlayer();
-			this.getPlayer().getLife().drawBarDeVie();
-			listeEnnemi.drawEnnemis();
-			drawItems();
-			mapEnCours.drawObject();
-			this.drawMiniMap();
-		} else {
-			if(first){
-				playDeathEffect((int)(Math.random()*3));
-			}
-			first = false;
-			Texture.gameOver.bind();
-			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
-			Texture.gameOver.unbind();
+		carte.drawMap();
+		if(Jeu.gameWorld.getEtageCoos().equals(new Vector2(4, 4))) {
+			Texture.spawnDraw.bind();
+			Render.getInstance().drawPicture(100, 250, (int)(Texture.spawnDraw.getWidth()*1.3), (int)(Texture.spawnDraw.getHeight()*1.3));
+			Texture.spawnDraw.unbind();	
 		}
+		Input.getInstance().drawBalle();
+		Input.getInstance().getPlayerMove().drawPlayer();
+		this.getPlayer().getLife().drawBarDeVie();
+		listeEnnemi.drawEnnemis();
+		drawItems();
+		carte.drawObject();
 	}
 	
 	/**
@@ -180,46 +127,6 @@ public class Room {
 		piece.drawEntite();
 	}
 	
-	private void playDeathEffect(int sound) {
-		System.out.println(sound);
-		switch(sound) {
-			case 0: try {
-				Jeu.music("/libMusic/Isaac_dies_1.wav", false);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			}
-			break;
-			case 1:try {
-				Jeu.music("/libMusic/Isaac_dies_2.wav", false);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			}	
-			break;
-			case 2:try {
-				Jeu.music("/libMusic/Isaac_dies_3.wav", false);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			}
-			break;
-		}
-	}
-	
-	/**
-	 * @return Dessine la miniMap
-	 */
-	public void drawMiniMap() {
-		int coef = 2;
-		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre- 58.5*coef), 465, (float)(58.5*coef - 5*coef),(float) (58.5*coef - 5.85*coef), new float[]{1f, 1f, 1f, 0.5f});
-		for(int i=0; i<9; i++) {
-			for(int j=0; j<9; j++) {
-				if(etage[i][j].isVisited()) {
-					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 1f, 1f, 0.5f});
-				}
-			}
-		}
-		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef -  5.85*coef*etageCoos.getX()), (float)(465 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0.5f});
-	}
-
 	/*
 	 * Getters & Setters
 	 */
@@ -231,28 +138,12 @@ public class Room {
 		this.player = player;
 	}
 
-	public Map getMapEnCours() {
-		return mapEnCours;
+	public Carte getcarte() {
+		return carte;
 	}
 
-	public void setMapEnCours(Map mapEnCours) {
-		this.mapEnCours = mapEnCours;
-	}
-
-	public Map[][] getEtage() {
-		return etage;
-	}
-
-	public void setEtage(Map[][] etage) {
-		this.etage = etage;
-	}
-
-	public Vector2 getEtageCoos() {
-		return etageCoos;
-	}
-
-	public void setEtageCoos(Vector2 etageCoos) {
-		this.etageCoos = etageCoos;
+	public void setcarte(Carte carte) {
+		this.carte = carte;
 	}
 	
 	public listeEnnemi getListeEnnemi() {

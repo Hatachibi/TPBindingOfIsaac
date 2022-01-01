@@ -25,13 +25,18 @@ public class Gorb extends Ennemi{
 	private int acceleration;
 	
 	/*
+	 * Vitesse des balles
+	 */
+	private double speedB;
+	
+	/*
 	 * Constructeur
 	 */
 	public Gorb(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.tickCoolDown = 0;
+		this.speedB = 1;
 		this.munitions = new ListeBalle();
-		this.munitions.setSpeed(1);
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(5);
 		this.munitions.setDegats(2);
@@ -55,18 +60,18 @@ public class Gorb extends Ennemi{
 			if(tickCoolDown == 30/acceleration) {
 				Attaque(1, 2, 3, 4);
 			} if(tickCoolDown == 60/acceleration) {
-				munitions.setSpeed(10);
+				this.setSpeedB(10);
 			}
 		} else if(this.getLife() > 20) {
 			if(tickCoolDown == 30) {
 				Attaque(1, 2, 3, 4);
 			} if(tickCoolDown == 60/acceleration) {
-				munitions.setSpeed(10);
+				this.setSpeedB(10);
 			} if(tickCoolDown == 90/acceleration) {
-				munitions.setSpeed(1);
+				this.setSpeedB(1);
 				Attaque(5, 6, 7, 8);
 			} if(tickCoolDown == 120/acceleration) {
-				munitions.setSpeed(10);
+				this.setSpeedB(10);
 			}
 		} else {
 			if(this.getLife() < 10) {
@@ -75,23 +80,23 @@ public class Gorb extends Ennemi{
 			if(tickCoolDown == 30) {
 				Attaque(1, 2, 3, 4);
 			} if(tickCoolDown == 60/acceleration) {
-				munitions.setSpeed(10);
-			} if(tickCoolDown == 90/acceleration) {
-				munitions.setSpeed(1);
+				this.setSpeedB(10);
+				} if(tickCoolDown == 90/acceleration) {
+					this.setSpeedB(1);
 				Attaque(5, 6, 7, 8);
 			} if(tickCoolDown == 120/acceleration) {
-				munitions.setSpeed(10);
+				this.setSpeedB(10);
 			} if(tickCoolDown == 150/acceleration) {
-				munitions.setSpeed(1);
+				this.setSpeedB(1);
 				Attaque(1, 2, 3, 4);
 			} if(tickCoolDown == 180/acceleration) {
-				munitions.setSpeed(10);
+				this.setSpeedB(10);
 			}
 		}
 		tickCoolDown ++;
 		if(tickCoolDown == 210/acceleration) {
 			tickCoolDown = 0;
-			munitions.setSpeed(1);
+			this.setSpeedB(1);
 		}
 		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
 		this.move();
@@ -101,10 +106,10 @@ public class Gorb extends Ennemi{
 	 * @Note Attaque  
 	 */
 	public void Attaque(int a, int b, int c, int d) {
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), a, ""));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), b, ""));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), c, ""));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), d, ""));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, 1), "", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, -1), "", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(1, 0), "", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(-1, 0), "", speedB));
 	}
 
 	/*
@@ -132,6 +137,14 @@ public class Gorb extends Ennemi{
 
 	public void setAcceleration(int acceleration) {
 		this.acceleration = acceleration;
+	}
+
+	public double getSpeedB() {
+		return speedB;
+	}
+
+	public void setSpeedB(double speedB) {
+		this.speedB = speedB;
 	}
 
 }

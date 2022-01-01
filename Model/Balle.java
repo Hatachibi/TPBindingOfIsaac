@@ -27,16 +27,20 @@ public class Balle extends Entite{
 	 * 7 =
 	 * 8 =
 	 */
-	private int direction;
+	private Vector2 direction;
+	
+	private double speed;
 	
 	/*
 	 * Constructeur
 	 */
-	public Balle(int width, int heigth, double x, double y, int direction, String url) {
+	public Balle(int width, int heigth, double x, double y, Vector2 direction, String url, double speed) {
 		super(width, heigth, new Vector2(x, y), url);
 		this.setDirection(direction);
 		this.setPosOrigin(new Vector2(x, y));
 		this.setHitbox(new Hitbox(new Vector2(x, y), width, heigth));
+		this.direction = direction;
+		this.speed = speed;
 	}
 	
 	/**
@@ -56,16 +60,66 @@ public class Balle extends Entite{
 	public void updateHitbox() {
 		this.getHitbox().setPosition(position);
 	}
+		
+	public void move()
+	{
+		Vector2 normalizedDirection = getNormalizedDirection();
+		Vector2 positionAfterMoving = getPosition().addVector(normalizedDirection);
+		setPosition(positionAfterMoving);
+		direction = new Vector2();
+	}
+	
+	/**
+	 * @return Ajoute 1 en Y pour la direction
+	 */
+	public void goUpNext()
+	{
+		getDirection().addY(1);
+	}
+
+	/**
+	 * @return Enlève 1 en Y pour la direction
+	 */
+	public void goDownNext()
+	{
+		getDirection().addY(-1);
+	}
+
+	/**
+	 * @return Enlève 1 en X pour la direction
+	 */
+	public void goLeftNext()
+	{
+		getDirection().addX(-1);
+	}
+
+	/**
+	 * @return Ajoute 1 en X pour la direction
+	 */
+	public void goRightNext()
+	{
+		getDirection().addX(1);
+	}
+	
+	/**
+	 * @return Le vecteur direction normalisée
+	 */
+	public Vector2 getNormalizedDirection()
+	{
+		Vector2 normalizedVector = new Vector2(direction);
+		normalizedVector.euclidianNormalize(this.getSpeed());
+		return normalizedVector;
+	}
 
 	/*
 	 * Getters & Setters
 	 */
-	public int getDirection() {
+	public Vector2 getDirection() {
 		return direction;
 	}
 
-	public void setDirection(int direction) {
-		this.direction = direction;
+	public void setDirection(Vector2 direction2) {
+		this.direction = direction2;
 	}
 
 	public double getCoolDown() {
@@ -90,6 +144,14 @@ public class Balle extends Entite{
 
 	public void setPosOrigin(Vector2 posOrigin) {
 		this.posOrigin = posOrigin;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 	

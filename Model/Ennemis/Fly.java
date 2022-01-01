@@ -31,7 +31,6 @@ public class Fly extends Ennemi{
 		this.setDegat(1);
 		this.setLife(3);
 		this.munitions.setRange(3);
-		this.munitions.setSpeed(8);
 		this.munitions.setDegats(1);  // Degat des projectiles
 		for(int i=1; i<13; i++) {
 			this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
@@ -57,10 +56,10 @@ public class Fly extends Ennemi{
 	@Override
 	public void IAEnnemi(Personnage p) {
 		if(Fenetre.tick == 0%60) {
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 1, ""));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 2, ""));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 3, ""));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 4, ""));
+			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(0, 1), "", 10));
+			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(0, -1), "", 10));
+			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(1, 0), "", 10));
+			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(-1, 0), "", 10));
 	/*		try {
 				Jeu.music("/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
@@ -83,10 +82,10 @@ public class Fly extends Ennemi{
 	 */
 	public static void IAFly(Personnage p, Boss b) {
 		if(Fenetre.tick == 0%60) {
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 1, ""));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 2, ""));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 3, ""));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 4, ""));
+			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(0, 1), "", 12));
+			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(0, -1), "", 12));
+			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(1, 0), "", 12));
+			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(-1, 0), "", 12));
 			try {
 				Jeu.music("/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {

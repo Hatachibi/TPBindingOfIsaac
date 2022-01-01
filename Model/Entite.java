@@ -46,6 +46,7 @@ public class Entite {
 	 * @return Dessine l'entite
 	 */
 	public void drawEntite() {
+		System.out.println(url);
 		Texture entiteTexture = Texture.loadTexture(url);
 		this.hitbox.setWidth(entiteTexture.getWidth());
 		this.hitbox.setHeigth(entiteTexture.getHeight());

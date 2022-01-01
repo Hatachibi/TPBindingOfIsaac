@@ -29,6 +29,7 @@ import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Input
@@ -183,25 +184,31 @@ public class Input
 	}
 	
 	public void poseBomb() {
-		ObjetsInventaire bomb = new ObjetsInventaire(-1, 100, 100, Jeu.room.getPlayer().getPosition(), "");
+		ObjetsInventaire bomb = new ObjetsInventaire(-1, 100, 100, Jeu.gameWorld.getPlayer().getPosition(), "");
 	}
 	
 	public void shootUp()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 3, ""));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(0, 1), "", 10));
+		Jeu.gameWorld.getPlayer().setFace(1);
 	}
 	
 	public void shootDown()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 4, ""));	}
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(0, -1), "", 10));
+		Jeu.gameWorld.getPlayer().setFace(2);
+	}
 	
 	public void shootRight()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 2, ""));	}
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(1, 0), "", 10));
+		Jeu.gameWorld.getPlayer().setFace(3);
+	}
 	
 	public void shootLeft()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), 1, ""));
+		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(-1, 0), "", 10));
+		Jeu.gameWorld.getPlayer().setFace(4);
 	}
 	
 	public void getAWSDkeys(long window)
@@ -228,27 +235,27 @@ public class Input
 		}
 		if(glfwGetKey(window, GLFW_KEY_L) == GLFW.GLFW_PRESS)
 		{
-			Jeu.room.getPlayer().setSpeed(20);
+			Jeu.gameWorld.getPlayer().setSpeed(20);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_I) == GLFW.GLFW_PRESS)
 		{
-			Jeu.room.getPlayer().setInvincible(true);
+			Jeu.gameWorld.getPlayer().setInvincible(true);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_K) == GLFW.GLFW_PRESS)
 		{
-			Jeu.room.setListeEnnemi(new listeEnnemi());
+			Jeu.gameWorld.getMapEnCours().setListeEnnemi(new listeEnnemi());
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_P) == GLFW.GLFW_PRESS)
 		{
-			Jeu.room.getPlayer().setDegat(Integer.MAX_VALUE);
+			Jeu.gameWorld.getPlayer().setDegat(Integer.MAX_VALUE);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_O) == GLFW.GLFW_PRESS)
 		{
-			Jeu.room.getPlayer().setCoin(Jeu.room.getPlayer().getCoin() + 10); //TODO pas fini
+			Jeu.gameWorld.getPlayer().setCoin(Jeu.gameWorld.getPlayer().getCoin() + 10); //TODO pas fini
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW.GLFW_PRESS)

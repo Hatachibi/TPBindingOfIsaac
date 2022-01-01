@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class ListeBalle {
 	
@@ -16,11 +17,6 @@ public class ListeBalle {
 	 * Boolean qui permet de savoir si une balle à été tirée (sert pour le Cooldown du joueur)
 	 */
 	private boolean isNotShot;
-	
-	/*
-	 * Vitesse de la balle
-	 */
-	private int speed;
 	
 	/*
 	 * Degat de la balle
@@ -58,72 +54,27 @@ public class ListeBalle {
 	public void drawBalle() {
 		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();  //On fait une copie de la liste pour éviter d'enlever ou d'ajouter une balle pendant durant l'execution 
 		for(Balle b: liste) {
-			if(b.getDirection() == 1)
-			{
-				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() - speed));
-				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(4);
-			}
-			if(b.getDirection() == 2)
-			{
-				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() + speed));
-				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(3);
-			}
-			if(b.getDirection() == 3)
-			{
-				b.drawBalle();
-				b.getPosition().setY((float) (b.getPosition().getY() + speed));
-				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(1);
-			}
-			if(b.getDirection() == 4)
-			{
-				b.drawBalle();
-				b.getPosition().setY((float) (b.getPosition().getY() - speed));
-				if(!isEnnemiBalle) Jeu.room.getPlayer().setFace(2);
-			}
-			if(b.getDirection() == 5)
-			{
-				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() + speed));
-				b.getPosition().setY((float) (b.getPosition().getY() + speed));
-			}
-			if(b.getDirection() == 6)
-			{
-				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() - speed));
-				b.getPosition().setY((float) (b.getPosition().getY() - speed));
-			}
-			if(b.getDirection() == 7)
-			{
-				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() - speed));
-				b.getPosition().setY((float) (b.getPosition().getY() + speed));
-			}
-			if(b.getDirection() == 8)
-			{
-				b.drawBalle();
-				b.getPosition().setX((float) (b.getPosition().getX() + speed));
-				b.getPosition().setY((float) (b.getPosition().getY() - speed));
-			}
+			b.getPosition().setX(b.getPosition().getX() + b.getDirection().getX()*b.getSpeed());
+			b.getPosition().setY(b.getPosition().getY() + b.getDirection().getY()*b.getSpeed());
+			b.drawBalle();
 			b.updateHitbox();
 			if(doRemove(b)) {
 				copieListe.remove(b);
 			}
 			if(!isEnnemiBalle) { //Si la liste de balle appartient au joueur on fait des dégâts aux ennemis
-				for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
-					if(Jeu.room.getListeEnnemi().getListe().get(i).collisionBalle(b)) {
+				for(int i=0; i<Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().size(); i++) {
+					if(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).collisionBalle(b)) {
 						copieListe.remove(b);
-						Jeu.room.getListeEnnemi().getListe().get(i).setTouch(true);
-						Jeu.room.getListeEnnemi().getListe().get(i).setLife(Jeu.room.getListeEnnemi().getListe().get(i).getLife()-Jeu.room.getPlayer().attaque());
+						Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).setTouch(true);
+						Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).setLife(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).getLife()-Jeu.gameWorld.getMapEnCours().getPlayer().attaque());
 					};
 				}
 			} else {  //Sinon on fait des dégâts au joueur
-				for(int i=0; i<Jeu.room.getListeEnnemi().getListe().size(); i++) {
-					if(Jeu.room.getPlayer().collisionBalle(b)) {
+				for(int i=0; i<Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().size(); i++) {
+					if(Jeu.gameWorld.getMapEnCours().getPlayer().collisionBalle(b)) {
 						copieListe.remove(b);
-						Jeu.room.getPlayer().setTouch(true);
-						Jeu.room.getPlayer().subitDegats(degats);
+						Jeu.gameWorld.getMapEnCours().getPlayer().setTouch(true);
+						Jeu.gameWorld.getMapEnCours().getPlayer().subitDegats(degats);
 					};
 				}
 			}
@@ -156,18 +107,18 @@ public class ListeBalle {
 	 * @return un boolean si la balle a dépassé sa range
 	 */
 	private boolean outOfRange(Balle b) {
-		if(b.getDirection() == 1) {
+		if(b.getDirection().equals(new Vector2(1, 0))) {
 			return (b.getPosition().getX() < (b.getPosOrigin().getX() - range*65));
 		}
-		if(b.getDirection() == 2) {
+		if(b.getDirection().equals(new Vector2(-1, 0))) {
 			return (b.getPosition().getX() > (b.getPosOrigin().getX() + range*65));
 		}
-		if(b.getDirection() == 3) {
+		if(b.getDirection().equals(new Vector2(0, 1))) {
 			return (b.getPosition().getY() > (b.getPosOrigin().getY() + range*65));
 		}
-		if(b.getDirection() == 4) {
+		if(b.getDirection().equals(new Vector2(0, -1))) {
 			return (b.getPosition().getY() < (b.getPosOrigin().getY() - range*65));
-		}
+		} 
 		return false;
 	}
 
@@ -216,14 +167,6 @@ public class ListeBalle {
 
 	public void setNotShot(boolean isNotShot) {
 		this.isNotShot = isNotShot;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 
 	public double getDegats() {

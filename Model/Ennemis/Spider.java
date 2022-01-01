@@ -42,11 +42,11 @@ public class Spider extends Ennemi{
 	}
 	
 	public boolean isMur() {
-		return (Jeu.room.getMapEnCours().getCollisionMap()[(int)(position.getX()/65)][(int)(position.getY()/65)]);
+		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int)(position.getX()/65)][(int)(position.getY()/65)]);
 	}
 	
 	public static boolean isMurStatic(Boss b) {
-		return (Jeu.room.getMapEnCours().getCollisionMap()[(int)(b.getPosition().getX()/65)][(int)(b.getPosition().getY()/65)]);
+		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int)(b.getPosition().getX()/65)][(int)(b.getPosition().getY()/65)]);
 	}
 
 	/**
