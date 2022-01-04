@@ -49,7 +49,7 @@ public class Balle extends Entite{
 	public void drawBalle() {
 		Texture.tears.bind();
 		Render.getInstance().drawPicture((float)this.getPosition().getX(), (float)this.getPosition().getY(), 25, 25, 200, 200, new float[] {255, 255, 255, 255});
-		Texture.tears.unbind();
+		Texture.tears.unbind(); 
 	//	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
 		
 	}

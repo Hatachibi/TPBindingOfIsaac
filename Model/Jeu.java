@@ -4,13 +4,11 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import com.projetpo.bindingofisaac.module.Controler.Input;
-import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Jeu {
-	
-	public static Personnage Isaac = new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png");
-	public static final GameWorld gameWorld = new GameWorld(Isaac);
+
+	public static final GameWorld gameWorld = new GameWorld();
 	
 	public static void music(String test, boolean again) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 	/*	java.net.URL url = Jeu.class.getResource(test);
@@ -32,6 +30,7 @@ public class Jeu {
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} */
+    	Fenetre.getInstance().setState(1);
     	Fenetre.getInstance().run();
     }
 

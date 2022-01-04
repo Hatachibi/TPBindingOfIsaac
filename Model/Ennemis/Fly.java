@@ -55,22 +55,27 @@ public class Fly extends Ennemi{
 	 */
 	@Override
 	public void IAEnnemi(Personnage p) {
-		if(Fenetre.tick == 0%60) {
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(0, 1), "", 10));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(0, -1), "", 10));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(1, 0), "", 10));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), new Vector2(-1, 0), "", 10));
+		if(Fenetre.tick == 0%60 && Math.random() > 0.8) {
+			Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
+			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
+			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));
 	/*		try {
 				Jeu.music("/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			} */
-		} /*if(Fenetre.tick == 30%60) {
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 5, ""));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 6, ""));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 7, ""));
-			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), 8, ""));
+		}
+		
+	/*	if(Fenetre.tick%15 > 0 && Fenetre.tick%15 < 7.5) {
+			 url = "src/main/resources/flyRed.png";
+		} else {
+			 url = "src/main/resources/fly.png";
 		} */
+		if(Fenetre.tick%50 > 25 && Math.random() > 0.5) {
+			 url = "src/main/resources/flyRed.png";
+		} else {
+			 url = "src/main/resources/fly.png";
+		}
 		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
 		this.move();
 	}
@@ -82,26 +87,15 @@ public class Fly extends Ennemi{
 	 */
 	public static void IAFly(Personnage p, Boss b) {
 		if(Fenetre.tick == 0%60) {
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(0, 1), "", 12));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(0, -1), "", 12));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(1, 0), "", 12));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), new Vector2(-1, 0), "", 12));
+			Vector2 v = new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY());
+			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
+			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), v2, "src/main/resources/enemybullets.png", 10));
 			try {
 				Jeu.music("/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}
-		}/* if(Fenetre.tick == 30%60) {
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 5, ""));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 6, ""));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 7, ""));
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), 8, ""));
-			try {
-				Jeu.music("/libMusic/boss_shoot.wav", false);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			}
-		} */
+		}
 		b.setDirection(new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY()));
 		b.move();
 	}

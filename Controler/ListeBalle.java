@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Render;
+import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public class ListeBalle {
 	
@@ -56,7 +58,11 @@ public class ListeBalle {
 		for(Balle b: liste) {
 			b.getPosition().setX(b.getPosition().getX() + b.getDirection().getX()*b.getSpeed());
 			b.getPosition().setY(b.getPosition().getY() + b.getDirection().getY()*b.getSpeed());
-			b.drawBalle();
+			if(isEnnemiBalle()) {
+				b.drawEntite();
+			} else {
+				b.drawBalle();
+			}
 			b.updateHitbox();
 			if(doRemove(b)) {
 				copieListe.remove(b);
@@ -107,10 +113,10 @@ public class ListeBalle {
 	 * @return un boolean si la balle a dépassé sa range
 	 */
 	private boolean outOfRange(Balle b) {
-		if(b.getDirection().equals(new Vector2(1, 0))) {
+		if(b.getDirection().equals(new Vector2(-1, 0))) {
 			return (b.getPosition().getX() < (b.getPosOrigin().getX() - range*65));
 		}
-		if(b.getDirection().equals(new Vector2(-1, 0))) {
+		if(b.getDirection().equals(new Vector2(1, 0))) {
 			return (b.getPosition().getX() > (b.getPosOrigin().getX() + range*65));
 		}
 		if(b.getDirection().equals(new Vector2(0, 1))) {

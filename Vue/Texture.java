@@ -30,7 +30,41 @@ public class Texture {
     private int height;
 
     /** Creates a texture. */
-   
+    
+    public static Texture animationCote1Isaac = loadTexture("src/main/resources/animationCote1Isaac.png");
+    public static Texture animationCote2Isaac = loadTexture("src/main/resources/animationCote2Isaac.png");
+    public static Texture animationCote3Isaac = loadTexture("src/main/resources/animationCote3Isaac.png");
+    public static Texture animationCote4Isaac = loadTexture("src/main/resources/animationCote4Isaac.png");
+    public static Texture animationCote5Isaac = loadTexture("src/main/resources/animationCote5Isaac.png");
+    public static Texture animationCote6Isaac = loadTexture("src/main/resources/animationCote6Isaac.png");
+    public static Texture animationCote7Isaac = loadTexture("src/main/resources/animationCote7Isaac.png");
+    public static Texture animationCote8Isaac = loadTexture("src/main/resources/animationCote8Isaac.png");
+    public static Texture animationCote9Isaac = loadTexture("src/main/resources/animationCote9Isaac.png");
+    public static Texture animationCote10Isaac = loadTexture("src/main/resources/animationCote10Isaac.png");
+    public static Texture animation2Isaac = loadTexture("src/main/resources/animation2Isaac.png");
+    public static Texture animation3Isaac = loadTexture("src/main/resources/animation3Isaac.png");
+    public static Texture animation4Isaac = loadTexture("src/main/resources/animation4Isaac.png");
+    public static Texture animation5Isaac = loadTexture("src/main/resources/animation5Isaac.png");
+    public static Texture animation6Isaac = loadTexture("src/main/resources/animation6Isaac.png");
+    public static Texture animation7Isaac = loadTexture("src/main/resources/animation7Isaac.png");
+    public static Texture animation8Isaac = loadTexture("src/main/resources/animation8Isaac.png");
+    public static Texture animation9Isaac = loadTexture("src/main/resources/animation9Isaac.png");
+    public static Texture animation10Isaac = loadTexture("src/main/resources/animation10Isaac.png");
+    public static Texture bgMenu = loadTexture("src/main/resources/intro_bg.png");
+    public static Texture IsaacShotUp = loadTexture("src/main/resources/IsaacShot.png");
+    public static Texture IsaacShotR = loadTexture("src/main/resources/IsaacShotCoteL.png");
+    public static Texture IsaacShotL = loadTexture("src/main/resources/IsaacShotCoteR.png");
+    public static Texture IsaacShotDown = loadTexture("src/main/resources/IsaacShotDown.png");
+    public static Texture IsaacMenu = loadTexture("src/main/resources/isaacMenu.png");
+    public static Texture IsaacString = loadTexture("src/main/resources/isaacString.png");
+    public static Texture MagdaleneMenu = loadTexture("src/main/resources/magdaleneMenu.png");
+    public static Texture MagdaleneString = loadTexture("src/main/resources/magdaleneString.png");
+    public static Texture MagdaleneUp = loadTexture("src/main/resources/MagdaleneUp.png");
+    public static Texture MagdaleneDown = loadTexture("src/main/resources/MagdaleneDown.png");
+    public static Texture MagdaleneR = loadTexture("src/main/resources/MagdaleneL.png");
+    public static Texture MagdaleneL = loadTexture("src/main/resources/MagdaleneR.png");
+    public static Texture leftArrow = loadTexture("src/main/resources/leftArrow.png");
+    public static Texture rightArrow = loadTexture("src/main/resources/rightArrow.png");
     public static Texture Isaac = loadTexture("src/main/resources/Isaac.png");
     public static Texture tears = loadTexture("src/main/resources/tear.png");
     public static Texture coinBG = loadTexture("src/main/resources/coinBG.png");
@@ -63,7 +97,7 @@ public class Texture {
     public static Texture bas = loadTexture("src/main/resources/bas.png");
     public static Texture haut = loadTexture("src/main/resources/haut.png");
     public static Texture left = loadTexture("src/main/resources/left.png");
-    public static Texture left_right_isaac = loadTexture("src/main/resources/top_bot_isaac.png");
+    public static Texture left_right_isaac = loadTexture("src/main/resources/left_right_isaac.png");
     public static Texture spawnDraw = loadTexture("src/main/resources/spawnDraw.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 

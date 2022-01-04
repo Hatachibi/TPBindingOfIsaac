@@ -39,22 +39,20 @@ public class Input
 	public final static float PI = (float) 3.141592;
     public final static float P2 = (float) (PI/2);
     
-    private double x = Jeu.Isaac.getPosition().getY();
-	private double y = Jeu.Isaac.getPosition().getX();
-	private double a = Jeu.Isaac.getA();
+    private double x = Jeu.gameWorld.getPlayer().getPosition().getY();
+	private double y = Jeu.gameWorld.getPlayer().getPosition().getX();
+	private double a = Jeu.gameWorld.getPlayer().getA();
 	
 	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,GLFW.GLFW_KEY_O,
-			GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
+			GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
 	
-	private double speed = 5.85;
-
 	public void drawBalle() 
 	{
-		Jeu.Isaac.getMunitions().drawBalle();
+		Jeu.gameWorld.getPlayer().getMunitions().drawBalle();
 	}
 
 	public Personnage getPlayerMove() {
-		return Jeu.Isaac;
+		return Jeu.gameWorld.getPlayer();
 	}
 	
 	private GLFWKeyCallback keyboard;
@@ -97,7 +95,7 @@ public class Input
 		{
 			checkDeplacement(Fenetre.getInstance().getWindow(), key);
 		}
-		Jeu.Isaac.updateGameObject();
+		Jeu.gameWorld.getPlayer().updateGameObject();
 	}
 	
 	public void tire()
@@ -147,40 +145,40 @@ public class Input
 	
 	public void moveUp()
 	{
-		if(!Jeu.Isaac.getHitbox().isZCollision()) {
-			Jeu.Isaac.goUpNext();
+		if(!Jeu.gameWorld.getPlayer().getHitbox().isZCollision()) {
+			Jeu.gameWorld.getPlayer().goUpNext();
 		}
-		Jeu.Isaac.setA(PI/2);
-		Jeu.Isaac.drawPlayer();
+		Jeu.gameWorld.getPlayer().setA(PI/2);
+		Jeu.gameWorld.getPlayer().drawPlayer();
 	}
 	
 	public void moveDown()
 	{
-		if(!Jeu.Isaac.getHitbox().isSCollision()) {
-			Jeu.Isaac.goDownNext();
+		if(!Jeu.gameWorld.getPlayer().getHitbox().isSCollision()) {
+			Jeu.gameWorld.getPlayer().goDownNext();
 		}
-		Jeu.Isaac.setA(3*PI/2);
-		Jeu.Isaac.drawPlayer();
+		Jeu.gameWorld.getPlayer().setA(3*PI/2);
+		Jeu.gameWorld.getPlayer().drawPlayer();
 	}
 	
 	public void moveRight()
 	{
 		a = 0;
-		if(!Jeu.Isaac.getHitbox().isDCollision()) {
-			Jeu.Isaac.goRightNext();
+		if(!Jeu.gameWorld.getPlayer().getHitbox().isDCollision()) {
+			Jeu.gameWorld.getPlayer().goRightNext();
 		}
-		Jeu.Isaac.setA(0);
-		Jeu.Isaac.drawPlayer();
+		Jeu.gameWorld.getPlayer().setA(0);
+		Jeu.gameWorld.getPlayer().drawPlayer();
 	}
 	
 	public void moveLeft()
 	{
 		a = PI;
-		if(!Jeu.Isaac.getHitbox().isQCollision()) {
-			Jeu.Isaac.goLeftNext();
+		if(!Jeu.gameWorld.getPlayer().getHitbox().isQCollision()) {
+			Jeu.gameWorld.getPlayer().goLeftNext();
 		}
-		Jeu.Isaac.setA(PI);
-		Jeu.Isaac.drawPlayer();
+		Jeu.gameWorld.getPlayer().setA(PI);
+		Jeu.gameWorld.getPlayer().drawPlayer();
 	}
 	
 	public void poseBomb() {
@@ -189,26 +187,53 @@ public class Input
 	
 	public void shootUp()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(0, 1), "", 10));
+		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(0, 1), "src/main/resources/tear.png", 10));
 		Jeu.gameWorld.getPlayer().setFace(1);
+		Jeu.gameWorld.getPlayer().setShot(true);
 	}
 	
 	public void shootDown()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(0, -1), "", 10));
+		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(0, -1), "src/main/resources/tear.png", 10));
 		Jeu.gameWorld.getPlayer().setFace(2);
+		Jeu.gameWorld.getPlayer().setShot(true);
 	}
 	
 	public void shootRight()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(1, 0), "", 10));
+		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(1, 0), "src/main/resources/tear.png", 10));
 		Jeu.gameWorld.getPlayer().setFace(3);
+		Jeu.gameWorld.getPlayer().setShot(true);
 	}
 	
 	public void shootLeft()
 	{
-		Jeu.Isaac.getMunitions().addBalle(new Balle(25, 25, Jeu.Isaac.getPosition().getX(), Jeu.Isaac.getPosition().getY(), new Vector2(-1, 0), "", 10));
+		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(-1, 0), "src/main/resources/tear.png", 10));
 		Jeu.gameWorld.getPlayer().setFace(4);
+		Jeu.gameWorld.getPlayer().setShot(true);
+	}
+	
+	public boolean choosePersoTemp(long window) {
+		if(glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW.GLFW_PRESS)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			return true;
+		}
+		if(glfwGetKey(window, GLFW_KEY_LEFT) == GLFW.GLFW_PRESS)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean valid(long window) {
+		if(glfwGetKey(window, GLFW.GLFW_KEY_ENTER) == GLFW.GLFW_PRESS)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			return true;
+		}
+		return false;
 	}
 	
 	public void getAWSDkeys(long window)
@@ -217,21 +242,25 @@ public class Input
 		{
 			moveUp();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			Jeu.gameWorld.getPlayer().setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_S) == GLFW.GLFW_PRESS)
 		{
 			moveDown();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			Jeu.gameWorld.getPlayer().setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_D) == GLFW.GLFW_PRESS)
 		{
 			moveRight();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			Jeu.gameWorld.getPlayer().setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_A) == GLFW.GLFW_PRESS)
 		{
 			moveLeft();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			Jeu.gameWorld.getPlayer().setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_L) == GLFW.GLFW_PRESS)
 		{

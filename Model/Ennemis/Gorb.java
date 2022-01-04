@@ -106,10 +106,10 @@ public class Gorb extends Ennemi{
 	 * @Note Attaque  
 	 */
 	public void Attaque(int a, int b, int c, int d) {
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, 1), "", speedB));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, -1), "", speedB));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(1, 0), "", speedB));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(-1, 0), "", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, 1), "src/main/resources/enemybullets.png", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, -1), "src/main/resources/enemybullets.png", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(1, 0), "src/main/resources/enemybullets.png", speedB));
+		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(-1, 0), "src/main/resources/enemybullets.png", speedB));
 	}
 
 	/*

@@ -1,6 +1,7 @@
 package com.projetpo.bindingofisaac.module.Model;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -13,6 +14,11 @@ import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public class Personnage extends Entite{
 
+	/*
+	 * Nom du joueur
+	 */
+	private String name;
+	
 	/*
 	 * Liste de balle du joueur
 	 */
@@ -94,13 +100,23 @@ public class Personnage extends Entite{
 	private int face;
 	
 	/*
+	 * Indique si le joueur est en mouvement
+	 */
+	private boolean isMoving;
+	
+	/*
+	 * Indique si le joueur a tiré une balle
+	 */
+	private boolean isShot;
+	
+	/*
 	 * Constructeur
 	 */
     public Personnage(int degat, int width, int heigth, Vector2 position, Vector2 size, String url) {
     	super(width, heigth, position, url);
     	this.degat = 2;
     	this.multiplicator = 1.0;
-    	this.life = new BarreDeVie(6);
+    //	this.life = new BarreDeVie(6);
     	this.munitions = new ListeBalle();
 		this.size = size;
 		this.speed = 5.85;
@@ -108,9 +124,11 @@ public class Personnage extends Entite{
 		this.cooldownDegat = 0;
 		this.direction = new Vector2();
 		this.isInvincible = false;
-		this.range = 4;
+	//	this.range = 4;
 		this.munitions.setRange(range);
 		this.setFace(2);
+		this.setMoving(false);
+		this.setShot(false);
     }
     
     /**
@@ -243,44 +261,128 @@ public class Personnage extends Entite{
 		return normalizedVector;
 	}
 	
-	/**s
-	 * @return Dessine le joueur
+	public void animation() {
+		double coef = 1.5;
+		int fps = 40;
+		LinkedList<Texture> liste1 = new LinkedList<Texture>();
+		liste1.add(Texture.top_bot_isaac);
+		liste1.add(Texture.animation2Isaac);
+		liste1.add(Texture.animation3Isaac);
+		liste1.add(Texture.animation4Isaac);
+		liste1.add(Texture.animation5Isaac);
+		liste1.add(Texture.animation6Isaac);
+		liste1.add(Texture.animation7Isaac);
+		liste1.add(Texture.animation8Isaac);
+		liste1.add(Texture.animation9Isaac);
+		liste1.add(Texture.animation10Isaac);
+		LinkedList<Texture> liste2 = new LinkedList<Texture>();
+		liste2.add(Texture.left_right_isaac);
+		liste2.add(Texture.animationCote1Isaac);
+		liste2.add(Texture.animationCote2Isaac);
+		liste2.add(Texture.animationCote3Isaac);
+		liste2.add(Texture.animationCote4Isaac);
+		liste2.add(Texture.animationCote5Isaac);
+		liste2.add(Texture.animationCote6Isaac);
+		liste2.add(Texture.animationCote7Isaac);
+		liste2.add(Texture.animationCote8Isaac);
+		liste2.add(Texture.animationCote9Isaac);
+		liste2.add(Texture.animationCote10Isaac);
+		if(face == 1 || face == 2) {
+			Animation anim = new Animation(liste1, fps, new Vector2(position.getX(), position.getY()), new Vector2(25*coef, 25*coef));
+			anim.anim();
+		} else {
+			Animation anim = new Animation(liste2, fps, new Vector2(position.getX(), position.getY()), new Vector2(25*coef, 25*coef));
+			anim.anim();
+		}
+	}
+	
+	/**
+	 * @Note Dessine le joueur
 	 */
     public void drawPlayer() {
-    	double coef = 1.2;
+    	double coef = 1.5;
+    	if(isMoving) {
+    		animation();
+    		isMoving = false;
+    	} else {
+    		if(face == 1 || face == 2) {
+    			Texture.top_bot_isaac.bind();
+        		Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(), (int)(25*coef), (int)(25*coef));
+        		Texture.top_bot_isaac.unbind();
+    		} else {
+    			Texture.left_right_isaac.bind();
+        		Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(), (int)(25*coef), (int)(25*coef));
+        		Texture.left_right_isaac.unbind();
+    		}
+    	}
     	switch(face) {
     	case 1:
-    		Texture.top_bot_isaac.bind();
-        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(), (int)(25*coef), (int)(25*coef));
-        	Texture.top_bot_isaac.unbind();
-        	Texture.bas.bind();
-        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
-        	Texture.bas.unbind();
+    		if(isShot) {
+    	    	Texture.IsaacShotDown.bind();
+    	    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.IsaacShotDown.unbind();
+			} else {
+	        	Texture.bas.bind();
+	        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.bas.unbind();
+			}
+    		if(name == "Magdalene") {
+    			Texture.MagdaleneDown.bind();
+    			Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5*coef),(float)this.getPosition().getY() +23, (int)(50*coef), (int)(50*coef));
+    			Texture.MagdaleneDown.unbind();
+    		}
     		break;
     	case 2:
-    		Texture.top_bot_isaac.bind();
-    		Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(),(int)(25*coef), (int)(25*coef));
-        	Texture.top_bot_isaac.unbind();
-        	Texture.haut.bind();
-        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 ,(int)(35*coef), (int)(35*coef));
-        	Texture.haut.unbind();
+    		if(isShot) {
+    			Texture.IsaacShotUp.bind();
+    	    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.IsaacShotUp.unbind();
+			} else {
+	        	Texture.haut.bind();
+	        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 ,(int)(35*coef), (int)(35*coef));
+	        	Texture.haut.unbind();
+			}
+    		if(name == "Magdalene") {
+    			Texture.MagdaleneUp.bind();
+    			Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5*coef),(float)this.getPosition().getY() +23, (int)(50*coef), (int)(50*coef));
+    			Texture.MagdaleneUp.unbind();
+    		}
     		break;
     	case 3:
-    		Texture.left_right_isaac.bind();
-    		Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(), (int)(25*coef), (int)(25*coef));
-        	Texture.left_right_isaac.unbind();
-        	Texture.right.bind();
-        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
-        	Texture.right.unbind();
+    		if(isShot) {
+    			Texture.IsaacShotL.bind();
+    	    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.IsaacShotL.unbind();
+			} else {
+	        	Texture.right.bind();
+	        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.right.unbind();
+			}
+    		if(name == "Magdalene") {
+    			Texture.MagdaleneL.bind();
+    			Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5*coef),(float)this.getPosition().getY() +23, (int)(50*coef), (int)(50*coef));
+    			Texture.MagdaleneL.unbind();
+    		}
     		break;
     	case 4:
-        	Texture.left_right_isaac.bind();
-        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()),(float)this.getPosition().getY(),(int) (25*coef), (int)(25*coef));
-        	Texture.left_right_isaac.unbind();
-        	Texture.left.bind();
-        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
-        	Texture.left.unbind();
+    		if(isShot) {
+    			Texture.IsaacShotR.bind();
+    	    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.IsaacShotR.unbind();
+			} else {
+	        	Texture.left.bind();
+	        	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+	        	Texture.left.unbind();
+			}
+    		if(name == "Magdalene") {
+    			Texture.MagdaleneR.bind();
+    			Render.getInstance().drawPicture((float) ((float)this.getPosition().getX() - 12.5*coef),(float)this.getPosition().getY() +23, (int)(50*coef), (int)(50*coef));
+    			Texture.MagdaleneR.unbind();
+    		}
         	break;
+    	}
+    	if(isShot) {
+    		this.setShot(false);
     	}
     	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
     }
@@ -298,7 +400,7 @@ public class Personnage extends Entite{
 			};
 		}
     	if(isTouch()) { //Cooldown degat
-			setCooldownDegat((Jeu.Isaac.getCooldownDegat()+1));
+			setCooldownDegat((this.getCooldownDegat()+1));
 			if(getCooldownDegat() == 30) {
 				setCooldownDegat(0);
 				setTouch(false);
@@ -348,6 +450,7 @@ public class Personnage extends Entite{
 
 	public void setRange(double range) {
 		this.range = range;
+		this.munitions.setRange(range);
 	}
 
 	public BarreDeVie getLife() {
@@ -461,5 +564,31 @@ public class Personnage extends Entite{
 	public void setFace(int face) {
 		this.face = face;
 	}
+
+	public boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(boolean isMoving) {
+		this.isMoving = isMoving;
+	}
+
+	public boolean isShot() {
+		return isShot;
+	}
+
+	public void setShot(boolean isShot) {
+		this.isShot = isShot;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
+	
+		
 }

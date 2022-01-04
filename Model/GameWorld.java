@@ -19,10 +19,10 @@ public class GameWorld {
 	private Room mapEnCours;
 	private Personnage player;
 	
-	public GameWorld(Personnage player) {
+	public GameWorld() {
 		this.etage = new Room[9][9];
-		this.player = player;
 		this.setEtageCoos(new Vector2(4, 4));
+		this.setPersonnage(new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png"));
 		initRoom();
 	}
 
@@ -33,9 +33,8 @@ public class GameWorld {
 				m.generateMap(j != etage.length - 1, j != 0, i != 0, i != etage.length - 1);
 				m.generateRandomObstacle((int) (Math.random()*3));
 				m.addEnnemi(65+Math.random()*520, 65+Math.random()*520, (int)(1+Math.random()*5));
-		//		m.getMapobject()[(int)(2+Math.random()*6)][(int)(2+Math.random()*6)].((int)(1+Math.random()*5));
 				m.generateCollisionMap();
-				etage[i][j] = new Room(Jeu.Isaac, m);
+				etage[i][j] = new Room(player, m);
 			}
 		}
 		etage[4][5] = new Room(player, MapPath.mapShop());
@@ -129,6 +128,10 @@ public class GameWorld {
 
 	public Personnage getPlayer() {
 		return player;
-	}	
+	}
+	
+	public void setPersonnage(Personnage player) {
+		this.player = player;
+	}
 	
 }

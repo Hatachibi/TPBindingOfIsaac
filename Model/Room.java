@@ -8,6 +8,7 @@ import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Gorb;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Pooter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
@@ -53,6 +54,7 @@ public class Room {
 				case 3: getListeEnnemi().addEnnemi(new Boss(75, 75,  v,"", 2));break;
 				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
 				case 5: getListeEnnemi().addEnnemi(new Gorb(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
+				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
 			}
 		}
 	}
