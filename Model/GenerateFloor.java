@@ -44,8 +44,8 @@ public abstract class GenerateFloor {
 		
 		for(int i = 0; i<nbEnnemis; i++)
 		{
-			int x = new Random().nextInt(5)+2;
-			int y = new Random().nextInt(5)+2;
+			int x = new Random().nextInt(455)+65;
+			int y = new Random().nextInt(455)+65;
 			System.out.println(x+" "+y);
 			int ennemi = new Random().nextInt(4)+1;
 			if(!bossRoom)
