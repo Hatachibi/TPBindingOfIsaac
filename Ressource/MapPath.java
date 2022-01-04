@@ -11,7 +11,7 @@ public class MapPath {
 	 */
 	public static final Carte mapStart() {
 		Carte start = new Carte();
-		start.generateMap(true, true, true, true);
+		start.generateMap(false, false, false, false);
 		start.generateCollisionMap();
 		return start;
 	}
