@@ -40,6 +40,13 @@ public class Carte {
 	 */
 	public Carte() {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
+		for(int i = 0; i<mapobject.length; i++)
+		{
+			for(int j = 0; j<mapobject.length; j++)
+			{
+				mapobject[i][j] = new MapObject();
+			}
+		}
 		this.isVisited = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());

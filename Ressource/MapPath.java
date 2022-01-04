@@ -11,8 +11,7 @@ public class MapPath {
 	 */
 	public static final Carte mapStart() {
 		Carte start = new Carte();
-		start.generateMap(true, true, true, true);
-		start.addEnnemi(4*65, 4*65, 6);
+		start.generateMap(false, false, false, false);
 		start.generateCollisionMap();
 		return start;
 	}

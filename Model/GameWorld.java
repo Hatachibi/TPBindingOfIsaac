@@ -22,8 +22,8 @@ public class GameWorld {
 	public GameWorld() {
 		this.etage = new Room[9][9];
 		this.setEtageCoos(new Vector2(4, 4));
-		this.setPersonnage(new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png"));
-		initRoom();
+		//initRoom();
+		initRoom(true);
 	}
 
 	private void initRoom() {
@@ -40,6 +40,12 @@ public class GameWorld {
 		etage[4][5] = new Room(player, MapPath.mapShop());
 		etage[4][4] = new Room(player, MapPath.mapStart());
 		etage[4][1] = new Room(player, MapPath.bossMap());
+		this.setMapEnCours(etage[4][4]);
+	}
+	
+	private void initRoom(boolean n)
+	{
+		this.etage = GenerateFloor.generateFloor(5, 6, 5);
 		this.setMapEnCours(etage[4][4]);
 	}
 	
@@ -94,7 +100,7 @@ public class GameWorld {
 		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre- 58.5*coef), 465, (float)(58.5*coef - 5*coef),(float) (58.5*coef - 5.85*coef), new float[]{1f, 1f, 1f, 0.5f});
 		for(int i=0; i<9; i++) {
 			for(int j=0; j<9; j++) {
-				if(etage[i][j].getcarte().isVisited()) {
+				if(etage[i][j] != null && etage[i][j].getcarte().isVisited()) {
 					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 1f, 1f, 0.5f});
 				}
 			}
