@@ -119,7 +119,8 @@ public class Fenetre {
     			switch(playerChoice) {
     			case 0: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(6)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Isaac"); break;
     			case 1: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(8)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Magdalene");break;
-    		} 
+    		}
+    		Jeu.gameWorld.initRoom(true);
     		this.setState(2);
     	}
     }

@@ -22,8 +22,8 @@ public class GameWorld {
 	public GameWorld() {
 		this.etage = new Room[9][9];
 		this.setEtageCoos(new Vector2(4, 4));
-		//initRoom();
-		initRoom(true);
+		this.setPersonnage(new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png")); // Personnage par défaut
+	//	initRoom(true);
 	}
 
 	private void initRoom() {
@@ -43,7 +43,7 @@ public class GameWorld {
 		this.setMapEnCours(etage[4][4]);
 	}
 	
-	private void initRoom(boolean n)
+	public void initRoom(boolean n)
 	{
 		this.etage = GenerateFloor.generateFloor(5, 6, 5);
 		this.setMapEnCours(etage[4][4]);
