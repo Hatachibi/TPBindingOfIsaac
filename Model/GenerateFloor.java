@@ -7,7 +7,7 @@ import com.projetpo.bindingofisaac.module.Vue.Carte;
 
 public abstract class GenerateFloor {
 	
-	private final static Personnage player = Jeu.Isaac; 
+	private final static Personnage player = Jeu.gameWorld.getPlayer(); 
 	
 	public static Carte defaultMap()
 	{

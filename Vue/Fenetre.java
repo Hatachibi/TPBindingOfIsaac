@@ -16,7 +16,11 @@ import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
 import org.lwjgl.glfw.GLFWVidMode;
 
+import com.projetpo.bindingofisaac.module.Controler.Input;
+import com.projetpo.bindingofisaac.module.Model.BarreDeVie;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
+import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class Fenetre {
 	
@@ -27,6 +31,9 @@ public class Fenetre {
 	public static int tick;
 
 	private long window;
+	
+	private int state;
+	private int playerChoice = 0;
 
     /**
      * Constructeur
@@ -76,6 +83,48 @@ public class Fenetre {
     	return (double)System.nanoTime() / (double)1000000000L;
     }
     
+    public void menu() {
+    	Texture.bgMenu.bind();
+    	Render.getInstance().drawPicture(0, 0, 585, 585);
+    	Texture.bgMenu.unbind();
+    	Texture.leftArrow.bind();
+    	Render.getInstance().drawPicture(585/4, 585/2, Texture.leftArrow.getWidth(), Texture.leftArrow.getHeight());
+    	Texture.leftArrow.unbind();
+    	Texture.rightArrow.bind();
+    	Render.getInstance().drawPicture(3*585/4, 585/2, Texture.rightArrow.getWidth(), Texture.rightArrow.getHeight());
+    	Texture.rightArrow.unbind();
+    	switch(playerChoice) {
+    		case 0:
+    			Texture.IsaacMenu.bind();
+	       		Render.getInstance().drawPicture((float)(585/2), (float)(585/2), Texture.IsaacMenu.getWidth(), Texture.IsaacMenu.getHeight());
+	       		Texture.IsaacMenu.unbind();
+	       		Texture.IsaacString.bind();
+	       		Render.getInstance().drawPicture(585/2, 585/4, Texture.IsaacString.getWidth(), Texture.IsaacString.getHeight());
+	       		Texture.IsaacString.unbind(); break;
+    		case 1:
+    			Texture.MagdaleneMenu.bind();
+    	    	Render.getInstance().drawPicture((float)(585/2), (float)(585/2), Texture.MagdaleneMenu.getWidth(), Texture.MagdaleneMenu.getHeight());
+    	    	Texture.MagdaleneMenu.unbind();
+    	    	Texture.MagdaleneString.bind();
+    	    	Render.getInstance().drawPicture(585/2, 585/4, Texture.MagdaleneString.getWidth(), Texture.MagdaleneString.getHeight());
+    	    	Texture.MagdaleneString.unbind(); break;
+    		}
+    	if(Input.getInstance().choosePersoTemp(window) && tick%10 == 0) {
+    		playerChoice++;
+    		if(playerChoice > 1) {
+    			playerChoice = 0;
+    		}
+    	}
+    	if(Input.getInstance().valid(window)) {
+    			switch(playerChoice) {
+    			case 0: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(6)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Isaac"); break;
+    			case 1: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(8)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Magdalene");break;
+    		}
+    		Jeu.gameWorld.initRoom(true);
+    		this.setState(2);
+    	}
+    }
+    
     public void run() {
     	
     	double frameCap = 1.0/60.0; //On CAP à 60 FPS
@@ -95,8 +144,9 @@ public class Fenetre {
     		
     		while(unprocessed >= frameCap) {
     			unprocessed -= frameCap;
-    		//	Jeu.room.updateRoom();
-    			Jeu.gameWorld.updateWorld();
+    			switch(state) {
+    				case 2: Jeu.gameWorld.updateWorld(); break;
+    			}
     			tick++;
     			canRender = true;
     			glfwPollEvents();
@@ -104,15 +154,17 @@ public class Fenetre {
         			frameTime = 0;
         			tick=0;
         			System.out.println("FPS: " + frames);
-        			System.out.println("Argent d'Isaac: " + Jeu.gameWorld.getPlayer().getCoin());
+        		//	System.out.println("Argent d'Isaac: " + Jeu.gameWorld.getPlayer().getCoin());
         			frames = 0;
         		} 
         		
     		}
     		
     		if(canRender) {
-    		//	Jeu.room.drawRoom();
-    			Jeu.gameWorld.drawWorld();
+    			switch(state) {
+    				case 1: this.menu(); break;
+    				case 2: Jeu.gameWorld.drawWorld();  break;
+    			}
         		glfwSwapBuffers(window);
         		frames++;
     		}
@@ -120,5 +172,13 @@ public class Fenetre {
     	
     	glfwTerminate();
     }
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
 
 }

@@ -59,7 +59,7 @@ public class Hitbox {
      * @return Calcul les collisions avec le joueur pour les murs
      */
     public void collisionPlayer(Personnage p) {
-    	Jeu.Isaac.updateHitbox();
+    	Jeu.gameWorld.getPlayer().updateHitbox();
     	if(this.collisionMur(p.getHitbox().getPositionX().getX() + p.getSpeed(), p.getHitbox().getPositionX().getY()) || this.collisionMur(p.getHitbox().getPositionXY().getX() + p.getSpeed(), p.getHitbox().getPositionXY().getY())) {
     		this.isDCollision = true;
     	} else {
