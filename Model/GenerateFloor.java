@@ -160,16 +160,6 @@ public abstract class GenerateFloor {
 					break;
 			}
 		}
-		for(Room[] r: etage)
-		{
-			for(Room room: r)
-			{
-				if(room != null)
-				{
-					room.getcarte().setVisited(true);
-				}
-			}
-		}
 		return etage;
 	}
 
