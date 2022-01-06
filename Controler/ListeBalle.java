@@ -51,7 +51,7 @@ public class ListeBalle {
 	}
 	
 	/**
-	 * @return Dessine l'ensemble des balles de la liste
+	 * @Note Dessine l'ensemble des balles de la liste
 	 */
 	public void drawBalle() {
 		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();  //On fait une copie de la liste pour éviter d'enlever ou d'ajouter une balle pendant durant l'execution 
@@ -64,6 +64,13 @@ public class ListeBalle {
 				b.drawBalle();
 			}
 			b.updateHitbox();
+		}
+		liste = copieListe;
+	} 
+	
+	public void update() {
+		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();
+		for(Balle b: liste) {
 			if(doRemove(b)) {
 				copieListe.remove(b);
 			}

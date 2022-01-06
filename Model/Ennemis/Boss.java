@@ -87,6 +87,7 @@ public class Boss extends Ennemi{
 		 */
 		@Override
 		public void IAEnnemi(Personnage p) {
+			munitions.update();
 			if((Math.random() > 0.5 || tickCoolDown > 0) && firstPhase) { //Phase 1
 				this.tickCoolDown ++;
 				Spider.IASpider(p, this);

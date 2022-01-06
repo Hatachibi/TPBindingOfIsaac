@@ -56,6 +56,7 @@ public class Gasper extends Ennemi{
 
 	@Override
 	public void IAEnnemi(Personnage p) {
+		munitions.update();
 		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
 		this.move();
 	}

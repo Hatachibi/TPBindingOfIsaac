@@ -116,7 +116,6 @@ public class Personnage extends Entite{
     	super(width, heigth, position, url);
     	this.degat = 2;
     	this.multiplicator = 1.0;
-    //	this.life = new BarreDeVie(6);
     	this.munitions = new ListeBalle();
 		this.size = size;
 		this.speed = 5.85;
@@ -124,11 +123,12 @@ public class Personnage extends Entite{
 		this.cooldownDegat = 0;
 		this.direction = new Vector2();
 		this.isInvincible = false;
-	//	this.range = 4;
 		this.munitions.setRange(range);
 		this.setFace(2);
 		this.setMoving(false);
 		this.setShot(false);
+		this.inv = new Inventaire();
+		this.getInv().setNbBombe(1);
     }
     
     /**
@@ -187,6 +187,15 @@ public class Personnage extends Entite{
 	{
 		move();
 		updateLife();
+		munitions.update();
+		LinkedList bombListClone = (LinkedList) Jeu.gameWorld.getMapEnCours().getBombList().clone();
+		for(Bombe b: Jeu.gameWorld.getMapEnCours().getBombList()) {
+			b.update();
+			if(b.isDoRemove()) {
+				bombListClone.remove(b);
+			}
+		} 
+		Jeu.gameWorld.getMapEnCours().setBombList(bombListClone);
 	}
     
     /**
@@ -335,7 +344,8 @@ public class Personnage extends Entite{
     	case 2:
     		if(isShot) {
     			Texture.IsaacShotUp.bind();
-    	    	Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
+    
+    			Render.getInstance().drawPicture((float) ((float)this.getPosition().getX()-5*coef),(float)this.getPosition().getY() +25 , (int)(35*coef), (int)(35*coef));
 	        	Texture.IsaacShotUp.unbind();
 			} else {
 	        	Texture.haut.bind();
@@ -387,6 +397,10 @@ public class Personnage extends Entite{
     	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
     }
     
+    public void drawInventaire() {
+    	
+    }
+    
     /**
      * @return Calcul tous les cooldown en cours
      */
@@ -415,6 +429,14 @@ public class Personnage extends Entite{
     public boolean collisionBalle(Balle b) {
 		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
 	}
+    
+    /**
+     * @param un laser
+     * @return si un laser ennemi est en collision avec le joueur
+     */
+    public boolean collisionBalle(Laser laser) {
+    	return (Hitbox.rectangleCollision(laser.position, new Vector2(laser.getHitbox().getWidth(), laser.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
+	}	
     
     /*
      * Getters & Setters
@@ -589,6 +611,4 @@ public class Personnage extends Entite{
 		this.name = name;
 	}
 	
-	
-		
 }

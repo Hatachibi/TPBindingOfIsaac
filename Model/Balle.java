@@ -1,5 +1,7 @@
 package com.projetpo.bindingofisaac.module.Model;
 
+import java.util.LinkedList;
+
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
@@ -29,6 +31,9 @@ public class Balle extends Entite{
 	 */
 	private Vector2 direction;
 	
+	/*
+	 * Vitesse de la balle
+	 */
 	private double speed;
 	
 	/*
@@ -153,7 +158,5 @@ public class Balle extends Entite{
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
-	
-	
 	
 }

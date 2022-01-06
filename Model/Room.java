@@ -4,9 +4,12 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 
+import java.util.LinkedList;
+
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Essaim;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Gasper;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Parabite;
@@ -37,12 +40,18 @@ public class Room {
 	private Carte carte;
 	
 	/*
+	 * Liste des bombes à afficher
+	 */
+	private LinkedList<Bombe> bombList;
+	
+	/*
 	 * Constructeur
 	 */
 	public Room(Personnage player, Carte carte) {
 		this.player = player;
 		this.carte = carte;
 		this.listeEnnemi = new listeEnnemi();
+		this.bombList = new LinkedList<Bombe>();
 		this.addEnnemis();
 	}
 	
@@ -60,6 +69,7 @@ public class Room {
 				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
 				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabite.png"));
 				case 8: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));
+				case 9: getListeEnnemi().addEnnemi(new Essaim(25, 25, v, 12, "src/main/resources/parabite.png"));
 			}
 		}
 	}
@@ -121,6 +131,7 @@ public class Room {
 		this.getPlayer().getLife().drawBarDeVie();
 		listeEnnemi.drawEnnemis();
 		drawItems();
+		drawPlayerItems();
 		carte.drawObject();
 	}
 	
@@ -132,6 +143,15 @@ public class Room {
 		piece.drawEntite();
 		Render.getInstance().drawText(55, 515, player.getCoin()+"");
 	//	Render.getInstance().drawText(15, 490, "x"+player.getMultiplicator());
+		Bombe b = new Bombe(-3, 20, 20, new Vector2(12, 470),"src/main/resources/Bomb.png");
+		b.drawEntite();
+		Render.getInstance().drawText(55, 480, player.getInv().getNbBombe()+"");
+	}
+	
+	public void drawPlayerItems() {
+		for(Bombe b: bombList) {
+			b.draw();
+		}
 	}
 	
 	/*
@@ -159,6 +179,14 @@ public class Room {
 
 	public void setListeEnnemi(listeEnnemi listeEnnemi) {
 		this.listeEnnemi = listeEnnemi;
+	}
+
+	public LinkedList<Bombe> getBombList() {
+		return bombList;
+	}
+
+	public void setBombList(LinkedList<Bombe> bombList) {
+		this.bombList = bombList;
 	}
 	
 }

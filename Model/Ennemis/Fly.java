@@ -52,6 +52,7 @@ public class Fly extends Ennemi{
 	 */
 	@Override
 	public void IAEnnemi(Personnage p) {
+		munitions.update();
 		if(Fenetre.tick == 0%60 && Math.random() > 0.8) {
 			Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());

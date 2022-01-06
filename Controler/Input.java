@@ -26,6 +26,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
 import com.projetpo.bindingofisaac.module.Model.Balle;
+import com.projetpo.bindingofisaac.module.Model.Bombe;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
@@ -39,20 +40,22 @@ public class Input
 	public final static float PI = (float) 3.141592;
     public final static float P2 = (float) (PI/2);
     
-    private double x = Jeu.gameWorld.getPlayer().getPosition().getY();
-	private double y = Jeu.gameWorld.getPlayer().getPosition().getX();
-	private double a = Jeu.gameWorld.getPlayer().getA();
+    public Personnage player = Jeu.gameWorld.getPlayer();
+    
+    private double x = player.getPosition().getY();
+	private double y = player.getPosition().getX();
+	private double a = player.getA();
 	
 	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,GLFW.GLFW_KEY_O,
-			GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
+			GLFW.GLFW_KEY_E,GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
 	
 	public void drawBalle() 
 	{
-		Jeu.gameWorld.getPlayer().getMunitions().drawBalle();
+		player.getMunitions().drawBalle();
 	}
 
 	public Personnage getPlayerMove() {
-		return Jeu.gameWorld.getPlayer();
+		return player;
 	}
 	
 	private GLFWKeyCallback keyboard;
@@ -95,7 +98,7 @@ public class Input
 		{
 			checkDeplacement(Fenetre.getInstance().getWindow(), key);
 		}
-		Jeu.gameWorld.getPlayer().updateGameObject();
+		player.updateGameObject();
 	}
 	
 	public void tire()
@@ -145,72 +148,78 @@ public class Input
 	
 	public void moveUp()
 	{
-		if(!Jeu.gameWorld.getPlayer().getHitbox().isZCollision()) {
-			Jeu.gameWorld.getPlayer().goUpNext();
+		if(!player.getHitbox().isZCollision()) {
+			player.goUpNext();
 		}
-		Jeu.gameWorld.getPlayer().setA(PI/2);
-		Jeu.gameWorld.getPlayer().drawPlayer();
+		player.setA(PI/2);
+		player.drawPlayer();
 	}
 	
 	public void moveDown()
 	{
-		if(!Jeu.gameWorld.getPlayer().getHitbox().isSCollision()) {
-			Jeu.gameWorld.getPlayer().goDownNext();
+		if(!player.getHitbox().isSCollision()) {
+			player.goDownNext();
 		}
-		Jeu.gameWorld.getPlayer().setA(3*PI/2);
-		Jeu.gameWorld.getPlayer().drawPlayer();
+		player.setA(3*PI/2);
+		player.drawPlayer();
 	}
 	
 	public void moveRight()
 	{
 		a = 0;
-		if(!Jeu.gameWorld.getPlayer().getHitbox().isDCollision()) {
-			Jeu.gameWorld.getPlayer().goRightNext();
+		if(!player.getHitbox().isDCollision()) {
+			player.goRightNext();
 		}
-		Jeu.gameWorld.getPlayer().setA(0);
-		Jeu.gameWorld.getPlayer().drawPlayer();
+		player.setA(0);
+		player.drawPlayer();
 	}
 	
 	public void moveLeft()
 	{
 		a = PI;
-		if(!Jeu.gameWorld.getPlayer().getHitbox().isQCollision()) {
-			Jeu.gameWorld.getPlayer().goLeftNext();
+		if(!player.getHitbox().isQCollision()) {
+			player.goLeftNext();
 		}
-		Jeu.gameWorld.getPlayer().setA(PI);
-		Jeu.gameWorld.getPlayer().drawPlayer();
+		player.setA(PI);
+		player.drawPlayer();
 	}
 	
-	public void poseBomb() {
-		ObjetsInventaire bomb = new ObjetsInventaire(-1, 100, 100, Jeu.gameWorld.getPlayer().getPosition(), "");
+	public void poseBombe() {
+		if((!Jeu.gameWorld.getMapEnCours().getBombList().isEmpty() && !Jeu.gameWorld.getMapEnCours().getBombList().getLast().isPoseRecently()) || Jeu.gameWorld.getMapEnCours().getBombList().isEmpty()) {
+			if(player.getInv().getNbBombe() - 1 >= 0) {
+				Bombe bombe = new Bombe(-3, 20, 20 ,player.getPosition(),"src/main/resources/Bomb.png");
+				Jeu.gameWorld.getMapEnCours().getBombList().add(bombe);
+				player.getInv().setNbBombe(player.getInv().getNbBombe()-1);
+			}
+		}
 	}
 	
 	public void shootUp()
 	{
-		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(0, 1), "src/main/resources/tear.png", 10));
-		Jeu.gameWorld.getPlayer().setFace(1);
-		Jeu.gameWorld.getPlayer().setShot(true);
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(0, 1), "src/main/resources/tear.png", 10));
+		player.setFace(1);
+		player.setShot(true);
 	}
 	
 	public void shootDown()
 	{
-		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(0, -1), "src/main/resources/tear.png", 10));
-		Jeu.gameWorld.getPlayer().setFace(2);
-		Jeu.gameWorld.getPlayer().setShot(true);
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(0, -1), "src/main/resources/tear.png", 10));
+		player.setFace(2);
+		player.setShot(true);
 	}
 	
 	public void shootRight()
 	{
-		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(1, 0), "src/main/resources/tear.png", 10));
-		Jeu.gameWorld.getPlayer().setFace(3);
-		Jeu.gameWorld.getPlayer().setShot(true);
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(1, 0), "src/main/resources/tear.png", 10));
+		player.setFace(3);
+		player.setShot(true);
 	}
 	
 	public void shootLeft()
 	{
-		Jeu.gameWorld.getPlayer().getMunitions().addBalle(new Balle(25, 25, Jeu.gameWorld.getPlayer().getPosition().getX(), Jeu.gameWorld.getPlayer().getPosition().getY(), new Vector2(-1, 0), "src/main/resources/tear.png", 10));
-		Jeu.gameWorld.getPlayer().setFace(4);
-		Jeu.gameWorld.getPlayer().setShot(true);
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(-1, 0), "src/main/resources/tear.png", 10));
+		player.setFace(4);
+		player.setShot(true);
 	}
 	
 	public boolean choosePersoTemp(long window) {
@@ -242,34 +251,34 @@ public class Input
 		{
 			moveUp();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
-			Jeu.gameWorld.getPlayer().setMoving(true);
+			player.setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_S) == GLFW.GLFW_PRESS)
 		{
 			moveDown();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
-			Jeu.gameWorld.getPlayer().setMoving(true);
+			player.setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_D) == GLFW.GLFW_PRESS)
 		{
 			moveRight();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
-			Jeu.gameWorld.getPlayer().setMoving(true);
+			player.setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_A) == GLFW.GLFW_PRESS)
 		{
 			moveLeft();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
-			Jeu.gameWorld.getPlayer().setMoving(true);
+			player.setMoving(true);
 		}
 		if(glfwGetKey(window, GLFW_KEY_L) == GLFW.GLFW_PRESS)
 		{
-			Jeu.gameWorld.getPlayer().setSpeed(20);
+			player.setSpeed(20);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_I) == GLFW.GLFW_PRESS)
 		{
-			Jeu.gameWorld.getPlayer().setInvincible(true);
+			player.setInvincible(true);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_K) == GLFW.GLFW_PRESS)
@@ -279,19 +288,20 @@ public class Input
 		}
 		if(glfwGetKey(window, GLFW_KEY_P) == GLFW.GLFW_PRESS)
 		{
-			Jeu.gameWorld.getPlayer().setDegat(Integer.MAX_VALUE);
+			player.setDegat(Integer.MAX_VALUE);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_O) == GLFW.GLFW_PRESS)
 		{
-			Jeu.gameWorld.getPlayer().setCoin(Jeu.gameWorld.getPlayer().getCoin() + 10); //TODO pas fini
+			player.setCoin(player.getCoin() + 10); //TODO pas fini
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
-		if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW.GLFW_PRESS)
+		if(glfwGetKey(window, GLFW.GLFW_KEY_E) == GLFW.GLFW_PRESS)
 		{
-			poseBomb();
+			poseBombe();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
+
 	}
 	
 	public void getShotsKeys(long window)
