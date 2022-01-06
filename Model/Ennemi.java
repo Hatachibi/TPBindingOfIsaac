@@ -52,6 +52,7 @@ public abstract class Ennemi extends Entite{
 		this.speed = speed;
 		this.direction = new Vector2(0, 0);
 		this.loot = new  ArrayList<ObjetsInventaire>();
+		this.getLoot().add(new ObjetsInventaire(-3, 30, 30, position, ""));
 		this.getLoot().add(new ObjetsInventaire(1, 30, 30, position, ""));
 		this.getLoot().add(new ObjetsInventaire(10, 30, 30, position, ""));
 		this.getLoot().add(new ObjetsInventaire(11, 30, 30, position, ""));
@@ -89,6 +90,14 @@ public abstract class Ennemi extends Entite{
 	 */
 	public boolean collisionBalle(Balle b) {
 		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
+	}
+	
+	/**
+	 * @param laser un laser (celui du joueur)
+	 * @return si il y a collision entre l'ennemi et le laser
+	 */
+	public boolean collisionBalle(Laser laser) {
+		return (Hitbox.rectangleCollision(laser.position, new Vector2(laser.getHitbox().getWidth(), laser.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
 	}
 	
 	/**

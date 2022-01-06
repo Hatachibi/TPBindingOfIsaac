@@ -50,6 +50,7 @@ public class ParabiteBalle extends Ennemi {
 
 	@Override
 	public void IAEnnemi(Personnage p) {
+		munitions.update();
 		if(tickCoolDown == random) {
 			setDirection(new Vector2(p.getPosition().getX(), p.getPosition().getY()));
 		} else if(tickCoolDown == random + 20) {

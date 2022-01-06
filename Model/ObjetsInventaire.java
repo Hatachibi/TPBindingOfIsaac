@@ -29,6 +29,8 @@ public class ObjetsInventaire extends Entite{
      * 
      * -1 - Mr Boom
      * -2 - Sonar
+     * -3 - Bombe
+     * 
      */
     protected int id;
     
@@ -82,6 +84,9 @@ public class ObjetsInventaire extends Entite{
 			case -1:
 				this.price = 15;
 				this.url = "src/main/resources/Mr_Boom.png"; break;
+			case -3:
+				this.price = 15;
+				this.url = "src/main/resources/Bomb.png"; break;
 		}
 	}
     
@@ -135,6 +140,9 @@ public class ObjetsInventaire extends Entite{
     			break;
     			case 12:
     				joueur.setCoin(joueur.getCoin() + 10);
+    			break;
+    			case -3:
+    				joueur.getInv().setNbBombe(joueur.getInv().getNbBombe() + 1);
     			break;
     				
     		}

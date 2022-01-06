@@ -43,7 +43,7 @@ public class Entite {
 	}
 	
 	/**
-	 * @return Dessine l'entite
+	 * @Note Dessine l'entite
 	 */
 	public void drawEntite() {
 		Texture entiteTexture = Texture.loadTexture(url);
@@ -51,6 +51,16 @@ public class Entite {
 		this.hitbox.setHeigth(entiteTexture.getHeight());
 		entiteTexture.bind();
 		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
+		entiteTexture.unbind();
+	}
+	
+	/**
+	 * @Note Dessine l'entite
+	 */
+	public void drawRealEntite() {
+		Texture entiteTexture = Texture.loadTexture(url);
+		entiteTexture.bind();
+		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), width, heigth);
 		entiteTexture.unbind();
 	}
 	

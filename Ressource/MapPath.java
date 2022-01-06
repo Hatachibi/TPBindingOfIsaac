@@ -1,7 +1,6 @@
 package com.projetpo.bindingofisaac.module.Ressource;
 
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.Parabite;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
 
@@ -13,6 +12,7 @@ public class MapPath {
 	public static final Carte mapStart() {
 		Carte start = new Carte();
 		start.generateMap(false, false, false, false);
+		start.addEnnemi(4*65, 4*65, 9);
 		start.generateCollisionMap();
 		return start;
 	}

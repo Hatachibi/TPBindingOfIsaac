@@ -67,6 +67,7 @@ public class Pooter extends Ennemi{
 	 */
 	@Override
 	public void IAEnnemi(Personnage p) {
+		munitions.update();
 		if(Fenetre.tick == 30) {
 			if(Math.random() > 0.5) {
 				randomPosition.setX(Math.random() - 0.5);
