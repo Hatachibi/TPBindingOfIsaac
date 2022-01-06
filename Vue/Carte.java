@@ -32,6 +32,8 @@ public class Carte {
 	
 	private boolean isShopRoom;
 	
+	private int floor;
+	
 	/*
 	 * Liste qui contient tous les objets
 	 */
@@ -58,6 +60,7 @@ public class Carte {
 		this.isBossRoom = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());
+		this.floor = 0;
 	}
 	
 	public Carte(int categorieCarte) {
@@ -91,7 +94,7 @@ public class Carte {
 	}
 	
 	/**
-	 * @return Change de Map quand le joueur passe dans une porte
+	 * Change de Map quand le joueur passe dans une porte
 	 */
 	public void changeMap() {
 		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
@@ -116,6 +119,28 @@ public class Carte {
 				Jeu.gameWorld.getPlayer().getPosition().setX(520);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() + 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() + 1);
+			}
+	/*		if(!Jeu.gameWorld.getMapEnCours().isVisited) {
+				Jeu.gameWorld.addEnnemis();
+			} */
+		}
+	
+	}
+	
+	/**
+	 * Change de Map quand le joueur passe dans une porte
+	 */
+	public void changeFloor() {
+		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
+		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
+		if(getRenderMap()[x][y] == -10) {
+			if(x==4 && y==4) {
+				Jeu.gameWorld.getPlayer().getPosition().setY(65);
+				floor++;
+				Jeu.gameWorld.initRoom(Jeu.gameWorld.DEFAULT_NB_ROOMS+floor, Jeu.gameWorld.DEFAULT_NB_MAX_ROCKS+floor, Jeu.gameWorld.DEFAULT_NB_MAX_ENNEMIS+floor);
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
+				Jeu.gameWorld.getEtageCoos().setX(4);
+				Jeu.gameWorld.getEtageCoos().setY(4);
 			}
 	/*		if(!Jeu.gameWorld.getMapEnCours().isVisited) {
 				Jeu.gameWorld.addEnnemis();

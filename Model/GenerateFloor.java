@@ -237,35 +237,6 @@ public abstract class GenerateFloor {
 					}
 				}
 			}
-			
-		
-		/*if(etage[dernierX][dernierY] != null)
-		{
-			if(etage[(dernierX+1)][dernierY] == null)
-			{
-				etage[dernierX][dernierY].getcarte().generateRightBossDoor();
-				dernierX++;
-				etage[dernierX][dernierY] = new Room(player, bossMap(3));
-			}
-			else if(etage[(dernierX-1)][dernierY] == null)
-			{
-				etage[dernierX][dernierY].getcarte().generateLeftBossDoor();
-				dernierX--;
-				etage[dernierX][dernierY] = new Room(player, bossMap(4));
-			}
-			else if(etage[dernierX][(dernierY+1)] == null)
-			{
-				etage[dernierX][dernierY].getcarte().generateUpBossDoor();
-				dernierY++;
-				etage[dernierX][dernierY] = new Room(player, bossMap(2));
-			}
-			else if(etage[dernierX][(dernierY-1)] == null)
-			{
-				etage[dernierX][dernierY].getcarte().generateDownBossDoor();
-				dernierY--;
-				etage[dernierX][dernierY] = new Room(player, bossMap(1));
-			}
-		}*/
 		
 		for(Room[] room: etage)
 		{

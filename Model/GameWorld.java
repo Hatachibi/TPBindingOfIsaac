@@ -18,7 +18,9 @@ public class GameWorld {
 	private Vector2 etageCoos;
 	private Room mapEnCours;
 	private Personnage player;
-	
+	public static final Integer DEFAULT_NB_ROOMS = 6;
+	public static final Integer DEFAULT_NB_MAX_ENNEMIS = 5;
+	public static final Integer DEFAULT_NB_MAX_ROCKS = 5;
 	public GameWorld() {
 		this.etage = new Room[9][9];
 		this.setEtageCoos(new Vector2(4, 4));
@@ -26,7 +28,7 @@ public class GameWorld {
 	//	initRoom(true);
 	}
 
-	private void initRoom() {
+	/*private void initRoom() {
 		for(int i=0; i<etage.length; i++) {
 			for(int j=0; j<etage[i].length; j++){
 				Carte m = new Carte();
@@ -41,11 +43,11 @@ public class GameWorld {
 		etage[4][4] = new Room(player, MapPath.mapStart());
 		etage[4][1] = new Room(player, MapPath.bossMap());
 		this.setMapEnCours(etage[4][4]);
-	}
+	}*/
 	
-	public void initRoom(boolean n)
+	public void initRoom(int nbRooms, int nbMaxRocks, int nbMaxEnnemis)
 	{
-		this.etage = GenerateFloor.generateFloor(10, 6, 5);
+		this.etage = GenerateFloor.generateFloor(nbRooms, nbMaxRocks, nbMaxEnnemis);
 		this.setMapEnCours(etage[4][4]);
 	}
 	
