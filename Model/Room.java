@@ -41,6 +41,8 @@ public class Room {
 	
 	private boolean isBossRoom;
 	
+	private boolean isShopRoom;
+	
 	/*
 	 * Liste des bombes à afficher
 	 */
@@ -56,6 +58,7 @@ public class Room {
 		this.bombList = new LinkedList<Bombe>();
 		this.addEnnemis();
 		this.isBossRoom = carte.isBossRoom();
+		this.isShopRoom = carte.isShopRoom();
 	}
 	
 	/**
@@ -212,6 +215,10 @@ public class Room {
 	public boolean isBossRoom()
 	{
 		return isBossRoom;
+	}
+
+	public boolean isShopRoom() {
+		return isShopRoom;
 	}
 	
 }

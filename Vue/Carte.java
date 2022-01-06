@@ -30,6 +30,8 @@ public class Carte {
 	 */
 	private boolean isBossRoom;
 	
+	private boolean isShopRoom;
+	
 	/*
 	 * Liste qui contient tous les objets
 	 */
@@ -58,7 +60,7 @@ public class Carte {
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());
 	}
 	
-	public Carte(boolean isBossRoom) {
+	public Carte(int categorieCarte) {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		for(int i = 0; i<mapobject.length; i++)
 		{
@@ -68,7 +70,22 @@ public class Carte {
 			}
 		}
 		this.isVisited = false;
-		this.isBossRoom = isBossRoom;
+		if(categorieCarte == 1)
+		{
+			this.isBossRoom = true;
+			this.isShopRoom = false;
+		}
+		else if(categorieCarte == 2)
+		{
+			this.isBossRoom = false;
+			this.isShopRoom = true;
+		}
+		else
+		{
+			this.isBossRoom = false;
+			this.isShopRoom = false;
+		}
+		
 		this.setObjet(new ArrayList<ObjetsInventaire>());
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());
 	}
@@ -567,5 +584,9 @@ public class Carte {
 	public boolean isBossRoom()
 	{
 		return isBossRoom;
+	}
+
+	public boolean isShopRoom() {
+		return isShopRoom;
 	}
 }
