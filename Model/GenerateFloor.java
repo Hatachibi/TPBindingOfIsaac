@@ -40,9 +40,9 @@ public abstract class GenerateFloor {
 		
 		for(int i = 0; i<nbCailloux; i++)
 		{
-			int x = new Random().nextInt(6)+1;
-			int y = new Random().nextInt(6)+1;
-			c.setRenderMap(x, y, 9);
+			int x = new Random().nextInt(5);
+			int y = new Random().nextInt(5);
+		//	c.setRenderMap(x, y, 9);
 		}
 		
 		for(int i = 0; i<nbEnnemis; i++)
@@ -80,7 +80,7 @@ public abstract class GenerateFloor {
 		etage[dernierX][dernierY] = new Room(player, MapPath.mapStart());
 		while(cptRooms != nbRooms)
 		{
-			int direction = new Random().nextInt(3)+1;
+			int direction = new Random().nextInt(5);
 			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux), new Random().nextInt(nbMaxEnnemis), false);
 			int aleaRetourBase = new Random().nextInt(4);
 			if(aleaRetourBase == 3)
@@ -88,11 +88,11 @@ public abstract class GenerateFloor {
 				dernierX = 4;
 				dernierY = 4;
 			}
-			if(cptRooms == 5)
+			if(cptRooms == nbRooms - 1)
 			{
 				c = bossMap();
 			}
-			if(!etage[dernierX][dernierY].isBossRoom())
+			if(etage[dernierX][dernierY] != null && !etage[dernierX][dernierY].isBossRoom())
 			{
 				switch(direction) 
 				{

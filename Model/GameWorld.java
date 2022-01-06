@@ -103,6 +103,9 @@ public class GameWorld {
 				if(etage[i][j] != null && etage[i][j].getcarte().isVisited()) {
 					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 1f, 1f, 0.5f});
 				}
+				if(etage[i][j] != null && etage[i][j].getcarte().isBossRoom()) {
+					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 1f, 0.5f});
+				}
 			}
 		}
 		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef -  5.85*coef*etageCoos.getX()), (float)(465 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0.5f});

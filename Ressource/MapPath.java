@@ -12,7 +12,6 @@ public class MapPath {
 	public static final Carte mapStart() {
 		Carte start = new Carte();
 		start.generateMap(false, false, false, false);
-		start.addEnnemi(4*65, 4*65, 9);
 		start.generateCollisionMap();
 		return start;
 	}
@@ -68,7 +67,7 @@ public class MapPath {
 	 * @return Map le boss
 	 */
 	public static final Carte bossMap() {
-		Carte bossMap = new Carte(true);
+		Carte bossMap = new Carte();
 		bossMap.generateMap(true, true, true, true);
 		bossMap.addEnnemi(4*65, 4*65, 3);
 		bossMap.generateRandomObstacle(2);

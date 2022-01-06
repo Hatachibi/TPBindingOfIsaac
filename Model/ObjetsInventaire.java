@@ -152,8 +152,16 @@ public class ObjetsInventaire extends Entite{
 	
 //	public void update();
 	
+    /**
+     * @param p le joueur
+     * @return s'il y a une collision entre l'objet et le joueur
+     */
     public boolean collisionJoueur(Personnage p) {
 		return Hitbox.rectangleCollision(position, new Vector2(width, heigth), p.getPosition(), new Vector2(p.getWidth(), p.getHeigth()));
+	}
+    
+    public boolean collisionEnnemi(Ennemi e) {
+    	return Hitbox.rectangleCollision(position, new Vector2(width, heigth), e.getPosition(), new Vector2(e.getWidth(), e.getHeigth()));
 	}
 
 	/*
