@@ -45,7 +45,7 @@ public class GameWorld {
 	
 	public void initRoom(boolean n)
 	{
-		this.etage = GenerateFloor.generateFloor(5, 6, 5);
+		this.etage = GenerateFloor.generateFloor(10, 6, 5);
 		this.setMapEnCours(etage[4][4]);
 	}
 	
@@ -93,7 +93,7 @@ public class GameWorld {
 	}
 	
 	/**
-	 * @return Dessine la miniMap
+	 * Dessine la miniMap
 	 */
 	public void drawMiniMap() {
 		int coef = 2;

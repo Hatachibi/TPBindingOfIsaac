@@ -39,6 +39,8 @@ public class Room {
 	 */
 	private Carte carte;
 	
+	private boolean isBossRoom;
+	
 	/*
 	 * Liste des bombes à afficher
 	 */
@@ -53,6 +55,7 @@ public class Room {
 		this.listeEnnemi = new listeEnnemi();
 		this.bombList = new LinkedList<Bombe>();
 		this.addEnnemis();
+		this.isBossRoom = carte.isBossRoom();
 	}
 	
 	/**
@@ -78,6 +81,23 @@ public class Room {
 	 * @return Dévérouille les portes quand tous les ennemis sont morts
 	 */
 	public void unlockedDoors() {
+		if(carte.getRenderMap()[4][8] == 16) {
+			if(isBossRoom)
+			carte.setRenderMap(4, 8, -5);
+			carte.generateCollisionMap();
+		}
+		if(carte.getRenderMap()[4][0] == 17) {
+			carte.setRenderMap(4, 0, -6);
+			carte.generateCollisionMap();
+		}
+		if(carte.getRenderMap()[8][4] == 18) {
+			carte.setRenderMap(8, 4, -7);
+			carte.generateCollisionMap();
+		}
+		if(carte.getRenderMap()[0][4] == 19) {
+			carte.setRenderMap(0, 4, -8);
+			carte.generateCollisionMap();
+		}
 		if(carte.getRenderMap()[4][8] == 12) {
 			carte.setRenderMap(4, 8, -1);
 			carte.generateCollisionMap();
@@ -97,7 +117,7 @@ public class Room {
 	}
 	
 	/**
-	 * @return Update tous les éléments de la salle
+	 * Update tous les éléments de la salle
 	 */
 	public void updateRoom() {
 		if(this.getPlayer().isAlive()) {
@@ -116,7 +136,7 @@ public class Room {
 	}
 	
 	/**
-	 * @return Dessine tous les éléments de la salle 
+	 * Dessine tous les éléments de la salle 
 	 */
 	public void drawRoom() {	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -136,7 +156,7 @@ public class Room {
 	}
 	
 	/**
-	 * @return Dessine les icones des items sur le côté
+	 * Dessine les icones des items sur le côté
 	 */
 	public void drawItems() {
 		ObjetsInventaire piece = new ObjetsInventaire(10, 10, 10, new Vector2(15, 510), "");
@@ -187,6 +207,11 @@ public class Room {
 
 	public void setBombList(LinkedList<Bombe> bombList) {
 		this.bombList = bombList;
+	}
+	
+	public boolean isBossRoom()
+	{
+		return isBossRoom;
 	}
 	
 }

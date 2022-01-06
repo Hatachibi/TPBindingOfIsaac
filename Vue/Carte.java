@@ -25,6 +25,11 @@ public class Carte {
 	 */
 	private boolean isVisited;
 	
+	/**
+	 * Définie si la carte continent un boss ou non.
+	 */
+	private boolean isBossRoom;
+	
 	/*
 	 * Liste qui contient tous les objets
 	 */
@@ -48,6 +53,22 @@ public class Carte {
 			}
 		}
 		this.isVisited = false;
+		this.isBossRoom = false;
+		this.setObjet(new ArrayList<ObjetsInventaire>());
+		this.setEnnemiMap(new HashMap<Vector2, Integer>());
+	}
+	
+	public Carte(boolean isBossRoom) {
+		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
+		for(int i = 0; i<mapobject.length; i++)
+		{
+			for(int j = 0; j<mapobject.length; j++)
+			{
+				mapobject[i][j] = new MapObject();
+			}
+		}
+		this.isVisited = false;
+		this.isBossRoom = isBossRoom;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());
 	}
@@ -151,15 +172,27 @@ public class Carte {
 	public void generateCollisionMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
-				switch(mapobject[i][j].getRenderMap()){
+				if(mapobject[i][j].getRenderMap()<0 || mapobject[i][j].getRenderMap() == 0 || mapobject[i][j].getRenderMap() == 11)
+				{
+					mapobject[i][j].setCollisionMap(false);
+				}
+				else
+				{
+					mapobject[i][j].setCollisionMap(true);
+				}
+				/*switch(mapobject[i][j].getRenderMap()){
 				case 0: mapobject[i][j].setCollisionMap(false); break;
 				case -1: mapobject[i][j].setCollisionMap(false); break;
 				case -2: mapobject[i][j].setCollisionMap(false); break;
 				case -3: mapobject[i][j].setCollisionMap(false); break;
 				case -4: mapobject[i][j].setCollisionMap(false); break;
+				case -5: mapobject[i][j].setCollisionMap(false); break;
+				case -6: mapobject[i][j].setCollisionMap(false); break;
+				case -7: mapobject[i][j].setCollisionMap(false); break;
+				case -8: mapobject[i][j].setCollisionMap(false); break;
 				case 11: mapobject[i][j].setCollisionMap(false); break;
 				default: mapobject[i][j].setCollisionMap(true); break;
-				}
+				}*/
 			}
 		}
 	}
@@ -217,29 +250,70 @@ public class Carte {
 	 * @return Génère une porte en Haut
 	 */
 	public void generateUpDoor() {
-		mapobject[4][8].setRenderMap(12);
+		if(isBossRoom)
+			mapobject[4][8].setRenderMap(16);
+		else
+			mapobject[4][8].setRenderMap(12);
 	}
 	
 	/**
 	 * @return Génère une porte en Bas
 	 */
 	public void generateDownDoor() {
-		mapobject[4][0].setRenderMap(13);
+		if(isBossRoom)
+			mapobject[4][0].setRenderMap(17);
+		else
+			mapobject[4][0].setRenderMap(13);
 	}
 	
 	/**
 	 * @return Génère une porte à Droite
 	 */
 	public void generateLeftDoor() {
-		mapobject[8][4].setRenderMap(14);
+		if(isBossRoom)
+			mapobject[8][4].setRenderMap(18);
+		else
+			mapobject[8][4].setRenderMap(14);
 	}
 	
 	/**
 	 * @return Génère une porte à Gauche
 	 */
 	public void generateRightDoor() {
-		mapobject[0][4].setRenderMap(15);
+		if(isBossRoom)
+			mapobject[0][4].setRenderMap(19);
+		else
+			mapobject[0][4].setRenderMap(15);
 	}
+	
+	/**
+	 * @return Génère une porte en Haut
+	 */
+	public void generateUpBossDoor() {
+		mapobject[4][8].setRenderMap(16);
+	}
+	
+	/**
+	 * @return Génère une porte en Bas
+	 */
+	public void generateDownBossDoor() {
+		mapobject[4][0].setRenderMap(17);
+	}
+	
+	/**
+	 * @return Génère une porte à Droite
+	 */
+	public void generateLeftBossDoor() {
+		mapobject[8][4].setRenderMap(18);
+	}
+	
+	/**
+	 * @return Génère une porte à Gauche
+	 */
+	public void generateRightBossDoor() {
+		mapobject[0][4].setRenderMap(19);
+	}
+	
 	
 	/**
 	 * @param up
@@ -293,52 +367,130 @@ public class Carte {
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.emptyCell.unbind();
 					Texture.rock.bind();
-				} else if(mapobject[i][j].getRenderMap()==-1) {
+				}
+				else if(mapobject[i][j].getRenderMap()==-1) 
+				{
 					Texture.murHaut.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murHaut.unbind();
 					Texture.top_openDoor.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
-				} else if(mapobject[i][j].getRenderMap()==-2) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==-2) 
+				{
 					Texture.murBas.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murBas.unbind();
 					Texture.bot_openDoor.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
-				} else if(mapobject[i][j].getRenderMap()==-3) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==-3) 
+				{
 					Texture.murDroite.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murDroite.unbind();
 					Texture.right_openDoor.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
-				} else if(mapobject[i][j].getRenderMap()==-4) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==-4) 
+				{
 					Texture.murGauche.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murGauche.unbind();
 					Texture.left_openDoor.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
-				} else if(mapobject[i][j].getRenderMap()==11) {
+				}
+				else if(mapobject[i][j].getRenderMap()==-5) 
+				{
+					Texture.murHaut.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murHaut.unbind();
+					Texture.top_openBossDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+				} 
+				else if(mapobject[i][j].getRenderMap()==-6) 
+				{
+					Texture.murBas.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murBas.unbind();
+					Texture.bot_openBossDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+				} 
+				else if(mapobject[i][j].getRenderMap()==-7) 
+				{
+					Texture.murDroite.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murDroite.unbind();
+					Texture.right_openBossDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+				}
+				else if(mapobject[i][j].getRenderMap()==-8) 
+				{
+					Texture.murGauche.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murGauche.unbind();
+					Texture.left_openBossDoor.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+				} 
+				else if(mapobject[i][j].getRenderMap()==11) 
+				{
 					Texture.spikes.bind();
-				} else if(mapobject[i][j].getRenderMap()==12) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==12) 
+				{
 					Texture.murHaut.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murHaut.unbind();
 					Texture.closeDoor_up.bind();
-				} else if(mapobject[i][j].getRenderMap()==13) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==13) 
+				{
 					Texture.murBas.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murBas.unbind();
 					Texture.closeDoor_down.bind();
-				} else if(mapobject[i][j].getRenderMap()==14) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==14) 
+				{
 					Texture.murDroite.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murDroite.unbind();
 					Texture.closeDoor_right.bind();
-				} else if(mapobject[i][j].getRenderMap()==15) {
+				} 
+				else if(mapobject[i][j].getRenderMap()==15) 
+				{
 					Texture.murGauche.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
 					Texture.murGauche.unbind();
 					Texture.closeDoor_left.bind();
+				} 
+				else if(mapobject[i][j].getRenderMap()==16) 
+				{
+					Texture.murHaut.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murHaut.unbind();
+					Texture.closeBossDoor_up.bind();
+				} 
+				else if(mapobject[i][j].getRenderMap()==17) 
+				{
+					Texture.murBas.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murBas.unbind();
+					Texture.closeBossDoor_down.bind();
+				} 
+				else if(mapobject[i][j].getRenderMap()==18) 
+				{
+					Texture.murDroite.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murDroite.unbind();
+					Texture.closeBossDoor_right.bind();
+				} 
+				else if(mapobject[i][j].getRenderMap()==19) 
+				{
+					Texture.murGauche.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.murGauche.unbind();
+					Texture.closeBossDoor_left.bind();
 				}
 				else {
 					Texture.emptyCell.bind();
@@ -357,11 +509,19 @@ public class Carte {
 				Texture.bot_openDoor.unbind();
 				Texture.right_openDoor.unbind();
 				Texture.left_openDoor.unbind();
+				Texture.top_openBossDoor.unbind();
+				Texture.bot_openBossDoor.unbind();
+				Texture.right_openBossDoor.unbind();
+				Texture.left_openBossDoor.unbind();
 				Texture.rock.unbind();
 				Texture.closeDoor_up.unbind();
 				Texture.closeDoor_down.unbind();
 				Texture.closeDoor_right.unbind();
 				Texture.closeDoor_left.unbind();
+				Texture.closeBossDoor_up.unbind();
+				Texture.closeBossDoor_down.unbind();
+				Texture.closeBossDoor_right.unbind();
+				Texture.closeBossDoor_left.unbind();
 				Texture.spikes.unbind();
 				Texture.emptyCell.unbind();
 			}
@@ -404,4 +564,8 @@ public class Carte {
 		this.ennemiMap = ennemiMap;
 	}
 	
+	public boolean isBossRoom()
+	{
+		return isBossRoom;
+	}
 }
