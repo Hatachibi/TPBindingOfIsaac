@@ -32,9 +32,6 @@ public class Fly extends Ennemi{
 		this.setLife(3);
 		this.munitions.setRange(3);
 		this.munitions.setDegats(1);  // Degat des projectiles
-		for(int i=1; i<13; i++) {
-			this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
-		}
 	}
 	
 	/**
@@ -90,11 +87,11 @@ public class Fly extends Ennemi{
 			Vector2 v = new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY());
 			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
 			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), v2, "src/main/resources/enemybullets.png", 10));
-			try {
+		/*	try {
 				Jeu.music("/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
-			}
+			} */
 		}
 		b.setDirection(new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY()));
 		b.move();

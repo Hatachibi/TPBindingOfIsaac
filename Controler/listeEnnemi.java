@@ -29,7 +29,7 @@ public class listeEnnemi {
 	 * Distribue le loot de l'ennemi
 	 */
 	public void randomLoot(Ennemi e) {
-		if(!e.getLoot().isEmpty() && Math.random() > 0.1) {
+		if(!e.getLoot().isEmpty()) {
 			int randomItems = (int)(Math.random()*(e.getLoot().size()));
 			e.getLoot().get(randomItems).setPosition(e.getPosition());
 			Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));

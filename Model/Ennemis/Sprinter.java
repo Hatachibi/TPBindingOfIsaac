@@ -22,8 +22,8 @@ public class Sprinter extends Ennemi {
 	public Sprinter(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.tickCoolDown = 0;
-		this.setLife(10);
-		this.setDegat(2);
+		this.setLife(5);
+		this.setDegat(1);
 		this.setDirectionSauv(new Vector2(0, 0));
 	}
 

@@ -52,9 +52,6 @@ public class Boss extends Ennemi{
 			this.firstPhase = true;
 			this.munitions.setRange(4);
 			this.munitions.setDegats(1); // Degat des projectiles
-			for(int i=1; i<13; i++) {
-				this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
-			}
 		}
 		
 		/**
