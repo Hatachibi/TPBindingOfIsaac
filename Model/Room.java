@@ -38,6 +38,8 @@ public class Room {
 	
 	private boolean isBossRoom;
 	
+	private boolean isShopRoom;
+	
 	/*
 	 * Constructeur
 	 */
@@ -47,6 +49,7 @@ public class Room {
 		this.listeEnnemi = new listeEnnemi();
 		this.addEnnemis();
 		this.isBossRoom = carte.isBossRoom();
+		this.isShopRoom = carte.isShopRoom();
 	}
 	
 	/**
@@ -184,6 +187,10 @@ public class Room {
 	public boolean isBossRoom()
 	{
 		return isBossRoom;
+	}
+
+	public boolean isShopRoom() {
+		return isShopRoom;
 	}
 	
 }

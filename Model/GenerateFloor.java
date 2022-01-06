@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.projetpo.bindingofisaac.module.Ressource.MapPath;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
 
 public abstract class GenerateFloor {
@@ -40,8 +41,13 @@ public abstract class GenerateFloor {
 		
 		for(int i = 0; i<nbCailloux; i++)
 		{
-			int x = new Random().nextInt(6)+1;
-			int y = new Random().nextInt(6)+1;
+			int x;
+			int y;
+			do {
+				x = new Random().nextInt(6)+1;
+				y = new Random().nextInt(6)+1;
+			}while((x==4 && y==1) || (x==7 && y==4) || (x==4 && y==7) || (x==1 && y==4));
+			
 			c.setRenderMap(x, y, 9);
 		}
 		
@@ -88,11 +94,15 @@ public abstract class GenerateFloor {
 				dernierX = 4;
 				dernierY = 4;
 			}
+			if(cptRooms == 4)
+			{
+				c = mapShop();
+			}
 			if(cptRooms == 5)
 			{
 				c = bossMap();
 			}
-			if(!etage[dernierX][dernierY].isBossRoom())
+			if(!etage[dernierX][dernierY].isBossRoom() && !etage[dernierX][dernierY].isShopRoom())
 			{
 				switch(direction) 
 				{
@@ -272,7 +282,7 @@ public abstract class GenerateFloor {
 	}
 	
 	private static Carte bossMap() {
-		Carte bossMap = new Carte(true);
+		Carte bossMap = new Carte(1);
 		bossMap.setRenderMap(0, 0, 4);
 		bossMap.setRenderMap(0, 8, 1);
 		bossMap.setRenderMap(8, 0, 3);
@@ -291,6 +301,39 @@ public abstract class GenerateFloor {
 		bossMap.generateRandomObstacle(2);
 		bossMap.generateCollisionMap();
 		return bossMap;
+	}
+	
+	private static Carte mapShop() {
+		Carte shop = new Carte(2);
+		shop.setRenderMap(0, 0, 4);
+		shop.setRenderMap(0, 8, 1);
+		shop.setRenderMap(8, 0, 3);
+		shop.setRenderMap(8, 8, 2);
+		for(int i = 0; i<shop.getRenderMap().length; i++)
+		{
+			if(i != 0 && i != 8)
+			{
+				shop.setRenderMap(i, 0, 5);
+				shop.setRenderMap(0, i, 6);
+				shop.setRenderMap(i, 8, 7);
+				shop.setRenderMap(8, i, 8);
+			}
+		}
+		shop.generateCollisionMap();
+		int random = (int) (1+Math.random()*9);
+		int cpt = 0;
+		int[] tab = new int[3];
+		while (cpt != 3 || random == tab[0] || random == tab[1] || random == tab[2]) {
+			if(random != tab[0] && random != tab[1] && random != tab[2]) {
+				tab[cpt] = random;
+				cpt ++;
+			}
+			random = (int) (1+Math.random()*9);
+		}
+		for(int i=0; i<tab.length; i++) {
+			shop.getObjet().add(new ObjetsInventaire(tab[i], 10, 10, new Vector2(130*(i+1), 292.5), ""));
+		}
+		return shop;
 	}
 
 }
