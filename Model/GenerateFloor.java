@@ -52,9 +52,10 @@ public abstract class GenerateFloor {
 			{
 				while(ennemi == 3)
 				{
-					ennemi = new Random().nextInt(6)+1;
+					ennemi = new Random().nextInt(7)+1;
 				}
 			}
+			
 			c.addEnnemi(x, y, ennemi);
 		}
 		c.generateCollisionMap();

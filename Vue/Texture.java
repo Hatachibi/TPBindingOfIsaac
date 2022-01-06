@@ -99,6 +99,19 @@ public class Texture {
     public static Texture left = loadTexture("src/main/resources/left.png");
     public static Texture left_right_isaac = loadTexture("src/main/resources/left_right_isaac.png");
     public static Texture spawnDraw = loadTexture("src/main/resources/spawnDraw.png");
+    public static Texture txtZero = loadTexture("src/main/resources/txt_zero.png");
+    public static Texture txtUn = loadTexture("src/main/resources/txt_un.png");
+    public static Texture txtDeux = loadTexture("src/main/resources/txt_deux.png");
+    public static Texture txtTrois = loadTexture("src/main/resources/txt_trois.png");
+    public static Texture txtQuatre = loadTexture("src/main/resources/txt_quatre.png");
+    public static Texture txtCinq = loadTexture("src/main/resources/txt_cinq.png");
+    public static Texture txtSix = loadTexture("src/main/resources/txt_six.png");
+    public static Texture txtSept = loadTexture("src/main/resources/txt_sept.png");
+    public static Texture txtHuit = loadTexture("src/main/resources/txt_huit.png");
+    public static Texture txtNeuf = loadTexture("src/main/resources/txt_neuf.png");
+    public static Texture txtCoin = loadTexture("src/main/resources/txt_coin.png");
+    public static Texture txtX = loadTexture("src/main/resources/txt_x.png");
+    public static Texture txtDot = loadTexture("src/main/resources/txt_dot.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {

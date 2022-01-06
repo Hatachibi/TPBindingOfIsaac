@@ -52,6 +52,10 @@ public abstract class Ennemi extends Entite{
 		this.speed = speed;
 		this.direction = new Vector2(0, 0);
 		this.loot = new  ArrayList<ObjetsInventaire>();
+		this.getLoot().add(new ObjetsInventaire(1, 30, 30, position, ""));
+		this.getLoot().add(new ObjetsInventaire(10, 30, 30, position, ""));
+		this.getLoot().add(new ObjetsInventaire(11, 30, 30, position, ""));
+		this.getLoot().add(new ObjetsInventaire(12, 30, 30, position, ""));
 	}
 	
 	/*

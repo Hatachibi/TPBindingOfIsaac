@@ -24,9 +24,6 @@ public class Spider extends Ennemi{
 		this.random = new Vector2(0, 0);
 		this.setDegat(1);
 		this.setLife(5);
-		for(int i=1; i<13; i++) {
-			this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
-		}
 	}
 	
 	/**
@@ -58,7 +55,7 @@ public class Spider extends Ennemi{
 			random.setX(Math.random() - 0.5);
 			random.setY(Math.random() - 0.5);
 		}
-		if(Fenetre.tick > 30) {
+		if(Fenetre.tick > 50) {
 			if(position.getX() > 65 && position.getX() < 520-width && position.getY() > 65 && position.getY() < 520-heigth && !isMur()) {
 				setDirection(new Vector2(position.getX()*random.getX(), position.getY()*random.getY()));
 				this.move();

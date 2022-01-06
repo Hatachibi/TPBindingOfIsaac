@@ -236,10 +236,57 @@ public class Render {
 		glEnd();
 	}
 	
-/*	public void drawText(float x, float y, String text) {
-		Font awtFont = new Font("Times New Roman", Font.BOLD, 12);
-		TrueTypeFont font = new TrueTypeFont();
-	} */
+	public void drawText(float x, float y, String text) {
+		for(int i=0; i<text.length(); i++) {
+			if(text.charAt(i) == '0') {
+				Texture.txtZero.bind();
+			}
+			if(text.charAt(i) == '1') {
+				Texture.txtUn.bind();
+			}
+			if(text.charAt(i) == '2') {
+				Texture.txtDeux.bind();
+			}
+			if(text.charAt(i) == '3') {
+				Texture.txtTrois.bind();
+			}
+			if(text.charAt(i) == '4') {
+				Texture.txtQuatre.bind();
+			}
+			if(text.charAt(i) == '5') {
+				Texture.txtCinq.bind();
+			}
+			if(text.charAt(i) == '6') {
+				Texture.txtSix.bind();
+			}
+			if(text.charAt(i) == '7') {
+				Texture.txtSept.bind();
+			}
+			if(text.charAt(i) == '8') {
+				Texture.txtHuit.bind();
+			}
+			if(text.charAt(i) == '9') {
+				Texture.txtNeuf.bind();
+			}
+			if(text.charAt(i) == 'x') {
+				Texture.txtX.bind();
+			}
+			if(text.charAt(i) == '.') {
+				Texture.txtDot.bind();
+			}
+			this.drawPicture(x+i*15, y, Texture.txtUn.getWidth()*2, Texture.txtUn.getHeight()*2);
+		}
+		Texture.txtZero.unbind();
+		Texture.txtUn.unbind();
+		Texture.txtDeux.unbind();
+		Texture.txtTrois.unbind();
+		Texture.txtQuatre.unbind();
+		Texture.txtCinq.unbind();
+		Texture.txtSix.unbind();
+		Texture.txtSept.unbind();
+		Texture.txtHuit.unbind();
+		Texture.txtNeuf.unbind();
+	} 
 	
 	/**
 	 * @param x

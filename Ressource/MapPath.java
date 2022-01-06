@@ -1,6 +1,7 @@
 package com.projetpo.bindingofisaac.module.Ressource;
 
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Parabite;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
 

@@ -7,7 +7,7 @@ import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
-public class Gorb extends Ennemi{
+public class Gasper extends Ennemi{
 	
 	/*
 	 * Cooldown entre chaque phase
@@ -32,7 +32,7 @@ public class Gorb extends Ennemi{
 	/*
 	 * Constructeur
 	 */
-	public Gorb(int width, int heigth, Vector2 position, double speed, String url) {
+	public Gasper(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.tickCoolDown = 0;
 		this.speedB = 1;
@@ -43,7 +43,7 @@ public class Gorb extends Ennemi{
 		this.setLife(40);
 		this.setAcceleration(1);
 		for(int i=1; i<13; i++) {
-			this.getLoot().add(new ObjetsInventaire(i, 10, 10, position, ""));
+			this.getLoot().add(new ObjetsInventaire(i, 30, 30, position, ""));
 		}
 	}	
 
@@ -56,62 +56,10 @@ public class Gorb extends Ennemi{
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-		if(this.getLife() > 30) {
-			if(tickCoolDown == 30/acceleration) {
-				Attaque(1, 2, 3, 4);
-			} if(tickCoolDown == 60/acceleration) {
-				this.setSpeedB(10);
-			}
-		} else if(this.getLife() > 20) {
-			if(tickCoolDown == 30) {
-				Attaque(1, 2, 3, 4);
-			} if(tickCoolDown == 60/acceleration) {
-				this.setSpeedB(10);
-			} if(tickCoolDown == 90/acceleration) {
-				this.setSpeedB(1);
-				Attaque(5, 6, 7, 8);
-			} if(tickCoolDown == 120/acceleration) {
-				this.setSpeedB(10);
-			}
-		} else {
-			if(this.getLife() < 10) {
-				this.setAcceleration(2);
-			}
-			if(tickCoolDown == 30) {
-				Attaque(1, 2, 3, 4);
-			} if(tickCoolDown == 60/acceleration) {
-				this.setSpeedB(10);
-				} if(tickCoolDown == 90/acceleration) {
-					this.setSpeedB(1);
-				Attaque(5, 6, 7, 8);
-			} if(tickCoolDown == 120/acceleration) {
-				this.setSpeedB(10);
-			} if(tickCoolDown == 150/acceleration) {
-				this.setSpeedB(1);
-				Attaque(1, 2, 3, 4);
-			} if(tickCoolDown == 180/acceleration) {
-				this.setSpeedB(10);
-			}
-		}
-		tickCoolDown ++;
-		if(tickCoolDown == 210/acceleration) {
-			tickCoolDown = 0;
-			this.setSpeedB(1);
-		}
 		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
 		this.move();
 	}
 	
-	/**
-	 * @Note Attaque  
-	 */
-	public void Attaque(int a, int b, int c, int d) {
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, 1), "src/main/resources/enemybullets.png", speedB));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(0, -1), "src/main/resources/enemybullets.png", speedB));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(1, 0), "src/main/resources/enemybullets.png", speedB));
-		munitions.addBalle(new Balle(10, 10, position.getX(), position.getY(), new Vector2(-1, 0), "src/main/resources/enemybullets.png", speedB));
-	}
-
 	/*
 	 * Getters & Setters
 	 */

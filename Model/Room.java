@@ -3,11 +3,14 @@ package com.projetpo.bindingofisaac.module.Model;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
+
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.Gorb;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Gasper;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Parabite;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.ParabiteBalle;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Pooter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
@@ -53,8 +56,10 @@ public class Room {
 				case 2: getListeEnnemi().addEnnemi(new Spider(25, 25,  v,"src/main/resources/Spider.png", 11.7));break;
 				case 3: getListeEnnemi().addEnnemi(new Boss(75, 75,  v,"", 2));break;
 				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
-				case 5: getListeEnnemi().addEnnemi(new Gorb(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
+				case 5: getListeEnnemi().addEnnemi(new Gasper(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
 				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
+				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabite.png"));
+				case 8: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));
 			}
 		}
 	}
@@ -125,6 +130,8 @@ public class Room {
 	public void drawItems() {
 		ObjetsInventaire piece = new ObjetsInventaire(10, 10, 10, new Vector2(15, 510), "");
 		piece.drawEntite();
+		Render.getInstance().drawText(55, 515, player.getCoin()+"");
+	//	Render.getInstance().drawText(15, 490, "x"+player.getMultiplicator());
 	}
 	
 	/*
