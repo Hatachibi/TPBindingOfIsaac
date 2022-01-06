@@ -82,7 +82,7 @@ public class Room {
 	}
 	
 	/**
-	 * @return Update tous les éléments de la salle
+	 * Update tous les éléments de la salle
 	 */
 	public void updateRoom() {
 		if(this.getPlayer().isAlive()) {
@@ -101,7 +101,7 @@ public class Room {
 	}
 	
 	/**
-	 * @return Dessine tous les éléments de la salle 
+	 * Dessine tous les éléments de la salle 
 	 */
 	public void drawRoom() {	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -120,7 +120,7 @@ public class Room {
 	}
 	
 	/**
-	 * @return Dessine les icones des items sur le côté
+	 * Dessine les icones des items sur le côté
 	 */
 	public void drawItems() {
 		ObjetsInventaire piece = new ObjetsInventaire(10, 10, 10, new Vector2(15, 510), "");
