@@ -88,110 +88,146 @@ public abstract class GenerateFloor {
 				dernierX = 4;
 				dernierY = 4;
 			}
-			switch(direction) 
+			if(cptRooms == 5)
 			{
-				case 1:
-					if(dernierY>1)
-					{
-						while(dernierY!=0 && etage[dernierX][(dernierY-1)] != null)
-						{
-							dernierY--;
-						}
-						if(dernierY != 0)
-						{
-							c.generateUpDoor();
-							etage[dernierX][dernierY].getcarte().generateDownDoor();
-							dernierY--;
-							etage[dernierX][dernierY] = new Room(player, c);
-							cptRooms++;
-						}
-						else
-						{
-							dernierY = 4;
-						}
-					}
-					else
-					{
-						dernierY = 4;
-					}
-					break;
-				case 2:
-					if(dernierY<8)
-					{
-						while(dernierY!=8 && etage[dernierX][(dernierY+1)] != null)
-						{
-							dernierY++;
-						}
-						if(dernierY != 8)
-						{
-							c.generateDownDoor();
-							etage[dernierX][dernierY].getcarte().generateUpDoor();
-							dernierY++;
-							etage[dernierX][dernierY] = new Room(player, c);
-							cptRooms++;
-						}
-						else
-						{
-							dernierY = 4;
-						}
-					}
-					else
-					{
-						dernierY = 4;
-					}
-					break;
-				case 3:
-					if(dernierX>1)
-					{
-						while(dernierX!=0 && etage[(dernierX-1)][dernierY] != null)
-						{
-							dernierX--;
-						}
-						if(dernierX!=0)
-						{
-							c.generateRightDoor();
-							etage[dernierX][dernierY].getcarte().generateLeftDoor();
-							dernierX--;
-							etage[dernierX][dernierY] = new Room(player, c);
-							cptRooms++;
-						}
-						else
-						{
-							dernierX = 4;
-						}
-					}
-					else
-					{
-						dernierX = 4;
-					}
-					break;
-				case 4:
-					if(dernierX<8)
-					{
-						while(dernierX!=8 && etage[(dernierX+1)][dernierY] != null)
-						{
-							dernierX++;
-						}
-						if(dernierX != 8)
-						{
-							c.generateLeftDoor();
-							etage[dernierX][dernierY].getcarte().generateRightDoor();
-							dernierX++;
-							etage[dernierX][dernierY] = new Room(player, c);
-							cptRooms++;
-						}
-						else
-						{
-							dernierX = 4;
-						}
-					}
-					else
-					{
-						dernierX = 4;
-					}
-					break;
+				c = bossMap();
 			}
-		}
+			if(!etage[dernierX][dernierY].isBossRoom())
+			{
+				switch(direction) 
+				{
+					case 1:
+						if(dernierY>1)
+						{
+							while(dernierY!=0 && etage[dernierX][(dernierY-1)] != null)
+							{
+								dernierY--;
+							}
+							if(dernierY != 0)
+							{
+								c.generateUpDoor();
+								if(c.isBossRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateDownBossDoor();
+								}
+								else
+								{
+									etage[dernierX][dernierY].getcarte().generateDownDoor();
+								}
+								dernierY--;
+								etage[dernierX][dernierY] = new Room(player, c);
+								cptRooms++;
+							}
+							else
+							{
+								dernierY = 4;
+							}
+						}
+						else
+						{
+							dernierY = 4;
+						}
+						break;
+					case 2:
+						if(dernierY<8)
+						{
+							while(dernierY!=8 && etage[dernierX][(dernierY+1)] != null)
+							{
+								dernierY++;
+							}
+							if(dernierY != 8)
+							{
+								c.generateDownDoor();
+								if(c.isBossRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateUpBossDoor();
+								}
+								else
+								{
+									etage[dernierX][dernierY].getcarte().generateUpDoor();
+								}
+								dernierY++;
+								etage[dernierX][dernierY] = new Room(player, c);
+								cptRooms++;
+							}
+							else
+							{
+								dernierY = 4;
+							}
+						}
+						else
+						{
+							dernierY = 4;
+						}
+						break;
+					case 3:
+						if(dernierX>1)
+						{
+							while(dernierX!=0 && etage[(dernierX-1)][dernierY] != null)
+							{
+								dernierX--;
+							}
+							if(dernierX!=0)
+							{
+								c.generateRightDoor();
+								if(c.isBossRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateLeftBossDoor();
+								}
+								else
+								{
+									etage[dernierX][dernierY].getcarte().generateLeftDoor();
+								}
+								dernierX--;
+								etage[dernierX][dernierY] = new Room(player, c);
+								cptRooms++;
+							}
+							else
+							{
+								dernierX = 4;
+							}
+						}
+						else
+						{
+							dernierX = 4;
+						}
+						break;
+					case 4:
+						if(dernierX<8)
+						{
+							while(dernierX!=8 && etage[(dernierX+1)][dernierY] != null)
+							{
+								dernierX++;
+							}
+							if(dernierX != 8)
+							{
+								c.generateLeftDoor();
+								if(c.isBossRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateRightBossDoor();
+								}
+								else
+								{
+									etage[dernierX][dernierY].getcarte().generateRightDoor();
+								}
+								dernierX++;
+								etage[dernierX][dernierY] = new Room(player, c);
+								cptRooms++;
+							}
+							else
+							{
+								dernierX = 4;
+							}
+						}
+						else
+						{
+							dernierX = 4;
+						}
+						break;
+					}
+				}
+			}
+			
 		
 		/*if(etage[dernierX][dernierY] != null)
 		{
@@ -231,10 +267,11 @@ public abstract class GenerateFloor {
 				}
 			}
 		}
+		
 		return etage;
 	}
 	
-	private static Carte bossMap(int doorPosition) {
+	private static Carte bossMap() {
 		Carte bossMap = new Carte(true);
 		bossMap.setRenderMap(0, 0, 4);
 		bossMap.setRenderMap(0, 8, 1);
@@ -250,17 +287,8 @@ public abstract class GenerateFloor {
 				bossMap.setRenderMap(8, i, 8);
 			}
 		}
-		if(doorPosition == 1)
-			bossMap.generateUpDoor();
-		else if(doorPosition == 2)
-			bossMap.generateDownDoor();
-		else if(doorPosition == 3)
-			bossMap.generateLeftDoor();
-		else if(doorPosition == 4)
-			bossMap.generateRightDoor();
 		bossMap.addEnnemi(4*65, 4*65, 3);
 		bossMap.generateRandomObstacle(2);
-		bossMap.generateRenderMap();
 		bossMap.generateCollisionMap();
 		return bossMap;
 	}
