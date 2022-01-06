@@ -45,7 +45,7 @@ public class GameWorld {
 	
 	public void initRoom(boolean n)
 	{
-		this.etage = GenerateFloor.generateFloor(5, 6, 5);
+		this.etage = GenerateFloor.generateFloor(25, 6, 5);
 		this.setMapEnCours(etage[4][4]);
 	}
 	
