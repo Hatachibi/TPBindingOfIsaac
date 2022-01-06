@@ -1,6 +1,9 @@
 package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.Random;
+import java.util.stream.BaseStream;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import com.projetpo.bindingofisaac.module.Ressource.MapPath;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
@@ -189,6 +192,35 @@ public abstract class GenerateFloor {
 					break;
 			}
 		}
+		
+		/*if(etage[dernierX][dernierY] != null)
+		{
+			if(etage[(dernierX+1)][dernierY] == null)
+			{
+				etage[dernierX][dernierY].getcarte().generateRightBossDoor();
+				dernierX++;
+				etage[dernierX][dernierY] = new Room(player, bossMap(3));
+			}
+			else if(etage[(dernierX-1)][dernierY] == null)
+			{
+				etage[dernierX][dernierY].getcarte().generateLeftBossDoor();
+				dernierX--;
+				etage[dernierX][dernierY] = new Room(player, bossMap(4));
+			}
+			else if(etage[dernierX][(dernierY+1)] == null)
+			{
+				etage[dernierX][dernierY].getcarte().generateUpBossDoor();
+				dernierY++;
+				etage[dernierX][dernierY] = new Room(player, bossMap(2));
+			}
+			else if(etage[dernierX][(dernierY-1)] == null)
+			{
+				etage[dernierX][dernierY].getcarte().generateDownBossDoor();
+				dernierY--;
+				etage[dernierX][dernierY] = new Room(player, bossMap(1));
+			}
+		}*/
+		
 		for(Room[] room: etage)
 		{
 			for(Room r: room)
@@ -200,6 +232,37 @@ public abstract class GenerateFloor {
 			}
 		}
 		return etage;
+	}
+	
+	private static Carte bossMap(int doorPosition) {
+		Carte bossMap = new Carte(true);
+		bossMap.setRenderMap(0, 0, 4);
+		bossMap.setRenderMap(0, 8, 1);
+		bossMap.setRenderMap(8, 0, 3);
+		bossMap.setRenderMap(8, 8, 2);
+		for(int i = 0; i<bossMap.getRenderMap().length; i++)
+		{
+			if(i != 0 && i != 8)
+			{
+				bossMap.setRenderMap(i, 0, 5);
+				bossMap.setRenderMap(0, i, 6);
+				bossMap.setRenderMap(i, 8, 7);
+				bossMap.setRenderMap(8, i, 8);
+			}
+		}
+		if(doorPosition == 1)
+			bossMap.generateUpDoor();
+		else if(doorPosition == 2)
+			bossMap.generateDownDoor();
+		else if(doorPosition == 3)
+			bossMap.generateLeftDoor();
+		else if(doorPosition == 4)
+			bossMap.generateRightDoor();
+		bossMap.addEnnemi(4*65, 4*65, 3);
+		bossMap.generateRandomObstacle(2);
+		bossMap.generateRenderMap();
+		bossMap.generateCollisionMap();
+		return bossMap;
 	}
 
 }

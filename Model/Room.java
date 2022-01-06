@@ -36,12 +36,23 @@ public class Room {
 	 */
 	private Carte carte;
 	
+	private boolean isBossRoom;
+	
 	/*
 	 * Constructeur
 	 */
 	public Room(Personnage player, Carte carte) {
 		this.player = player;
 		this.carte = carte;
+		this.listeEnnemi = new listeEnnemi();
+		this.addEnnemis();
+		this.isBossRoom = false;
+	}
+	
+	public Room(Personnage player, Carte carte, boolean isBossRoom) {
+		this.player = player;
+		this.carte = carte;
+		this.isBossRoom = isBossRoom;
 		this.listeEnnemi = new listeEnnemi();
 		this.addEnnemis();
 	}
@@ -68,21 +79,44 @@ public class Room {
 	 * @return Dévérouille les portes quand tous les ennemis sont morts
 	 */
 	public void unlockedDoors() {
-		if(carte.getRenderMap()[4][8] == 12) {
-			carte.setRenderMap(4, 8, -1);
-			carte.generateCollisionMap();
+		if(isBossRoom)
+		{
+			if(carte.getRenderMap()[4][8] == 16) {
+				if(isBossRoom)
+				carte.setRenderMap(4, 8, -5);
+				carte.generateCollisionMap();
+			}
+			if(carte.getRenderMap()[4][0] == 17) {
+				carte.setRenderMap(4, 0, -6);
+				carte.generateCollisionMap();
+			}
+			if(carte.getRenderMap()[8][4] == 18) {
+				carte.setRenderMap(8, 4, -7);
+				carte.generateCollisionMap();
+			}
+			if(carte.getRenderMap()[0][4] == 19) {
+				carte.setRenderMap(0, 4, -8);
+				carte.generateCollisionMap();
+			}
 		}
-		if(carte.getRenderMap()[4][0] == 13) {
-			carte.setRenderMap(4, 0, -2);
-			carte.generateCollisionMap();
-		}
-		if(carte.getRenderMap()[8][4] == 14) {
-			carte.setRenderMap(8, 4, -3);
-			carte.generateCollisionMap();
-		}
-		if(carte.getRenderMap()[0][4] == 15) {
-			carte.setRenderMap(0, 4, -4);
-			carte.generateCollisionMap();
+		else
+		{
+			if(carte.getRenderMap()[4][8] == 12) {
+				carte.setRenderMap(4, 8, -1);
+				carte.generateCollisionMap();
+			}
+			if(carte.getRenderMap()[4][0] == 13) {
+				carte.setRenderMap(4, 0, -2);
+				carte.generateCollisionMap();
+			}
+			if(carte.getRenderMap()[8][4] == 14) {
+				carte.setRenderMap(8, 4, -3);
+				carte.generateCollisionMap();
+			}
+			if(carte.getRenderMap()[0][4] == 15) {
+				carte.setRenderMap(0, 4, -4);
+				carte.generateCollisionMap();
+			}
 		}
 	}
 	

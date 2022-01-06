@@ -68,7 +68,7 @@ public class MapPath {
 	 * @return Map le boss
 	 */
 	public static final Carte bossMap() {
-		Carte bossMap = new Carte();
+		Carte bossMap = new Carte(true);
 		bossMap.generateMap(true, true, true, true);
 		bossMap.addEnnemi(4*65, 4*65, 3);
 		bossMap.generateRandomObstacle(2);

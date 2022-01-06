@@ -84,6 +84,14 @@ public class Texture {
     public static Texture bot_openDoor = loadTexture("src/main/resources/bot_opened_door.png");
     public static Texture right_openDoor = loadTexture("src/main/resources/right_opened_door.png");
     public static Texture left_openDoor = loadTexture("src/main/resources/left_opened_door.png");
+    public static Texture closeBossDoor_up = loadTexture("src/main/resources/closed_bossdoor_up.png");
+    public static Texture closeBossDoor_down = loadTexture("src/main/resources/closed_bossdoor_down.png");
+    public static Texture closeBossDoor_right = loadTexture("src/main/resources/closed_bossdoor_right.png");
+    public static Texture closeBossDoor_left = loadTexture("src/main/resources/closed_bossdoor_left.png");
+    public static Texture top_openBossDoor = loadTexture("src/main/resources/top_opened_bossdoor.png");
+    public static Texture bot_openBossDoor = loadTexture("src/main/resources/down_opened_bossdoor.png");
+    public static Texture right_openBossDoor = loadTexture("src/main/resources/right_opened_bossdoor.png");
+    public static Texture left_openBossDoor = loadTexture("src/main/resources/left_opened_bossdoor.png");
     public static Texture spikes = loadTexture("src/main/resources/Spikes.png");
     public static Texture heart = loadTexture("src/main/resources/HUD_heart_red_full.png");
     public static Texture halfHeart = loadTexture("src/main/resources/HUD_heart_red_half.png");
