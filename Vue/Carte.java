@@ -97,18 +97,20 @@ public class Carte {
 	public void changeMap() {
 		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
 		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
+	//	System.out.println(x + " "+y+ " : "+(RoomInfos.NB_HEIGHT_TILES-1) + " " + (RoomInfos.NB_WIDTH_TILES - 1)/2);
+	//	System.out.println(mapobject[12][4].getRenderMap());
 		if(getRenderMap()[x][y] < 0) {
-			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES) {
+			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-1) {
 				Jeu.gameWorld.getPlayer().getPosition().setY(65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() + 1)]);
 				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() + 1);
 			}
-			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
+			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==0) {
 				Jeu.gameWorld.getPlayer().getPosition().setY(520);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() - 1)]);
 				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() - 1);
 			}
-			if(x==RoomInfos.NB_HEIGHT_TILES-1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
+			if(x==RoomInfos.NB_HEIGHT_TILES-1 && y==(RoomInfos.NB_WIDTH_TILES - 1)/2) {
 				Jeu.gameWorld.getPlayer().getPosition().setX(65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() - 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() - 1);

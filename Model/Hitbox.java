@@ -104,7 +104,7 @@ public class Hitbox {
     public boolean collisionMur(double x, double y) {
     	int i = (int) x/65;
     	int j = (int) y/65;
-    	if(i<RoomInfos.NB_HEIGHT_TILES-1 && i>=0 && j<RoomInfos.NB_WIDTH_TILES-1 && j>=0)
+    	if(i<RoomInfos.NB_HEIGHT_TILES && i>=0 && j<RoomInfos.NB_WIDTH_TILES && j>=0)
     	{
     		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[i][j]);
     	}

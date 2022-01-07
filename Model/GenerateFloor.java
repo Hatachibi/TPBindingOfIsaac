@@ -248,7 +248,8 @@ public abstract class GenerateFloor {
 			for(Room r: room)
 			{
 				if(r!=null)
-				{
+				{	
+					r.getcarte().generateCollisionMap();
 					r.getcarte().setVisited(true);
 				}
 			}
