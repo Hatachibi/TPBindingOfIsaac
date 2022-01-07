@@ -144,7 +144,7 @@ public class Room {
 				if(isBossRoom) {
 					carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, (RoomInfos.NB_WIDTH_TILES-1)/2, -9);
 					carte.changeFloor();
-				}
+				} 
 				unlockedDoors();
 				carte.setVisited(true);
 			}
