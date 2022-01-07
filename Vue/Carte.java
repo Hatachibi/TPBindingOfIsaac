@@ -62,7 +62,7 @@ public class Carte {
 	}
 	
 	public Carte(int categorieCarte) {
-		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
+		this.mapobject = new MapObject[RoomInfos.NB_HEIGHT_TILES][RoomInfos.NB_WIDTH_TILES];
 		for(int i = 0; i<mapobject.length; i++)
 		{
 			for(int j = 0; j<mapobject[i].length; j++)
