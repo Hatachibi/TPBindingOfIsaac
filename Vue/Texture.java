@@ -128,6 +128,7 @@ public class Texture {
     public static Texture overlay3 = loadTexture("src/main/resources/overlay3.png");
     public static Texture overlay4 = loadTexture("src/main/resources/overlay4.png");
     public static Texture overlay5 = loadTexture("src/main/resources/overlay5.png");
+    public static Texture bdvBoss = loadTexture("src/main/resources/bdvBoss.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {

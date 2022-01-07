@@ -167,7 +167,7 @@ public class Room {
 		listeEnnemi.drawEnnemis();
 		carte.drawObject();
 		Texture.shaderRoom.bind();
-		Render.getInstance().drawPicture(0, 0, Fenetre.HeigthFenetre, Fenetre.WidthFenetre);
+		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre);
 		Texture.shaderRoom.unbind();
 		//GL11.glColor4f(1f, 1f, 1f, 1f);
 		drawItems();

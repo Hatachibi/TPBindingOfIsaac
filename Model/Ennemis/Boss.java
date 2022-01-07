@@ -10,6 +10,7 @@ import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
@@ -48,7 +49,7 @@ public class Boss extends Ennemi{
 			this.tickCoolDown = 0;
 			this.random = new Vector2(0, 0);
 			this.setDegat(3);
-			this.setLife(20);
+			this.setLife(50);
 			this.firstPhase = true;
 			this.munitions.setRange(4);
 			this.munitions.setDegats(1); // Degat des projectiles
@@ -80,6 +81,10 @@ public class Boss extends Ennemi{
 			}
 	//		Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 			munitions.drawBalle();
+			Texture.bdvBoss.bind();
+			Render.getInstance().drawPicture(300, 100, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
+			Texture.bdvBoss.unbind();
+			Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/50), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
 		}
 
 		/**
