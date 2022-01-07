@@ -19,9 +19,10 @@ public class GameWorld {
 	private Room mapEnCours;
 	private Personnage player;
 	private boolean first;
+	private int floor = 0;
 	public static final int DEFAULT_NB_ROOMS = 6;
 	public static final int DEFAULT_NB_MAX_ROCKS = 5;
-	public static final int DEFAULT_NB_MAX_ENNEMIS = 3;
+	public static final int DEFAULT_NB_MAX_ENNEMIS = 5;
 	
 	public GameWorld() {
 		this.etage = new Room[9][9];
@@ -68,7 +69,7 @@ public class GameWorld {
 			}
 			first = false; 
 			Texture.gameOver.bind();
-			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
+			Render.getInstance().drawPicture(0, 0, Fenetre.HeigthFenetre, Fenetre.WidthFenetre, 1, 1, new float[]{});
 			Texture.gameOver.unbind();
 		}
 	}
@@ -146,6 +147,14 @@ public class GameWorld {
 	
 	public void setPersonnage(Personnage player) {
 		this.player = player;
+	}
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public void setFloor(int floor) {
+		this.floor = floor;
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.projetpo.bindingofisaac.module.Model;
 import java.util.Random;
 
 import com.projetpo.bindingofisaac.module.Ressource.MapPath;
+import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
 import com.projetpo.bindingofisaac.module.Vue.Render;
@@ -14,20 +15,25 @@ public abstract class GenerateFloor {
 	
 	public static Carte defaultMap()
 	{
+		
 		Carte c = new Carte();
 		
 		c.setRenderMap(0, 0, 4);
-		c.setRenderMap(0, 8, 1);
-		c.setRenderMap(8, 0, 3);
-		c.setRenderMap(8, 8, 2);
+		c.setRenderMap(0, RoomInfos.NB_WIDTH_TILES-1, 1);
+		c.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, 0, 3);
+		c.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, RoomInfos.NB_WIDTH_TILES-1, 2);
 		for(int i = 0; i<c.getRenderMap().length; i++)
 		{
-			if(i != 0 && i != 8)
+			if(i != 0 && i != RoomInfos.NB_HEIGHT_TILES-1)
 			{
 				c.setRenderMap(i, 0, 5);
-				c.setRenderMap(0, i, 6);
-				c.setRenderMap(i, 8, 7);
-				c.setRenderMap(8, i, 8);
+				if(i<RoomInfos.NB_WIDTH_TILES-1)
+				{
+					c.setRenderMap(0, i, 6);
+					c.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, i, 8);
+				}
+				c.setRenderMap(i, RoomInfos.NB_WIDTH_TILES-1, 7);
+				
 			}
 		}
 		
@@ -78,11 +84,11 @@ public abstract class GenerateFloor {
 	 */
 	public static Room[][] generateFloor(int nbRooms, int nbMaxCailloux, int nbMaxEnnemis)
 	{
-		Room[][] etage = new Room[9][9];
+		Room[][] etage = new Room[RoomInfos.NB_HEIGHT_TILES][RoomInfos.NB_WIDTH_TILES];
 		int cptRooms = 0;
-		int dernierX = 4;
-		int dernierY = 4;
-		etage[dernierX][dernierY] = new Room(player, MapPath.mapStart());
+		int dernierX = (RoomInfos.NB_TILES-1)/2;
+		int dernierY = (RoomInfos.NB_TILES-1)/2;
+		etage[dernierX][dernierY] = new Room(player, mapStart());
 		while(cptRooms != nbRooms)
 		{
 			int direction = new Random().nextInt(5);
@@ -90,8 +96,8 @@ public abstract class GenerateFloor {
 			int aleaRetourBase = new Random().nextInt(4);
 			if(aleaRetourBase == 3)
 			{
-				dernierX = 4;
-				dernierY = 4;
+				dernierX = (RoomInfos.NB_TILES-1)/2;
+				dernierY = (RoomInfos.NB_TILES-1)/2;
 			} 
 			if(cptRooms == nbRooms - 2)
 			{
@@ -254,17 +260,21 @@ public abstract class GenerateFloor {
 	private static Carte bossMap() {
 		Carte bossMap = new Carte(1);
 		bossMap.setRenderMap(0, 0, 4);
-		bossMap.setRenderMap(0, 8, 1);
-		bossMap.setRenderMap(8, 0, 3);
-		bossMap.setRenderMap(8, 8, 2);
+		bossMap.setRenderMap(0, RoomInfos.NB_WIDTH_TILES-1, 1);
+		bossMap.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, 0, 3);
+		bossMap.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, RoomInfos.NB_WIDTH_TILES-1, 2);
 		for(int i = 0; i<bossMap.getRenderMap().length; i++)
 		{
-			if(i != 0 && i != 8)
+			if(i != 0 && i != RoomInfos.NB_HEIGHT_TILES-1)
 			{
 				bossMap.setRenderMap(i, 0, 5);
-				bossMap.setRenderMap(0, i, 6);
-				bossMap.setRenderMap(i, 8, 7);
-				bossMap.setRenderMap(8, i, 8);
+				if(i<RoomInfos.NB_WIDTH_TILES-1)
+				{
+					bossMap.setRenderMap(0, i, 6);
+					bossMap.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, i, 8);
+				}
+				bossMap.setRenderMap(i, RoomInfos.NB_WIDTH_TILES-1, 7);
+				
 			}
 		}
 		bossMap.addEnnemi(4*65, 4*65, 3);
@@ -276,17 +286,21 @@ public abstract class GenerateFloor {
 	private static Carte mapShop() {
 		Carte shop = new Carte(2);
 		shop.setRenderMap(0, 0, 4);
-		shop.setRenderMap(0, 8, 1);
-		shop.setRenderMap(8, 0, 3);
-		shop.setRenderMap(8, 8, 2);
+		shop.setRenderMap(0, RoomInfos.NB_WIDTH_TILES-1, 1);
+		shop.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, 0, 3);
+		shop.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, RoomInfos.NB_WIDTH_TILES-1, 2);
 		for(int i = 0; i<shop.getRenderMap().length; i++)
 		{
-			if(i != 0 && i != 8)
+			if(i != 0 && i != RoomInfos.NB_HEIGHT_TILES-1)
 			{
 				shop.setRenderMap(i, 0, 5);
-				shop.setRenderMap(0, i, 6);
-				shop.setRenderMap(i, 8, 7);
-				shop.setRenderMap(8, i, 8);
+				if(i<RoomInfos.NB_WIDTH_TILES-1)
+				{
+					shop.setRenderMap(0, i, 6);
+					shop.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, i, 8);
+				}
+				shop.setRenderMap(i, RoomInfos.NB_WIDTH_TILES-1, 7);
+				
 			}
 		}
 		shop.generateCollisionMap();
@@ -304,6 +318,30 @@ public abstract class GenerateFloor {
 			shop.getObjet().add(new ObjetsInventaire(tab[i], 10, 10, new Vector2(130*(i+1), 292.5), ""));
 		}
 		return shop;
+	}
+	
+	private static Carte mapStart() {
+		Carte start = new Carte();
+		start.setRenderMap(0, 0, 4);
+		start.setRenderMap(0, RoomInfos.NB_WIDTH_TILES-1, 1);
+		start.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, 0, 3);
+		start.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, RoomInfos.NB_WIDTH_TILES-1, 2);
+		for(int i = 0; i<start.getRenderMap().length; i++)
+		{
+			if(i != 0 && i != RoomInfos.NB_HEIGHT_TILES-1)
+			{
+				start.setRenderMap(i, 0, 5);
+				if(i<RoomInfos.NB_WIDTH_TILES-1)
+				{
+					start.setRenderMap(0, i, 6);
+					start.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, i, 8);
+				}
+				start.setRenderMap(i, RoomInfos.NB_WIDTH_TILES-1, 7);
+				
+			}
+		}
+		start.generateCollisionMap();
+		return start;
 	}
 
 }

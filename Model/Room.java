@@ -19,8 +19,10 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.ParabiteBalle;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Pooter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
+import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
@@ -86,36 +88,36 @@ public class Room {
 	 * @return Dévérouille les portes quand tous les ennemis sont morts
 	 */
 	public void unlockedDoors() {
-		if(carte.getRenderMap()[4][8] == 16) {
-			carte.setRenderMap(4, 8, -5);
+		if(carte.getRenderMap()[(RoomInfos.NB_HEIGHT_TILES-1)/2][RoomInfos.NB_WIDTH_TILES-1] == 16) {
+			carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, RoomInfos.NB_WIDTH_TILES-1, -5);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[4][0] == 17) {
-			carte.setRenderMap(4, 0, -6);
+		if(carte.getRenderMap()[(RoomInfos.NB_HEIGHT_TILES-1)/2][0] == 17) {
+			carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, 0, -6);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[8][4] == 18) {
-			carte.setRenderMap(8, 4, -7);
+		if(carte.getRenderMap()[(RoomInfos.NB_HEIGHT_TILES-1)][(RoomInfos.NB_WIDTH_TILES-1)/2] == 18) {
+			carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1), (RoomInfos.NB_WIDTH_TILES-1)/2, -7);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[0][4] == 19) {
-			carte.setRenderMap(0, 4, -8);
+		if(carte.getRenderMap()[0][(RoomInfos.NB_WIDTH_TILES-1)/2] == 19) {
+			carte.setRenderMap(0, (RoomInfos.NB_WIDTH_TILES-1)/2, -8);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[4][8] == 12) {
-			carte.setRenderMap(4, 8, -1);
+		if(carte.getRenderMap()[(RoomInfos.NB_HEIGHT_TILES-1)/2][RoomInfos.NB_WIDTH_TILES-1] == 12) {
+			carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, RoomInfos.NB_WIDTH_TILES-1, -1);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[4][0] == 13) {
-			carte.setRenderMap(4, 0, -2);
+		if(carte.getRenderMap()[(RoomInfos.NB_HEIGHT_TILES-1)/2][0] == 13) {
+			carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, 0, -2);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[8][4] == 14) {
-			carte.setRenderMap(8, 4, -3);
+		if(carte.getRenderMap()[(RoomInfos.NB_HEIGHT_TILES-1)][(RoomInfos.NB_WIDTH_TILES-1)/2] == 14) {
+			carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1), (RoomInfos.NB_WIDTH_TILES-1)/2, -3);
 			carte.generateCollisionMap();
 		}
-		if(carte.getRenderMap()[0][4] == 15) {
-			carte.setRenderMap(0, 4, -4);
+		if(carte.getRenderMap()[0][(RoomInfos.NB_WIDTH_TILES-1)/2] == 15) {
+			carte.setRenderMap(0, (RoomInfos.NB_WIDTH_TILES-1)/2, -4);
 			carte.generateCollisionMap();
 		}
 	/*	if(carte.isBossRoom()) {
@@ -140,7 +142,7 @@ public class Room {
 			carte.updateObject();
 			if(listeEnnemi.isEmpty()) {
 				if(isBossRoom) {
-					carte.setRenderMap(4, 4, -9);
+					carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, (RoomInfos.NB_WIDTH_TILES-1)/2, -9);
 					carte.changeFloor();
 				}
 				unlockedDoors();
@@ -165,7 +167,7 @@ public class Room {
 		listeEnnemi.drawEnnemis();
 		carte.drawObject();
 		Texture.shaderRoom.bind();
-		Render.getInstance().drawPicture(0, 0, 585, 585);
+		Render.getInstance().drawPicture(0, 0, Fenetre.HeigthFenetre, Fenetre.WidthFenetre);
 		Texture.shaderRoom.unbind();
 		//GL11.glColor4f(1f, 1f, 1f, 1f);
 		drawItems();

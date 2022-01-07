@@ -33,8 +33,6 @@ public class Carte {
 	
 	private boolean isShopRoom;
 	
-	private int floor;
-	
 	/*
 	 * Liste qui contient tous les objets
 	 */
@@ -49,10 +47,10 @@ public class Carte {
 	 * Constructeur
 	 */
 	public Carte() {
-		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
+		this.mapobject = new MapObject[RoomInfos.NB_HEIGHT_TILES][RoomInfos.NB_WIDTH_TILES];
 		for(int i = 0; i<mapobject.length; i++)
 		{
-			for(int j = 0; j<mapobject.length; j++)
+			for(int j = 0; j<mapobject[i].length; j++)
 			{
 				mapobject[i][j] = new MapObject();
 			}
@@ -61,14 +59,13 @@ public class Carte {
 		this.isBossRoom = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());
-		this.floor = 0;
 	}
 	
 	public Carte(int categorieCarte) {
 		this.mapobject = new MapObject[RoomInfos.NB_TILES][RoomInfos.NB_TILES];
 		for(int i = 0; i<mapobject.length; i++)
 		{
-			for(int j = 0; j<mapobject.length; j++)
+			for(int j = 0; j<mapobject[i].length; j++)
 			{
 				mapobject[i][j] = new MapObject();
 			}
@@ -101,22 +98,22 @@ public class Carte {
 		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
 		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
 		if(getRenderMap()[x][y] < 0) {
-			if(x==4 && y==8) {
+			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES) {
 				Jeu.gameWorld.getPlayer().getPosition().setY(65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() + 1)]);
 				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() + 1);
 			}
-			if(x==4 && y==0) {
+			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
 				Jeu.gameWorld.getPlayer().getPosition().setY(520);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() - 1)]);
 				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() - 1);
 			}
-			if(x==8 && y==4) {
+			if(x==RoomInfos.NB_HEIGHT_TILES-1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
 				Jeu.gameWorld.getPlayer().getPosition().setX(65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() - 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() - 1);
 			}
-			if(x==0 && y==4) {
+			if(x==0 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
 				Jeu.gameWorld.getPlayer().getPosition().setX(520);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() + 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() + 1);
@@ -134,11 +131,12 @@ public class Carte {
 		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
 		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
 		if(getRenderMap()[x][y] == -9) {
-			if(x==4 && y==4) {
-				floor++;
-				Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS+floor, GameWorld.DEFAULT_NB_MAX_ROCKS+floor, GameWorld.DEFAULT_NB_MAX_ENNEMIS+floor);
-				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
-				Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));
+			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
+				Jeu.gameWorld.setFloor(Jeu.gameWorld.getFloor()+1);
+				System.out.println(Jeu.gameWorld.getFloor());
+				Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ROCKS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ENNEMIS+Jeu.gameWorld.getFloor());
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(RoomInfos.NB_HEIGHT_TILES-1)/2][(RoomInfos.NB_WIDTH_TILES-1)/2]);
+				Jeu.gameWorld.setEtageCoos(new Vector2((RoomInfos.NB_HEIGHT_TILES-1)/2, (RoomInfos.NB_WIDTH_TILES-1)/2));
 			}
 		}	
 	}
@@ -176,6 +174,15 @@ public class Carte {
 	 * @return change la case (i, j) avec la valeur k
 	 */
 	public void setRenderMap(int i, int j, int k) {
+		
+		if(i>=mapobject.length)
+		{
+			i = mapobject.length-1;
+		}
+		if(j>=mapobject[i].length)
+		{
+			j = mapobject[i].length-1;
+		}
 		mapobject[i][j].setRenderMap(k);
 	}
 	
@@ -288,9 +295,9 @@ public class Carte {
 	 */
 	public void generateUpDoor() {
 		if(isBossRoom)
-			mapobject[4][8].setRenderMap(16);
+			mapobject[(RoomInfos.NB_HEIGHT_TILES-1)/2][RoomInfos.NB_WIDTH_TILES-1].setRenderMap(16);
 		else
-			mapobject[4][8].setRenderMap(12);
+			mapobject[(RoomInfos.NB_HEIGHT_TILES-1)/2][RoomInfos.NB_WIDTH_TILES-1].setRenderMap(12);
 	}
 	
 	/**
@@ -298,9 +305,9 @@ public class Carte {
 	 */
 	public void generateDownDoor() {
 		if(isBossRoom)
-			mapobject[4][0].setRenderMap(17);
+			mapobject[(RoomInfos.NB_HEIGHT_TILES-1)/2][0].setRenderMap(17);
 		else
-			mapobject[4][0].setRenderMap(13);
+			mapobject[(RoomInfos.NB_HEIGHT_TILES-1)/2][0].setRenderMap(13);
 	}
 	
 	/**
@@ -308,9 +315,37 @@ public class Carte {
 	 */
 	public void generateLeftDoor() {
 		if(isBossRoom)
-			mapobject[8][4].setRenderMap(18);
-		else
-			mapobject[8][4].setRenderMap(14);
+		{
+			if(RoomInfos.NB_HEIGHT_TILES-1>=mapobject.length)
+			{
+				mapobject[RoomInfos.NB_WIDTH_TILES-1][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(18);
+			}
+			else if(RoomInfos.NB_WIDTH_TILES-1>=mapobject[RoomInfos.NB_HEIGHT_TILES-1].length)
+			{
+				mapobject[RoomInfos.NB_HEIGHT_TILES-1][(RoomInfos.NB_HEIGHT_TILES-1)/2].setRenderMap(18);
+			}
+			else
+			{
+				mapobject[RoomInfos.NB_HEIGHT_TILES-1][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(18);
+			}
+		}
+		else 
+		{
+			if(RoomInfos.NB_HEIGHT_TILES-1>=mapobject.length)
+			{
+				mapobject[RoomInfos.NB_WIDTH_TILES-1][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(14);
+			}
+			else if(RoomInfos.NB_WIDTH_TILES-1>=mapobject[RoomInfos.NB_HEIGHT_TILES-1].length)
+			{
+				mapobject[RoomInfos.NB_HEIGHT_TILES-1][(RoomInfos.NB_HEIGHT_TILES-1)/2].setRenderMap(14);
+			}
+			else
+			{
+				mapobject[RoomInfos.NB_HEIGHT_TILES-1][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(14);
+			}
+			
+		}
+			
 	}
 	
 	/**
@@ -318,37 +353,37 @@ public class Carte {
 	 */
 	public void generateRightDoor() {
 		if(isBossRoom)
-			mapobject[0][4].setRenderMap(19);
+			mapobject[0][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(19);
 		else
-			mapobject[0][4].setRenderMap(15);
+			mapobject[0][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(15);
 	}
 	
 	/**
 	 * @return Génère une porte en Haut
 	 */
 	public void generateUpBossDoor() {
-		mapobject[4][8].setRenderMap(16);
+		mapobject[(RoomInfos.NB_HEIGHT_TILES-1)/2][RoomInfos.NB_WIDTH_TILES-1].setRenderMap(16);
 	}
 	
 	/**
 	 * @return Génère une porte en Bas
 	 */
 	public void generateDownBossDoor() {
-		mapobject[4][0].setRenderMap(17);
+		mapobject[(RoomInfos.NB_HEIGHT_TILES-1)/2][0].setRenderMap(17);
 	}
 	
 	/**
 	 * @return Génère une porte à Droite
 	 */
 	public void generateLeftBossDoor() {
-		mapobject[8][4].setRenderMap(18);
+		mapobject[RoomInfos.NB_HEIGHT_TILES-1][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(18);
 	}
 	
 	/**
 	 * @return Génère une porte à Gauche
 	 */
 	public void generateRightBossDoor() {
-		mapobject[0][4].setRenderMap(19);
+		mapobject[0][(RoomInfos.NB_WIDTH_TILES-1)/2].setRenderMap(19);
 	}
 	
 	

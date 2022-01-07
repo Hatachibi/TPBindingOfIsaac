@@ -26,7 +26,7 @@ public class Fenetre {
 	
 	public final static Fenetre INSTANCE = new Fenetre();  
 	public final static Integer HeigthFenetre = 585;
-	public final static Integer	WidthFenetre = 585;
+	public final static Integer	WidthFenetre = 845;
 	
 	public static int tick;
 
@@ -85,28 +85,28 @@ public class Fenetre {
     
     public void menu() {
     	Texture.bgMenu.bind();
-    	Render.getInstance().drawPicture(0, 0, 585, 585);
+    	Render.getInstance().drawPicture(0, 0, HeigthFenetre, WidthFenetre);
     	Texture.bgMenu.unbind();
     	Texture.leftArrow.bind();
-    	Render.getInstance().drawPicture(585/4, 585/2, Texture.leftArrow.getWidth(), Texture.leftArrow.getHeight());
+    	Render.getInstance().drawPicture(HeigthFenetre/4, WidthFenetre/2, Texture.leftArrow.getWidth(), Texture.leftArrow.getHeight());
     	Texture.leftArrow.unbind();
     	Texture.rightArrow.bind();
-    	Render.getInstance().drawPicture(3*585/4, 585/2, Texture.rightArrow.getWidth(), Texture.rightArrow.getHeight());
+    	Render.getInstance().drawPicture(3*HeigthFenetre/4, WidthFenetre/2, Texture.rightArrow.getWidth(), Texture.rightArrow.getHeight());
     	Texture.rightArrow.unbind();
     	switch(playerChoice) {
     		case 0:
     			Texture.IsaacMenu.bind();
-	       		Render.getInstance().drawPicture((float)(585/2), (float)(585/2), Texture.IsaacMenu.getWidth(), Texture.IsaacMenu.getHeight());
+	       		Render.getInstance().drawPicture((float)(HeigthFenetre/2), (float)(WidthFenetre/2), Texture.IsaacMenu.getWidth(), Texture.IsaacMenu.getHeight());
 	       		Texture.IsaacMenu.unbind();
 	       		Texture.IsaacString.bind();
-	       		Render.getInstance().drawPicture(585/2, 585/4, Texture.IsaacString.getWidth(), Texture.IsaacString.getHeight());
+	       		Render.getInstance().drawPicture(HeigthFenetre/2, WidthFenetre/4, Texture.IsaacString.getWidth(), Texture.IsaacString.getHeight());
 	       		Texture.IsaacString.unbind(); break;
     		case 1:
     			Texture.MagdaleneMenu.bind();
-    	    	Render.getInstance().drawPicture((float)(585/2), (float)(585/2), Texture.MagdaleneMenu.getWidth(), Texture.MagdaleneMenu.getHeight());
+    	    	Render.getInstance().drawPicture((float)(HeigthFenetre/2), (float)(WidthFenetre/2), Texture.MagdaleneMenu.getWidth(), Texture.MagdaleneMenu.getHeight());
     	    	Texture.MagdaleneMenu.unbind();
     	    	Texture.MagdaleneString.bind();
-    	    	Render.getInstance().drawPicture(585/2, 585/4, Texture.MagdaleneString.getWidth(), Texture.MagdaleneString.getHeight());
+    	    	Render.getInstance().drawPicture(HeigthFenetre/2, WidthFenetre/4, Texture.MagdaleneString.getWidth(), Texture.MagdaleneString.getHeight());
     	    	Texture.MagdaleneString.unbind(); break;
     		}
     	if(Input.getInstance().choosePersoTemp(window) && tick%10 == 0) {

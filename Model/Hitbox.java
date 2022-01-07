@@ -1,5 +1,6 @@
 package com.projetpo.bindingofisaac.module.Model;
 
+import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class Hitbox {
@@ -103,7 +104,7 @@ public class Hitbox {
     public boolean collisionMur(double x, double y) {
     	int i = (int) x/65;
     	int j = (int) y/65;
-    	if(i<9 && i>=0 && j<9 && j>=0)
+    	if(i<RoomInfos.NB_HEIGHT_TILES-1 && i>=0 && j<RoomInfos.NB_WIDTH_TILES-1 && j>=0)
     	{
     		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[i][j]);
     	}
@@ -114,7 +115,7 @@ public class Hitbox {
      * @return Calcul les collisions entre le Mur et une entite
      */
     public boolean collisionMurEntite(Entite e) {
-    	if((int) e.getHitbox().getPosition().getX()/65 < 8 && (int) e.getHitbox().getPosition().getX()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 < 8) {
+    	if((int) e.getHitbox().getPosition().getX()/65 < RoomInfos.NB_HEIGHT_TILES-1 && (int) e.getHitbox().getPosition().getX()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 < RoomInfos.NB_WIDTH_TILES-1) {
     		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
     	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionX().getX()/65][(int) e.getHitbox().getPositionX().getY()/65]
     	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionY().getX()/65][(int) e.getHitbox().getPositionY().getY()/65]		
