@@ -132,6 +132,10 @@ public class Room {
 			listeEnnemi.updateEnnemis();
 			carte.updateObject();
 			if(listeEnnemi.isEmpty()) {
+				if(this.isBossRoom)
+				{
+					
+				}
 				unlockedDoors();
 				carte.setVisited(true);
 			}
