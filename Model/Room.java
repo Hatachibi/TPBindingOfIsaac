@@ -85,7 +85,6 @@ public class Room {
 	 */
 	public void unlockedDoors() {
 		if(carte.getRenderMap()[4][8] == 16) {
-			if(isBossRoom)
 			carte.setRenderMap(4, 8, -5);
 			carte.generateCollisionMap();
 		}
@@ -114,8 +113,15 @@ public class Room {
 			carte.generateCollisionMap();
 		}
 		if(carte.getRenderMap()[0][4] == 15) {
+			System.out.println("here 4");
 			carte.setRenderMap(0, 4, -4);
 			carte.generateCollisionMap();
+		}
+		if(carte.isBossRoom()) {
+			Jeu.gameWorld.setEtage(GenerateFloor.generateFloor(10, 6, 5));
+			Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));
+			Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
+			this.setcarte(Jeu.gameWorld.getMapEnCours().getcarte());
 		}
 	}
 	
