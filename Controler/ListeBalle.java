@@ -59,7 +59,7 @@ public class ListeBalle {
 			b.getPosition().setX(b.getPosition().getX() + b.getDirection().getX()*b.getSpeed());
 			b.getPosition().setY(b.getPosition().getY() + b.getDirection().getY()*b.getSpeed());
 			if(isEnnemiBalle()) {
-				b.drawEntite();
+				b.drawRealEntite();
 			} else {
 				b.drawBalle();
 			}

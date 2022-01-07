@@ -78,6 +78,11 @@ public class Bombe extends ObjetsInventaire {
 		if(this.collisionJoueur(Jeu.gameWorld.getPlayer())) {
 			Jeu.gameWorld.getPlayer().subitDegats(degat);
 		}
+		for(Ennemi e: Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe()) {
+			if(this.collisionEnnemi(e)) {
+				e.setLife(e.getLife() - degat);
+			}
+		}
 	}
 
 	/*

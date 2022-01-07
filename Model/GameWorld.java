@@ -18,14 +18,17 @@ public class GameWorld {
 	private Vector2 etageCoos;
 	private Room mapEnCours;
 	private Personnage player;
-	public static final Integer DEFAULT_NB_ROOMS = 6;
-	public static final Integer DEFAULT_NB_MAX_ENNEMIS = 5;
-	public static final Integer DEFAULT_NB_MAX_ROCKS = 5;
+	private boolean first;
+	public static final int DEFAULT_NB_ROOMS = 6;
+	public static final int DEFAULT_NB_MAX_ROCKS = 5;
+	public static final int DEFAULT_NB_MAX_ENNEMIS = 3;
+	
 	public GameWorld() {
 		this.etage = new Room[9][9];
 		this.setEtageCoos(new Vector2(4, 4));
 		this.setPersonnage(new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png")); // Personnage par défaut
 	//	initRoom(true);
+		this.first = true;
 	}
 
 	/*private void initRoom() {
@@ -60,10 +63,10 @@ public class GameWorld {
 			etage[(int) etageCoos.getX()][(int) etageCoos.getY()].drawRoom();
 			this.drawMiniMap();
 		} else {
-		/*	if(first){
+			if(first){
 				playDeathEffect((int)(Math.random()*3));
 			}
-			first = false; */
+			first = false; 
 			Texture.gameOver.bind();
 			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
 			Texture.gameOver.unbind();
@@ -104,6 +107,9 @@ public class GameWorld {
 			for(int j=0; j<9; j++) {
 				if(etage[i][j] != null && etage[i][j].getcarte().isVisited()) {
 					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 1f, 1f, 0.5f});
+				}
+				if(etage[i][j] != null && etage[i][j].getcarte().isBossRoom()) {
+					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 1f, 0.5f});
 				}
 			}
 		}

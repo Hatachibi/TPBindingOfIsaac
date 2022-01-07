@@ -6,6 +6,8 @@ import static org.lwjgl.opengl.GL11.glClear;
 
 import java.util.LinkedList;
 
+import org.lwjgl.opengl.GL11;
+
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
@@ -85,7 +87,6 @@ public class Room {
 	 */
 	public void unlockedDoors() {
 		if(carte.getRenderMap()[4][8] == 16) {
-			if(isBossRoom)
 			carte.setRenderMap(4, 8, -5);
 			carte.generateCollisionMap();
 		}
@@ -117,6 +118,12 @@ public class Room {
 			carte.setRenderMap(0, 4, -4);
 			carte.generateCollisionMap();
 		}
+	/*	if(carte.isBossRoom()) {
+			Jeu.gameWorld.setEtage(GenerateFloor.generateFloor(10, 6, 5));
+			Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));
+			Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
+			this.setcarte(Jeu.gameWorld.getMapEnCours().getcarte());
+		} */
 	}
 	
 	/**
@@ -132,6 +139,10 @@ public class Room {
 			listeEnnemi.updateEnnemis();
 			carte.updateObject();
 			if(listeEnnemi.isEmpty()) {
+				if(isBossRoom) {
+					carte.setRenderMap(4, 4, -9);
+					carte.changeFloor();
+				}
 				unlockedDoors();
 				carte.setVisited(true);
 			}
@@ -151,11 +162,15 @@ public class Room {
 		}
 		Input.getInstance().drawBalle();
 		Input.getInstance().getPlayerMove().drawPlayer();
-		this.getPlayer().getLife().drawBarDeVie();
 		listeEnnemi.drawEnnemis();
-		drawItems();
-		drawPlayerItems();
 		carte.drawObject();
+		Texture.shaderRoom.bind();
+		Render.getInstance().drawPicture(0, 0, 585, 585);
+		Texture.shaderRoom.unbind();
+		//GL11.glColor4f(1f, 1f, 1f, 1f);
+		drawItems();
+		this.getPlayer().getLife().drawBarDeVie();
+		drawPlayerItems();
 	}
 	
 	/**

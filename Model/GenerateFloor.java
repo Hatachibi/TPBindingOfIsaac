@@ -1,13 +1,12 @@
 package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.Random;
-import java.util.stream.BaseStream;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import com.projetpo.bindingofisaac.module.Ressource.MapPath;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
+import com.projetpo.bindingofisaac.module.Vue.Render;
+import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public abstract class GenerateFloor {
 	
@@ -86,23 +85,23 @@ public abstract class GenerateFloor {
 		etage[dernierX][dernierY] = new Room(player, MapPath.mapStart());
 		while(cptRooms != nbRooms)
 		{
-			int direction = new Random().nextInt(3)+1;
+			int direction = new Random().nextInt(5);
 			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux), new Random().nextInt(nbMaxEnnemis), false);
 			int aleaRetourBase = new Random().nextInt(4);
 			if(aleaRetourBase == 3)
 			{
 				dernierX = 4;
 				dernierY = 4;
-			}
-			if(cptRooms == 4)
+			} 
+			if(cptRooms == nbRooms - 2)
 			{
 				c = mapShop();
 			}
-			if(cptRooms == 5)
+			if(cptRooms == nbRooms - 1)
 			{
 				c = bossMap();
 			}
-			if(!etage[dernierX][dernierY].isBossRoom() && !etage[dernierX][dernierY].isShopRoom())
+			if(etage[dernierX][dernierY] != null && !etage[dernierX][dernierY].isBossRoom() && !etage[dernierX][dernierY].isShopRoom())
 			{
 				switch(direction) 
 				{

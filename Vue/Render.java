@@ -274,6 +274,9 @@ public class Render {
 			if(text.charAt(i) == '.') {
 				Texture.txtDot.bind();
 			}
+			if(text.charAt(i) == '$') {
+				Texture.txtCoin.bind();
+			}
 			this.drawPicture(x+i*15, y, Texture.txtUn.getWidth()*2, Texture.txtUn.getHeight()*2);
 		}
 		Texture.txtZero.unbind();
@@ -286,6 +289,8 @@ public class Render {
 		Texture.txtSept.unbind();
 		Texture.txtHuit.unbind();
 		Texture.txtNeuf.unbind();
+		Texture.txtDot.unbind();
+		Texture.txtCoin.unbind();
 	} 
 	
 	/**

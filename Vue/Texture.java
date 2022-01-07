@@ -120,6 +120,14 @@ public class Texture {
     public static Texture txtCoin = loadTexture("src/main/resources/txt_coin.png");
     public static Texture txtX = loadTexture("src/main/resources/txt_x.png");
     public static Texture txtDot = loadTexture("src/main/resources/txt_dot.png");
+    public static Texture trapdoor = loadTexture("src/main/resources/trapdoor.png");
+    public static Texture shadow = loadTexture("src/main/resources/shadow.png");
+    public static Texture shaderRoom = loadTexture("src/main/resources/shadingRoom.png");
+    public static Texture overlay1 = loadTexture("src/main/resources/overlay1.png");
+    public static Texture overlay2 = loadTexture("src/main/resources/overlay2.png");
+    public static Texture overlay3 = loadTexture("src/main/resources/overlay3.png");
+    public static Texture overlay4 = loadTexture("src/main/resources/overlay4.png");
+    public static Texture overlay5 = loadTexture("src/main/resources/overlay5.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {

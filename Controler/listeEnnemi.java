@@ -57,7 +57,7 @@ public class listeEnnemi {
 	private void playDeathSound(Ennemi e) {
 		if(e instanceof Boss) {
 			try {
-				Jeu.music("/libMusic/boss_death.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_death.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
 				e1.printStackTrace();
 			}
