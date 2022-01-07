@@ -6,9 +6,12 @@ import java.util.LinkedList;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import org.lwjgl.opengl.GL11;
+
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
 import com.projetpo.bindingofisaac.module.Shaders.Raycasting;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
@@ -150,22 +153,21 @@ public class Personnage extends Entite{
     }
     
     private void playHurtEffect(int sound) {
-		System.out.println(sound);
 		switch(sound) {
 			case 0: try {
-				Jeu.music("/libMusic/Hurt_grunt_1.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Hurt_grunt_1.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}
 			break;
 			case 1:try {
-				Jeu.music("/libMusic/Hurt_grunt_2.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Hurt_grunt_2.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}	
 			break;
 			case 2:try {
-				Jeu.music("/libMusic/Hurt_grunt_3.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Hurt_grunt_3.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}
@@ -309,6 +311,14 @@ public class Personnage extends Entite{
 	 * @Note Dessine le joueur
 	 */
     public void drawPlayer() {
+    	GL11.glColor4f(1f, 0f, 0f, 0.5f);
+    	Texture.shadow.bind();
+    	Render.getInstance().drawPicture((float)position.getX() - width/4,(float) position.getY(), 50, 10);
+    	Texture.shadow.unbind();
+    	GL11.glColor4f(1f, 1f, 1f, 1f);
+    	if(cooldownDegat > 0 && Fenetre.tick%20 > 10) {
+    		GL11.glColor4f(1f, 0f, 0f, 1f);
+    	}
     	double coef = 1.5;
     	if(isMoving) {
     		animation();
@@ -394,6 +404,7 @@ public class Personnage extends Entite{
     	if(isShot) {
     		this.setShot(false);
     	}
+    	GL11.glColor4f(1f, 1f, 1f, 1f);
     	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
     }
     
@@ -415,7 +426,7 @@ public class Personnage extends Entite{
 		}
     	if(isTouch()) { //Cooldown degat
 			setCooldownDegat((this.getCooldownDegat()+1));
-			if(getCooldownDegat() == 30) {
+			if(getCooldownDegat() == 60) {
 				setCooldownDegat(0);
 				setTouch(false);
 			};

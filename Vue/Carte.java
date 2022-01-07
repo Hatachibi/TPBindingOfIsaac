@@ -5,8 +5,8 @@ import static org.lwjgl.opengl.GL11.glEnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
-import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.MapObject;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
@@ -31,6 +31,8 @@ public class Carte {
 	private boolean isBossRoom;
 	
 	private boolean isShopRoom;
+	
+	private int floor;
 	
 	/*
 	 * Liste qui contient tous les objets
@@ -121,7 +123,22 @@ public class Carte {
 				Jeu.gameWorld.addEnnemis();
 			} */
 		}
+	}
 	
+	/**
+	 * Change de Map quand le joueur passe dans une porte
+	 */
+	public void changeFloor() {
+		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
+		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
+		if(getRenderMap()[x][y] == -9) {
+			if(x==4 && y==4) {
+				floor++;
+				Jeu.gameWorld.initRoom(Jeu.gameWorld.DEFAULT_NB_ROOMS+floor, Jeu.gameWorld.DEFAULT_NB_MAX_ROCKS+floor, Jeu.gameWorld.DEFAULT_NB_MAX_ENNEMIS+floor);
+				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
+				Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));
+			}
+		}	
 	}
 
 	/**
@@ -250,6 +267,7 @@ public class Carte {
 	public void generateRenderMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
+				mapobject[i][j].setOverlayMap(new Random().nextInt(20));
 				if(i==0 && j==0) mapobject[i][j].setRenderMap(4);
 				else if(i==0 && j==mapobject.length-1) mapobject[i][j].setRenderMap(1);
 				else if(i==mapobject.length-1 && j==mapobject.length-1) mapobject[i][j].setRenderMap(2);
@@ -354,6 +372,39 @@ public class Carte {
 	public void drawObject() {
 		for(int k=0; k<getObjet().size(); k++) {
 			getObjet().get(k).drawEntite();
+			if(Jeu.gameWorld.getMapEnCours().isShopRoom()) {
+				Render.getInstance().drawText((float) 130*(k+1), (float) 265, this.getObjet().get(k).getPrice() + "$");
+			}
+		}
+	}
+	
+	public void addOverlay(int random, int i, int j) {
+		switch(random) {
+		case 1:
+			Texture.overlay1.bind();
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Texture.overlay1.unbind();	
+			break;
+		case 2:
+			Texture.overlay2.bind();
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Texture.overlay2.unbind();
+		break;
+		case 3:
+			Texture.overlay3.bind();
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Texture.overlay3.unbind();
+		break;
+		case 4:
+			Texture.overlay4.bind();
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Texture.overlay4.unbind();
+		break;
+		case 5:
+			Texture.overlay5.bind();
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Texture.overlay5.unbind();
+			break;
 		}
 	}
 	
@@ -448,7 +499,12 @@ public class Carte {
 					Texture.murGauche.unbind();
 					Texture.left_openBossDoor.bind();
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
-				} 
+				} else if(mapobject[i][j].getRenderMap()==-9) {
+					Texture.emptyCell.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Texture.emptyCell.unbind();
+					Texture.trapdoor.bind();
+				}
 				else if(mapobject[i][j].getRenderMap()==11) 
 				{
 					Texture.spikes.bind();
@@ -541,6 +597,10 @@ public class Carte {
 				Texture.closeBossDoor_left.unbind();
 				Texture.spikes.unbind();
 				Texture.emptyCell.unbind();
+				Texture.trapdoor.unbind();
+				if(mapobject[i][j].getRenderMap() >=1 && mapobject[i][j].getRenderMap() <= 8) {
+					this.addOverlay(mapobject[i][j].getOverlayMap(), i, j);
+				}
 			}
 		}
 		

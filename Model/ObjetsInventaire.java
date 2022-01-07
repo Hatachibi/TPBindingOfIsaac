@@ -90,67 +90,76 @@ public class ObjetsInventaire extends Entite{
 		}
 	}
     
-    public void update() {
-    	BarreDeVie bdv = Jeu.gameWorld.getPlayer().getLife();
-		Personnage joueur = Jeu.gameWorld.getPlayer(); 
-    	if(this.collisionJoueur(Jeu.gameWorld.getPlayer())) {
-    		switch(id){
-    			case 1:
-    				if(bdv.getVieEnCours() < bdv.getViePleine()) {
-    					bdv.setVieEnCours(bdv.getVieEnCours() + 1);
-    				}
-    			break;
-    			case 2:
-    				bdv.setViePleine(bdv.getViePleine() + 2);
-    				bdv.setVieEnCours(bdv.getViePleine());
-    			break;
-    			case 3:
-    				joueur.setDegat(joueur.getDegat() + 1);
-    			break;
-    			case 4:
-    				joueur.setDegat(joueur.getDegat() + 0.5);
-    				joueur.getMunitions().setRange(joueur.getRange() + 0.5);
-    			break;
-    			case 5:
-    				bdv.setViePleine(bdv.getViePleine() + 1);
-    			break;
-    			case 6:
-    				joueur.setDegat(joueur.getDegat() + 0.5);
-    				joueur.setMultiplicator(1.5);
-    			break;
-    			case 7:
-    				bdv.setVieEnCours(bdv.getViePleine());
-    				joueur.setDegat(joueur.getDegat() + 1);
-    				joueur.getMunitions().setRange(joueur.getRange() + 1);
-    				joueur.setSpeed(joueur.getSpeed() + 1);
-    				joueur.setMultiplicator(1.5);
-    			break;
-    			case 8:
-    				joueur.setDegat(joueur.getDegat() + 1);
-    			break;
-    			case 9:
-    				joueur.setDegat(joueur.getDegat() + 0.3);
-    				bdv.setViePleine(bdv.getViePleine() + 2);
-    			break;
-    			case 10:
-    				joueur.setCoin(joueur.getCoin() + 1);
-    			break;
-    			case 11:
-    				joueur.setCoin(joueur.getCoin() + 5);
-    			break;
-    			case 12:
-    				joueur.setCoin(joueur.getCoin() + 10);
-    			break;
-    			case -3:
-    				joueur.getInv().setNbBombe(joueur.getInv().getNbBombe() + 1);
-    			break;
-    				
-    		}
+    public void update() { 
+    	if(this.collisionJoueur(Jeu.gameWorld.getPlayer()) && !Jeu.gameWorld.getMapEnCours().isShopRoom()) {
+    		this.appliqueBoostObjet();
     		this.setTouch(true);
     	}
+    	else if(this.collisionJoueur(Jeu.gameWorld.getPlayer()) && Jeu.gameWorld.getMapEnCours().isShopRoom()) {
+			if(Jeu.gameWorld.getPlayer().getCoin() >= this.price) {
+				this.appliqueBoostObjet();
+				Jeu.gameWorld.getPlayer().setCoin(Jeu.gameWorld.getPlayer().getCoin() - this.price);
+				this.setTouch(true);
+			}
+		}
     }
 	
-//	public void update();
+	public void appliqueBoostObjet() {
+		BarreDeVie bdv = Jeu.gameWorld.getPlayer().getLife();
+		Personnage joueur = Jeu.gameWorld.getPlayer();
+		switch(id){
+		case 1:
+			if(bdv.getVieEnCours() < bdv.getViePleine()) {
+				bdv.setVieEnCours(bdv.getVieEnCours() + 1);
+			}
+		break;
+		case 2:
+			bdv.setViePleine(bdv.getViePleine() + 2);
+			bdv.setVieEnCours(bdv.getViePleine());
+		break;
+		case 3:
+			joueur.setDegat(joueur.getDegat() + 1);
+		break;
+		case 4:
+			joueur.setDegat(joueur.getDegat() + 0.5);
+			joueur.getMunitions().setRange(joueur.getRange() + 0.5);
+		break;
+		case 5:
+			bdv.setViePleine(bdv.getViePleine() + 1);
+		break;
+		case 6:
+			joueur.setDegat(joueur.getDegat() + 0.5);
+			joueur.setMultiplicator(1.5);
+		break;
+		case 7:
+			bdv.setVieEnCours(bdv.getViePleine());
+			joueur.setDegat(joueur.getDegat() + 1);
+			joueur.getMunitions().setRange(joueur.getRange() + 1);
+			joueur.setSpeed(joueur.getSpeed() + 1);
+			joueur.setMultiplicator(1.5);
+		break;
+		case 8:
+			joueur.setDegat(joueur.getDegat() + 1);
+		break;
+		case 9:
+			joueur.setDegat(joueur.getDegat() + 0.3);
+			bdv.setViePleine(bdv.getViePleine() + 2);
+		break;
+		case 10:
+			joueur.setCoin(joueur.getCoin() + 1);
+		break;
+		case 11:
+			joueur.setCoin(joueur.getCoin() + 5);
+		break;
+		case 12:
+			joueur.setCoin(joueur.getCoin() + 10);
+		break;
+		case -3:
+			joueur.getInv().setNbBombe(joueur.getInv().getNbBombe() + 1);
+		break;
+			
+	}
+	}
 	
     /**
      * @param p le joueur

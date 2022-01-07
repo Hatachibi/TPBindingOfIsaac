@@ -13,7 +13,6 @@ public class MapPath {
 		Carte start = new Carte();
 		start.generateMap(false, false, false, false);
 		start.generateCollisionMap();
-		start.addEnnemi(4*65, 4*65, 7);
 		return start;
 	}
 	

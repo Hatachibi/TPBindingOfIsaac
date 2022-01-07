@@ -67,7 +67,7 @@ public class Boss extends Ennemi{
 			} else {
 				if(playOnce){
 					try {
-						Jeu.music("/libMusic/boss_phase.wav", false);
+						Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_phase.wav", false);
 					} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 						e.printStackTrace();
 					}

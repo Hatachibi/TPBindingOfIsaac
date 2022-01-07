@@ -57,11 +57,11 @@ public class Fly extends Ennemi{
 			Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));
-	/*		try {
-				Jeu.music("/libMusic/boss_shoot.wav", false);
+			try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
-			} */
+			} 
 		}
 		
 	/*	if(Fenetre.tick%15 > 0 && Fenetre.tick%15 < 7.5) {
@@ -87,12 +87,12 @@ public class Fly extends Ennemi{
 		if(Fenetre.tick == 0%60) {
 			Vector2 v = new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY());
 			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
-			b.getMunitions().addBalle(new Balle(25, 25, b.getPosition().getX(), b.getPosition().getY(), v2, "src/main/resources/enemybullets.png", 10));
-		/*	try {
-				Jeu.music("/libMusic/boss_shoot.wav", false);
+			b.getMunitions().addBalle(new Balle(35, 35, b.getPosition().getX(), b.getPosition().getY(), v2, "src/main/resources/enemybullets.png", 10));
+			try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_shoot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
-			} */
+			} 
 		}
 		b.setDirection(new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY()));
 		b.move();

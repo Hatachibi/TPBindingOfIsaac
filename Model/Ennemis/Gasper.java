@@ -41,6 +41,7 @@ public class Gasper extends Ennemi{
 		this.munitions.setRange(5);
 		this.munitions.setDegats(2);
 		this.setLife(40);
+		this.setDegat(2);
 		this.setAcceleration(1);
 		for(int i=1; i<13; i++) {
 			this.getLoot().add(new ObjetsInventaire(i, 30, 30, position, ""));

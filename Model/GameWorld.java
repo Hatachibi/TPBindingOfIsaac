@@ -18,12 +18,17 @@ public class GameWorld {
 	private Vector2 etageCoos;
 	private Room mapEnCours;
 	private Personnage player;
+	private boolean first;
+	public static final int DEFAULT_NB_ROOMS = 6;
+	public static final int DEFAULT_NB_MAX_ROCKS = 5;
+	public static final int DEFAULT_NB_MAX_ENNEMIS = 3;
 	
 	public GameWorld() {
 		this.etage = new Room[9][9];
 		this.setEtageCoos(new Vector2(4, 4));
 		this.setPersonnage(new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png")); // Personnage par défaut
 	//	initRoom(true);
+		this.first = true;
 	}
 
 	private void initRoom() {
@@ -43,9 +48,9 @@ public class GameWorld {
 		this.setMapEnCours(etage[4][4]);
 	}
 	
-	public void initRoom(boolean n)
+	public void initRoom(int nbRoom, int nbRoc, int nbEnnemi)
 	{
-		this.etage = GenerateFloor.generateFloor(10, 6, 5);
+		this.etage = GenerateFloor.generateFloor(nbRoom, nbRoc, nbEnnemi);
 		this.setMapEnCours(etage[4][4]);
 	}
 	
@@ -58,10 +63,10 @@ public class GameWorld {
 			etage[(int) etageCoos.getX()][(int) etageCoos.getY()].drawRoom();
 			this.drawMiniMap();
 		} else {
-		/*	if(first){
+			if(first){
 				playDeathEffect((int)(Math.random()*3));
 			}
-			first = false; */
+			first = false; 
 			Texture.gameOver.bind();
 			Render.getInstance().drawPicture(0, 0, 585, 585, 1, 1, new float[]{});
 			Texture.gameOver.unbind();

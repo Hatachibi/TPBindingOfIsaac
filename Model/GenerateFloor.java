@@ -5,6 +5,8 @@ import java.util.Random;
 import com.projetpo.bindingofisaac.module.Ressource.MapPath;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
+import com.projetpo.bindingofisaac.module.Vue.Render;
+import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public abstract class GenerateFloor {
 	
@@ -90,7 +92,7 @@ public abstract class GenerateFloor {
 			{
 				dernierX = 4;
 				dernierY = 4;
-			}
+			} 
 			if(cptRooms == nbRooms - 2)
 			{
 				c = mapShop();

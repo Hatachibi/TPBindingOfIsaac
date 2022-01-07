@@ -23,6 +23,7 @@ public class Parabite extends Ennemi {
 	public Parabite(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.setLife(15);
+		this.setDegat(1);
 		this.tickCoolDown = 0;
 		this.random = (int) (Math.random()*60);
 	}

@@ -34,7 +34,9 @@ public class ParabiteBalle extends Ennemi {
 	public ParabiteBalle(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.setLife(25);
+		this.setDegat(2);
 		this.munitions = new ListeBalle();
+		this.munitions.setDegats(1);
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(3);
 		this.random = (int) (Math.random()*60);
