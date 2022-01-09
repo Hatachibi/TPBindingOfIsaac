@@ -64,32 +64,7 @@ public class Input
 	
 	private Input()
 	{
-		/*mappageTouches = new HashMap<Integer, Boolean>();
 		
-		for(int key:listeInput)
-		{
-			mappageTouches.put(key, false);
-		}*/
-
-		/*keyboard = new GLFWKeyCallback()
-		{
-			@Override
-			public void invoke(long window, int key, int scancode, int action, int mods) 
-			{
-				if(glfwGetKey(window, key) == GLFW_PRESS)
-				{
-					System.out.println("Pressed");
-					getAWSDkeys(window);
-					getShotsKeys(window);
-				}
-				if(glfwGetKey(window, key) == GLFW_RELEASE)
-				{
-					glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
-					System.out.println("Released");
-				}
-			}
-			
-		};*/
 	}
 	
 	public void deplacement()

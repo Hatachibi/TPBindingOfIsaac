@@ -6,8 +6,6 @@ import static org.lwjgl.opengl.GL11.glClear;
 
 import java.util.LinkedList;
 
-import org.lwjgl.opengl.GL11;
-
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
@@ -19,6 +17,7 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.ParabiteBalle;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Pooter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.BossShoot;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
@@ -77,9 +76,10 @@ public class Room {
 				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
 				case 5: getListeEnnemi().addEnnemi(new Gasper(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
 				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
-				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabite.png"));
-				case 8: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));
-				case 9: getListeEnnemi().addEnnemi(new Essaim(25, 25, v, 12, "src/main/resources/parabite.png"));
+				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabite.png"));break;
+				case 10: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));break;
+				case 11: getListeEnnemi().addEnnemi(new Essaim(25, 25, v, 12, "src/main/resources/parabite.png"));break;
+				case 12: getListeEnnemi().addEnnemi(new BossShoot(25, 25, v, 1, "src/main/resources/parabite.png"));break;
 			}
 		}
 	}
@@ -168,7 +168,7 @@ public class Room {
 		carte.drawObject();
 		Texture.shaderRoom.bind();
 		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre);
-		Texture.shaderRoom.unbind();
+		Texture.shaderRoom.unbind(); 
 		//GL11.glColor4f(1f, 1f, 1f, 1f);
 		drawItems();
 		this.getPlayer().getLife().drawBarDeVie();

@@ -116,11 +116,17 @@ public class Hitbox {
      */
     public boolean collisionMurEntite(Entite e) {
     	if((int) e.getHitbox().getPosition().getX()/65 < RoomInfos.NB_HEIGHT_TILES-1 && (int) e.getHitbox().getPosition().getX()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 >= 1 && (int) e.getHitbox().getPosition().getY()/65 < RoomInfos.NB_WIDTH_TILES-1) {
-    		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
-    	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionX().getX()/65][(int) e.getHitbox().getPositionX().getY()/65]
-    	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionY().getX()/65][(int) e.getHitbox().getPositionY().getY()/65]		
-    	    		 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionXY().getX()/65][(int) e.getHitbox().getPositionXY().getY()/65]	);
-    	    }
+    		if((int) e.getHitbox().getPositionX().getX()/65 < RoomInfos.NB_HEIGHT_TILES-1 && (int) e.getHitbox().getPositionX().getX()/65 >= 1 && (int) e.getHitbox().getPositionX().getY()/65 >= 1 && (int) e.getHitbox().getPositionX().getY()/65 < RoomInfos.NB_WIDTH_TILES-1) {
+    			if((int) e.getHitbox().getPositionXY().getX()/65 < RoomInfos.NB_HEIGHT_TILES-1 && (int) e.getHitbox().getPositionXY().getX()/65 >= 1 && (int) e.getHitbox().getPositionXY().getY()/65 >= 1 && (int) e.getHitbox().getPositionXY().getY()/65 < RoomInfos.NB_WIDTH_TILES-1) {
+    				if((int) e.getHitbox().getPositionY().getX()/65 < RoomInfos.NB_HEIGHT_TILES-1 && (int) e.getHitbox().getPositionY().getX()/65 >= 1 && (int) e.getHitbox().getPositionY().getY()/65 >= 1 && (int) e.getHitbox().getPositionY().getY()/65 < RoomInfos.NB_WIDTH_TILES-1) {
+    					return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPosition().getX()/65][(int) e.getHitbox().getPosition().getY()/65]
+    						 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionX().getX()/65][(int) e.getHitbox().getPositionX().getY()/65]
+    	    				 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionY().getX()/65][(int) e.getHitbox().getPositionY().getY()/65]		
+    	    				 || Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[(int) e.getHitbox().getPositionXY().getX()/65][(int) e.getHitbox().getPositionXY().getY()/65]	);
+    				}
+    			}
+    		}
+    	}
     	return true;
     	}
     

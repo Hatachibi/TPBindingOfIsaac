@@ -23,7 +23,7 @@ public class Essaim extends Ennemi {
 	public Essaim(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.tickCoolDown = 0;
-		this.laser = new Laser(100, 30, new Vector2(position.getX() + width/2, position.getY() + heigth), "src/main/resources/enemybullets.png");
+		this.laser = new Laser(0, 30, new Vector2(position.getX() + width/2, position.getY() + heigth), "src/main/resources/enemybullets.png");
 		this.setLife(20);
 		this.laser.setDegats(1);
 		this.laser.setEnnemiBalle(true);

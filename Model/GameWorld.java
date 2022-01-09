@@ -117,6 +117,9 @@ public class GameWorld {
 		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef -  5.85*coef*etageCoos.getX()), (float)(465 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0.5f});
 	} 
 
+	/*
+	 * Getters & Setters
+	 */
 	public Vector2 getEtageCoos() {
 		return etageCoos;
 	}

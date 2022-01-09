@@ -23,6 +23,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.lwjgl.opengl.GL;
 //import org.newdawn.slick.TrueTypeFont;
+import org.lwjgl.opengl.GL11;
 
 public class Render {
 	
@@ -67,6 +68,7 @@ public class Render {
 	 */
 	public void drawTrait(float x1, float y1, float x2, float y2) {
 	//	glColor4f(0f, 1f, 0f, 1f);
+		GL11.glLineWidth(200);
 		glBegin(GL_LINES);
 		glVertex2f(x1, y1);
 		glVertex2f(x2, y2);

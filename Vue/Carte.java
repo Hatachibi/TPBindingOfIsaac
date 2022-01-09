@@ -135,7 +135,6 @@ public class Carte {
 		if(getRenderMap()[x][y] == -9) {
 			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
 				Jeu.gameWorld.setFloor(Jeu.gameWorld.getFloor()+1);
-				System.out.println(Jeu.gameWorld.getFloor());
 				Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ROCKS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ENNEMIS+Jeu.gameWorld.getFloor());
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
 				Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));

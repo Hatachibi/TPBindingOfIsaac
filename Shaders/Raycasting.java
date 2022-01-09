@@ -1,6 +1,12 @@
 package com.projetpo.bindingofisaac.module.Shaders;
 
+import org.lwjgl.opengl.GL11;
+
+import com.projetpo.bindingofisaac.module.Model.Ennemi;
+import com.projetpo.bindingofisaac.module.Model.Hitbox;
+import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 
 /**
@@ -68,23 +74,47 @@ public class Raycasting {
     }
     
     public static void drawRays3D(Personnage personnage, boolean[][] map) {
-    /*	double mdx=0, mdy=0, sx=0, sy=0;
+ /*  	double mdx=0, mdy=0, sx=0, sy=0;
+    	double ra = 0;
     	double pa = personnage.getA();
+    	int nbrayons = 20;
     	int heigth = Fenetre.HeigthFenetre;
     	int width = Fenetre.WidthFenetre;
+    	for(int r=-nbrayons; r<nbrayons+1; r++) {
+    		ra = (float) (pa-RADIAN*r/4);
     		for(float i=0; i<PRECISION_TIRE_TRAIT; i+=OFFSET){   
-    			mdx = personnage.getPosition().getX() +  Math.cos(pa)*i;       //50 pê modifier
-    			mdy = personnage.getPosition().getY() +  Math.sin(pa)*i;
+    			mdx = personnage.getPosition().getX() +  Math.cos(ra)*i;       //50 pê modifier
+    			mdy = personnage.getPosition().getY() +  Math.sin(ra)*i;
     			OFFSET = dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY())/1000;
     			if(mdx < width && mdx > 0 && mdy < heigth && mdy > 0 && map[(int)(mdx/TAILLE_GRILLE_X)][(int)(mdy/TAILLE_GRILLE_Y)]) {   //A régler avec les collisions
     				sx=mdx;
     				sy=mdy;
     				break;
-    			} 	
+    			}
+    			
     		}
-    		float dist = (float) ((dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY()))); 
-    //		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
+    		float dist = (float) ((dist(sx, sy, personnage.getPosition().getX(), personnage.getPosition().getY())));
+    		Render.getInstance().drawTrait((float)personnage.getPosition().getX(), (float) personnage.getPosition().getY(),(float) mdx, (float)mdy);
+    		for(Ennemi e: Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe()) {
+    			GL11.glColor4f(1f, 1f, 1f, 1f);
+    	//		Render.getInstance().drawSquare((float)sx, (float)sy, (float)1000, (float)10);
+    			if(Hitbox.rectangleCollision(personnage.getPosition(), new Vector2(dist, 10), e.getPosition(), new Vector2(e.getWidth(), e.getHeigth())) && pa == 0) {
+					e.drawEntite();
+					GL11.glColor4f(1f, 1f, 1f, 0.1f);
+				} else if(Hitbox.rectangleCollision(new Vector2(sx-1000, sy), new Vector2(1000, 10), e.getPosition(), new Vector2(e.getWidth(), e.getHeigth())) && pa == PI) {
+					e.drawEntite();
+					GL11.glColor4f(1f, 1f, 1f, 0.1f);
+				} else if(Hitbox.rectangleCollision(new Vector2(sx, sy), new Vector2(10, 1000), e.getPosition(), new Vector2(e.getWidth(), e.getHeigth())) && pa == P2) {
+					e.drawEntite();
+					GL11.glColor4f(1f, 1f, 1f, 0.1f);
+				}  else if(Hitbox.rectangleCollision(new Vector2(sx, sy), new Vector2(10, -1000), e.getPosition(), new Vector2(e.getWidth(), e.getHeigth())) && pa == P3) {
+					e.drawEntite();
+					GL11.glColor4f(1f, 1f, 1f, 0.1f);
+				}
+    			
+			} 
     		personnage.setDistance(dist); */
     		personnage.getHitbox().collisionPlayer(personnage);
+    //	}
     }
 }

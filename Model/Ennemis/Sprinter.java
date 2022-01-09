@@ -3,6 +3,7 @@ package com.projetpo.bindingofisaac.module.Model.Ennemis;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Sprinter extends Ennemi {
 	
@@ -46,11 +47,11 @@ public class Sprinter extends Ennemi {
 				move();
 			} else if (position.getX() < 65){
 				position.setX(66);
-			} else if (position.getX() > 520-width){
+			} else if (position.getX() > Fenetre.HeigthFenetre - 65 -width){
 				position.setX(519-width);
 			} else if (position.getY() < 65){
 				position.setY(66);
-			} else if (position.getY() > 520 - heigth){
+			} else if (position.getY() > Fenetre.WidthFenetre - 65 - heigth){
 				position.setY(519 - heigth);
 			}
 

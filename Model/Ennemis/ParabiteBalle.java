@@ -56,7 +56,6 @@ public class ParabiteBalle extends Ennemi {
 		if(tickCoolDown == random) {
 			setDirection(new Vector2(p.getPosition().getX(), p.getPosition().getY()));
 		} else if(tickCoolDown == random + 20) {
-			System.out.println("check");
 			setPosition(this.getDirection());
 		} else if (tickCoolDown == random + 30) {
 			this.four[0] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(1, 0), "src/main/resources/enemybullets.png", 1);
