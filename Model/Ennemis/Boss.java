@@ -38,6 +38,8 @@ public class Boss extends Ennemi{
 		private int tickCoolDown;
 		
 		boolean playOnce = true;
+		
+		private boolean addFly;
 
 		/*
 		 * Constructeur
@@ -49,6 +51,7 @@ public class Boss extends Ennemi{
 			this.tickCoolDown = 0;
 			this.random = new Vector2(0, 0);
 			this.setDegat(3);
+			this.addFly = false;
 			this.setLife(50);
 			this.firstPhase = true;
 			this.munitions.setRange(4);
@@ -93,6 +96,12 @@ public class Boss extends Ennemi{
 		@Override
 		public void IAEnnemi(Personnage p) {
 			munitions.update();
+			if(tickCoolDown == 0) {
+				this.addFly = true;
+			}
+			if(tickCoolDown == 1) {
+				this.addFly = false;
+			}
 			if((Math.random() > 0.5 || tickCoolDown > 0) && firstPhase) { //Phase 1
 				this.tickCoolDown ++;
 				Spider.IASpider(p, this);
@@ -141,5 +150,23 @@ public class Boss extends Ennemi{
 		public void setTickCoolDown(int tickCoolDown) {
 			this.tickCoolDown = tickCoolDown;
 		}
+
+		public boolean isPlayOnce() {
+			return playOnce;
+		}
+
+		public void setPlayOnce(boolean playOnce) {
+			this.playOnce = playOnce;
+		}
+
+		public boolean isAddFly() {
+			return addFly;
+		}
+
+		public void setAddFly(boolean addFly) {
+			this.addFly = addFly;
+		}
+		
+		
 	
 }

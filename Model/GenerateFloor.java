@@ -58,12 +58,12 @@ public abstract class GenerateFloor {
 			int x = new Random().nextInt(455)+65;
 			int y = new Random().nextInt(455)+65;
 			//System.out.println(x+" "+y);
-			int ennemi = new Random().nextInt(11)+1;
+			int ennemi = new Random().nextInt(8)+1;
 			if(!bossRoom)
 			{
 				while(ennemi == 3)
 				{
-					ennemi = new Random().nextInt(11)+1;
+					ennemi = new Random().nextInt(8)+1;
 				}
 			}
 			
@@ -275,11 +275,12 @@ public abstract class GenerateFloor {
 				
 			}
 		}
-		int random = (int)Math.random()*3;
+		int random = (int)(Math.random()*4);
 		switch(random) {
 			case 0: bossMap.addEnnemi(4*65, 4*65, 3);break;
 			case 1: bossMap.addEnnemi(4*65, 4*65, 10);break;
 			case 2: bossMap.addEnnemi(4*65, 4*65, 11);break;
+			case 3: bossMap.addEnnemi(4*65, 4*65, 12); break;
 		}
 		bossMap.generateRandomObstacle(2);
 		bossMap.generateCollisionMap();

@@ -81,12 +81,11 @@ public class Pooter extends Ennemi{
 				this.url = "src/main/resources/animation5Pooter.png";
 			}
 		}
-		if(position.getX() > 65 && position.getX() < 520-width && position.getY() > 65 && position.getY() < 520-heigth && !isMur()) {
+		if(position.getX() > 65 && position.getX() < Fenetre.WidthFenetre - 65-width && position.getY() > 65 && position.getY() < Fenetre.HeigthFenetre - 65-heigth && !isMur()) {
 			setDirection(new Vector2(position.getX()*randomPosition.getX(), position.getY()*randomPosition.getY()));
 			this.move();
 		} else {
 			setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
-			this.move();
 		}
 	} 
 

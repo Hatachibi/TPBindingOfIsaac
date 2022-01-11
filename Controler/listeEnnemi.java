@@ -10,6 +10,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.BossCollectionneur;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.BossShoot;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.BossWave;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
 
 public class listeEnnemi {
 
@@ -49,6 +55,12 @@ public class listeEnnemi {
 			} else {
 				e.boucleCooldownEnnemi();
 				e.IAEnnemi(Jeu.gameWorld.getPlayer());
+			}
+			if(e instanceof BossCollectionneur) {
+				switch(((BossCollectionneur) e).getlaunchEnnemi()) {
+				case 1: copieListe.add(new Fly(25, 25, e.getPosition(),"src/main/resources/fly.png", 5.85/8));break;
+				case 2: copieListe.add(new Spider(25, 25,  e.getPosition(),"src/main/resources/Spider.png", 11.7));break;
+				case 3: copieListe.add(new Sprinter(25, 25,  e.getPosition(), 5.85*3, "src/main/resources/Dart_Fly.png"));break;}
 			}
 		}
 		liste = copieListe;

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.BossCollectionneur;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.BossShoot;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.BossWave;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Essaim;
@@ -82,6 +83,7 @@ public class Room {
 				case 9: getListeEnnemi().addEnnemi(new Essaim(25, 25, v, 12, "src/main/resources/parabite.png"));break;
 				case 10: getListeEnnemi().addEnnemi(new BossShoot(25, 25, v, 1, "src/main/resources/parabite.png"));break;
 				case 11: getListeEnnemi().addEnnemi(new BossWave(25, 25, v, 1, "src/main/resources/fly.png"));break;
+				case 12: getListeEnnemi().addEnnemi(new BossCollectionneur(75, 75, v, 10, "src/main/resources/boss2.png"));break;
 			}
 		}
 	}
