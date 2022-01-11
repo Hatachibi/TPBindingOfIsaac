@@ -20,7 +20,7 @@ public class Jeu {
 			clip.open(audioIn);
 		}
 		clip.start();
-		if (again) clip.loop(Clip.LOOP_CONTINUOUSLY);   */
+		if (again) clip.loop(Clip.LOOP_CONTINUOUSLY);   */ 
 	}
 	
     public static void main(String[] args)

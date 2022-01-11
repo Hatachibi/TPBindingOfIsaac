@@ -22,7 +22,7 @@ public class GameWorld {
 	private int floor = 0;
 	public static final int DEFAULT_NB_ROOMS = 6;
 	public static final int DEFAULT_NB_MAX_ROCKS = 5;
-	public static final int DEFAULT_NB_MAX_ENNEMIS = 5;
+	public static final int DEFAULT_NB_MAX_ENNEMIS = 2;
 	
 	public GameWorld() {
 		this.etage = new Room[9][9];

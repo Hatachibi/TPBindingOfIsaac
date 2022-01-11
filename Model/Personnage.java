@@ -287,7 +287,7 @@ public class Personnage extends Entite{
 		liste1.add(Texture.animation9Isaac);
 		liste1.add(Texture.animation10Isaac);
 		LinkedList<Texture> liste2 = new LinkedList<Texture>();
-		liste2.add(Texture.left_right_isaac);
+		liste2.add(Texture.top_bot_isaac);
 		liste2.add(Texture.animationCote1Isaac);
 		liste2.add(Texture.animationCote2Isaac);
 		liste2.add(Texture.animationCote3Isaac);
@@ -419,7 +419,7 @@ public class Personnage extends Entite{
     {
     	if(!this.getMunitions().isNotShot()) { //Cooldown balle
     		this.getMunitions().setCoolDown(this.getMunitions().getCoolDown()+1);
-			if(this.getMunitions().getCoolDown() == 30) {
+			if(this.getMunitions().getCoolDown() == 20) {
 				this.getMunitions().setCoolDown(0);
 				this.getMunitions().setShot(true);
 			};

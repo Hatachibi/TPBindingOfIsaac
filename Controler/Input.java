@@ -171,28 +171,28 @@ public class Input
 	
 	public void shootUp()
 	{
-		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(0, 1), "src/main/resources/tear.png", 10));
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX() + player.getWidth()/2, player.getPosition().getY()+3*player.getHeigth()/4, new Vector2(0, 1), "src/main/resources/tear.png", 10));
 		player.setFace(1);
 		player.setShot(true);
 	}
 	
 	public void shootDown()
 	{
-		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(0, -1), "src/main/resources/tear.png", 10));
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX()+player.getWidth()/2, player.getPosition().getY()+3*player.getHeigth()/4, new Vector2(0, -1), "src/main/resources/tear.png", 10));
 		player.setFace(2);
 		player.setShot(true);
 	}
 	
 	public void shootRight()
 	{
-		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(1, 0), "src/main/resources/tear.png", 10));
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX()+player.getWidth()/2, player.getPosition().getY()+3*player.getHeigth()/4, new Vector2(1, 0), "src/main/resources/tear.png", 10));
 		player.setFace(3);
 		player.setShot(true);
 	}
 	
 	public void shootLeft()
 	{
-		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX(), player.getPosition().getY(), new Vector2(-1, 0), "src/main/resources/tear.png", 10));
+		player.getMunitions().addBalle(new Balle(25, 25, player.getPosition().getX()+player.getWidth()/2, player.getPosition().getY()+3*player.getHeigth()/4, new Vector2(-1, 0), "src/main/resources/tear.png", 10));
 		player.setFace(4);
 		player.setShot(true);
 	}

@@ -42,17 +42,17 @@ public class Sprinter extends Ennemi {
 			directionSauv = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 			tickCoolDown ++;
 		} else if(tickCoolDown < 110) {
-			if(position.getX() > 65 && position.getX() < 520-width && position.getY() > 65 && position.getY() < 520-heigth) {
+			if(position.getX() > 65 && position.getX() < Fenetre.WidthFenetre-65-width && position.getY() > 65 && position.getY() < Fenetre.WidthFenetre-65-heigth) {
 				setDirection(directionSauv);
 				move();
 			} else if (position.getX() < 65){
 				position.setX(66);
-			} else if (position.getX() > Fenetre.HeigthFenetre - 65 -width){
-				position.setX(519-width);
+			} else if (position.getX() > Fenetre.WidthFenetre - 65 -width){
+				position.setX(Fenetre.WidthFenetre-width);
 			} else if (position.getY() < 65){
 				position.setY(66);
-			} else if (position.getY() > Fenetre.WidthFenetre - 65 - heigth){
-				position.setY(519 - heigth);
+			} else if (position.getY() > Fenetre.HeigthFenetre - 65 - heigth){
+				position.setY(Fenetre.HeigthFenetre - heigth);
 			}
 
 			tickCoolDown ++;

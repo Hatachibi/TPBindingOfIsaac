@@ -2,12 +2,9 @@ package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.Random;
 
-import com.projetpo.bindingofisaac.module.Ressource.MapPath;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
-import com.projetpo.bindingofisaac.module.Vue.Render;
-import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public abstract class GenerateFloor {
 	
@@ -278,10 +275,11 @@ public abstract class GenerateFloor {
 				
 			}
 		}
-		if(Math.random() > 0.5) {
-			bossMap.addEnnemi(4*65, 4*65, 3);
-		} else {
-			bossMap.addEnnemi(4*65, 4*65, 12);
+		int random = (int)Math.random()*3;
+		switch(random) {
+			case 0: bossMap.addEnnemi(4*65, 4*65, 3);break;
+			case 1: bossMap.addEnnemi(4*65, 4*65, 10);break;
+			case 2: bossMap.addEnnemi(4*65, 4*65, 11);break;
 		}
 		bossMap.generateRandomObstacle(2);
 		bossMap.generateCollisionMap();
