@@ -2,12 +2,9 @@ package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.Random;
 
-import com.projetpo.bindingofisaac.module.Ressource.MapPath;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
-import com.projetpo.bindingofisaac.module.Vue.Render;
-import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public abstract class GenerateFloor {
 	
@@ -61,12 +58,12 @@ public abstract class GenerateFloor {
 			int x = new Random().nextInt(455)+65;
 			int y = new Random().nextInt(455)+65;
 			//System.out.println(x+" "+y);
-			int ennemi = new Random().nextInt(4)+1;
+			int ennemi = new Random().nextInt(13)+1;
 			if(!bossRoom)
 			{
-				while(ennemi == 3)
+				while(ennemi == 3 || ennemi == 10 || ennemi == 11 || ennemi == 12)
 				{
-					ennemi = new Random().nextInt(7)+1;
+					ennemi = new Random().nextInt(13)+1;
 				}
 			}
 			
@@ -278,7 +275,13 @@ public abstract class GenerateFloor {
 				
 			}
 		}
-		bossMap.addEnnemi(4*65, 4*65, 3);
+		int random = (int)(Math.random()*4);
+		switch(random) {
+			case 0: bossMap.addEnnemi(4*65, 4*65, 3);break;
+			case 1: bossMap.addEnnemi(4*65, 4*65, 10);break;
+			case 2: bossMap.addEnnemi(4*65, 4*65, 11);break;
+			case 3: bossMap.addEnnemi(4*65, 4*65, 12); break;
+		}
 		bossMap.generateRandomObstacle(2);
 		bossMap.generateCollisionMap();
 		return bossMap;
@@ -316,7 +319,7 @@ public abstract class GenerateFloor {
 			random = (int) (1+Math.random()*9);
 		}
 		for(int i=0; i<tab.length; i++) {
-			shop.getObjet().add(new ObjetsInventaire(tab[i], 10, 10, new Vector2(130*(i+1), 292.5), ""));
+			shop.getObjet().add(new ObjetsInventaire(tab[i], 30, 30, new Vector2(130*(i+1), 292.5), ""));
 		}
 		return shop;
 	}

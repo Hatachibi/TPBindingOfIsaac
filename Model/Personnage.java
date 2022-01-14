@@ -2,14 +2,10 @@ package com.projetpo.bindingofisaac.module.Model;
 
 import java.io.IOException;
 import java.util.LinkedList;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import org.lwjgl.opengl.GL11;
-
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
-import com.projetpo.bindingofisaac.module.Shaders.Raycasting;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 import com.projetpo.bindingofisaac.module.Vue.Render;
@@ -188,6 +184,7 @@ public class Personnage extends Entite{
     public void updateGameObject()
 	{
 		move();
+		this.getHitbox().collisionPlayer(this);
 		updateLife();
 		munitions.update();
 		LinkedList bombListClone = (LinkedList) Jeu.gameWorld.getMapEnCours().getBombList().clone();
@@ -205,7 +202,7 @@ public class Personnage extends Entite{
      */
     public void updateLife() {
     	for(int i=0; i<Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().size(); i++) {
-    		if(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {
+    		if(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {// && !(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i) instanceof Essaim)) {
         		this.subitDegats(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).getDegat());
         		this.setTouch(true);
         	}
@@ -287,7 +284,7 @@ public class Personnage extends Entite{
 		liste1.add(Texture.animation9Isaac);
 		liste1.add(Texture.animation10Isaac);
 		LinkedList<Texture> liste2 = new LinkedList<Texture>();
-		liste2.add(Texture.left_right_isaac);
+		liste2.add(Texture.top_bot_isaac);
 		liste2.add(Texture.animationCote1Isaac);
 		liste2.add(Texture.animationCote2Isaac);
 		liste2.add(Texture.animationCote3Isaac);
@@ -405,7 +402,7 @@ public class Personnage extends Entite{
     		this.setShot(false);
     	}
     	GL11.glColor4f(1f, 1f, 1f, 1f);
-    	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
+    //	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
     }
     
     public void drawInventaire() {
@@ -419,14 +416,14 @@ public class Personnage extends Entite{
     {
     	if(!this.getMunitions().isNotShot()) { //Cooldown balle
     		this.getMunitions().setCoolDown(this.getMunitions().getCoolDown()+1);
-			if(this.getMunitions().getCoolDown() == 30) {
+			if(this.getMunitions().getCoolDown() == Fenetre.getInstance().getFPS()/3) {
 				this.getMunitions().setCoolDown(0);
 				this.getMunitions().setShot(true);
 			};
 		}
     	if(isTouch()) { //Cooldown degat
 			setCooldownDegat((this.getCooldownDegat()+1));
-			if(getCooldownDegat() == 60) {
+			if(getCooldownDegat() == Fenetre.getInstance().getFPS()) {
 				setCooldownDegat(0);
 				setTouch(false);
 			};
@@ -440,15 +437,7 @@ public class Personnage extends Entite{
     public boolean collisionBalle(Balle b) {
 		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
 	}
-    
-    /**
-     * @param un laser
-     * @return si un laser ennemi est en collision avec le joueur
-     */
-    public boolean collisionBalle(Laser laser) {
-    	return (Hitbox.rectangleCollision(laser.position, new Vector2(laser.getHitbox().getWidth(), laser.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
-	}	
-    
+     
     /*
      * Getters & Setters
      */

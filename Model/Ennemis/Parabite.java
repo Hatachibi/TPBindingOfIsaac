@@ -4,13 +4,9 @@ import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Parabite extends Ennemi {
-	
-	/*
-	 * Cooldown entre chaque phase
-	 */
-	private int tickCoolDown;
 	
 	/*
 	 * Random au niveau du CoolDown
@@ -24,29 +20,29 @@ public class Parabite extends Ennemi {
 		super(width, heigth, position, speed, url);
 		this.setLife(15);
 		this.setDegat(1);
-		this.tickCoolDown = 0;
-		this.random = (int) (Math.random()*60);
+		this.tick = 0;
+		this.random = (int) (Math.random()*Fenetre.getInstance().getFPS());
 	}
 
 	@Override
 	public void drawEnnemi() {
-		if(tickCoolDown > random + 20) {
+		if(tick > random + Fenetre.getInstance().getFPS()/3) {
 			this.drawEntite();
 		}
 	}
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-		if(tickCoolDown == random) {
+		if(tick == random) {
 			setDirection(new Vector2(p.getPosition().getX(), p.getPosition().getY()));
-		} else if(tickCoolDown == random + 20) {
+		} else if(tick == random + Fenetre.getInstance().getFPS()/3) {
 			setPosition(this.getDirection());
-		} else if(tickCoolDown == 180) {
-			tickCoolDown = 0;
-		} if(tickCoolDown < random + 19) {
+		} else if(tick == Fenetre.getInstance().getFPS()*3) {
+			tick = 0;
+		} if(tick < random + -1 - Fenetre.getInstance().getFPS()/3) {
 			setPosition(new Vector2(0, 0));
 		}
-		tickCoolDown ++;
+		tick ++;
 	}
 
 }

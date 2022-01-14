@@ -22,7 +22,7 @@ public class GameWorld {
 	private int floor = 0;
 	public static final int DEFAULT_NB_ROOMS = 6;
 	public static final int DEFAULT_NB_MAX_ROCKS = 5;
-	public static final int DEFAULT_NB_MAX_ENNEMIS = 5;
+	public static final int DEFAULT_NB_MAX_ENNEMIS = 2;
 	
 	public GameWorld() {
 		this.etage = new Room[9][9];
@@ -31,23 +31,6 @@ public class GameWorld {
 	//	initRoom(true);
 		this.first = true;
 	}
-
-	/*private void initRoom() {
-		for(int i=0; i<etage.length; i++) {
-			for(int j=0; j<etage[i].length; j++){
-				Carte m = new Carte();
-				m.generateMap(j != etage.length - 1, j != 0, i != 0, i != etage.length - 1);
-				m.generateRandomObstacle((int) (Math.random()*3));
-				m.addEnnemi(65+Math.random()*520, 65+Math.random()*520, (int)(1+Math.random()*5));
-				m.generateCollisionMap();
-				etage[i][j] = new Room(player, m);
-			}
-		}
-		etage[4][5] = new Room(player, MapPath.mapShop());
-		etage[4][4] = new Room(player, MapPath.mapStart());
-		etage[4][1] = new Room(player, MapPath.bossMap());
-		this.setMapEnCours(etage[4][4]);
-	}*/
 	
 	public void initRoom(int nbRooms, int nbMaxRocks, int nbMaxEnnemis)
 	{
@@ -68,29 +51,39 @@ public class GameWorld {
 				playDeathEffect((int)(Math.random()*3));
 			}
 			first = false; 
-			Texture.gameOver.bind();
-			Render.getInstance().drawPicture(0, 0, Fenetre.HeigthFenetre, Fenetre.WidthFenetre, 1, 1, new float[]{});
-			Texture.gameOver.unbind();
+			Fenetre.getInstance().setState(3);
 		}
+	}
+	
+	public void deathScreen() {
+		Texture.gameOver.bind();
+		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre, 1, 1, new float[]{});
+		Texture.gameOver.unbind();
+	}
+	
+	public void victoryScreen() {
+		Texture.win.bind();
+		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre, 1, 1, new float[]{});
+		Texture.win.unbind();
 	}
 	
 	private void playDeathEffect(int sound) {
 		System.out.println(sound);
 		switch(sound) {
 			case 0: try {
-				Jeu.music("/libMusic/Isaac_dies_1.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Isaac_dies_1.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}
 			break;
 			case 1:try {
-				Jeu.music("/libMusic/Isaac_dies_2.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Isaac_dies_2.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}	
 			break;
 			case 2:try {
-				Jeu.music("/libMusic/Isaac_dies_3.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Isaac_dies_3.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			}
@@ -117,6 +110,9 @@ public class GameWorld {
 		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef -  5.85*coef*etageCoos.getX()), (float)(465 + 5.85*coef*etageCoos.getY()), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 0f, 0.5f});
 	} 
 
+	/*
+	 * Getters & Setters
+	 */
 	public Vector2 getEtageCoos() {
 		return etageCoos;
 	}

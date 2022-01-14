@@ -97,6 +97,7 @@ public class Texture {
     public static Texture halfHeart = loadTexture("src/main/resources/HUD_heart_red_half.png");
     public static Texture emptyHeart = loadTexture("src/main/resources/HUD_heart_red_empty.png");
     public static Texture gameOver = loadTexture("src/main/resources/lose.png");
+    public static Texture win = loadTexture("src/main/resources/win.jpg");
     public static Texture fly = loadTexture("src/main/resources/fly.png");  
     public static Texture boss1 = loadTexture("src/main/resources/boss1.png");
     public static Texture boss2 = loadTexture("src/main/resources/boss2.png");
@@ -128,6 +129,9 @@ public class Texture {
     public static Texture overlay3 = loadTexture("src/main/resources/overlay3.png");
     public static Texture overlay4 = loadTexture("src/main/resources/overlay4.png");
     public static Texture overlay5 = loadTexture("src/main/resources/overlay5.png");
+    public static Texture bdvBoss = loadTexture("src/main/resources/bdvBoss.png");
+    public static Texture torche = loadTexture("src/main/resources/torche.png");
+    public static Texture dark = loadTexture("src/main/resources/darkRoom.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {

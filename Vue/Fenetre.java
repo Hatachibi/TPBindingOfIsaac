@@ -29,11 +29,13 @@ public class Fenetre {
 	public final static Integer HeigthFenetre = RoomInfos.NB_WIDTH_TILES*65;
 	public final static Integer	WidthFenetre = RoomInfos.NB_HEIGHT_TILES*65;
 	
+	public int FPS;
+	
 	public static int tick;
 
 	private long window;
 	
-	private int state;
+	public int state;
 	private int playerChoice = 0;
 
     /**
@@ -46,6 +48,7 @@ public class Fenetre {
     }
     
     public void init() {
+    	setFPS(60);
     	if(!glfwInit())
     	{
     		throw new IllegalStateException("Failed to initialize GLFW");
@@ -86,7 +89,7 @@ public class Fenetre {
     
     public void menu() {
     	Texture.bgMenu.bind();
-    	Render.getInstance().drawPicture(0, 0, HeigthFenetre, WidthFenetre);
+    	Render.getInstance().drawPicture(0, 0, WidthFenetre, HeigthFenetre);
     	Texture.bgMenu.unbind();
     	Texture.leftArrow.bind();
     	Render.getInstance().drawPicture(HeigthFenetre/4, WidthFenetre/2, Texture.leftArrow.getWidth(), Texture.leftArrow.getHeight());
@@ -116,6 +119,7 @@ public class Fenetre {
     			playerChoice = 0;
     		}
     	}
+    	Render.getInstance().drawText(500, 50, FPS+"");
     	if(Input.getInstance().valid(window)) {
     			switch(playerChoice) {
     			case 0: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(6)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Isaac"); break;
@@ -128,7 +132,7 @@ public class Fenetre {
     
     public void run() {
     	
-    	double frameCap = 1.0/60.0; //On CAP à 60 FPS
+    	double frameCap = 1.0/FPS; //On CAP à 60 FPS
     	double timer = getTime();
     	double unprocessed = 0;
     	
@@ -144,6 +148,7 @@ public class Fenetre {
     		timer = timerLoop;
     		
     		while(unprocessed >= frameCap) {
+    			frameCap = 1.0/FPS;
     			unprocessed -= frameCap;
     			switch(state) {
     				case 2: Jeu.gameWorld.updateWorld(); break;
@@ -155,7 +160,6 @@ public class Fenetre {
         			frameTime = 0;
         			tick=0;
         			System.out.println("FPS: " + frames);
-        		//	System.out.println("Argent d'Isaac: " + Jeu.gameWorld.getPlayer().getCoin());
         			frames = 0;
         		} 
         		
@@ -165,6 +169,8 @@ public class Fenetre {
     			switch(state) {
     				case 1: this.menu(); break;
     				case 2: Jeu.gameWorld.drawWorld();  break;
+    				case 3: Jeu.gameWorld.deathScreen(); break;
+    				case 4: Jeu.gameWorld.victoryScreen(); break;
     			}
         		glfwSwapBuffers(window);
         		frames++;
@@ -180,6 +186,38 @@ public class Fenetre {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+
+	public int getTick() {
+		return tick;
+	}
+
+	public int getPlayerChoice() {
+		return playerChoice;
+	}
+
+	public void setPlayerChoice(int playerChoice) {
+		this.playerChoice = playerChoice;
+	}
+
+	public static Integer getHeigthfenetre() {
+		return HeigthFenetre;
+	}
+
+	public static Integer getWidthfenetre() {
+		return WidthFenetre;
+	}
+
+	public void setWindow(long window) {
+		this.window = window;
+	}
+
+	public int getFPS() {
+		return FPS;
+	}
+
+	public void setFPS(int fPS) {
+		FPS = fPS;
 	}
 
 }

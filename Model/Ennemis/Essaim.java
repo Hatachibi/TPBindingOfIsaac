@@ -1,95 +1,78 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
+import java.util.LinkedList;
+
+import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Laser;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Render;
 
 public class Essaim extends Ennemi {
 	
-	/*
-	 * Laser de l'ennemi
-	 */
-	private Laser laser;
+	private LinkedList<Fly> flyList;
 	
-	/*
-	 * Tick
-	 */
-	private int tickCoolDown;
-	
-	/*
-	 * Constructeur
-	 */
+	private int rayon = 100;
+
 	public Essaim(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
-		this.tickCoolDown = 0;
-		this.laser = new Laser(100, 30, new Vector2(position.getX() + width/2, position.getY() + heigth), "src/main/resources/enemybullets.png");
-		this.setLife(20);
-		this.laser.setDegats(1);
-		this.laser.setEnnemiBalle(true);
+		this.tick = 0;
+		this.flyList = new LinkedList<Fly>();
+		this.setLife(1);
+		this.setDegat(2);
+		for(int i=0; i<7; i++) {
+			Fly f = new Fly(25, 25, new Vector2(position.getX(), position.getY()), url, speed);
+			f.setLife(4);
+			f.setDegat(1);
+			flyList.add(f);
+		}
 	}
 
 	@Override
 	public void drawEnnemi() {
-		this.drawEntite();
-		this.laser.draw();
+		for(Fly f: flyList) {
+			f.drawEntite();
+		}
 	}
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-		this.laser.updateHitbox();
-		this.laser.update();
-	//	if(tickCoolDown%240 > 120) {
-		/*	if(p.getPosition().getX() < position.getX()) {
-					if(laser.getHeigth() > laser.getWidth()) {
-						int tmp = laser.getHeigth();
-						laser.setHeigth(laser.getWidth());
-						laser.setWidth(tmp);
-						laser.getHitbox().setWidth(laser.getWidth());
-						laser.getHitbox().setHeigth(laser.getHeigth());
-					}
-					this.laser.setUrl("src/main/resources/laserVertical.png");
-					laser.setPosition(new Vector2(laser.getPosOrigin().getX() - laser.getWidth(), laser.getPosOrigin().getY()));
+		this.setTouch(true);
+		LinkedList<Fly> copieListe = (LinkedList<Fly>) flyList.clone();
+		for(Fly f: flyList) {
+			if(Fenetre.tick%50 > 25 && Math.random() > 0.5) {
+				f.setUrl("src/main/resources/flyRed.png");
+			} else {
+				f.setUrl("src/main/resources/fly.png");
 			}
-			if(p.getPosition().getX() > position.getX()) {
-					if(laser.getHeigth() > laser.getWidth()) {
-						int tmp = laser.getHeigth();
-						laser.setHeigth(laser.getWidth());
-						laser.setWidth(tmp);
-						laser.getHitbox().setWidth(laser.getWidth());
-						laser.getHitbox().setHeigth(laser.getHeigth());
-					}
-					this.laser.setUrl("src/main/resources/laserVertical.png");
-					laser.setPosition(new Vector2(laser.getPosOrigin().getX(), laser.getPosOrigin().getY()));
-			} 
-		} else { */
-			if(p.getPosition().getY() < position.getY()) {
-					if(laser.getWidth() > laser.getHeigth()) {
-						int tmp = laser.getHeigth();
-						laser.setHeigth(laser.getWidth());
-						laser.setWidth(tmp);
-						laser.getHitbox().setWidth(laser.getWidth());
-						laser.getHitbox().setHeigth(laser.getHeigth());
-					}
-					this.laser.setUrl("src/main/resources/laserVertical.png");
-					laser.setPosition(new Vector2(laser.getPosOrigin().getX(), laser.getPosOrigin().getY() -  laser.getHeigth()));
+			f.setPosition(position.addVector(new Vector2(Math.cos(f.getA()  + copieListe.indexOf(f)*2*3.14/copieListe.size())*f.getSpeed()*rayon, Math.sin(f.getA()  + copieListe.indexOf(f)*2*3.14/copieListe.size())*f.getSpeed()*
+					rayon)));
+			for(Balle b: p.getMunitions().getListe()) {
+				if(f.collisionBalle(b)) {
+					f.setLife(f.getLife() - p.getDegat());
+					f.setTouch(true);
+					p.getMunitions().getListe().remove(b);
+				}
 			}
-			if(p.getPosition().getY() > position.getY()) {
-					if(laser.getWidth() > laser.getHeigth()) {
-						int tmp = laser.getHeigth();
-						laser.setHeigth(laser.getWidth());
-						laser.setWidth(tmp);
-						laser.getHitbox().setWidth(laser.getWidth());
-						laser.getHitbox().setHeigth(laser.getHeigth());
-					}
-					this.laser.setUrl("src/main/resources/laserVertical.png");
-					laser.setPosition(new Vector2(laser.getPosOrigin().getX(), laser.getPosOrigin().getY()));
+			if(f.collisionEnnemi(p) && !p.isTouch()) {
+				p.subitDegats(f.getDegat());
+				p.setTouch(true);
 			}
-	/*	}
-		if(tickCoolDown == 240) {
-			tickCoolDown = 0;
+			f.boucleCooldownEnnemi();
+			if(f.getLife() < 0) {
+				copieListe.remove(f);
+			}
+			f.setA(f.getA()+0.001);
 		}
-		tickCoolDown ++; */
-	} 
-
+		flyList = copieListe;
+		if(flyList.isEmpty()) {
+			this.setLife(0);
+		}
+		setDirection(new Vector2(p.getPosition().getX() - getPosition().getX(), p.getPosition().getY() - getPosition().getY()));
+		this.move();
+	}
+	
+	
+	
 }

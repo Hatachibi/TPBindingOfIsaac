@@ -5,13 +5,9 @@ import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class ParabiteBalle extends Ennemi {
-	
-	/*
-	 * Cooldown entre chaque phase
-	 */
-	private int tickCoolDown;
 	
 	/*
 	 * Liste de balle du Boss
@@ -39,12 +35,12 @@ public class ParabiteBalle extends Ennemi {
 		this.munitions.setDegats(1);
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(3);
-		this.random = (int) (Math.random()*60);
+		this.random = (int) (Math.random()*Fenetre.getInstance().getFPS());
 	}
 	
 	@Override
 	public void drawEnnemi() {
-		if(tickCoolDown > random + 20) {
+		if(tick > random + Fenetre.getInstance().getFPS()/3) {
 			this.drawEntite();
 		}
 		this.munitions.drawBalle();
@@ -53,12 +49,11 @@ public class ParabiteBalle extends Ennemi {
 	@Override
 	public void IAEnnemi(Personnage p) {
 		munitions.update();
-		if(tickCoolDown == random) {
+		if(tick == random) {
 			setDirection(new Vector2(p.getPosition().getX(), p.getPosition().getY()));
-		} else if(tickCoolDown == random + 20) {
-			System.out.println("check");
+		} else if(tick == random + Fenetre.getInstance().getFPS()/3) {
 			setPosition(this.getDirection());
-		} else if (tickCoolDown == random + 30) {
+		} else if (tick == random + Fenetre.getInstance().getFPS()/2) {
 			this.four[0] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(1, 0), "src/main/resources/enemybullets.png", 1);
 			this.four[1] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(0, 1), "src/main/resources/enemybullets.png", 1);
 			this.four[2] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(-1, 0), "src/main/resources/enemybullets.png", 1);
@@ -67,18 +62,18 @@ public class ParabiteBalle extends Ennemi {
 			munitions.addBalle(four[1]);
 			munitions.addBalle(four[2]);
 			munitions.addBalle(four[3]);
-		} else if(tickCoolDown == 180) {
-			tickCoolDown = 0;
-		} if(tickCoolDown < random + 19) {
+		} else if(tick == 180) {
+			tick = 0;
+		} if(tick < random + 19) {
 			setPosition(new Vector2(0, 0));
 		}
 		if(!munitions.getListe().isEmpty()) {
-			this.four[0].setDirection(new Vector2(1, (double)(tickCoolDown%60)/60));
-			this.four[1].setDirection(new Vector2(-(double)(tickCoolDown%60)/60, 1));
-			this.four[2].setDirection(new Vector2(-1, -(double)(tickCoolDown%60)/60));
-			this.four[3].setDirection(new Vector2((double)(tickCoolDown%60)/60, -1));
+			this.four[0].setDirection(new Vector2(1, (double)(tick%Fenetre.getInstance().getFPS())/Fenetre.getInstance().getFPS()));
+			this.four[1].setDirection(new Vector2(-(double)(tick%Fenetre.getInstance().getFPS())/Fenetre.getInstance().getFPS(), 1));
+			this.four[2].setDirection(new Vector2(-1, -(double)(tick%Fenetre.getInstance().getFPS())/Fenetre.getInstance().getFPS()));
+			this.four[3].setDirection(new Vector2((double)(tick%Fenetre.getInstance().getFPS())/Fenetre.getInstance().getFPS(), -1));
 		}
-		tickCoolDown ++;
+		tick ++;
 	}
 
 }

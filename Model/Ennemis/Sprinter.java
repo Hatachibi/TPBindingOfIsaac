@@ -3,13 +3,9 @@ package com.projetpo.bindingofisaac.module.Model.Ennemis;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Sprinter extends Ennemi {
-	
-	/*
-	 * Cooldown entre chaque phase
-	 */
-	private int tickCoolDown;
 	
 	/*
 	 * Direction qui suit le joueur
@@ -21,7 +17,7 @@ public class Sprinter extends Ennemi {
 	 */
 	public Sprinter(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
-		this.tickCoolDown = 0;
+		this.tick = 0;
 		this.setLife(5);
 		this.setDegat(1);
 		this.setDirectionSauv(new Vector2(0, 0));
@@ -35,28 +31,28 @@ public class Sprinter extends Ennemi {
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-		if(tickCoolDown < 90) {
-			tickCoolDown ++;
-		} else if(tickCoolDown == 90) {
+		if(tick < Fenetre.getInstance().getFPS()*1.5) {
+			tick ++;
+		} else if(tick == Fenetre.getInstance().getFPS()*1.5) {
 			directionSauv = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
-			tickCoolDown ++;
-		} else if(tickCoolDown < 110) {
-			if(position.getX() > 65 && position.getX() < 520-width && position.getY() > 65 && position.getY() < 520-heigth) {
+			tick ++;
+		} else if(tick < Fenetre.getInstance().getFPS()*1.5 + Fenetre.getInstance().getFPS()/3) {
+			if(position.getX() > 65 && position.getX() < Fenetre.WidthFenetre-65-width && position.getY() > 65 && position.getY() < Fenetre.WidthFenetre-65-heigth) {
 				setDirection(directionSauv);
 				move();
 			} else if (position.getX() < 65){
 				position.setX(66);
-			} else if (position.getX() > 520-width){
-				position.setX(519-width);
+			} else if (position.getX() > Fenetre.WidthFenetre - 65 -width){
+				position.setX(Fenetre.WidthFenetre-width);
 			} else if (position.getY() < 65){
 				position.setY(66);
-			} else if (position.getY() > 520 - heigth){
-				position.setY(519 - heigth);
+			} else if (position.getY() > Fenetre.HeigthFenetre - 65 - heigth){
+				position.setY(Fenetre.HeigthFenetre - heigth);
 			}
 
-			tickCoolDown ++;
+			tick ++;
 		} else {
-			tickCoolDown = 0;
+			tick = 0;
 		}
 	}
 	
@@ -64,14 +60,6 @@ public class Sprinter extends Ennemi {
 	/*
 	 * Getters & Setters
 	 */
-	public int getTickCoolDown() {
-		return tickCoolDown;
-	}
-
-	public void setTickCoolDown(int tickCoolDown) {
-		this.tickCoolDown = tickCoolDown;
-	}
-
 	public Vector2 getDirectionSauv() {
 		return directionSauv;
 	}

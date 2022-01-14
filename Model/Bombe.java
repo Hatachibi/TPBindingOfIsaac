@@ -1,6 +1,7 @@
 package com.projetpo.bindingofisaac.module.Model;
 
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Bombe extends ObjetsInventaire {
 
@@ -28,6 +29,8 @@ public class Bombe extends ObjetsInventaire {
 	 * Boolean qui indique si la bombe vient d'être posé
 	 */
 	private boolean isPoseRecently;
+	
+	private boolean isBombEnnemi;
 		
 	
 	public Bombe(int id, int width, int heigth, Vector2 position, String url) {
@@ -44,16 +47,16 @@ public class Bombe extends ObjetsInventaire {
 	}
 	
 	public void update() {
-		if(tickCoolDown == 180) {
+		if(tickCoolDown == Fenetre.getInstance().getFPS()*3) {
 			explosion();
 			setDoRemove(true);
 		} else {
 			tickCoolDown ++;
 		}
-		if(tickCoolDown == 60) {
+		if(tickCoolDown == Fenetre.getInstance().getFPS()) {
 			isPoseRecently = false;
 		}
-		if(tickCoolDown%30 < 15) {
+		if(tickCoolDown%Fenetre.getInstance().getFPS()/2 < Fenetre.getInstance().getFPS()/4) {
 			this.url = "src/main/resources/BombRed.png";
 		} else {
 			this.url = "src/main/resources/Bomb.png";
@@ -71,6 +74,13 @@ public class Bombe extends ObjetsInventaire {
 					if(Jeu.gameWorld.getMapEnCours().getcarte().getRenderMap()[i][j] == 9) {
 						Jeu.gameWorld.getMapEnCours().getcarte().setRenderMap(i, j, 0);
 						Jeu.gameWorld.getMapEnCours().getcarte().generateCollisionMap();
+						int random = (int) Math.random()*6;
+						switch(random) {
+							case 0: Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(new ObjetsInventaire(10, 30, 30, position, "")); break;
+							case 1: Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(new ObjetsInventaire(11, 30, 30, position, "")); break;
+							case 2: Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(new ObjetsInventaire(12, 30, 30, position, "")); break;
+							case 3: Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(new ObjetsInventaire(-3, 30, 30, position, "")); break;
+						}
 					}
 				}
 			}
@@ -78,9 +88,11 @@ public class Bombe extends ObjetsInventaire {
 		if(this.collisionJoueur(Jeu.gameWorld.getPlayer())) {
 			Jeu.gameWorld.getPlayer().subitDegats(degat);
 		}
-		for(Ennemi e: Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe()) {
-			if(this.collisionEnnemi(e)) {
-				e.setLife(e.getLife() - degat);
+		if(!isBombEnnemi) {
+			for(Ennemi e: Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe()) {
+				if(this.collisionEnnemi(e)) {
+					e.setLife(e.getLife() - degat);
+				}
 			}
 		}
 	}
@@ -126,6 +138,14 @@ public class Bombe extends ObjetsInventaire {
 
 	public void setDoRemove(boolean doRemove) {
 		this.doRemove = doRemove;
+	}
+
+	public boolean isBombEnnemi() {
+		return isBombEnnemi;
+	}
+
+	public void setBombEnnemi(boolean isBombEnnemi) {
+		this.isBombEnnemi = isBombEnnemi;
 	}
 
 }

@@ -10,11 +10,6 @@ import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 public class Gasper extends Ennemi{
 	
 	/*
-	 * Cooldown entre chaque phase
-	 */
-	private int tickCoolDown;
-	
-	/*
 	 * Liste de balle du Boss
 	 */
 	private ListeBalle munitions;
@@ -34,7 +29,7 @@ public class Gasper extends Ennemi{
 	 */
 	public Gasper(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
-		this.tickCoolDown = 0;
+		this.tick = 0;
 		this.speedB = 1;
 		this.munitions = new ListeBalle();
 		this.munitions.setEnnemiBalle(true);
@@ -65,14 +60,6 @@ public class Gasper extends Ennemi{
 	/*
 	 * Getters & Setters
 	 */
-	public int getTickCoolDown() {
-		return tickCoolDown;
-	}
-
-	public void setTickCoolDown(int tickCoolDown) {
-		this.tickCoolDown = tickCoolDown;
-	}
-
 	public ListeBalle getMunitions() {
 		return munitions;
 	}

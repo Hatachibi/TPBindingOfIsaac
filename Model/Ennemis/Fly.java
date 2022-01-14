@@ -11,6 +11,7 @@ import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
@@ -21,6 +22,8 @@ public class Fly extends Ennemi{
 	 */
 	private ListeBalle munitions;
 	
+	private double a;
+	
 	/*
 	 * Constructeur
 	 */
@@ -30,6 +33,7 @@ public class Fly extends Ennemi{
 		this.munitions.setEnnemiBalle(true);
 		this.setDegat(1);
 		this.setLife(3);
+		this.a = 0;
 		this.munitions.setRange(3);
 		this.munitions.setDegats(1);  // Degat des projectiles
 	}
@@ -96,6 +100,14 @@ public class Fly extends Ennemi{
 		}
 		b.setDirection(new Vector2(p.getPosition().getX() - b.getPosition().getX(), p.getPosition().getY() - b.getPosition().getY()));
 		b.move();
+	}
+
+	public double getA() {
+		return a;
+	}
+
+	public void setA(double a) {
+		this.a = a;
 	}
 
 }

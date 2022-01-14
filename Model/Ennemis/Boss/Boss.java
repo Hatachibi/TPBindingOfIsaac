@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model.Ennemis;
+package com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
 import java.io.IOException;
 
@@ -10,6 +10,9 @@ import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
+import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
@@ -31,12 +34,9 @@ public class Boss extends Ennemi{
 		 */
 		private boolean firstPhase;
 		
-		/*
-		 * Cooldown entre chaque phase
-		 */
-		private int tickCoolDown;
-		
 		boolean playOnce = true;
+		
+		private boolean addFly;
 
 		/*
 		 * Constructeur
@@ -45,10 +45,11 @@ public class Boss extends Ennemi{
 			super(width, heigth, position, speed, url);
 			this.munitions = new ListeBalle();
 			this.munitions.setEnnemiBalle(true);
-			this.tickCoolDown = 0;
+			this.tick = 0;
 			this.random = new Vector2(0, 0);
 			this.setDegat(3);
-			this.setLife(20);
+			this.addFly = false;
+			this.setLife(50);
 			this.firstPhase = true;
 			this.munitions.setRange(4);
 			this.munitions.setDegats(1); // Degat des projectiles
@@ -80,6 +81,10 @@ public class Boss extends Ennemi{
 			}
 	//		Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 			munitions.drawBalle();
+			Texture.bdvBoss.bind();
+			Render.getInstance().drawPicture(300, 100, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
+			Texture.bdvBoss.unbind();
+			Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/50), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
 		}
 
 		/**
@@ -88,16 +93,22 @@ public class Boss extends Ennemi{
 		@Override
 		public void IAEnnemi(Personnage p) {
 			munitions.update();
-			if((Math.random() > 0.5 || tickCoolDown > 0) && firstPhase) { //Phase 1
-				this.tickCoolDown ++;
+			if(tick == 0) {
+				this.addFly = true;
+			}
+			if(tick == 1) {
+				this.addFly = false;
+			}
+			if((Math.random() > 0.5 || tick > 0) && firstPhase) { //Phase 1
+				this.tick ++;
 				Spider.IASpider(p, this);
 			} else if(Math.random() > 0.5 || !firstPhase) { //Phase 2
 				Fly.IAFly(p, this);
 				firstPhase = false;
-				this.tickCoolDown ++;
+				this.tick ++;
 			}
-			if(tickCoolDown > 120) { //Reset de Phase
-				tickCoolDown = 0;
+			if(tick > 120) { //Reset de Phase
+				tick = 0;
 				firstPhase = true;
 			}
 		}
@@ -129,12 +140,22 @@ public class Boss extends Ennemi{
 			this.firstPhase = firstPhase;
 		}
 
-		public int getTickCoolDown() {
-			return tickCoolDown;
+		public boolean isPlayOnce() {
+			return playOnce;
 		}
 
-		public void setTickCoolDown(int tickCoolDown) {
-			this.tickCoolDown = tickCoolDown;
+		public void setPlayOnce(boolean playOnce) {
+			this.playOnce = playOnce;
 		}
+
+		public boolean isAddFly() {
+			return addFly;
+		}
+
+		public void setAddFly(boolean addFly) {
+			this.addFly = addFly;
+		}
+		
+		
 	
 }
