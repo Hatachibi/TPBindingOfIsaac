@@ -6,7 +6,7 @@ public class RoomInfos
 {
 	public static final int NB_TILES = 9;
 	public static final int NB_HEIGHT_TILES = 13;
-	public static final int NB_WIDTH_TILES = 9;
+	public static final int NB_WIDTH_TILES =9;
 	public static final int TAILLE_CARRE = 65;
 	public static final double TILE_WIDTH = 1.0 / NB_WIDTH_TILES;
 	public static final double TILE_HEIGHT = 1.0 / NB_HEIGHT_TILES;

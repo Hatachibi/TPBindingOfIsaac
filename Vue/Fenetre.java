@@ -20,13 +20,14 @@ import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Model.BarreDeVie;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class Fenetre {
 	
 	public final static Fenetre INSTANCE = new Fenetre();  
-	public final static Integer HeigthFenetre = 585;
-	public final static Integer	WidthFenetre = 845;
+	public final static Integer HeigthFenetre = RoomInfos.NB_WIDTH_TILES*65;
+	public final static Integer	WidthFenetre = RoomInfos.NB_HEIGHT_TILES*65;
 	
 	public static int tick;
 
