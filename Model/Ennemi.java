@@ -77,6 +77,7 @@ public abstract class Ennemi extends Entite{
 		this.getLoot().add(new ObjetsInventaire(10, 30, 30, position, ""));
 		this.getLoot().add(new ObjetsInventaire(11, 30, 30, position, ""));
 		this.getLoot().add(new ObjetsInventaire(12, 30, 30, position, ""));
+		this.getLoot().add(new ObjetsInventaire(13, 30, 30, position, ""));
 	}
 	
 	/*

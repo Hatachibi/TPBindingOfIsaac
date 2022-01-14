@@ -185,10 +185,13 @@ public class Room {
 		ObjetsInventaire piece = new ObjetsInventaire(10, 10, 10, new Vector2(15, 510), "");
 		piece.drawEntite();
 		Render.getInstance().drawText(55, 515, player.getCoin()+"");
+		ObjetsInventaire key = new ObjetsInventaire(13, 10, 10, new Vector2(20, 470), "");
+		key.drawEntite();
+		Render.getInstance().drawText(55, 475, player.getKey()+"");
 	//	Render.getInstance().drawText(15, 490, "x"+player.getMultiplicator());
-		Bombe b = new Bombe(-3, 20, 20, new Vector2(12, 470),"src/main/resources/Bomb.png");
+		Bombe b = new Bombe(-3, 20, 20, new Vector2(12, 430),"src/main/resources/Bomb.png");
 		b.drawEntite();
-		Render.getInstance().drawText(55, 480, player.getInv().getNbBombe()+"");
+		Render.getInstance().drawText(55, 435, player.getInv().getNbBombe()+"");
 	}
 	
 	public void drawPlayerItems() {

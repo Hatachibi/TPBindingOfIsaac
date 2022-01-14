@@ -24,6 +24,7 @@ public class ObjetsInventaire extends Entite{
      * 10 - Penny    // Coin
      * 11 - Nickel   // Coin
      * 12 - Dime     // Coin
+     * 13 - key
      * 
      * ACTIF
      * 
@@ -81,6 +82,7 @@ public class ObjetsInventaire extends Entite{
 			case 10:this.url = "src/main/resources/Penny.png"; break;
 			case 11:this.url = "src/main/resources/Nickel.png"; break;
 			case 12:this.url = "src/main/resources/Dime.png"; break;
+			case 13: this.url = "src/main/resources/Key.png"; break;
 			case -1:
 				this.price = 15;
 				this.url = "src/main/resources/Mr_Boom.png"; break;
@@ -153,7 +155,9 @@ public class ObjetsInventaire extends Entite{
 		break;
 		case 12:
 			joueur.setCoin(joueur.getCoin() + 10);
-		break;
+			break;
+		case 13:
+			joueur.setKey(joueur.getKey()+1);
 		case -3:
 			joueur.getInv().setNbBombe(joueur.getInv().getNbBombe() + 1);
 		break;

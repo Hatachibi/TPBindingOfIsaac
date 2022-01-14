@@ -80,6 +80,10 @@ public class Texture {
     public static Texture closeDoor_down = loadTexture("src/main/resources/closed_door_down.png");
     public static Texture closeDoor_right = loadTexture("src/main/resources/closed_door_right.png");
     public static Texture closeDoor_left = loadTexture("src/main/resources/closed_door_left.png");
+    public static Texture lockedcloseDoor_up = loadTexture("src/main/resources/closed_lockeddoor_up.png");
+    public static Texture lockedcloseDoor_down = loadTexture("src/main/resources/closed_lockeddoor_down.png");
+    public static Texture lockedcloseDoor_right = loadTexture("src/main/resources/closed_lockeddoor_right.png");
+    public static Texture lockedcloseDoor_left = loadTexture("src/main/resources/closed_lockeddoor_left.png");
     public static Texture top_openDoor = loadTexture("src/main/resources/top_opened_door.png");
     public static Texture bot_openDoor = loadTexture("src/main/resources/bot_opened_door.png");
     public static Texture right_openDoor = loadTexture("src/main/resources/right_opened_door.png");
@@ -130,8 +134,8 @@ public class Texture {
     public static Texture overlay4 = loadTexture("src/main/resources/overlay4.png");
     public static Texture overlay5 = loadTexture("src/main/resources/overlay5.png");
     public static Texture bdvBoss = loadTexture("src/main/resources/bdvBoss.png");
-    public static Texture torche = loadTexture("src/main/resources/torche.png");
-    public static Texture dark = loadTexture("src/main/resources/darkRoom.png");
+    //public static Texture torche = loadTexture("src/main/resources/torche.png");
+    //public static Texture dark = loadTexture("src/main/resources/darkRoom.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {

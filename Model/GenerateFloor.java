@@ -48,7 +48,7 @@ public abstract class GenerateFloor {
 			do {
 				x = new Random().nextInt(6)+1;
 				y = new Random().nextInt(6)+1;
-			}while((x==4 && y==1) || (x==7 && y==4) || (x==4 && y==7) || (x==1 && y==4));
+			}while((x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==1) || (x==RoomInfos.NB_HEIGHT_TILES-2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) || (x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-2) || (x==1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2));
 			
 			c.setRenderMap(x, y, 9);
 		}
@@ -122,6 +122,10 @@ public abstract class GenerateFloor {
 								{
 									etage[dernierX][dernierY].getcarte().generateDownBossDoor();
 								}
+								else if(c.isShopRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateDownLockedDoor();
+								}
 								else
 								{
 									etage[dernierX][dernierY].getcarte().generateDownDoor();
@@ -153,6 +157,10 @@ public abstract class GenerateFloor {
 								if(c.isBossRoom())
 								{
 									etage[dernierX][dernierY].getcarte().generateUpBossDoor();
+								}
+								else if(c.isShopRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateUpLockedDoor();
 								}
 								else
 								{
@@ -186,6 +194,10 @@ public abstract class GenerateFloor {
 								{
 									etage[dernierX][dernierY].getcarte().generateLeftBossDoor();
 								}
+								else if(c.isShopRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateLeftLockedDoor();
+								}
 								else
 								{
 									etage[dernierX][dernierY].getcarte().generateLeftDoor();
@@ -218,6 +230,10 @@ public abstract class GenerateFloor {
 								{
 									etage[dernierX][dernierY].getcarte().generateRightBossDoor();
 								}
+								else if(c.isShopRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateRightLockedDoor();
+								}
 								else
 								{
 									etage[dernierX][dernierY].getcarte().generateRightDoor();
@@ -239,18 +255,6 @@ public abstract class GenerateFloor {
 					}
 				}
 			}
-		
-		for(Room[] room: etage)
-		{
-			for(Room r: room)
-			{
-				if(r!=null)
-				{	
-					r.getcarte().generateCollisionMap();
-					r.getcarte().setVisited(true);
-				}
-			}
-		}
 		
 		return etage;
 	}
