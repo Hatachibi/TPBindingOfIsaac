@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model.Ennemis;
+package com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
@@ -9,8 +9,6 @@ import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public class BossCollectionneur extends Ennemi {
-
-	private int tickCoolDown;
 	
 	private int launchEnnemi;
 	
@@ -24,12 +22,13 @@ public class BossCollectionneur extends Ennemi {
 	
 	public BossCollectionneur(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
-		this.tickCoolDown = 0;
+		this.tick = 0;
 		this.launchEnnemi = 0;
 		this.setLife(40);
 		this.setDegat(1);
+		this.random = new Vector2(1, 1);
 		this.ancienDir = new Vector2();
-		this.random = new Vector2();
+	//	this.random = new Vector2();
 		this.reDo = false;
 	}
 
@@ -48,26 +47,37 @@ public class BossCollectionneur extends Ennemi {
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-		if(tickCoolDown == 60 && Math.random() > 0.5) {
+		if(tick == 60 && Math.random() > 0.5) {
 			this.launchEnnemi = (int) (1+Math.random()*4);
 		}
-		if(tickCoolDown == 61) {
+		if(tick == 61) {
 			this.launchEnnemi = 0;
 		}
-		if(tickCoolDown == 180) {
-			tickCoolDown = 0;
+		if(tick == 180) {
+			tick = 0;
 		}
-		if(Fenetre.tick == 30) {
-			random.setX(Math.random() - 0.5);
-			random.setY(Math.random() - 0.5);
+	//	if(Fenetre.tick == 30) {
+	//		random.setX(Math.random() - 0.5);
+	//		random.setY(Math.random() - 0.5);
+	//	}
+		if(position.getX() < 65) {
+			setDirection(new Vector2(1, this.random.getY()));
+		} 
+		else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
+			setDirection(new Vector2(-1, this.random.getY()));
 		}
-		if(position.getX() > 65 && position.getX() < Fenetre.WidthFenetre - 65-width && position.getY() > 65 && position.getY() < Fenetre.HeigthFenetre - 65-heigth && !isMur()) {
-			setDirection(new Vector2(position.getX()*random.getX(), position.getY()*random.getY()));
-		} else {
-			setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
+		else if(position.getY() < 65) {
+			setDirection(new Vector2(this.random.getX(), 1));
 		}
+		else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
+			setDirection(new Vector2(this.random.getX(), -1));
+		}
+		else {
+			setDirection(random);
+		}
+		random = getDirection();
 		this.move();
-		tickCoolDown ++;
+		tick ++;
 	}
 
 	public int getlaunchEnnemi() {

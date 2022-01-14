@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model.Ennemis;
+package com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
 import java.io.IOException;
 
@@ -10,6 +10,8 @@ import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
@@ -32,11 +34,6 @@ public class Boss extends Ennemi{
 		 */
 		private boolean firstPhase;
 		
-		/*
-		 * Cooldown entre chaque phase
-		 */
-		private int tickCoolDown;
-		
 		boolean playOnce = true;
 		
 		private boolean addFly;
@@ -48,7 +45,7 @@ public class Boss extends Ennemi{
 			super(width, heigth, position, speed, url);
 			this.munitions = new ListeBalle();
 			this.munitions.setEnnemiBalle(true);
-			this.tickCoolDown = 0;
+			this.tick = 0;
 			this.random = new Vector2(0, 0);
 			this.setDegat(3);
 			this.addFly = false;
@@ -96,22 +93,22 @@ public class Boss extends Ennemi{
 		@Override
 		public void IAEnnemi(Personnage p) {
 			munitions.update();
-			if(tickCoolDown == 0) {
+			if(tick == 0) {
 				this.addFly = true;
 			}
-			if(tickCoolDown == 1) {
+			if(tick == 1) {
 				this.addFly = false;
 			}
-			if((Math.random() > 0.5 || tickCoolDown > 0) && firstPhase) { //Phase 1
-				this.tickCoolDown ++;
+			if((Math.random() > 0.5 || tick > 0) && firstPhase) { //Phase 1
+				this.tick ++;
 				Spider.IASpider(p, this);
 			} else if(Math.random() > 0.5 || !firstPhase) { //Phase 2
 				Fly.IAFly(p, this);
 				firstPhase = false;
-				this.tickCoolDown ++;
+				this.tick ++;
 			}
-			if(tickCoolDown > 120) { //Reset de Phase
-				tickCoolDown = 0;
+			if(tick > 120) { //Reset de Phase
+				tick = 0;
 				firstPhase = true;
 			}
 		}
@@ -141,14 +138,6 @@ public class Boss extends Ennemi{
 
 		public void setFirstPhase(boolean firstPhase) {
 			this.firstPhase = firstPhase;
-		}
-
-		public int getTickCoolDown() {
-			return tickCoolDown;
-		}
-
-		public void setTickCoolDown(int tickCoolDown) {
-			this.tickCoolDown = tickCoolDown;
 		}
 
 		public boolean isPlayOnce() {

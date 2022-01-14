@@ -9,15 +9,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.BossCollectionneur;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.BossShoot;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.BossWave;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossCollectionneur;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossShoot;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossWave;
 
-public class listeEnnemi {
+public class ListeEnnemi {
 
 	/*
 	 * Liste Chainée d'ennemi
@@ -27,7 +27,7 @@ public class listeEnnemi {
 	/*
 	 * Constructeur
 	 */
-	public listeEnnemi() {
+	public ListeEnnemi() {
 		this.liste = new ArrayList<Ennemi>();
 	}
 	

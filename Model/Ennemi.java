@@ -3,6 +3,7 @@ package com.projetpo.bindingofisaac.module.Model;
 import java.util.ArrayList;
 
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 /*
  * Classe abstraite car plusieurs comportement pour chaque ennemi
@@ -19,6 +20,22 @@ public abstract class Ennemi extends Entite{
 	 */
 	private double speed;
 	
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+
+	public int getTick() {
+		return tick;
+	}
+
+	public void setTick(int tick) {
+		this.tick = tick;
+	}
+
 	/*
 	 * Degat de l'ennemi 
 	 */
@@ -44,12 +61,15 @@ public abstract class Ennemi extends Entite{
 	 */
 	private ArrayList<ObjetsInventaire> loot;
 	
+	protected int tick;
+	
 	/*
 	 * Constructeur
 	 */
 	public Ennemi(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, url);
 		this.speed = speed;
+		this.tick = 0 ;
 		this.direction = new Vector2(0, 0);
 		this.loot = new  ArrayList<ObjetsInventaire>();
 		this.getLoot().add(new ObjetsInventaire(-3, 30, 30, position, ""));
@@ -73,7 +93,7 @@ public abstract class Ennemi extends Entite{
 	 * @return si l'ennemi n'a plus de vie
 	 */
 	public boolean doRemove(Ennemi e) {
-		return e.getLife()<0;
+		return e.getLife()<=0;
 	}
 	
 	/**
@@ -91,22 +111,14 @@ public abstract class Ennemi extends Entite{
 	public boolean collisionBalle(Balle b) {
 		return (Hitbox.rectangleCollision(b.position, new Vector2(b.getHitbox().getWidth(), b.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
 	}
-	
-	/**
-	 * @param laser un laser (celui du joueur)
-	 * @return si il y a collision entre l'ennemi et le laser
-	 */
-	public boolean collisionBalle(Laser laser) {
-		return (Hitbox.rectangleCollision(laser.position, new Vector2(laser.getHitbox().getWidth(), laser.getHitbox().getHeigth()), position, new Vector2(hitbox.getWidth(), hitbox.getHeigth())) && !isTouch); 
-	}
-	
+		
 	/**
 	 * @return Fonction qui effectue le cooldown
 	 */
 	public void boucleCooldownEnnemi() {
 		if(isTouch()) {
 			setCooldownDegat((getCooldownDegat()+1));
-			if(getCooldownDegat() == 30) {
+			if(getCooldownDegat() == Fenetre.getInstance().getFPS()/2) {
 				setCooldownDegat(0);
 				setTouch(false);
 			};

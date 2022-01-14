@@ -31,6 +31,8 @@ public class Entite {
 	 */
 	protected String url;
 	
+	public static boolean showEntiteHitbox = false;
+	
 	/*
 	 * Constructeur
 	 */
@@ -50,8 +52,11 @@ public class Entite {
 		this.hitbox.setWidth(entiteTexture.getWidth());
 		this.hitbox.setHeigth(entiteTexture.getHeight());
 		entiteTexture.bind();
-		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
+		Render.getInstance().drawPicture((float)getPosition().getX() - width/2,(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
 		entiteTexture.unbind();
+		if(showEntiteHitbox) {
+			Render.getInstance().drawSquare((float) position.getX(),(float) position.getY(), width, heigth);
+		}
 	}
 	
 	/**
@@ -60,7 +65,7 @@ public class Entite {
 	public void drawRealEntite() {
 		Texture entiteTexture = Texture.loadTexture(url);
 		entiteTexture.bind();
-		Render.getInstance().drawPicture((float)getPosition().getX(),(float)getPosition().getY(), width, heigth);
+		Render.getInstance().drawPicture((float)getPosition().getX() - width/2,(float)getPosition().getY(), width, heigth);
 		entiteTexture.unbind();
 	}
 	

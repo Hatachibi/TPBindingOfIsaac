@@ -7,11 +7,8 @@ import static org.lwjgl.opengl.GL11.glClear;
 import java.util.LinkedList;
 
 import com.projetpo.bindingofisaac.module.Controler.Input;
-import com.projetpo.bindingofisaac.module.Controler.listeEnnemi;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.BossCollectionneur;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.BossShoot;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.BossWave;
+import com.projetpo.bindingofisaac.module.Controler.ListeEnnemi;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Bomberman;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Essaim;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Gasper;
@@ -20,6 +17,10 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.ParabiteBalle;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Pooter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossCollectionneur;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossShoot;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossWave;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
@@ -37,7 +38,7 @@ public class Room {
 	/*
 	 * Liste ennemie dans la pièce
 	 */
-	private listeEnnemi listeEnnemi;
+	private ListeEnnemi listeEnnemi;
 	
 	/*
 	 * Pièce en cours
@@ -59,7 +60,7 @@ public class Room {
 	public Room(Personnage player, Carte carte) {
 		this.player = player;
 		this.carte = carte;
-		this.listeEnnemi = new listeEnnemi();
+		this.listeEnnemi = new ListeEnnemi();
 		this.bombList = new LinkedList<Bombe>();
 		this.addEnnemis();
 		this.isBossRoom = carte.isBossRoom();
@@ -80,10 +81,11 @@ public class Room {
 				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
 				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabite.png"));break;
 				case 8: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));break;
-				case 9: getListeEnnemi().addEnnemi(new Essaim(25, 25, v, 12, "src/main/resources/parabite.png"));break;
+				case 9: getListeEnnemi().addEnnemi(new Bomberman(25, 25, v, 12, "src/main/resources/parabite.png"));break;
 				case 10: getListeEnnemi().addEnnemi(new BossShoot(25, 25, v, 1, "src/main/resources/parabite.png"));break;
 				case 11: getListeEnnemi().addEnnemi(new BossWave(25, 25, v, 1, "src/main/resources/fly.png"));break;
 				case 12: getListeEnnemi().addEnnemi(new BossCollectionneur(75, 75, v, 10, "src/main/resources/boss2.png"));break;
+				case 13: getListeEnnemi().addEnnemi(new Essaim(25, 25, v,player.getSpeed()/8, "src/main/resources/fly.png"));break;
 			}
 		}
 	}
@@ -124,12 +126,6 @@ public class Room {
 			carte.setRenderMap(0, (RoomInfos.NB_WIDTH_TILES-1)/2, -4);
 			carte.generateCollisionMap();
 		}
-	/*	if(carte.isBossRoom()) {
-			Jeu.gameWorld.setEtage(GenerateFloor.generateFloor(10, 6, 5));
-			Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));
-			Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
-			this.setcarte(Jeu.gameWorld.getMapEnCours().getcarte());
-		} */
 	}
 	
 	/**
@@ -146,6 +142,9 @@ public class Room {
 			carte.updateObject();
 			if(listeEnnemi.isEmpty()) {
 				if(isBossRoom) {
+					if(Jeu.gameWorld.getFloor() == 5) {
+						Fenetre.getInstance().setState(4);
+					}
 					carte.setRenderMap((RoomInfos.NB_HEIGHT_TILES-1)/2, (RoomInfos.NB_WIDTH_TILES-1)/2, -9);
 					carte.changeFloor();
 				} 
@@ -217,11 +216,11 @@ public class Room {
 		this.carte = carte;
 	}
 	
-	public listeEnnemi getListeEnnemi() {
+	public ListeEnnemi getListeEnnemi() {
 		return listeEnnemi;
 	}
 
-	public void setListeEnnemi(listeEnnemi listeEnnemi) {
+	public void setListeEnnemi(ListeEnnemi listeEnnemi) {
 		this.listeEnnemi = listeEnnemi;
 	}
 

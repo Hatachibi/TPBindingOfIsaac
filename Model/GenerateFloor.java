@@ -58,12 +58,12 @@ public abstract class GenerateFloor {
 			int x = new Random().nextInt(455)+65;
 			int y = new Random().nextInt(455)+65;
 			//System.out.println(x+" "+y);
-			int ennemi = new Random().nextInt(8)+1;
+			int ennemi = new Random().nextInt(13)+1;
 			if(!bossRoom)
 			{
-				while(ennemi == 3)
+				while(ennemi == 3 || ennemi == 10 || ennemi == 11 || ennemi == 12)
 				{
-					ennemi = new Random().nextInt(8)+1;
+					ennemi = new Random().nextInt(13)+1;
 				}
 			}
 			
@@ -319,7 +319,7 @@ public abstract class GenerateFloor {
 			random = (int) (1+Math.random()*9);
 		}
 		for(int i=0; i<tab.length; i++) {
-			shop.getObjet().add(new ObjetsInventaire(tab[i], 10, 10, new Vector2(130*(i+1), 292.5), ""));
+			shop.getObjet().add(new ObjetsInventaire(tab[i], 30, 30, new Vector2(130*(i+1), 292.5), ""));
 		}
 		return shop;
 	}

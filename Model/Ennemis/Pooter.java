@@ -68,7 +68,7 @@ public class Pooter extends Ennemi{
 	@Override
 	public void IAEnnemi(Personnage p) {
 		munitions.update();
-		if(Fenetre.tick == 30) {
+		if(Fenetre.tick == Fenetre.getInstance().getFPS()/2) {
 			if(Math.random() > 0.5) {
 				randomPosition.setX(Math.random() - 0.5);
 				randomPosition.setY(Math.random() - 0.5);
@@ -81,12 +81,23 @@ public class Pooter extends Ennemi{
 				this.url = "src/main/resources/animation5Pooter.png";
 			}
 		}
-		if(position.getX() > 65 && position.getX() < Fenetre.WidthFenetre - 65-width && position.getY() > 65 && position.getY() < Fenetre.HeigthFenetre - 65-heigth && !isMur()) {
-			setDirection(new Vector2(position.getX()*randomPosition.getX(), position.getY()*randomPosition.getY()));
-			this.move();
-		} else {
-			setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
+		if(position.getX() < 65) {
+			setDirection(new Vector2(1, this.randomPosition.getY()));
+		} 
+		else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
+			setDirection(new Vector2(-1, this.randomPosition.getY()));
 		}
+		else if(position.getY() < 65) {
+			setDirection(new Vector2(this.randomPosition.getX(), 1));
+		}
+		else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
+			setDirection(new Vector2(this.randomPosition.getX(), -1));
+		}
+		else {
+			setDirection(randomPosition);
+		}
+		randomPosition = getDirection();
+		this.move();
 	} 
 
 }

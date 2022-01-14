@@ -65,6 +65,13 @@ public class Balle extends Entite{
 	public void updateHitbox() {
 		this.getHitbox().setPosition(position);
 	}
+	
+	public void animRemove() {
+		LinkedList<String> liste = new LinkedList<String>();
+		liste.add("src/main/resources/animationBalle2.png");
+		Animation anim = new Animation(this, 60, liste ,position, new Vector2(width, heigth));
+		anim.animUrl();
+	}
 		
 	public void move()
 	{

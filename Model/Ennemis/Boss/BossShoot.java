@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model.Ennemis;
+package com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
 import java.util.ArrayList;
 
@@ -16,8 +16,6 @@ public class BossShoot extends Ennemi{
 	
 	private ListeBalle munitions;
 	
-	private int tickCoolDown;
-	
 	private int phase;
 	
 	private int wichDirection;
@@ -31,7 +29,7 @@ public class BossShoot extends Ennemi{
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(20);
 		this.munitions.setDegats(1);
-		this.tickCoolDown = 0;
+		this.tick = 0;
 		this.wichDirection = 1;
 		this.position.setX((Fenetre.WidthFenetre/2) - width);
 		this.position.setY((Fenetre.HeigthFenetre/2) - heigth);
@@ -56,13 +54,13 @@ public class BossShoot extends Ennemi{
 		} else {
 			if(Math.random() > 0.5){
 				for(int i=1; i<10; i++) {
-					if(tickCoolDown*2 == 180/i) {
+					if(tick*2 == tick*3/i) {
 						this.attaque(i*0.1);
 					}
 				}
 			} else if(Math.random() > 0.5) {
 				for(int i=5; i<15; i++) {
-					if(tickCoolDown*2 == 180/i) {
+					if(tick*2 == 180/i) {
 						this.attaque(i*0.1);
 					}
 				}
@@ -70,12 +68,12 @@ public class BossShoot extends Ennemi{
 				this.attaquePhase1();
 			}
 		}
-		tickCoolDown++;
+		tick++;
 		if(this.getLife() < 25){
 			this.phase = 2;
 		}
-		if(tickCoolDown == 180) {
-			tickCoolDown = 0;
+		if(tick == 180) {
+			tick = 0;
 		}
 		if(position.equals(new Vector2(this.getPosition().getX() ,Fenetre.	HeigthFenetre - 65 - heigth))) {
 			this.wichDirection = 0;
@@ -98,14 +96,14 @@ public class BossShoot extends Ennemi{
 	}
 	
 	public void attaquePhase1() {
-		if(tickCoolDown == 60) {
+		if(tick == 60) {
 			this.attaque(0.5);
 		}
-		if(tickCoolDown == 120) {
+		if(tick == 120) {
 			this.attaque(0.5);
 			this.attaque(1);
 		}
-		if(tickCoolDown == 180) {
+		if(tick == 180) {
 			this.attaque(0.25);
 			this.attaque(0.75);
 			this.attaque(1);
@@ -124,12 +122,5 @@ public class BossShoot extends Ennemi{
 		this.munitions = munitions;
 	}
 
-	public int getTickCoolDown() {
-		return tickCoolDown;
-	}
-
-	public void setTickCoolDown(int tickCoolDown) {
-		this.tickCoolDown = tickCoolDown;
-	}
 	
 }

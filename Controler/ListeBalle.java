@@ -72,6 +72,7 @@ public class ListeBalle {
 		LinkedList<Balle> copieListe = (LinkedList<Balle>) liste.clone();
 		for(Balle b: liste) {
 			if(doRemove(b)) {
+				b.animRemove();
 				copieListe.remove(b);
 			}
 			if(!isEnnemiBalle) { //Si la liste de balle appartient au joueur on fait des dégâts aux ennemis

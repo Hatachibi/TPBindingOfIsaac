@@ -12,7 +12,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_O;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
@@ -21,14 +20,10 @@ import static org.lwjgl.glfw.GLFW.GLFW_STICKY_KEYS;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
-
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWKeyCallback;
-
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Bombe;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
-import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
@@ -36,15 +31,8 @@ import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 public class Input
 {
 	private static final Input INSTANCE = new Input();
-	
-	public final static float PI = (float) 3.141592;
-    public final static float P2 = (float) (PI/2);
-    
+	    
     public Personnage player = Jeu.gameWorld.getPlayer();
-    
-    private double x = player.getPosition().getY();
-	private double y = player.getPosition().getX();
-	private double a = player.getA();
 	
 	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,GLFW.GLFW_KEY_O,
 			GLFW.GLFW_KEY_E,GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
@@ -57,10 +45,6 @@ public class Input
 	public Personnage getPlayerMove() {
 		return player;
 	}
-	
-	private GLFWKeyCallback keyboard;
-	
-	//private HashMap<Integer, Boolean> mappageTouches;
 	
 	private Input()
 	{
@@ -126,7 +110,6 @@ public class Input
 		if(!player.getHitbox().isZCollision()) {
 			player.goUpNext();
 		}
-		player.setA(PI/2);
 		player.drawPlayer();
 	}
 	
@@ -135,13 +118,11 @@ public class Input
 		if(!player.getHitbox().isSCollision()) {
 			player.goDownNext();
 		}
-		player.setA(3*PI/2);
 		player.drawPlayer();
 	}
 	
 	public void moveRight()
 	{
-		a = 0;
 		if(!player.getHitbox().isDCollision()) {
 			player.goRightNext();
 		}
@@ -151,11 +132,9 @@ public class Input
 	
 	public void moveLeft()
 	{
-		a = PI;
 		if(!player.getHitbox().isQCollision()) {
 			player.goLeftNext();
 		}
-		player.setA(PI);
 		player.drawPlayer();
 	}
 	
@@ -208,6 +187,16 @@ public class Input
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 			return true;
 		}
+		if(glfwGetKey(window, GLFW_KEY_A) == GLFW.GLFW_PRESS)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			if(Fenetre.tick%4 == 0 && Fenetre.getInstance().getFPS() > 10) Fenetre.getInstance().setFPS(Fenetre.getInstance().getFPS() - 1);
+		}
+		if(glfwGetKey(window, GLFW_KEY_D) == GLFW.GLFW_PRESS)
+		{
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+			if(Fenetre.tick%4 == 0 && Fenetre.getInstance().getFPS() < 120) Fenetre.getInstance().setFPS(Fenetre.getInstance().getFPS() + 1);
+		}
 		return false;
 	}
 	
@@ -258,7 +247,7 @@ public class Input
 		}
 		if(glfwGetKey(window, GLFW_KEY_K) == GLFW.GLFW_PRESS)
 		{
-			Jeu.gameWorld.getMapEnCours().setListeEnnemi(new listeEnnemi());
+			Jeu.gameWorld.getMapEnCours().setListeEnnemi(new ListeEnnemi());
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 		if(glfwGetKey(window, GLFW_KEY_P) == GLFW.GLFW_PRESS)
