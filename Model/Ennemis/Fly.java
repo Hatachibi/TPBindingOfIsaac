@@ -22,6 +22,9 @@ public class Fly extends Ennemi{
 	 */
 	private ListeBalle munitions;
 	
+	/*
+	 * Angle de la mouche
+	 */
 	private double a;
 	
 	/*
@@ -43,9 +46,6 @@ public class Fly extends Ennemi{
 	 */
 	@Override
 	public void drawEnnemi() {
-	/*	Texture.fly.bind();
-		Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 25, 25, 1, 1, new float[] {});
-		Texture.fly.unbind(); */
 		this.drawEntite();
 	//	Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
 		munitions.drawBalle();
@@ -61,25 +61,13 @@ public class Fly extends Ennemi{
 			Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
 			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));
-			try {
-				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_shoot.wav", false);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			} 
 		}
-		
-	/*	if(Fenetre.tick%15 > 0 && Fenetre.tick%15 < 7.5) {
-			 url = "src/main/resources/flyRed.png";
-		} else {
-			 url = "src/main/resources/fly.png";
-		} */
 		if(Fenetre.tick%50 > 25 && Math.random() > 0.5) {
 			 url = "src/main/resources/flyRed.png";
 		} else {
 			 url = "src/main/resources/fly.png";
 		}
-		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
-		this.move();
+		this.goToPlayer(p);
 	}
 	
 	/**

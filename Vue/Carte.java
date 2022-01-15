@@ -59,6 +59,7 @@ public class Carte {
 		this.isBossRoom = false;
 		this.setObjet(new ArrayList<ObjetsInventaire>());
 		this.setEnnemiMap(new HashMap<Vector2, Integer>());
+		this.addEnnemi(4*65, 4*65, 14);
 	}
 	
 	public Carte(int categorieCarte) {
@@ -97,8 +98,6 @@ public class Carte {
 	public void changeMap() {
 		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
 		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
-	//	System.out.println(x + " "+y+ " : "+(RoomInfos.NB_HEIGHT_TILES-1) + " " + (RoomInfos.NB_WIDTH_TILES - 1)/2);
-	//	System.out.println(mapobject[12][4].getRenderMap());
 		if(getRenderMap()[x][y] < 0) {
 			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-1) {
 				Jeu.gameWorld.getPlayer().getPosition().setY(65);
@@ -120,9 +119,6 @@ public class Carte {
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() + 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() + 1);
 			}
-	/*		if(!Jeu.gameWorld.getMapEnCours().isVisited) {
-				Jeu.gameWorld.addEnnemis();
-			} */
 		}
 	}
 	
@@ -135,7 +131,7 @@ public class Carte {
 		if(getRenderMap()[x][y] == -9) {
 			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
 				Jeu.gameWorld.setFloor(Jeu.gameWorld.getFloor()+1);
-				Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ROCKS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ENNEMIS+Jeu.gameWorld.getFloor());
+				Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ROCKS+Jeu.gameWorld.getFloor(),  GameWorld.DEFAULT_NB_MAX_SPIKES+Jeu.gameWorld.getFloor(), GameWorld.DEFAULT_NB_MAX_ENNEMIS+Jeu.gameWorld.getFloor());
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[4][4]);
 				Jeu.gameWorld.setEtageCoos(new Vector2(4, 4));
 			}
@@ -224,19 +220,6 @@ public class Carte {
 				{
 					mapobject[i][j].setCollisionMap(true);
 				}
-				/*switch(mapobject[i][j].getRenderMap()){
-				case 0: mapobject[i][j].setCollisionMap(false); break;
-				case -1: mapobject[i][j].setCollisionMap(false); break;
-				case -2: mapobject[i][j].setCollisionMap(false); break;
-				case -3: mapobject[i][j].setCollisionMap(false); break;
-				case -4: mapobject[i][j].setCollisionMap(false); break;
-				case -5: mapobject[i][j].setCollisionMap(false); break;
-				case -6: mapobject[i][j].setCollisionMap(false); break;
-				case -7: mapobject[i][j].setCollisionMap(false); break;
-				case -8: mapobject[i][j].setCollisionMap(false); break;
-				case 11: mapobject[i][j].setCollisionMap(false); break;
-				default: mapobject[i][j].setCollisionMap(true); break;
-				}*/
 			}
 		}
 	}
@@ -420,27 +403,27 @@ public class Carte {
 		switch(random) {
 		case 1:
 			Texture.overlay1.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE);
 			Texture.overlay1.unbind();	
 			break;
 		case 2:
 			Texture.overlay2.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 			Texture.overlay2.unbind();
 		break;
 		case 3:
 			Texture.overlay3.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 			Texture.overlay3.unbind();
 		break;
 		case 4:
 			Texture.overlay4.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 			Texture.overlay4.unbind();
 		break;
 		case 5:
 			Texture.overlay5.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 			Texture.overlay5.unbind();
 			break;
 		}
@@ -470,136 +453,139 @@ public class Carte {
 					Texture.murDroite.bind();
 				} else if(mapobject[i][j].getRenderMap()==9) {
 					Texture.emptyCell.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.emptyCell.unbind();
 					Texture.rock.bind();
 				}
 				else if(mapobject[i][j].getRenderMap()==-1) 
 				{
 					Texture.murHaut.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murHaut.unbind();
 					Texture.top_openDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				} 
 				else if(mapobject[i][j].getRenderMap()==-2) 
 				{
 					Texture.murBas.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murBas.unbind();
 					Texture.bot_openDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				} 
 				else if(mapobject[i][j].getRenderMap()==-3) 
 				{
 					Texture.murDroite.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murDroite.unbind();
 					Texture.right_openDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				} 
 				else if(mapobject[i][j].getRenderMap()==-4) 
 				{
 					Texture.murGauche.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murGauche.unbind();
 					Texture.left_openDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				}
 				else if(mapobject[i][j].getRenderMap()==-5) 
 				{
 					Texture.murHaut.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murHaut.unbind();
 					Texture.top_openBossDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				} 
 				else if(mapobject[i][j].getRenderMap()==-6) 
 				{
 					Texture.murBas.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murBas.unbind();
 					Texture.bot_openBossDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				} 
 				else if(mapobject[i][j].getRenderMap()==-7) 
 				{
 					Texture.murDroite.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murDroite.unbind();
 					Texture.right_openBossDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				}
 				else if(mapobject[i][j].getRenderMap()==-8) 
 				{
 					Texture.murGauche.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murGauche.unbind();
 					Texture.left_openBossDoor.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				} else if(mapobject[i][j].getRenderMap()==-9) {
 					Texture.emptyCell.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.emptyCell.unbind();
 					Texture.trapdoor.bind();
 				}
 				else if(mapobject[i][j].getRenderMap()==11) 
 				{
+					Texture.emptyCell.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
+					Texture.emptyCell.unbind();
 					Texture.spikes.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==12) 
 				{
 					Texture.murHaut.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murHaut.unbind();
 					Texture.closeDoor_up.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==13) 
 				{
 					Texture.murBas.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murBas.unbind();
 					Texture.closeDoor_down.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==14) 
 				{
 					Texture.murDroite.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murDroite.unbind();
 					Texture.closeDoor_right.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==15) 
 				{
 					Texture.murGauche.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murGauche.unbind();
 					Texture.closeDoor_left.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==16) 
 				{
 					Texture.murHaut.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murHaut.unbind();
 					Texture.closeBossDoor_up.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==17) 
 				{
 					Texture.murBas.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murBas.unbind();
 					Texture.closeBossDoor_down.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==18) 
 				{
 					Texture.murDroite.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murDroite.unbind();
 					Texture.closeBossDoor_right.bind();
 				} 
 				else if(mapobject[i][j].getRenderMap()==19) 
 				{
 					Texture.murGauche.bind();
-					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.murGauche.unbind();
 					Texture.closeBossDoor_left.bind();
 				}
@@ -607,7 +593,7 @@ public class Carte {
 					Texture.emptyCell.bind();
 				}
 				glEnable(GL_TEXTURE_2D);
-				Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, 0, 0, new float[] {});
+				Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 				Texture.coinHG.unbind();
 				Texture.coinHD.unbind();
 				Texture.coinBG.unbind();

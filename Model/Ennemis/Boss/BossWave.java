@@ -41,8 +41,13 @@ public class BossWave extends Ennemi {
 		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
 		move();
 		tick ++;
+		if(tick < 90) {
+			this.setUrl("src/main/resources/bossWave.png");
+		} else {
+			this.setUrl("src/main/resources/bossWave2.png");
+		}
 		if(this.getLife() > 25) {
-			if(tick == 120) {
+			if(tick == Fenetre.getInstance().getFPS()*2) {
 				tick = 0;
 			}
 			if(tick == 0) {
@@ -50,16 +55,16 @@ public class BossWave extends Ennemi {
 					this.munitions.addBalle(new Balle(20, 20, 80 + i*130,Fenetre.HeigthFenetre -  90, new Vector2(0, -1), "src/main/resources/enemybullets.png", 4));
 				}
 			}
-			if(tick == 119) {
+			if(tick == Fenetre.getInstance().getFPS()*2 - 1) {
 				for(int i=0; i<10; i++) {
 					this.munitions.addBalle(new Balle(20, 20, 80, 80 + i*130, new Vector2(1, 0), "src/main/resources/enemybullets.png", 4));
 				}
 			}
 		} else {
-			if(tick == 180) {
+			if(tick == Fenetre.getInstance().getFPS()*3) {
 				tick = 0;
 			}
-			if(tick%60 == 0) {
+			if(tick%Fenetre.getInstance().getFPS() == 0) {
 				int random = (int) (Math.random()*5);
 				switch(random) {
 				case 0:

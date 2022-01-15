@@ -12,30 +12,18 @@ import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
 public class Pooter extends Ennemi{
-	
-	/*
-	 * Coordonnées d'origine
-	 */
-	private Vector2 PositionOrigine;
-	
+		
 	/*
 	 * Liste de Balle du Pooter
 	 */
 	private ListeBalle munitions;
-	
-	/*
-	 * Position aléatoire
-	 */
-	private Vector2 randomPosition;
-	
+		
 	/*
 	 * Constructeur
 	 */
 	public Pooter(int width, int heigth, Vector2 position, String url, double speed) {
 		super(width, heigth, position, speed, url);
-		this.PositionOrigine = position;
 		this.munitions = new ListeBalle();
-		this.randomPosition = position;
 		this.setDegat(1);
 		this.munitions.setDegats(2);
 		this.setLife(8);
@@ -68,36 +56,18 @@ public class Pooter extends Ennemi{
 	@Override
 	public void IAEnnemi(Personnage p) {
 		munitions.update();
-		if(Fenetre.tick == Fenetre.getInstance().getFPS()/2) {
-			if(Math.random() > 0.5) {
-				randomPosition.setX(Math.random() - 0.5);
-				randomPosition.setY(Math.random() - 0.5);
-				this.url = "src/main/resources/animation6Pooter.png";
-			} else {
-				randomPosition = PositionOrigine;
+		if(Math.random() > 0.5) {
+			this.url = "src/main/resources/animation6Pooter.png";
+			this.goToRandom(Fenetre.getInstance().getFPS()/2, Fenetre.getInstance().getFPS()/2);
+		} else {
+			if(tick > Fenetre.getInstance().getFPS()/2) {
 				Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 				Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
 				munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));
-				this.url = "src/main/resources/animation5Pooter.png";
 			}
+			this.url = "src/main/resources/animation5Pooter.png";
+			this.goToPlayer(p);
 		}
-		if(position.getX() < 65) {
-			setDirection(new Vector2(1, this.randomPosition.getY()));
-		} 
-		else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
-			setDirection(new Vector2(-1, this.randomPosition.getY()));
-		}
-		else if(position.getY() < 65) {
-			setDirection(new Vector2(this.randomPosition.getX(), 1));
-		}
-		else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
-			setDirection(new Vector2(this.randomPosition.getX(), -1));
-		}
-		else {
-			setDirection(randomPosition);
-		}
-		randomPosition = getDirection();
-		this.move();
 	} 
 
 }

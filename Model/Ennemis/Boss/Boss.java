@@ -6,6 +6,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
+import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
@@ -14,6 +15,7 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
@@ -23,20 +25,13 @@ public class Boss extends Ennemi{
 		 * Liste de balle du Boss
 		 */
 		private ListeBalle munitions;
-		
-		/*
-		 * Couple (x, y) de coordonnées aléatoire pour le déplacement
-		 */
-		private Vector2 random;
-		
+				
 		/*
 		 * Boolean permettant de savoir la phase du boss 
 		 */
 		private boolean firstPhase;
 		
 		boolean playOnce = true;
-		
-		private boolean addFly;
 
 		/*
 		 * Constructeur
@@ -46,9 +41,7 @@ public class Boss extends Ennemi{
 			this.munitions = new ListeBalle();
 			this.munitions.setEnnemiBalle(true);
 			this.tick = 0;
-			this.random = new Vector2(0, 0);
 			this.setDegat(3);
-			this.addFly = false;
 			this.setLife(50);
 			this.firstPhase = true;
 			this.munitions.setRange(4);
@@ -63,7 +56,7 @@ public class Boss extends Ennemi{
 			if(firstPhase) {
 				playOnce = true;
 				Texture.boss1.bind();
-				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75, 1, 1, new float[] {});
+				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75);
 				Texture.boss1.unbind();
 			} else {
 				if(playOnce){
@@ -76,7 +69,7 @@ public class Boss extends Ennemi{
 				}
 					
 				Texture.boss2.bind();
-				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75, 1, 1, new float[] {});
+				Render.getInstance().drawPicture((float)position.getX(), (float)position.getY(), 75, 75);
 				Texture.boss2.unbind();
 			}
 	//		Render.getInstance().drawSquare((float)position.getX(),(float) position.getY(), width, heigth);
@@ -93,37 +86,32 @@ public class Boss extends Ennemi{
 		@Override
 		public void IAEnnemi(Personnage p) {
 			munitions.update();
-			if(tick == 0) {
-				this.addFly = true;
-			}
-			if(tick == 1) {
-				this.addFly = false;
-			}
-			if((Math.random() > 0.5 || tick > 0) && firstPhase) { //Phase 1
+			if(firstPhase) { //Phase 1
 				this.tick ++;
-				Spider.IASpider(p, this);
-			} else if(Math.random() > 0.5 || !firstPhase) { //Phase 2
-				Fly.IAFly(p, this);
+				this.goToRandom(Fenetre.getInstance().getFPS()/2, Fenetre.getInstance().getFPS()/2);
+			} else { //Phase 2
+				this.goToPlayer(p);
+				if(tick%60 == 0) {
+					Vector2 v = new Vector2(p.getPosition().getX() - getPosition().getX(), p.getPosition().getY() - getPosition().getY());
+					Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
+					munitions.addBalle(new Balle(35, 35, getPosition().getX(), getPosition().getY(), v2, "src/main/resources/enemybullets.png", 10));
+				}
 				firstPhase = false;
 				this.tick ++;
 			}
 			if(tick > 120) { //Reset de Phase
 				tick = 0;
-				firstPhase = true;
+				if(Math.random() > 0.5) {
+					firstPhase = true;
+				} else {
+					firstPhase = false;
+				}
 			}
 		}
 
 		/*
 		 * Getters & Setters
 		 */
-		public Vector2 getRandom() {
-			return random;
-		}
-
-		public void setRandom(Vector2 random) {
-			this.random = random;
-		}
-
 		public ListeBalle getMunitions() {
 			return munitions;
 		}
@@ -147,15 +135,5 @@ public class Boss extends Ennemi{
 		public void setPlayOnce(boolean playOnce) {
 			this.playOnce = playOnce;
 		}
-
-		public boolean isAddFly() {
-			return addFly;
-		}
-
-		public void setAddFly(boolean addFly) {
-			this.addFly = addFly;
-		}
-		
-		
 	
 }

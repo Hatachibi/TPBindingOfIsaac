@@ -55,7 +55,7 @@ public class Entite {
 		Render.getInstance().drawPicture((float)getPosition().getX() - width/2,(float)getPosition().getY(), entiteTexture.getWidth()*2, entiteTexture.getHeight()*2);
 		entiteTexture.unbind();
 		if(showEntiteHitbox) {
-			Render.getInstance().drawSquare((float) position.getX(),(float) position.getY(), width, heigth);
+			Render.getInstance().drawSquare((float) position.getX(),(float) position.getY(), width, heigth, new float[]{});
 		}
 	}
 	

@@ -19,6 +19,7 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossCollectionneur;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossFinal;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossShoot;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossWave;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
@@ -79,13 +80,14 @@ public class Room {
 				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
 				case 5: getListeEnnemi().addEnnemi(new Gasper(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
 				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
-				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabite.png"));break;
+				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabiteballe.png"));break;
 				case 8: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));break;
-				case 9: getListeEnnemi().addEnnemi(new Bomberman(25, 25, v, 12, "src/main/resources/parabite.png"));break;
-				case 10: getListeEnnemi().addEnnemi(new BossShoot(25, 25, v, 1, "src/main/resources/parabite.png"));break;
-				case 11: getListeEnnemi().addEnnemi(new BossWave(25, 25, v, 1, "src/main/resources/fly.png"));break;
-				case 12: getListeEnnemi().addEnnemi(new BossCollectionneur(75, 75, v, 10, "src/main/resources/boss2.png"));break;
-				case 13: getListeEnnemi().addEnnemi(new Essaim(25, 25, v,player.getSpeed()/8, "src/main/resources/fly.png"));break;
+				case 9: getListeEnnemi().addEnnemi(new Bomberman(25, 25, v, 12, "src/main/resources/bomberman.png"));break;
+				case 10: getListeEnnemi().addEnnemi(new BossShoot(25, 25, v, 1, "src/main/resources/bossShoot.png"));break;
+				case 11: getListeEnnemi().addEnnemi(new BossWave(25, 25, v, 1, "src/main/resources/bossWave.png"));break;
+				case 12: getListeEnnemi().addEnnemi(new BossCollectionneur(75, 75, v, 10, "src/main/resources/bossCollectionneur.png"));break;
+				case 13: getListeEnnemi().addEnnemi(new Essaim(25, 25, v,player.getSpeed()/8, "src/main/resources/flyCircle.png"));break;
+				case 14: getListeEnnemi().addEnnemi(new BossFinal(25, 25, v,player.getSpeed()/8, "src/main/resources/bossFinal.png"));break;
 			}
 		}
 	}
@@ -136,8 +138,6 @@ public class Room {
 			Input.getInstance().deplacement();
 			Input.getInstance().tire();
 			getcarte().changeMap();
-			getPlayer().boucleCooldownJoueur();
-			getPlayer().updateHitbox();
 			listeEnnemi.updateEnnemis();
 			carte.updateObject();
 			if(listeEnnemi.isEmpty()) {

@@ -81,11 +81,6 @@ public class Hitbox {
     	}  else {
     		this.isSCollision = false;
     	}
-  /*  	if(this.isDCollision || this.isQCollision || this.isSCollision || this.isZCollision()) {
-    		Jeu.room.getPlayer().setSpeed(2.85);
-    	} else {
-    		Jeu.room.getPlayer().setSpeed(5.85);
-    	} */
     }
         
     /**
@@ -106,6 +101,10 @@ public class Hitbox {
     	int j = (int) y/65;
     	if(i<RoomInfos.NB_HEIGHT_TILES && i>=0 && j<RoomInfos.NB_WIDTH_TILES && j>=0)
     	{
+    		if(Jeu.gameWorld.getMapEnCours().getcarte().getRenderMap()[i][j] == 11 && !Jeu.gameWorld.getPlayer().isTouch()) {
+        		Jeu.gameWorld.getPlayer().subitDegats(1);
+        		Jeu.gameWorld.getPlayer().setTouch(true);
+        	}
     		return (Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap()[i][j]);
     	}
     	return true;

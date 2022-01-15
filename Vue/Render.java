@@ -38,15 +38,7 @@ public class Render {
 	public static Render getInstance() {
 		return INSTANCE;
 	}
-	
-/*	public void drawStrings(int x, int y, String text) {
-		glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
- 
-        TrueTypeFont font = new TrueTypeFont(new Font("MS Sans Serif", Font.PLAIN, 30), true);
-		font.drawString(x, y, text);
-	} */
-	
+		
 	/**
 	 * @return Initialise le visuel pour la fenêtre
 	 */
@@ -101,27 +93,6 @@ public class Render {
 		glEnd();
 	}
 	
-	/**
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @param x3
-	 * @param y3
-	 * @param x4
-	 * @param y4
-	 * @param color
-	 * @return Dessine un carre avec 4 points en précisant la couleur
-	 */
-	public void drawSquare(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float[] color) {
-		glColor4f(color[0], color[1], color[2], color[3]);
-		glBegin(GL_QUADS);
-		glVertex2f(x1, y1);
-		glVertex2f(x2, y2);
-		glVertex2f(x3, y3);
-		glVertex2f(x4, y4);
-		glEnd();
-	}
 	
 	/**
 	 * @param x1
@@ -162,64 +133,7 @@ public class Render {
 		glEnd();
 		glColor4f(1f, 1f, 1f, 1f);
 	}
-	
-	/**
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param heigth
-	 * @param color
-	 * @return Dessine un carre avec 1 point de sa largeur et longueur
-	 */
-	public void drawSquare(float x, float y, float width, float heigth) {
-		glBegin(GL_QUADS);
-		glVertex2f(x, y);
-		glVertex2f(x+width, y);
-		glVertex2f(x+width, y+heigth);
-		glVertex2f(x, y+heigth);
-		glEnd();
-		glColor4f(1f, 1f, 1f, 1f);
-	}
-	
-	/**
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @param x3
-	 * @param y3
-	 * @return Dessine un triangle avec 3 points
-	 */
-	public void drawTriangle(float x1, float y1, float x2, float y2, float x3, float y3) {
-		glColor4f(0f, 1f, 0f, 1f);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(x1, y1);
-		glVertex2f(x2, y2);
-		glVertex2f(x3, y3);
-		glEnd();
-	}
-	
-	/**
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param h
-	 * @param xo
-	 * @param yo
-	 * @param color
-	 * @return Dessine une image avec un filtre couleur
-	 */
-	public void drawPicture(float x, float y, int w, int h, int xo, int yo, float[] color) {
-		glEnable(GL_TEXTURE_2D);
-		glBegin(GL_QUADS);
-//		glColor4f(color[0], color[1], color[2], color[3]);
-		glTexCoord2f(0, 0); glVertex2f(x, y);
-		glTexCoord2f(1, 0); glVertex2f(x + w, y);
-		glTexCoord2f(1, 1); glVertex2f(x + w, y + h);
-		glTexCoord2f(0, 1); glVertex2f(x, y + h);
-		glEnd();
-	}
-	
+			
 	/**
 	 * @param x
 	 * @param y
@@ -295,14 +209,4 @@ public class Render {
 		Texture.txtCoin.unbind();
 	} 
 	
-	/**
-	 * @param x
-	 * @param y
-	 * @return Dessine une croix (style FPS)
-	 */
-	public void drawCroix(float x, float y) {
-		this.drawTrait(x, y+20, x, y-20);
-		this.drawTrait(x+20, y, x-20, y);
-	}
-
 }

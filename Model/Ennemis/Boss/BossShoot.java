@@ -53,26 +53,29 @@ public class BossShoot extends Ennemi{
 			this.attaquePhase1();
 		} else {
 			if(Math.random() > 0.5){
-				for(int i=1; i<10; i++) {
-					if(tick*2 == tick*3/i) {
+				for(int i=1; i<7; i++) {
+					if(tick*2 == Fenetre.getInstance().getFPS()*3/i) {
 						this.attaque(i*0.1);
 					}
-				}
-			} else if(Math.random() > 0.5) {
-				for(int i=5; i<15; i++) {
-					if(tick*2 == 180/i) {
-						this.attaque(i*0.1);
-					}
+					this.setUrl("src/main/resources/bossShoot2.png");
 				}
 			} else {
+				for(int i=7; i<14; i++) {
+					if(tick*2 == Fenetre.getInstance().getFPS()*3/i) {
+						this.attaque(i*0.1);
+					}
+					this.setUrl("src/main/resources/bossShoot.png");
+				}
+			}/* else {
 				this.attaquePhase1();
-			}
+			}*/
 		}
 		tick++;
 		if(this.getLife() < 25){
 			this.phase = 2;
 		}
-		if(tick == 180) {
+		System.out.println(Fenetre.getInstance().getFPS());
+		if(tick == Fenetre.getInstance().getFPS()*3) {
 			tick = 0;
 		}
 		if(position.equals(new Vector2(this.getPosition().getX() ,Fenetre.	HeigthFenetre - 65 - heigth))) {
@@ -96,17 +99,20 @@ public class BossShoot extends Ennemi{
 	}
 	
 	public void attaquePhase1() {
-		if(tick == 60) {
+		if(tick == Fenetre.getInstance().getFPS()) {
 			this.attaque(0.5);
+			this.setUrl("src/main/resources/bossShoot2.png");
 		}
-		if(tick == 120) {
+		else if(tick == Fenetre.getInstance().getFPS()*2) {
 			this.attaque(0.5);
 			this.attaque(1);
+			this.setUrl("src/main/resources/bossShoot.png");
 		}
-		if(tick == 180) {
+		else if(tick == Fenetre.getInstance().getFPS()*3) {
 			this.attaque(0.25);
 			this.attaque(0.75);
 			this.attaque(1);
+			this.setUrl("src/main/resources/bossShoot2.png");
 		}
 	}
 

@@ -184,8 +184,10 @@ public class Personnage extends Entite{
     public void updateGameObject()
 	{
 		move();
+		this.updateHitbox();
 		this.getHitbox().collisionPlayer(this);
 		updateLife();
+		this.boucleCooldownJoueur();
 		munitions.update();
 		LinkedList bombListClone = (LinkedList) Jeu.gameWorld.getMapEnCours().getBombList().clone();
 		for(Bombe b: Jeu.gameWorld.getMapEnCours().getBombList()) {
@@ -202,7 +204,7 @@ public class Personnage extends Entite{
      */
     public void updateLife() {
     	for(int i=0; i<Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().size(); i++) {
-    		if(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {// && !(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i) instanceof Essaim)) {
+    		if(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).collisionEnnemi(this) && this.isTouch == false) {
         		this.subitDegats(Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe().get(i).getDegat());
         		this.setTouch(true);
         	}
@@ -402,7 +404,6 @@ public class Personnage extends Entite{
     		this.setShot(false);
     	}
     	GL11.glColor4f(1f, 1f, 1f, 1f);
-    //	Raycasting.drawRays3D(this, Jeu.gameWorld.getMapEnCours().getcarte().getCollisionMap());  
     }
     
     public void drawInventaire() {

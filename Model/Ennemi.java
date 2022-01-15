@@ -57,6 +57,11 @@ public abstract class Ennemi extends Entite{
 	private boolean isTouch;
 	
 	/*
+	 * Direction aléatoire
+	 */
+	private Vector2 random;
+	
+	/*
 	 * Loot de l'ennemi
 	 */
 	private ArrayList<ObjetsInventaire> loot;
@@ -71,6 +76,7 @@ public abstract class Ennemi extends Entite{
 		this.speed = speed;
 		this.tick = 0 ;
 		this.direction = new Vector2(0, 0);
+		this.random = new Vector2(0, 0);
 		this.loot = new  ArrayList<ObjetsInventaire>();
 		this.getLoot().add(new ObjetsInventaire(-3, 30, 30, position, ""));
 		this.getLoot().add(new ObjetsInventaire(1, 30, 30, position, ""));
@@ -83,6 +89,37 @@ public abstract class Ennemi extends Entite{
 	 * Dessine l'ennemi
 	 */
 	public abstract void drawEnnemi();
+	
+	public void goToPlayer(Personnage p) {
+		setDirection(new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY()));
+		this.move();
+	}
+	
+	public void goToRandom(int firstTick, int secondTick) {
+		if(Fenetre.tick == firstTick) {
+			random.setX(Math.random() - 0.5);
+			random.setY(Math.random() - 0.5);
+		}
+		if(Fenetre.tick >= secondTick) {
+			if(position.getX() < 65) {
+				setDirection(new Vector2(1, this.random.getY()));
+			} 
+			else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
+				setDirection(new Vector2(-1, this.random.getY()));
+			}
+			else if(position.getY() < 65) {
+				setDirection(new Vector2(this.random.getX(), 1));
+			}
+			else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
+				setDirection(new Vector2(this.random.getX(), -1));
+			}
+			else {
+				setDirection(random);
+			}
+			random = getDirection();
+			this.move();
+		}
+	}
 	
 	/*
 	 * IA de l'ennemi

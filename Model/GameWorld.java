@@ -21,20 +21,20 @@ public class GameWorld {
 	private boolean first;
 	private int floor = 0;
 	public static final int DEFAULT_NB_ROOMS = 6;
-	public static final int DEFAULT_NB_MAX_ROCKS = 5;
+	public static final int DEFAULT_NB_MAX_ROCKS = 2;
+	public static final int DEFAULT_NB_MAX_SPIKES = 2;
 	public static final int DEFAULT_NB_MAX_ENNEMIS = 2;
 	
 	public GameWorld() {
 		this.etage = new Room[9][9];
 		this.setEtageCoos(new Vector2(4, 4));
 		this.setPersonnage(new Personnage(10, 25, 25, new Vector2(100, 100), new Vector2(1, 1), "libImg/Isaac.png")); // Personnage par défaut
-	//	initRoom(true);
 		this.first = true;
 	}
 	
-	public void initRoom(int nbRooms, int nbMaxRocks, int nbMaxEnnemis)
+	public void initRoom(int nbRooms, int nbMaxRocks, int nbMaxSpikes, int nbMaxEnnemis)
 	{
-		this.etage = GenerateFloor.generateFloor(nbRooms, nbMaxRocks, nbMaxEnnemis);
+		this.etage = GenerateFloor.generateFloor(nbRooms, nbMaxRocks, nbMaxSpikes, nbMaxEnnemis);
 		this.setMapEnCours(etage[4][4]);
 	}
 	
@@ -57,13 +57,13 @@ public class GameWorld {
 	
 	public void deathScreen() {
 		Texture.gameOver.bind();
-		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre, 1, 1, new float[]{});
+		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre);
 		Texture.gameOver.unbind();
 	}
 	
 	public void victoryScreen() {
 		Texture.win.bind();
-		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre, 1, 1, new float[]{});
+		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre);
 		Texture.win.unbind();
 	}
 	

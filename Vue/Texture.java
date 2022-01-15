@@ -99,6 +99,7 @@ public class Texture {
     public static Texture gameOver = loadTexture("src/main/resources/lose.png");
     public static Texture win = loadTexture("src/main/resources/win.jpg");
     public static Texture fly = loadTexture("src/main/resources/fly.png");  
+    public static Texture halo = loadTexture("src/main/resources/halo.png");  
     public static Texture boss1 = loadTexture("src/main/resources/boss1.png");
     public static Texture boss2 = loadTexture("src/main/resources/boss2.png");
     public static Texture right = loadTexture("src/main/resources/right.png");

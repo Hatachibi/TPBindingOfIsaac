@@ -47,36 +47,37 @@ public class BossCollectionneur extends Ennemi {
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-		if(tick == 60 && Math.random() > 0.5) {
+	/*	if(tick == 60 && Math.random() > 0.5) {
 			this.launchEnnemi = (int) (1+Math.random()*4);
-		}
-		if(tick == 61) {
+		} */
+		if(tick == 1) {
 			this.launchEnnemi = 0;
 		}
 		if(tick == 180) {
 			tick = 0;
-		}
-	//	if(Fenetre.tick == 30) {
-	//		random.setX(Math.random() - 0.5);
-	//		random.setY(Math.random() - 0.5);
-	//	}
-		if(position.getX() < 65) {
-			setDirection(new Vector2(1, this.random.getY()));
+			if(Math.random() > 0.5) {
+				this.launchEnnemi = (int) (1+Math.random()*4);
+			} 
 		} 
-		else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
-			setDirection(new Vector2(-1, this.random.getY()));
+		if(tick < 120) {
+			if(position.getX() < 65) {
+				setDirection(new Vector2(1, this.random.getY()));
+			} 
+			else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
+				setDirection(new Vector2(-1, this.random.getY()));
+			}
+			else if(position.getY() < 65) {
+				setDirection(new Vector2(this.random.getX(), 1));
+			}
+			else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
+				setDirection(new Vector2(this.random.getX(), -1));
+			}
+			else {
+				setDirection(random);
+			}
+			random = getDirection();
+			this.move();
 		}
-		else if(position.getY() < 65) {
-			setDirection(new Vector2(this.random.getX(), 1));
-		}
-		else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
-			setDirection(new Vector2(this.random.getX(), -1));
-		}
-		else {
-			setDirection(random);
-		}
-		random = getDirection();
-		this.move();
 		tick ++;
 	}
 

@@ -37,7 +37,7 @@ public abstract class GenerateFloor {
 		return c;
 	}
 	
-	public static Carte generateRandomCarte(int nbCailloux, int nbEnnemis, boolean bossRoom)
+	public static Carte generateRandomCarte(int nbCailloux, int nbEnnemis, int nbSpikes, boolean bossRoom)
 	{
 		Carte c = defaultMap();
 		
@@ -51,6 +51,17 @@ public abstract class GenerateFloor {
 			}while((x==4 && y==1) || (x==7 && y==4) || (x==4 && y==7) || (x==1 && y==4));
 			
 			c.setRenderMap(x, y, 9);
+		}
+		for(int i = 0; i<nbSpikes; i++)
+		{
+			int x;
+			int y;
+			do {
+				x = new Random().nextInt(6)+1;
+				y = new Random().nextInt(6)+1;
+			}while((x==4 && y==1) || (x==7 && y==4) || (x==4 && y==7) || (x==1 && y==4));
+			
+			c.setRenderMap(x, y, 11);
 		}
 		
 		for(int i = 0; i<nbEnnemis; i++)
@@ -79,7 +90,7 @@ public abstract class GenerateFloor {
 	 * 3 = haut
 	 * 4 = bas
 	 */
-	public static Room[][] generateFloor(int nbRooms, int nbMaxCailloux, int nbMaxEnnemis)
+	public static Room[][] generateFloor(int nbRooms, int nbMaxCailloux, int nbMaxSpikes, int nbMaxEnnemis)
 	{
 		Room[][] etage = new Room[RoomInfos.NB_HEIGHT_TILES][RoomInfos.NB_WIDTH_TILES];
 		int cptRooms = 0;
@@ -89,7 +100,7 @@ public abstract class GenerateFloor {
 		while(cptRooms != nbRooms)
 		{
 			int direction = new Random().nextInt(5);
-			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux), new Random().nextInt(nbMaxEnnemis), false);
+			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux),new Random().nextInt(nbMaxSpikes), new Random().nextInt(nbMaxEnnemis), false);
 			int aleaRetourBase = new Random().nextInt(4);
 			if(aleaRetourBase == 3)
 			{
