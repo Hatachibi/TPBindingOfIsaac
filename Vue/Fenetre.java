@@ -18,10 +18,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 
 import com.projetpo.bindingofisaac.module.Controler.Input;
 import com.projetpo.bindingofisaac.module.Model.BarreDeVie;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
-import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
-import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 
 public class Fenetre {
 	
@@ -125,7 +122,7 @@ public class Fenetre {
     			case 0: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(6)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Isaac"); break;
     			case 1: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(8)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Magdalene");break;
     		}
-    		Jeu.gameWorld.initRoom(Jeu.gameWorld.DEFAULT_NB_ROOMS, Jeu.gameWorld.DEFAULT_NB_MAX_ROCKS, Jeu.gameWorld.DEFAULT_NB_MAX_SPIKES, Jeu.gameWorld.DEFAULT_NB_MAX_ENNEMIS);
+    		Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS, GameWorld.DEFAULT_NB_MAX_ROCKS, GameWorld.DEFAULT_NB_MAX_SPIKES, GameWorld.DEFAULT_NB_MAX_ENNEMIS);
     		this.setState(2);
     	}
     }

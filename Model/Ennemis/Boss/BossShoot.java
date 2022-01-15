@@ -1,11 +1,8 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
-import java.util.ArrayList;
-
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
@@ -25,6 +22,7 @@ public class BossShoot extends Ennemi{
 		super(width, heigth, position, speed, url);
 		this.setLife(75);
 		this.phase = 1;
+		this.setDegat(2);
 		this.munitions = new ListeBalle();
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(20);

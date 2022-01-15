@@ -1,12 +1,14 @@
 package com.projetpo.bindingofisaac.module.Controler;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import com.projetpo.bindingofisaac.module.Model.Balle;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
-import com.projetpo.bindingofisaac.module.Vue.Render;
-import com.projetpo.bindingofisaac.module.Vue.Texture;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class ListeBalle {
 	
@@ -103,9 +105,36 @@ public class ListeBalle {
 	 */
 	public void addBalle(Balle b) {
 		if(this.isNotShot || isEnnemiBalle) {
+			if(!isEnnemiBalle) {
+				this.playTearEffect((int)(Math.random()*3));
+			}
 			this.liste.add(b);
 		}
 		this.isNotShot = false;
+	}
+	
+	private void playTearEffect(int sound) {
+		System.out.println(sound);
+		switch(sound) {
+			case 0: try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/tear_fire_1.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+			break;
+			case 1:try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/tear_fire_2.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}	
+			break;
+			case 2:try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/tear_fire_3.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
 	}
 	
 	/**

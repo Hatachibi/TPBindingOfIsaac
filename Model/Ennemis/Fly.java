@@ -8,12 +8,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class Fly extends Ennemi{
 	
@@ -81,7 +81,7 @@ public class Fly extends Ennemi{
 			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
 			b.getMunitions().addBalle(new Balle(35, 35, b.getPosition().getX(), b.getPosition().getY(), v2, "src/main/resources/enemybullets.png", 10));
 			try {
-				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_shoot.wav", false);
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/ennemi_shot.wav", false);
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			} 

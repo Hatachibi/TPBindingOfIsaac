@@ -1,13 +1,11 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
 import java.util.LinkedList;
-
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
-import com.projetpo.bindingofisaac.module.Vue.Render;
 
 public class Essaim extends Ennemi {
 	

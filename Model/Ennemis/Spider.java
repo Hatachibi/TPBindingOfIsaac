@@ -1,15 +1,9 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Hitbox;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
-import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
-import com.projetpo.bindingofisaac.module.Vue.Render;
-import com.projetpo.bindingofisaac.module.Vue.Texture;
 
 public class Spider extends Ennemi{
 	

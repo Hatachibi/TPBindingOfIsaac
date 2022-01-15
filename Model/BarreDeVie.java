@@ -8,12 +8,12 @@ public class BarreDeVie {
 	/**
 	 * Entier représentant le max de vie 
      */
-    private Integer viePleine;
+    private int viePleine;
 
     /**
      * Entier représentant la vie en cours
      */
-    private Integer vieEnCours;
+    private int vieEnCours;
     
     /**
      * Constructeur
@@ -54,19 +54,19 @@ public class BarreDeVie {
 	/*
 	 * Getters & Setters
 	 */
-    public Integer getViePleine() {
+    public int getViePleine() {
 		return viePleine;
 	}
 
-	public void setViePleine(Integer viePleine) {
+	public void setViePleine(int viePleine) {
 		this.viePleine = viePleine;
 	}
 
-	public Integer getVieEnCours() {
+	public int getVieEnCours() {
 		return vieEnCours;
 	}
 
-	public void setVieEnCours(Integer vieEnCours) {
+	public void setVieEnCours(int vieEnCours) {
 		this.vieEnCours = vieEnCours;
 	}
 

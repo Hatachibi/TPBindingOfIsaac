@@ -6,8 +6,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import org.lwjgl.opengl.GL11;
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
+import com.projetpo.bindingofisaac.module.Shaders.Hitbox;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 

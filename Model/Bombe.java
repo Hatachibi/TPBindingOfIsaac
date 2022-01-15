@@ -2,6 +2,7 @@ package com.projetpo.bindingofisaac.module.Model;
 
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class Bombe extends ObjetsInventaire {
 
@@ -30,6 +31,9 @@ public class Bombe extends ObjetsInventaire {
 	 */
 	private boolean isPoseRecently;
 	
+	/*
+	 * Boolean qui indique s'il d'agit d'une bombe ennemi
+	 */
 	private boolean isBombEnnemi;
 		
 	

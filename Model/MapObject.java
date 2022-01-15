@@ -12,8 +12,6 @@ public class MapObject {
 	 */
 	private int renderMap;
 	
-	private int overlayMap;
-		
 	/*
 	 * Constructeur
 	 */
@@ -39,14 +37,6 @@ public class MapObject {
 
 	public void setRenderMap(int renderMap) {
 		this.renderMap = renderMap;
-	}
-
-	public int getOverlayMap() {
-		return overlayMap;
-	}
-
-	public void setOverlayMap(int overlayMap) {
-		this.overlayMap = overlayMap;
 	}
 	
 }

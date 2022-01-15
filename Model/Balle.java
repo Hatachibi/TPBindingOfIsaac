@@ -2,6 +2,7 @@ package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.LinkedList;
 
+import com.projetpo.bindingofisaac.module.Shaders.Hitbox;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
@@ -20,14 +21,6 @@ public class Balle extends Entite{
 	
 	/**
 	 * Direction dans laquelle part une balle
-	 * 1 = gauche
-	 * 2 = droite
-	 * 3 = haut
-	 * 4 = bas
-	 * 5 =
-	 * 6 = 
-	 * 7 =
-	 * 8 =
 	 */
 	private Vector2 direction;
 	
@@ -55,8 +48,6 @@ public class Balle extends Entite{
 		Texture.tears.bind();
 		Render.getInstance().drawPicture((float)this.getPosition().getX(), (float)this.getPosition().getY(), 25, 25);
 		Texture.tears.unbind(); 
-	//	Render.getInstance().drawSquare((float)hitbox.getPosition().getX(), (float)hitbox.getPosition().getY(), (float)hitbox.getPositionX().getX(), (float)hitbox.getPositionX().getY(), (float)hitbox.getPositionXY().getX(), (float)hitbox.getPositionXY().getY(), (float)hitbox.getPositionY().getX(), (float)hitbox.getPositionY().getY()); //Obliger de cast en float car sinon on ne peut pas draw les rectangles
-		
 	}
 	
 	/**
@@ -73,56 +64,6 @@ public class Balle extends Entite{
 		anim.animUrl();
 	}
 		
-	public void move()
-	{
-		Vector2 normalizedDirection = getNormalizedDirection();
-		Vector2 positionAfterMoving = getPosition().addVector(normalizedDirection);
-		setPosition(positionAfterMoving);
-		direction = new Vector2();
-	}
-	
-	/**
-	 * @return Ajoute 1 en Y pour la direction
-	 */
-	public void goUpNext()
-	{
-		getDirection().addY(1);
-	}
-
-	/**
-	 * @return Enlève 1 en Y pour la direction
-	 */
-	public void goDownNext()
-	{
-		getDirection().addY(-1);
-	}
-
-	/**
-	 * @return Enlève 1 en X pour la direction
-	 */
-	public void goLeftNext()
-	{
-		getDirection().addX(-1);
-	}
-
-	/**
-	 * @return Ajoute 1 en X pour la direction
-	 */
-	public void goRightNext()
-	{
-		getDirection().addX(1);
-	}
-	
-	/**
-	 * @return Le vecteur direction normalisée
-	 */
-	public Vector2 getNormalizedDirection()
-	{
-		Vector2 normalizedVector = new Vector2(direction);
-		normalizedVector.euclidianNormalize(this.getSpeed());
-		return normalizedVector;
-	}
-
 	/*
 	 * Getters & Setters
 	 */

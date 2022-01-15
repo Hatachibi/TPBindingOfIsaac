@@ -11,7 +11,7 @@ import com.projetpo.bindingofisaac.module.Controler.ListeEnnemi;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Bomberman;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Essaim;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
-import com.projetpo.bindingofisaac.module.Model.Ennemis.Gasper;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Gaper;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Parabite;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.ParabiteBalle;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Pooter;
@@ -20,12 +20,14 @@ import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossCollectionneur;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossFinal;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossSatan;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossShoot;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossWave;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Carte;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
@@ -46,8 +48,14 @@ public class Room {
 	 */
 	private Carte carte;
 	
+	/**
+	 * Boolean qui indique si la pièce est une salle de Boss
+	 */
 	private boolean isBossRoom;
 	
+	/**
+	 * Boolean qui indique si la pièce est une salle de Shop
+	 */
 	private boolean isShopRoom;
 	
 	/*
@@ -77,8 +85,8 @@ public class Room {
 				case 1: getListeEnnemi().addEnnemi(new Fly(25, 25, v,"src/main/resources/fly.png", player.getSpeed()/8));break;
 				case 2: getListeEnnemi().addEnnemi(new Spider(25, 25,  v,"src/main/resources/Spider.png", 11.7));break;
 				case 3: getListeEnnemi().addEnnemi(new Boss(75, 75,  v,"", 2));break;
-				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*3, "src/main/resources/Dart_Fly.png"));break;
-				case 5: getListeEnnemi().addEnnemi(new Gasper(25, 25,  v,player.getSpeed()/8, "src/main/resources/Gaper.png"));break;
+				case 4: getListeEnnemi().addEnnemi(new Sprinter(25, 25,  v,player.getSpeed()*2, "src/main/resources/Dart_Fly.png"));break;
+				case 5: getListeEnnemi().addEnnemi(new Gaper(25, 25,  v,player.getSpeed()*0.7, "src/main/resources/Gaper.png"));break;
 				case 6: getListeEnnemi().addEnnemi(new Pooter(25, 25, v, "src/main/resources/pooter.png", player.getSpeed()/8));break;
 				case 7: getListeEnnemi().addEnnemi(new ParabiteBalle(25, 25, v, 12, "src/main/resources/parabiteballe.png"));break;
 				case 8: getListeEnnemi().addEnnemi(new Parabite(25, 25, v, 12, "src/main/resources/parabite.png"));break;
@@ -88,6 +96,7 @@ public class Room {
 				case 12: getListeEnnemi().addEnnemi(new BossCollectionneur(75, 75, v, 10, "src/main/resources/bossCollectionneur.png"));break;
 				case 13: getListeEnnemi().addEnnemi(new Essaim(25, 25, v,player.getSpeed()/8, "src/main/resources/flyCircle.png"));break;
 				case 14: getListeEnnemi().addEnnemi(new BossFinal(25, 25, v,player.getSpeed()/8, "src/main/resources/bossFinal.png"));break;
+				case 15: getListeEnnemi().addEnnemi(new BossSatan(75, 100, v,player.getSpeed()/8, "src/main/resources/megasatan.png"));break;
 			}
 		}
 	}
@@ -160,9 +169,9 @@ public class Room {
 	public void drawRoom() {	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		carte.drawMap();
-		if(Jeu.gameWorld.getEtageCoos().equals(new Vector2(4, 4))) {
+		if(Jeu.gameWorld.getEtageCoos().equals(new Vector2(4, 4)) && Jeu.gameWorld.getFloor() == 0) {
 			Texture.spawnDraw.bind();
-			Render.getInstance().drawPicture(100, 250, (int)(Texture.spawnDraw.getWidth()*1.3), (int)(Texture.spawnDraw.getHeight()*1.3));
+			Render.getInstance().drawPicture(200, 250, (int)(Texture.spawnDraw.getWidth()*1.3), (int)(Texture.spawnDraw.getHeight()*1.3));
 			Texture.spawnDraw.unbind();	
 		}
 		Input.getInstance().drawBalle();
@@ -172,7 +181,6 @@ public class Room {
 		Texture.shaderRoom.bind();
 		Render.getInstance().drawPicture(0, 0, Fenetre.WidthFenetre, Fenetre.HeigthFenetre);
 		Texture.shaderRoom.unbind(); 
-		//GL11.glColor4f(1f, 1f, 1f, 1f);
 		drawItems();
 		this.getPlayer().getLife().drawBarDeVie();
 		drawPlayerItems();
@@ -188,7 +196,6 @@ public class Room {
 		ObjetsInventaire key = new ObjetsInventaire(13, 10, 10, new Vector2(20, 470), "");
 		key.drawEntite();
 		Render.getInstance().drawText(55, 475, player.getKey()+"");
-	//	Render.getInstance().drawText(15, 490, "x"+player.getMultiplicator());
 		Bombe b = new Bombe(-3, 20, 20, new Vector2(12, 430),"src/main/resources/Bomb.png");
 		b.drawEntite();
 		Render.getInstance().drawText(55, 435, player.getInv().getNbBombe()+"");

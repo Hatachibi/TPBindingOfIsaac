@@ -5,10 +5,6 @@ import static org.lwjgl.opengl.GL11.glEnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
-
-import com.projetpo.bindingofisaac.module.Model.GameWorld;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.MapObject;
 import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
@@ -286,7 +282,6 @@ public class Carte {
 	public void generateRenderMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
-				mapobject[i][j].setOverlayMap(new Random().nextInt(20));
 				if(i==0 && j==0) mapobject[i][j].setRenderMap(4);
 				else if(i==0 && j==mapobject.length-1) mapobject[i][j].setRenderMap(1);
 				else if(i==mapobject.length-1 && j==mapobject.length-1) mapobject[i][j].setRenderMap(2);
@@ -454,47 +449,22 @@ public class Carte {
 		for(int k=0; k<getObjet().size(); k++) {
 			getObjet().get(k).drawEntite();
 			if(Jeu.gameWorld.getMapEnCours().isShopRoom()) {
-				Render.getInstance().drawText((float) 130*(k+1), (float) 265, this.getObjet().get(k).getPrice() + "$");
+				Render.getInstance().drawText((float) 130*(k+1) + 100, (float) 265, this.getObjet().get(k).getPrice() + "$");
 			}
 		}
 	}
-	
-	public void addOverlay(int random, int i, int j) {
-		switch(random) {
-		case 1:
-			Texture.overlay1.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE);
-			Texture.overlay1.unbind();	
-			break;
-		case 2:
-			Texture.overlay2.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
-			Texture.overlay2.unbind();
-		break;
-		case 3:
-			Texture.overlay3.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
-			Texture.overlay3.unbind();
-		break;
-		case 4:
-			Texture.overlay4.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
-			Texture.overlay4.unbind();
-		break;
-		case 5:
-			Texture.overlay5.bind();
-			Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
-			Texture.overlay5.unbind();
-			break;
-		}
-	}
-	
+		
 	/**
 	 * @return Dessine la Map
 	 */
 	public void drawMap() {
 		for(int i=0; i<mapobject.length; i++) {
 			for(int j=0; j<mapobject[i].length; j++) {
+				if(Jeu.gameWorld.getMapEnCours().getcarte().getRenderMap()[i][j] == 11 && Fenetre.tick < 30) {
+	    			Jeu.gameWorld.getMapEnCours().getcarte().setRenderMap(i, j, -10);
+	    		} else if(Jeu.gameWorld.getMapEnCours().getcarte().getRenderMap()[i][j] == -10 && Fenetre.tick > 30){
+	    			Jeu.gameWorld.getMapEnCours().getcarte().setRenderMap(i, j, 11);
+	    		}
 				if(mapobject[i][j].getRenderMap()==1) {
 					Texture.coinHG.bind();
 				} else if(mapobject[i][j].getRenderMap()==2) {
@@ -585,6 +555,12 @@ public class Carte {
 					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
 					Texture.emptyCell.unbind();
 					Texture.trapdoor.bind();
+				}
+				else if(mapobject[i][j].getRenderMap()==-10) {
+					Texture.emptyCell.bind();
+					Render.getInstance().drawPicture(i*RoomInfos.TAILLE_CARRE, j*RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE, RoomInfos.TAILLE_CARRE );
+					Texture.emptyCell.unbind();
+					Texture.spikesEmpty.bind();
 				}
 				else if(mapobject[i][j].getRenderMap()==11) 
 				{
@@ -709,9 +685,6 @@ public class Carte {
 				Texture.spikes.unbind();
 				Texture.emptyCell.unbind();
 				Texture.trapdoor.unbind();
-				if(mapobject[i][j].getRenderMap() >=1 && mapobject[i][j].getRenderMap() <= 8) {
-					this.addOverlay(mapobject[i][j].getOverlayMap(), i, j);
-				}
 			}
 		}
 		

@@ -113,6 +113,7 @@ public class Texture {
     public static Texture right_openBossDoor = loadTexture("src/main/resources/right_opened_bossdoor.png");
     public static Texture left_openBossDoor = loadTexture("src/main/resources/left_opened_bossdoor.png");
     public static Texture spikes = loadTexture("src/main/resources/Spikes.png");
+    public static Texture spikesEmpty = loadTexture("src/main/resources/SpikesEmpty.png");
     public static Texture heart = loadTexture("src/main/resources/HUD_heart_red_full.png");
     public static Texture halfHeart = loadTexture("src/main/resources/HUD_heart_red_half.png");
     public static Texture emptyHeart = loadTexture("src/main/resources/HUD_heart_red_empty.png");
@@ -122,6 +123,8 @@ public class Texture {
     public static Texture halo = loadTexture("src/main/resources/halo.png");  
     public static Texture boss1 = loadTexture("src/main/resources/boss1.png");
     public static Texture boss2 = loadTexture("src/main/resources/boss2.png");
+    public static Texture megasatan = loadTexture("src/main/resources/megasatan.png");
+    public static Texture bossFinal = loadTexture("src/main/resources/bossFinal.png");
     public static Texture right = loadTexture("src/main/resources/right.png");
     public static Texture top_bot_isaac = loadTexture("src/main/resources/top_bot_isaac.png");
     public static Texture bas = loadTexture("src/main/resources/bas.png");

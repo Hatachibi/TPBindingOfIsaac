@@ -1,15 +1,19 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
+import java.io.IOException;
 import java.util.LinkedList;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
 import com.projetpo.bindingofisaac.module.Model.Animation;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class Pooter extends Ennemi{
 		
@@ -61,6 +65,11 @@ public class Pooter extends Ennemi{
 			this.goToRandom(Fenetre.getInstance().getFPS()/2, Fenetre.getInstance().getFPS()/2);
 		} else {
 			if(tick > Fenetre.getInstance().getFPS()/2) {
+				try {
+					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/ennemi_shot.wav", false);
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+					e.printStackTrace();
+				} 
 				Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 				Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
 				munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));

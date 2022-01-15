@@ -1,11 +1,17 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import com.projetpo.bindingofisaac.module.Controler.ListeBalle;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class ParabiteBalle extends Ennemi {
 	
@@ -29,7 +35,7 @@ public class ParabiteBalle extends Ennemi {
 	 */
 	public ParabiteBalle(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
-		this.setLife(25);
+		this.setLife(15);
 		this.setDegat(2);
 		this.munitions = new ListeBalle();
 		this.munitions.setDegats(1);
@@ -54,6 +60,11 @@ public class ParabiteBalle extends Ennemi {
 		} else if(tick == random + Fenetre.getInstance().getFPS()/3) {
 			setPosition(this.getDirection());
 		} else if (tick == random + Fenetre.getInstance().getFPS()/2) {
+			try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/parabiteBalle_scream.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
 			this.four[0] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(1, 0), "src/main/resources/enemybullets.png", 1);
 			this.four[1] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(0, 1), "src/main/resources/enemybullets.png", 1);
 			this.four[2] = new Balle(this.width, this.heigth, this.position.getX(), this.position.getY(), new Vector2(-1, 0), "src/main/resources/enemybullets.png", 1);

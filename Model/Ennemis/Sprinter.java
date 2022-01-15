@@ -37,18 +37,21 @@ public class Sprinter extends Ennemi {
 			directionSauv = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
 			tick ++;
 		} else if(tick < Fenetre.getInstance().getFPS()*1.5 + Fenetre.getInstance().getFPS()/3) {
-			if(position.getX() > 65 && position.getX() < Fenetre.WidthFenetre-65-width && position.getY() > 65 && position.getY() < Fenetre.WidthFenetre-65-heigth) {
-				setDirection(directionSauv);
+				if(position.getX() < 65) {
+					setDirection(new Vector2(1, this.directionSauv.getY()));
+				} 
+				else if(position.getX() > Fenetre.WidthFenetre - 65-width) {
+					setDirection(new Vector2(-1, this.directionSauv.getY()));
+				}
+				else if(position.getY() < 65) {
+					setDirection(new Vector2(this.directionSauv.getX(), 1));
+				}
+				else if(position.getY() > Fenetre.HeigthFenetre - 65-heigth) {
+					setDirection(new Vector2(this.directionSauv.getX(), -1));
+				} else {
+					setDirection(directionSauv);
+				}
 				move();
-			} else if (position.getX() < 65){
-				position.setX(66);
-			} else if (position.getX() > Fenetre.WidthFenetre - 65 -width){
-				position.setX(Fenetre.WidthFenetre-width);
-			} else if (position.getY() < 65){
-				position.setY(66);
-			} else if (position.getY() > Fenetre.HeigthFenetre - 65 - heigth){
-				position.setY(Fenetre.HeigthFenetre - heigth);
-			}
 
 			tick ++;
 		} else {

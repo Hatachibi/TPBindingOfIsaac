@@ -1,10 +1,15 @@
 package com.projetpo.bindingofisaac.module.Model.Ennemis.Boss;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
 
@@ -14,12 +19,6 @@ public class BossCollectionneur extends Ennemi {
 	
 	private Vector2 random;
 	
-	private Vector2 ancienDir;
-	
-	private boolean reDo;
-	
-	private int coolDown;
-	
 	public BossCollectionneur(int width, int heigth, Vector2 position, double speed, String url) {
 		super(width, heigth, position, speed, url);
 		this.tick = 0;
@@ -27,9 +26,6 @@ public class BossCollectionneur extends Ennemi {
 		this.setLife(40);
 		this.setDegat(1);
 		this.random = new Vector2(1, 1);
-		this.ancienDir = new Vector2();
-	//	this.random = new Vector2();
-		this.reDo = false;
 	}
 
 	@Override
@@ -47,15 +43,17 @@ public class BossCollectionneur extends Ennemi {
 
 	@Override
 	public void IAEnnemi(Personnage p) {
-	/*	if(tick == 60 && Math.random() > 0.5) {
-			this.launchEnnemi = (int) (1+Math.random()*4);
-		} */
 		if(tick == 1) {
 			this.launchEnnemi = 0;
 		}
 		if(tick == 180) {
 			tick = 0;
 			if(Math.random() > 0.5) {
+				try {
+					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/boss_scream.wav", false);
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+					e.printStackTrace();
+				} 
 				this.launchEnnemi = (int) (1+Math.random()*4);
 			} 
 		} 

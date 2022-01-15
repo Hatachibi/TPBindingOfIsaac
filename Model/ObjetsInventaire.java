@@ -1,14 +1,11 @@
 package com.projetpo.bindingofisaac.module.Model;
 
+import com.projetpo.bindingofisaac.module.Shaders.Hitbox;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class ObjetsInventaire extends Entite{
 	
-	/**
-     * 
-     */
-    private String nom;
-
     /**
      * PASSIF
      * 
@@ -18,7 +15,7 @@ public class ObjetsInventaire extends Entite{
      * 4 - Jesus juice
      * 5 - Lunch
      * 6 - Cricket's Head
-     * 7 - Magic MushgameWorld
+     * 7 - Magic Mushgame
      * 8 - Pentagram
      * 9 - Stigmata
      * 10 - Penny    // Coin
@@ -28,8 +25,6 @@ public class ObjetsInventaire extends Entite{
      * 
      * ACTIF
      * 
-     * -1 - Mr Boom
-     * -2 - Sonar
      * -3 - Bombe
      * 
      */
@@ -142,6 +137,7 @@ public class ObjetsInventaire extends Entite{
 		break;
 		case 8:
 			joueur.setDegat(joueur.getDegat() + 1);
+			joueur.setCoin(joueur.getCoin() + 30);
 		break;
 		case 9:
 			joueur.setDegat(joueur.getDegat() + 0.3);
@@ -158,6 +154,7 @@ public class ObjetsInventaire extends Entite{
 			break;
 		case 13:
 			joueur.setKey(joueur.getKey()+1);
+			break;
 		case -3:
 			joueur.getInv().setNbBombe(joueur.getInv().getNbBombe() + 1);
 		break;

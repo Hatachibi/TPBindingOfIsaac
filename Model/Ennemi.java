@@ -2,6 +2,13 @@ package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.ArrayList;
 
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossCollectionneur;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossFinal;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossSatan;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossShoot;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossWave;
+import com.projetpo.bindingofisaac.module.Shaders.Hitbox;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
 
@@ -78,12 +85,18 @@ public abstract class Ennemi extends Entite{
 		this.direction = new Vector2(0, 0);
 		this.random = new Vector2(0, 0);
 		this.loot = new  ArrayList<ObjetsInventaire>();
-		this.getLoot().add(new ObjetsInventaire(-3, 30, 30, position, ""));
-		this.getLoot().add(new ObjetsInventaire(1, 30, 30, position, ""));
-		this.getLoot().add(new ObjetsInventaire(10, 30, 30, position, ""));
-		this.getLoot().add(new ObjetsInventaire(11, 30, 30, position, ""));
-		this.getLoot().add(new ObjetsInventaire(12, 30, 30, position, ""));
-		this.getLoot().add(new ObjetsInventaire(13, 30, 30, position, ""));
+		if(!(this instanceof Boss) && !(this instanceof BossCollectionneur) && !(this instanceof BossFinal) && !(this instanceof BossSatan) && !(this instanceof BossShoot) && !(this instanceof BossWave)) {
+			this.getLoot().add(new ObjetsInventaire(-3, 30, 30, position, ""));
+			this.getLoot().add(new ObjetsInventaire(1, 30, 30, position, ""));
+			this.getLoot().add(new ObjetsInventaire(10, 30, 30, position, ""));
+			this.getLoot().add(new ObjetsInventaire(11, 30, 30, position, ""));
+			this.getLoot().add(new ObjetsInventaire(12, 30, 30, position, ""));
+			this.getLoot().add(new ObjetsInventaire(13, 30, 30, position, ""));
+		} else {
+			for(int i=2; i<10; i++){
+				this.getLoot().add(new ObjetsInventaire(i, 30, 30, position, ""));
+			}
+		}
 	}
 	
 	/*

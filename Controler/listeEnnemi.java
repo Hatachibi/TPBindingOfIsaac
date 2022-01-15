@@ -3,19 +3,23 @@ package com.projetpo.bindingofisaac.module.Controler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.projetpo.bindingofisaac.module.Model.Ennemi;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Fly;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Spider;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Sprinter;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.Boss;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossCollectionneur;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossFinal;
+import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossSatan;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossShoot;
 import com.projetpo.bindingofisaac.module.Model.Ennemis.Boss.BossWave;
+import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class ListeEnnemi {
 
@@ -37,7 +41,12 @@ public class ListeEnnemi {
 	public void randomLoot(Ennemi e) {
 		if(!e.getLoot().isEmpty()) {
 			int randomItems = (int)(Math.random()*(e.getLoot().size()));
-			e.getLoot().get(randomItems).setPosition(e.getPosition());
+			e.getLoot().get(randomItems).setPosition(new Vector2(new Random().nextInt(11*65)+65, new Random().nextInt(11*65)+65));
+			Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
+		}
+		if(e instanceof Boss || e instanceof BossCollectionneur || e instanceof BossFinal || e instanceof BossSatan || e instanceof BossShoot || e instanceof BossWave) {
+			int randomItems = (int)(Math.random()*(e.getLoot().size()));
+			e.getLoot().get(randomItems).setPosition(new Vector2(new Random().nextInt(11*65)+65, new Random().nextInt(11*65)+65));
 			Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
 		}
 	}
@@ -49,6 +58,13 @@ public class ListeEnnemi {
 		ArrayList<Ennemi> copieListe = (ArrayList<Ennemi>) liste.clone();
 		for(Ennemi e: liste) {  //On parcours un par un les ennemis
 			if(e.doRemove(e)) {  //On les enlèves si besoin
+				if(e instanceof BossSatan) {
+					for(int i=1; i<12; i++) {
+						for(int j=1; j<8; j++) {
+							Jeu.gameWorld.getMapEnCours().getcarte().setRenderMap(i, j, 0);
+						}
+					}
+				}
 				copieListe.remove(e);
 				this.randomLoot(e);
 				playDeathSound(e);

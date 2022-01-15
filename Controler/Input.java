@@ -23,10 +23,10 @@ import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 import org.lwjgl.glfw.GLFW;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Bombe;
-import com.projetpo.bindingofisaac.module.Model.Jeu;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Fenetre;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public class Input
 {
@@ -44,11 +44,6 @@ public class Input
 
 	public Personnage getPlayerMove() {
 		return player;
-	}
-	
-	private Input()
-	{
-		
 	}
 	
 	public void deplacement()
@@ -81,13 +76,11 @@ public class Input
 	{
 		if(glfwGetKey(window, key) == GLFW_PRESS)
 		{
-	//		System.out.println("Pressed");
 			getAWSDkeys(window);
 		}
 		if(glfwGetKey(window, key) == GLFW_RELEASE)
 		{
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
-	//		System.out.println("Released");
 		}
 	}
 	
@@ -95,13 +88,11 @@ public class Input
 	{
 		if(glfwGetKey(window, key) == GLFW_PRESS)
 		{
-	//		System.out.println("Pressed");
 			getShotsKeys(window);
 		}
 		if(glfwGetKey(window, key) == GLFW_RELEASE)
 		{
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_FALSE);
-	//		System.out.println("Released");
 		}
 	}
 	
@@ -296,11 +287,6 @@ public class Input
 			shootLeft();
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
-	}
-	
-	public void init(long window)
-	{
-		
 	}
 
 	public static Input getInstance() {

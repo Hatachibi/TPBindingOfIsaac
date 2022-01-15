@@ -1,5 +1,6 @@
 package com.projetpo.bindingofisaac.module.Model;
 
+import com.projetpo.bindingofisaac.module.Shaders.Hitbox;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Render;
 import com.projetpo.bindingofisaac.module.Vue.Texture;
@@ -31,6 +32,9 @@ public class Entite {
 	 */
 	protected String url;
 	
+	/*
+	 * Affiche la Hitbox de toute les entités utilisant la méthode drawEntité
+	 */
 	public static boolean showEntiteHitbox = false;
 	
 	/*
