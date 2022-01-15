@@ -1,12 +1,28 @@
 package com.projetpo.bindingofisaac.module.Vue;
 
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
+import static org.lwjgl.opengl.GL11.GL_RGBA8;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glDeleteTextures;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
+import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
+import static org.lwjgl.stb.STBImage.stbi_failure_reason;
+import static org.lwjgl.stb.STBImage.stbi_load;
+import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
+
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import org.lwjgl.system.MemoryStack;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
-import static org.lwjgl.stb.STBImage.*;
+import org.lwjgl.system.MemoryStack;
 
 /**
  * This class represents a texture.
@@ -40,7 +56,7 @@ public class Texture {
     public static Texture animationCote7Isaac = loadTexture("src/main/resources/animationCote7Isaac.png");
     public static Texture animationCote8Isaac = loadTexture("src/main/resources/animationCote8Isaac.png");
     public static Texture animationCote9Isaac = loadTexture("src/main/resources/animationCote9Isaac.png");
-    public static Texture animationCote10Isaac = loadTexture("src/main/resources/animationCote10Isaac.png");
+    public static Texture animationCote10Isaac = loadTexture("src/main/resources/animationCote10Isaac.png"); 
     public static Texture animation2Isaac = loadTexture("src/main/resources/animation2Isaac.png");
     public static Texture animation3Isaac = loadTexture("src/main/resources/animation3Isaac.png");
     public static Texture animation4Isaac = loadTexture("src/main/resources/animation4Isaac.png");
@@ -80,6 +96,10 @@ public class Texture {
     public static Texture closeDoor_down = loadTexture("src/main/resources/closed_door_down.png");
     public static Texture closeDoor_right = loadTexture("src/main/resources/closed_door_right.png");
     public static Texture closeDoor_left = loadTexture("src/main/resources/closed_door_left.png");
+    public static Texture lockedcloseDoor_up = loadTexture("src/main/resources/closed_lockeddoor_up.png");
+    public static Texture lockedcloseDoor_down = loadTexture("src/main/resources/closed_lockeddoor_down.png");
+    public static Texture lockedcloseDoor_right = loadTexture("src/main/resources/closed_lockeddoor_right.png");
+    public static Texture lockedcloseDoor_left = loadTexture("src/main/resources/closed_lockeddoor_left.png");
     public static Texture top_openDoor = loadTexture("src/main/resources/top_opened_door.png");
     public static Texture bot_openDoor = loadTexture("src/main/resources/bot_opened_door.png");
     public static Texture right_openDoor = loadTexture("src/main/resources/right_opened_door.png");
@@ -131,8 +151,8 @@ public class Texture {
     public static Texture overlay4 = loadTexture("src/main/resources/overlay4.png");
     public static Texture overlay5 = loadTexture("src/main/resources/overlay5.png");
     public static Texture bdvBoss = loadTexture("src/main/resources/bdvBoss.png");
-    public static Texture torche = loadTexture("src/main/resources/torche.png");
-    public static Texture dark = loadTexture("src/main/resources/darkRoom.png");
+    //public static Texture torche = loadTexture("src/main/resources/torche.png");
+    //public static Texture dark = loadTexture("src/main/resources/darkRoom.png");
     public static Texture emptyCell = loadTexture("src/main/resources/emptyCell.png");  
 
     public Texture() {

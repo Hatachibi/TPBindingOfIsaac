@@ -1,4 +1,4 @@
-package com.projetpo.bindingofisaac.module.Model.Ennemis;
+    package com.projetpo.bindingofisaac.module.Model.Ennemis;
 
 import java.io.IOException;
 

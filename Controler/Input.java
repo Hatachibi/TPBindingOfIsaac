@@ -35,7 +35,7 @@ public class Input
     public Personnage player = Jeu.gameWorld.getPlayer();
 	
 	private final int[] listeInput = {GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_I, GLFW.GLFW_KEY_L, GLFW.GLFW_KEY_K, GLFW.GLFW_KEY_P,GLFW.GLFW_KEY_O,
-			GLFW.GLFW_KEY_E,GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT};
+			GLFW.GLFW_KEY_E,GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_SPACE, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT, GLFW.GLFW_KEY_N};
 	
 	public void drawBalle() 
 	{
@@ -263,6 +263,12 @@ public class Input
 		if(glfwGetKey(window, GLFW.GLFW_KEY_E) == GLFW.GLFW_PRESS)
 		{
 			poseBombe();
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
+		}
+		if(glfwGetKey(window, GLFW.GLFW_KEY_N) == GLFW.GLFW_PRESS)
+		{
+			player.setKey(player.getKey()+1);
+			System.out.println(player.getKey());
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 

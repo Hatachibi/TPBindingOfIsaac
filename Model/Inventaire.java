@@ -11,6 +11,8 @@ public class Inventaire {
 	 * Nombre de bombe du joueur
 	 */
 	private int nbBombe;
+	
+	private int nbClef;
 
 	/*
 	 * Constructeur
@@ -40,6 +42,14 @@ public class Inventaire {
 
 	public void setNbBombe(int nbBombe) {
 		this.nbBombe = nbBombe;
+	}
+
+	public int getNbClef() {
+		return nbClef;
+	}
+
+	public void setNbClef(int nbClef) {
+		this.nbClef = nbClef;
 	}
 
 }
