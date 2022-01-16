@@ -524,7 +524,7 @@ public class Carte {
 	}
 		
 	/**
-	 * @return Dessine la Map
+	 * Dessine la Map
 	 */
 	public void drawMap() {
 		for(int i=0; i<mapobject.length; i++) {
