@@ -102,6 +102,14 @@ public abstract class GenerateFloor {
 			int direction = new Random().nextInt(5);
 			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux),new Random().nextInt(nbMaxSpikes), new Random().nextInt(nbMaxEnnemis)+1, false);
 			int aleaRetourBase = new Random().nextInt(4);
+			if(dernierX==9)
+			{
+				dernierX = (RoomInfos.NB_TILES-1)/2;
+			}
+			if(dernierY == 9)
+			{
+				dernierY = (RoomInfos.NB_TILES-1)/2;
+			}
 			if(aleaRetourBase == 3)
 			{
 				dernierX = (RoomInfos.NB_TILES-1)/2;
@@ -119,7 +127,7 @@ public abstract class GenerateFloor {
 			{
 				c = secretMap();
 			}
-			if(etage[dernierX][dernierY] != null && etage[dernierX][dernierY].isNormalRoom())
+			if(dernierX != 9 && dernierY != 9 && etage[dernierX][dernierY] != null && etage[dernierX][dernierY].isNormalRoom())
 			{
 				switch(direction) 
 				{
