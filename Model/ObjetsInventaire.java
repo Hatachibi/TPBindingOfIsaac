@@ -30,6 +30,9 @@ public class ObjetsInventaire extends Entite{
      * 11 - Nickel   // Coin
      * 12 - Dime     // Coin
      * 13 - key
+     * 14 - Blue-Heart
+     * 15 - Semi-Blue-Heart
+     * 16 - Black-Heart
      * 
      * ACTIF
      * 
@@ -86,6 +89,9 @@ public class ObjetsInventaire extends Entite{
 			case 11:this.url = "src/main/resources/Nickel.png"; break;
 			case 12:this.url = "src/main/resources/Dime.png"; break;
 			case 13: this.url = "src/main/resources/Key.png"; break;
+			case 14: this.url = "src/main/resources/blueHeart.png"; break;
+			case 15: this.url = "src/main/resources/Half_blue_Heart.png"; break;
+			case 16: this.url = "src/main/resources/Black_Heart.png"; break;
 			case -1:
 				this.price = 15;
 				this.url = "src/main/resources/Mr_Boom.png"; break;
@@ -114,16 +120,22 @@ public class ObjetsInventaire extends Entite{
 		Personnage joueur = Jeu.gameWorld.getPlayer();
 		switch(id){
 		case 1:
-			if(bdv.getVieEnCours() < bdv.getViePleine()) {
-				bdv.setVieEnCours(bdv.getVieEnCours() + 1);
+			if(bdv.getViePleine() <= 9) {
+				if(bdv.getVieEnCours() < bdv.getViePleine()) {
+					bdv.setVieEnCours(bdv.getVieEnCours() + 1);
+				}
 			}
 		break;
 		case 2:
-			bdv.setViePleine(bdv.getViePleine() + 2);
-			bdv.setVieEnCours(bdv.getViePleine());
+			if(bdv.getViePleine() <= 8) {
+				bdv.setViePleine(bdv.getViePleine() + 2);
+				bdv.setVieEnCours(bdv.getViePleine());
+			}
 		break;
 		case 3:
-			joueur.setDegat(joueur.getDegat() + 1);
+			if(bdv.getViePleine() <= 9) {
+				joueur.setDegat(joueur.getDegat() + 1);
+			}
 		break;
 		case 4:
 			joueur.setDegat(joueur.getDegat() + 0.5);
@@ -167,6 +179,21 @@ public class ObjetsInventaire extends Entite{
 			break;
 		case 13:
 			joueur.setKey(joueur.getKey()+1);
+			break;
+		case 14:
+			if(bdv.getBlueHeart() <= 4) {
+				bdv.setBlueHeart(bdv.getBlueHeart() + 2);
+			}
+			break;
+		case 15:
+			if(bdv.getBlueHeart() <= 5) {
+				bdv.setBlueHeart(bdv.getBlueHeart() + 1);
+			}
+			break;
+		case 16:
+			if(bdv.getBlackHeart() <= 2) {
+				bdv.setBlackHeart(bdv.getBlackHeart() + 2);
+			}
 			break;
 		case -3:
 			joueur.getInv().setNbBombe(joueur.getInv().getNbBombe() + 1);

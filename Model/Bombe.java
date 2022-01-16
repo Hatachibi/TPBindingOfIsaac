@@ -74,7 +74,7 @@ public class Bombe extends ObjetsInventaire {
 		heigth = heigth + (range*65);
 		for(int i=x-range; i<x+range; i++) {
 			for(int j=y-range; j<y+range; j++) {
-				if(i>=0 && i<9 && j>=0 && j<9) {
+				if(i>=0 && i<12 && j>=0 && j<9) {
 					if(Jeu.gameWorld.getMapEnCours().getcarte().getRenderMap()[i][j] == 9) {
 						Jeu.gameWorld.getMapEnCours().getcarte().setRenderMap(i, j, 0);
 						Jeu.gameWorld.getMapEnCours().getcarte().generateCollisionMap();

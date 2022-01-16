@@ -82,6 +82,9 @@ public class Texture {
     public static Texture leftArrow = loadTexture("src/main/resources/leftArrow.png");
     public static Texture rightArrow = loadTexture("src/main/resources/rightArrow.png");
     public static Texture Isaac = loadTexture("src/main/resources/Isaac.png");
+    public static Texture blueHeart = loadTexture("src/main/resources/HUD_heart_blue_full.png");
+    public static Texture halfBlueHeart = loadTexture("src/main/resources/HUD_heart_blue_half.png");
+    public static Texture blackHeart = loadTexture("src/main/resources/HUD_heart_black_full.png");
     public static Texture tears = loadTexture("src/main/resources/tear.png");
     public static Texture coinBG = loadTexture("src/main/resources/coinBG.png");
     public static Texture coinBD = loadTexture("src/main/resources/coinBD.png");
