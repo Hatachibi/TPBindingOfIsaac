@@ -272,7 +272,6 @@ public class Input
 		if(glfwGetKey(window, GLFW.GLFW_KEY_N) == GLFW.GLFW_PRESS)
 		{
 			player.setKey(player.getKey()+1);
-			System.out.println(player.getKey());
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}
 
