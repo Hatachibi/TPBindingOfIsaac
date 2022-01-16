@@ -28,6 +28,7 @@ public class Render {
 	
 	public final static Render INSTANCE = new Render();
 	public final static int TAILLE_CARRE = 65;
+	public static float[] colorBack = new float[] {1f, 1f, 1f, 1f};
 	
 	/*
 	 * Constructeur
@@ -130,7 +131,8 @@ public class Render {
 		glVertex2f(x+width, y+heigth);
 		glVertex2f(x, y+heigth);
 		glEnd();
-		glColor4f(1f, 1f, 1f, 1f);
+	//	glColor4f(1f, 1f, 1f, 1f);
+		glColor4f(colorBack[0], colorBack[1], colorBack[2],colorBack[3]);
 	}
 			
 	/**
@@ -148,6 +150,7 @@ public class Render {
 		glTexCoord2f(1, 0); glVertex2f(x + w, y);
 		glTexCoord2f(1, 1); glVertex2f(x + w, y + h);
 		glTexCoord2f(0, 1); glVertex2f(x, y + h);
+		glColor4f(colorBack[0], colorBack[1], colorBack[2],colorBack[3]);
 		glEnd();
 	}
 	

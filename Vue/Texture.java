@@ -124,6 +124,7 @@ public class Texture {
     public static Texture boss1 = loadTexture("src/main/resources/boss1.png");
     public static Texture boss2 = loadTexture("src/main/resources/boss2.png");
     public static Texture megasatan = loadTexture("src/main/resources/megasatan.png");
+    public static Texture megasatan2 = loadTexture("src/main/resources/megasatan2.png");
     public static Texture bossFinal = loadTexture("src/main/resources/bossFinal.png");
     public static Texture right = loadTexture("src/main/resources/right.png");
     public static Texture top_bot_isaac = loadTexture("src/main/resources/top_bot_isaac.png");

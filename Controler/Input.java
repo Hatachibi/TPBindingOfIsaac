@@ -20,6 +20,12 @@ import static org.lwjgl.glfw.GLFW.GLFW_STICKY_KEYS;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
+
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import org.lwjgl.glfw.GLFW;
 import com.projetpo.bindingofisaac.module.Model.Balle;
 import com.projetpo.bindingofisaac.module.Model.Bombe;
@@ -228,6 +234,13 @@ public class Input
 		}
 		if(glfwGetKey(window, GLFW_KEY_L) == GLFW.GLFW_PRESS)
 		{
+			if(player.getSpeed() != 20) {
+				try {
+					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/speedUp.wav", true);
+				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+					e.printStackTrace();
+				} 
+			}
 			player.setSpeed(20);
 			glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 		}

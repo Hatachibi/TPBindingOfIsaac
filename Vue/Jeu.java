@@ -26,11 +26,6 @@ public class Jeu {
     {   
     	Fenetre.getInstance().init();
     	Fenetre.getInstance().create();
-    	try {
-			music("/com/projetpo/bindingofisaac/module/libMusic/basement.wav", true);
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} 
     	Fenetre.getInstance().setState(1);
     	Fenetre.getInstance().run();
     }

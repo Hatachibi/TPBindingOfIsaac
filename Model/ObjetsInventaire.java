@@ -1,8 +1,16 @@
 package com.projetpo.bindingofisaac.module.Model;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import org.lwjgl.opengl.GL11;
+
 import com.projetpo.bindingofisaac.module.Shaders.Hitbox;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
 import com.projetpo.bindingofisaac.module.Vue.Jeu;
+import com.projetpo.bindingofisaac.module.Vue.Render;
 
 public class ObjetsInventaire extends Entite{
 	
@@ -15,7 +23,7 @@ public class ObjetsInventaire extends Entite{
      * 4 - Jesus juice
      * 5 - Lunch
      * 6 - Cricket's Head
-     * 7 - Magic Mushgame
+     * 7 - Magic Mushroom
      * 8 - Pentagram
      * 9 - Stigmata
      * 10 - Penny    // Coin
@@ -134,6 +142,11 @@ public class ObjetsInventaire extends Entite{
 			joueur.getMunitions().setRange(joueur.getRange() + 1);
 			joueur.setSpeed(joueur.getSpeed() + 1);
 			joueur.setMultiplicator(1.5);
+			try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/magicDream.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
 		break;
 		case 8:
 			joueur.setDegat(joueur.getDegat() + 1);

@@ -32,7 +32,7 @@ public class BossSatan extends Ennemi{
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(10);
 		this.munitions.setDegats(1);
-		this.setLife(75);
+		this.setLife(150);
 		this.ancienSpikes = new Vector2(1, 1);
 		this.firstTime = true;
 		this.lignePhase2 = 1;
@@ -41,14 +41,19 @@ public class BossSatan extends Ennemi{
 	@Override
 	public void drawEnnemi() {
 		this.munitions.drawBalle();
-		Texture.megasatan.bind();
-		Render.getInstance().drawPicture((float)position.getX() - Texture.megasatan.getWidth()/2 + 40, (float)position.getY() - 10, Texture.megasatan.getWidth(), Texture.megasatan.getHeight());
-		Texture.megasatan.unbind();
+		if(this.getLife() > 50) {
+			Texture.megasatan.bind();
+			Render.getInstance().drawPicture((float)position.getX() - Texture.megasatan.getWidth()/2 + 40, (float)position.getY() - 10, Texture.megasatan.getWidth(), Texture.megasatan.getHeight());
+			Texture.megasatan.unbind();
+		} else {
+			Texture.megasatan2.bind();
+			Render.getInstance().drawPicture((float)position.getX() - Texture.megasatan2.getWidth()/2 + 40, (float)position.getY() - 10, Texture.megasatan2.getWidth(), Texture.megasatan2.getHeight());
+			Texture.megasatan2.unbind();
+		}
 		Texture.bdvBoss.bind();
 		Render.getInstance().drawPicture(300, 100, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
 		Texture.bdvBoss.unbind();
-		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/75), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
-	
+		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/150), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
 	}
 
 	@Override

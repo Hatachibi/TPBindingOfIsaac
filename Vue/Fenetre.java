@@ -14,6 +14,11 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import org.lwjgl.glfw.GLFWVidMode;
 
 import com.projetpo.bindingofisaac.module.Controler.Input;
@@ -119,8 +124,22 @@ public class Fenetre {
     	Render.getInstance().drawText(500, 50, FPS+"");
     	if(Input.getInstance().valid(window)) {
     			switch(playerChoice) {
-    			case 0: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(6)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Isaac"); break;
-    			case 1: Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(8)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Magdalene");break;
+    			case 0: 
+    				Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(6)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Isaac"); 
+    				try {
+    					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/basement.wav", true);
+    				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+    					e.printStackTrace();
+    				} 
+    				break;
+    			case 1: 
+    				Jeu.gameWorld.getPlayer().setLife(new BarreDeVie(8)); Jeu.gameWorld.getPlayer().setRange(5);  Jeu.gameWorld.getPlayer().setName("Magdalene");
+    				try {
+    					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/magdaleneSong.wav", true);
+    				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+    					e.printStackTrace();
+    				}
+    				break;
     		}
     		Jeu.gameWorld.initRoom(GameWorld.DEFAULT_NB_ROOMS, GameWorld.DEFAULT_NB_MAX_ROCKS, GameWorld.DEFAULT_NB_MAX_SPIKES, GameWorld.DEFAULT_NB_MAX_ENNEMIS);
     		this.setState(2);
