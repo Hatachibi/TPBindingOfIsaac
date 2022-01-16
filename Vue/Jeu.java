@@ -39,12 +39,6 @@ public class Jeu {
     {   
     	Fenetre.getInstance().init();
     	Fenetre.getInstance().create();
-    	try {
-			music("/com/projetpo/bindingofisaac/module/libMusic/wololozdesfgh.sazdefdgn", true);
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     	Fenetre.getInstance().setState(1);
     	Fenetre.getInstance().run();
     }

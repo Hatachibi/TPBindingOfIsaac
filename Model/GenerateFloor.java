@@ -69,7 +69,6 @@ public abstract class GenerateFloor {
 		{
 			int x = new Random().nextInt(455)+65;
 			int y = new Random().nextInt(455)+65;
-			//System.out.println(x+" "+y);
 			int ennemi = new Random().nextInt(13)+1;
 			if(!bossRoom)
 			{
@@ -376,6 +375,9 @@ public abstract class GenerateFloor {
 		}
 		shop.generateCollisionMap();
 		int random = (int) (1+Math.random()*9);
+		if(Math.random() > 0.5) {
+			random = (int) (15 + Math.random()*2);
+		}
 		int cpt = 0;
 		int[] tab = new int[3];
 		while (cpt != 3 || random == tab[0] || random == tab[1] || random == tab[2]) {

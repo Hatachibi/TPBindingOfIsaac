@@ -66,7 +66,6 @@ public class GameWorld {
 	}
 	
 	private void playDeathEffect(int sound) {
-		System.out.println(sound);
 		switch(sound) {
 			case 0: try {
 				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/Isaac_dies_1.wav", false);

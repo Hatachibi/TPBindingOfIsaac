@@ -114,7 +114,6 @@ public class ListeBalle {
 	}
 	
 	private void playTearEffect(int sound) {
-		System.out.println(sound);
 		switch(sound) {
 			case 0: try {
 				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/tear_fire_1.wav", false);

@@ -89,9 +89,15 @@ public class ObjetsInventaire extends Entite{
 			case 11:this.url = "src/main/resources/Nickel.png"; break;
 			case 12:this.url = "src/main/resources/Dime.png"; break;
 			case 13: this.url = "src/main/resources/Key.png"; break;
-			case 14: this.url = "src/main/resources/blueHeart.png"; break;
-			case 15: this.url = "src/main/resources/Half_blue_Heart.png"; break;
-			case 16: this.url = "src/main/resources/Black_Heart.png"; break;
+			case 14:
+				this.url = "src/main/resources/blueHeart.png";
+				this.price = 3;break;
+			case 15:
+				this.url = "src/main/resources/Half_blue_Heart.png";
+				this.price = 1;break;
+			case 16:
+				this.url = "src/main/resources/Black_Heart.png";
+				this.price = 3;break;
 			case -1:
 				this.price = 15;
 				this.url = "src/main/resources/Mr_Boom.png"; break;
