@@ -126,11 +126,11 @@ public abstract class GenerateFloor {
 					case 1:
 						if(dernierY>1)
 						{
-							while(dernierY!=0 && etage[dernierX][(dernierY-1)] != null && etage[dernierX][dernierY].isNormalRoom() == false)
+							while(dernierY!=0 && etage[dernierX][(dernierY-1)] != null)
 							{
 								dernierY--;
 							}
-							if(dernierY != 0)
+							if(dernierY != 0 && etage[dernierX][dernierY].isNormalRoom())
 							{
 								c.generateUpDoor();
 								if(c.isBossRoom())
@@ -166,11 +166,11 @@ public abstract class GenerateFloor {
 					case 2:
 						if(dernierY<8)
 						{
-							while(dernierY!=8 && etage[dernierX][(dernierY+1)] != null && etage[dernierX][dernierY].isNormalRoom() == false)
+							while(dernierY!=8 && etage[dernierX][(dernierY+1)] != null)
 							{
 								dernierY++;
 							}
-							if(dernierY != 8)
+							if(dernierY != 8 && etage[dernierX][dernierY].isNormalRoom())
 							{
 								c.generateDownDoor();
 								if(c.isBossRoom())
@@ -206,11 +206,11 @@ public abstract class GenerateFloor {
 					case 3:
 						if(dernierX>1)
 						{
-							while(dernierX!=0 && etage[(dernierX-1)][dernierY] != null && etage[dernierX][dernierY].isNormalRoom() == false)
+							while(dernierX!=0 && etage[(dernierX-1)][dernierY] != null)
 							{
 								dernierX--;
 							}
-							if(dernierX!=0)
+							if(dernierX!=0 && etage[dernierX][dernierY].isNormalRoom())
 							{
 								c.generateRightDoor();
 								if(c.isBossRoom())
@@ -246,11 +246,11 @@ public abstract class GenerateFloor {
 					case 4:
 						if(dernierX<8)
 						{
-							while(dernierX!=8 && etage[(dernierX+1)][dernierY] != null && etage[dernierX][dernierY].isNormalRoom() == false)
+							while(dernierX!=8 && etage[(dernierX+1)][dernierY] != null)
 							{
 								dernierX++;
 							}
-							if(dernierX != 8)
+							if(dernierX != 8 && etage[dernierX][dernierY].isNormalRoom())
 							{
 								c.generateLeftDoor();
 								if(c.isBossRoom())
