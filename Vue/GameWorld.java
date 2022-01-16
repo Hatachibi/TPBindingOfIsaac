@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import com.projetpo.bindingofisaac.module.Model.GenerateFloor;
 import com.projetpo.bindingofisaac.module.Model.Personnage;
 import com.projetpo.bindingofisaac.module.Model.Room;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;

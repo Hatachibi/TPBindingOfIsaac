@@ -47,13 +47,15 @@ public class Essaim extends Ennemi {
 			}
 			f.setPosition(position.addVector(new Vector2(Math.cos(f.getA()  + copieListe.indexOf(f)*2*3.14/copieListe.size())*f.getSpeed()*rayon, Math.sin(f.getA()  + copieListe.indexOf(f)*2*3.14/copieListe.size())*f.getSpeed()*
 					rayon)));
-			for(Balle b: p.getMunitions().getListe()) {
+			LinkedList<Balle> copieListeBalle = p.getMunitions().getListe();
+			for(Balle b: copieListeBalle) {
 				if(f.collisionBalle(b)) {
 					f.setLife(f.getLife() - p.getDegat());
 					f.setTouch(true);
 					p.getMunitions().getListe().remove(b);
 				}
 			}
+			p.getMunitions().setListe(copieListeBalle);
 			if(f.collisionEnnemi(p) && !p.isTouch()) {
 				p.subitDegats(f.getDegat());
 				p.setTouch(true);
