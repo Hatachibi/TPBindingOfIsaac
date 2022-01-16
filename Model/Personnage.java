@@ -150,7 +150,23 @@ public class Personnage extends Entite{
      */
     public void subitDegats(double degats) {
     	if(!isInvincible) {
-    		life.setVieEnCours((int)(life.getVieEnCours() - degats));
+    		double degatsRestant = degats;
+    		if(this.getLife().getBlackHeart() > 0) {
+    			do {
+        			degatsRestant =  degatsRestant - 1;
+        			this.getLife().setBlackHeart(this.getLife().getBlackHeart() - 2);
+        		} while (this.getLife().getBlackHeart() > 0 && degatsRestant > 0);
+    		}
+    		if(this.getLife().getBlueHeart() > 0) {
+    			do {
+        			degatsRestant =  degatsRestant - 1;
+        			this.getLife().setBlueHeart(this.getLife().getBlueHeart() - 1);
+        		} while (this.getLife().getBlueHeart() > 0 && degatsRestant > 0);
+    		}
+    		for(Ennemi e: Jeu.gameWorld.getMapEnCours().getListeEnnemi().getListe()) {
+    			e.setLife(e.getLife() - 2);
+    		}
+    		life.setVieEnCours((int)(life.getVieEnCours() - degatsRestant));
     		playHurtEffect((int)(Math.random()*3));
     	}	
     }
@@ -424,7 +440,7 @@ public class Personnage extends Entite{
     {
     	if(!this.getMunitions().isNotShot()) { //Cooldown balle
     		this.getMunitions().setCoolDown(this.getMunitions().getCoolDown()+1);
-			if(this.getMunitions().getCoolDown() == Fenetre.getInstance().getFPS()/3) {
+			if(this.getMunitions().getCoolDown() == Fenetre.getInstance().getFPS()/2) {
 				this.getMunitions().setCoolDown(0);
 				this.getMunitions().setShot(true);
 			};

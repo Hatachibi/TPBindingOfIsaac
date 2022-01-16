@@ -64,7 +64,7 @@ public class Pooter extends Ennemi{
 			this.url = "src/main/resources/animation6Pooter.png";
 			this.goToRandom(Fenetre.getInstance().getFPS()/2, Fenetre.getInstance().getFPS()/2);
 		} else {
-			if(tick > Fenetre.getInstance().getFPS()/2) {
+			if(tick == Fenetre.getInstance().getFPS()/2) {
 				try {
 					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/ennemi_shot.wav", false);
 				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
@@ -76,6 +76,9 @@ public class Pooter extends Ennemi{
 			}
 			this.url = "src/main/resources/animation5Pooter.png";
 			this.goToPlayer(p);
+		}
+		if(tick == 90) {
+			tick = 0;
 		}
 	} 
 

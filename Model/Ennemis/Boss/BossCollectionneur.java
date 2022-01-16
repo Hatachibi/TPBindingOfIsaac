@@ -23,7 +23,7 @@ public class BossCollectionneur extends Ennemi {
 		super(width, heigth, position, speed, url);
 		this.tick = 0;
 		this.launchEnnemi = 0;
-		this.setLife(40);
+		this.setLife(75);
 		this.setDegat(1);
 		this.random = new Vector2(1, 1);
 	}
@@ -34,7 +34,7 @@ public class BossCollectionneur extends Ennemi {
 		Texture.bdvBoss.bind();
 		Render.getInstance().drawPicture(300, 100, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
 		Texture.bdvBoss.unbind();
-		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/40), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
+		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/75), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
 	}
 	
 	public boolean isMur() {

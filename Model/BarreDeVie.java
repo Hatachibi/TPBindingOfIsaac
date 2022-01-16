@@ -15,12 +15,18 @@ public class BarreDeVie {
      */
     private int vieEnCours;
     
+    private int blueHeart;
+    
+    private int blackHeart;
+    
     /**
      * Constructeur
      */
     public BarreDeVie(int tailleVie) {
     	this.setViePleine(tailleVie);
     	this.setVieEnCours(tailleVie);
+    	this.blueHeart = 0;
+    	this.setBlackHeart(2);
     }
     
     /**
@@ -41,14 +47,32 @@ public class BarreDeVie {
     	}
     	Texture.halfHeart.unbind();
     	Texture.heart.unbind();
-    	int max = viePleine-vieEnCours;
-    	if(max%2==1) max = viePleine-vieEnCours-1;
-    	for(int i=0; i<max; i+=2) {
+    	for(int i=0; i<this.viePleine - this.vieEnCours - 1; i++) {
+    		if(i%2 ==  0) {
     			Texture.emptyHeart.bind();    	
     			Render.getInstance().drawPicture(x, y, 25, 25);
-        	x += 25;
+    			x += 25;
+    		}
     	}
     	Texture.emptyHeart.unbind();
+    	for(int i=0; i<blackHeart; i+=2) {
+    		Texture.blackHeart.bind();
+    		Render.getInstance().drawPicture(x, y, 25, 25);
+    		x += 25;
+    	}
+    	Texture.blackHeart.unbind();
+    	for(int i=0; i<blueHeart; i+=2) {
+    		if(i==blueHeart-1) {
+    			Texture.halfBlueHeart.bind();
+    			Render.getInstance().drawPicture(x, y, 25, 25);
+    		} else {
+    			Texture.blueHeart.bind();
+    			Render.getInstance().drawPicture(x, y, 25, 25);
+    		}
+    		x += 25;
+    	}
+    	Texture.halfBlueHeart.unbind();
+    	Texture.blueHeart.unbind();
     }
     
 	/*
@@ -68,6 +92,21 @@ public class BarreDeVie {
 
 	public void setVieEnCours(int vieEnCours) {
 		this.vieEnCours = vieEnCours;
+	}
+	public int getBlueHeart() {
+		return blueHeart;
+	}
+
+	public void setBlueHeart(int blueHeart) {
+		this.blueHeart = blueHeart;
+	}
+
+	public int getBlackHeart() {
+		return blackHeart;
+	}
+
+	public void setBlackHeart(int blackHeart) {
+		this.blackHeart = blackHeart;
 	}
 
 }

@@ -82,6 +82,9 @@ public class Texture {
     public static Texture leftArrow = loadTexture("src/main/resources/leftArrow.png");
     public static Texture rightArrow = loadTexture("src/main/resources/rightArrow.png");
     public static Texture Isaac = loadTexture("src/main/resources/Isaac.png");
+    public static Texture blueHeart = loadTexture("src/main/resources/HUD_heart_blue_full.png");
+    public static Texture halfBlueHeart = loadTexture("src/main/resources/HUD_heart_blue_half.png");
+    public static Texture blackHeart = loadTexture("src/main/resources/HUD_heart_black_full.png");
     public static Texture tears = loadTexture("src/main/resources/tear.png");
     public static Texture coinBG = loadTexture("src/main/resources/coinBG.png");
     public static Texture coinBD = loadTexture("src/main/resources/coinBD.png");
@@ -132,6 +135,7 @@ public class Texture {
     public static Texture boss1 = loadTexture("src/main/resources/boss1.png");
     public static Texture boss2 = loadTexture("src/main/resources/boss2.png");
     public static Texture megasatan = loadTexture("src/main/resources/megasatan.png");
+    public static Texture megasatan2 = loadTexture("src/main/resources/megasatan2.png");
     public static Texture bossFinal = loadTexture("src/main/resources/bossFinal.png");
     public static Texture right = loadTexture("src/main/resources/right.png");
     public static Texture top_bot_isaac = loadTexture("src/main/resources/top_bot_isaac.png");

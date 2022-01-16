@@ -46,11 +46,6 @@ public class Bomberman extends Ennemi {
 			bombList = copieListe;
 		}
 		if(tick == 0) {
-			try {
-				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/wololo.wav", false);
-			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-				e.printStackTrace();
-			}
 			Bombe b = new Bombe(-3, width, heigth, new Vector2(65 + Math.random()*(Fenetre.WidthFenetre - 130 - width), 65 + Math.random()*(Fenetre.HeigthFenetre - 130 - heigth)), "src/main/resources/bomb.png");
 			b.setBombEnnemi(true);
 			b.setRange(1);
@@ -58,7 +53,12 @@ public class Bomberman extends Ennemi {
 			this.bombList.add(b);
 		}
 		tick ++;
-		if(tick == Fenetre.getInstance().getFPS()) {
+		if(tick == 2*Fenetre.getInstance().getFPS()) {
+			try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/wololo.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
 			tick = 0;
 		}
 	}

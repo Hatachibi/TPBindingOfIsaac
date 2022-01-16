@@ -52,8 +52,9 @@ public class Essaim extends Ennemi {
 				if(f.collisionBalle(b)) {
 					f.setLife(f.getLife() - p.getDegat());
 					f.setTouch(true);
-					p.getMunitions().getListe().remove(b);
+					copieListeBalle.remove(b);
 				}
+				p.getMunitions().setListe(copieListeBalle);
 			}
 			p.getMunitions().setListe(copieListeBalle);
 			if(f.collisionEnnemi(p) && !p.isTouch()) {

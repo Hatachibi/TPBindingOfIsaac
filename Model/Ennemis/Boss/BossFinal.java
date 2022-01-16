@@ -33,7 +33,7 @@ private LinkedList<Fly> flyList;
 		this.munitions.setEnnemiBalle(true);
 		this.munitions.setRange(20);
 		this.flyList = new LinkedList<Fly>();
-		this.setLife(75);
+		this.setLife(200);
 		this.setDegat(3);
 		for(int i=0; i<7; i++) {
 			Fly f = new Fly(25, 25, new Vector2(position.getX(), position.getY()), "src/main/resources/bossFinalHands.png", speed);
@@ -58,7 +58,7 @@ private LinkedList<Fly> flyList;
 		Texture.bdvBoss.bind();
 		Render.getInstance().drawPicture(300, 100, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
 		Texture.bdvBoss.unbind();
-		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/75), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
+		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/200), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
 	
 	}
 
