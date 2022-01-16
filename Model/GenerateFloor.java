@@ -1,12 +1,11 @@
-package com.projetpo.bindingofisaac.module.Vue;
+package com.projetpo.bindingofisaac.module.Model;
 
 import java.util.Random;
 
-import com.projetpo.bindingofisaac.module.Model.ObjetsInventaire;
-import com.projetpo.bindingofisaac.module.Model.Personnage;
-import com.projetpo.bindingofisaac.module.Model.Room;
 import com.projetpo.bindingofisaac.module.Ressource.RoomInfos;
 import com.projetpo.bindingofisaac.module.Shaders.Vector2;
+import com.projetpo.bindingofisaac.module.Vue.Carte;
+import com.projetpo.bindingofisaac.module.Vue.Jeu;
 
 public abstract class GenerateFloor {
 	
@@ -117,7 +116,7 @@ public abstract class GenerateFloor {
 			{
 				c = bossMap();
 			}
-			if(etage[dernierX][dernierY] != null && !etage[dernierX][dernierY].isBossRoom() && !etage[dernierX][dernierY].isShopRoom())
+			if(etage[dernierX][dernierY] != null && etage[dernierX][dernierY].isShopRoom() != true && etage[dernierX][dernierY].isBossRoom() != true)
 			{
 				switch(direction) 
 				{
@@ -271,6 +270,21 @@ public abstract class GenerateFloor {
 		
 		return etage;
 	}
+
+	public static Carte generateRandomObstacle(Carte c, int nbObstacle)
+	{
+		for(int i = 0; i<nbObstacle; i++)
+		{
+			int x;
+			int y;
+			do {
+				x = new Random().nextInt(11)+1;
+				y = new Random().nextInt(6)+1;
+			}while((x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==1) || (x==RoomInfos.NB_HEIGHT_TILES-2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) || (x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-2) || (x==1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2));
+			c.setRenderMap(x, y, 9);
+		}
+		return c;
+	}
 	
 	private static Carte bossMap() {
 		Carte bossMap = new Carte(1);
@@ -300,7 +314,10 @@ public abstract class GenerateFloor {
 			case 4: bossMap.addEnnemi(6*65, 4*65, 15); break;
 			case 5: bossMap.addEnnemi(6*65, 4*65, 14); break;
 		}
-		bossMap.generateRandomObstacle(2);
+		if(Jeu.gameWorld.getFloor() != 4)
+		{
+			bossMap = generateRandomObstacle(bossMap, 4+Jeu.gameWorld.getFloor());
+		}
 		bossMap.generateCollisionMap();
 		return bossMap;
 	}

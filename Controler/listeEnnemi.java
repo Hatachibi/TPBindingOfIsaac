@@ -39,17 +39,17 @@ public class ListeEnnemi {
 	 * Distribue le loot de l'ennemi
 	 */
 	public void randomLoot(Ennemi e) {
-		if(!e.getLoot().isEmpty()) {
-			int randomItems = (int)(Math.random()*(e.getLoot().size()));
-			e.getLoot().get(randomItems).setPosition(e.getPosition());
-			Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
-		}
-		if(e instanceof Boss || e instanceof BossCollectionneur || e instanceof BossFinal || e instanceof BossSatan || e instanceof BossShoot || e instanceof BossWave) {
-			int randomItems = (int)(Math.random()*(e.getLoot().size()));
-			e.getLoot().get(randomItems).setPosition(new Vector2(new Random().nextInt(11*65)+65, new Random().nextInt(6*65)+65));
-			Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
-		}
-	}
+        if(!e.getLoot().isEmpty()) {
+            int randomItems = (int)(Math.random()*(e.getLoot().size()));
+            e.getLoot().get(randomItems).setPosition(e.getPosition());
+            Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
+        }
+        if(e instanceof Boss || e instanceof BossCollectionneur || e instanceof BossFinal || e instanceof BossSatan || e instanceof BossShoot || e instanceof BossWave) {
+            int randomItems = (int)(Math.random()*(e.getLoot().size()));
+            e.getLoot().get(randomItems).setPosition(new Vector2(new Random().nextInt(11*65)+65, new Random().nextInt(6*65)+65));
+            Jeu.gameWorld.getMapEnCours().getcarte().getObjet().add(e.getLoot().get(randomItems));
+        }
+    }
 	
 	/**
 	 * @return Update tous les ennemis

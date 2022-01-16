@@ -88,59 +88,68 @@ public class Carte {
 	}
 	
 	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void unlocklockeddoors(int x, int y)
+	{
+		
+		if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-2 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty() && this.getRenderMap()[x][y+1] == 20)
+		{
+			this.setRenderMap(x, y+1, -1);
+			this.generateCollisionMap();
+			Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
+		}
+		if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==1 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty() && this.getRenderMap()[x][y-1] == 21)
+		{
+			this.setRenderMap(x, y-1, -2);
+			this.generateCollisionMap();
+			Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
+		}
+		if(x==RoomInfos.NB_HEIGHT_TILES-2 && y==(RoomInfos.NB_WIDTH_TILES - 1)/2 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty() && this.getRenderMap()[x+1][y] == 22)
+		{
+			this.setRenderMap(x+1, y, -3);
+			this.generateCollisionMap();
+			Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
+		}
+		if(x==1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty() && this.getRenderMap()[x-1][y] == 23)
+		{
+			this.setRenderMap(x-1, y, -4);
+			this.generateCollisionMap();
+			Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
+		}
+	}
+	
+	/**
 	 * Change de Map quand le joueur passe dans une porte
 	 */
 	public void changeMap() {
 		int x = (int) ((Jeu.gameWorld.getPlayer().getPosition().getX())/65);
 		int y = (int) ((Jeu.gameWorld.getPlayer().getPosition().getY())/65);
-		if(getRenderMap()[x][y] < 0 || getRenderMap()[x][y+1] == 20 ||  getRenderMap()[x][y-1] == 21 || getRenderMap()[x+1][y] == 22 || getRenderMap()[x-1][y] == 23) {
+		unlocklockeddoors(x,y);
+		if(getRenderMap()[x][y] < 0) {
 			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-1) {
 				Jeu.gameWorld.getPlayer().getPosition().setY(65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() + 1)]);
 				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() + 1);
 			}
-			else if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-2 && this.getRenderMap()[x][y+1] == 20 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty())
-			{
-				this.setRenderMap(x, y+1, -1);
-				this.generateCollisionMap();
-				Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
-			}
-			
 			if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==0) {
-				Jeu.gameWorld.getPlayer().getPosition().setY(520);
+				Jeu.gameWorld.getPlayer().getPosition().setY(Fenetre.HeigthFenetre-65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX()][(int) (Jeu.gameWorld.getEtageCoos().getY() - 1)]);
 				Jeu.gameWorld.getEtageCoos().setY(Jeu.gameWorld.getEtageCoos().getY() - 1);
 			}
-			else if(x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==1 && this.getRenderMap()[x][y-1] == 21 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty())
-			{
-				this.setRenderMap(x, y-1, -2);
-				this.generateCollisionMap();
-				Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
-			}
-				
 			if(x==RoomInfos.NB_HEIGHT_TILES-1 && y==(RoomInfos.NB_WIDTH_TILES - 1)/2) {
 				Jeu.gameWorld.getPlayer().getPosition().setX(65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() - 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() - 1);
 			}
-			else if(x==RoomInfos.NB_HEIGHT_TILES-2 && y==(RoomInfos.NB_WIDTH_TILES - 1)/2 && this.getRenderMap()[x+1][y] == 22 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty())
-			{
-				this.setRenderMap(x+1, y, -3);
-				this.generateCollisionMap();
-				Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
-			}
-				
 			if(x==0 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) {
-				Jeu.gameWorld.getPlayer().getPosition().setX(520);
+				Jeu.gameWorld.getPlayer().getPosition().setX(Fenetre.WidthFenetre-65);
 				Jeu.gameWorld.setMapEnCours(Jeu.gameWorld.getEtage()[(int) Jeu.gameWorld.getEtageCoos().getX() + 1][(int) (Jeu.gameWorld.getEtageCoos().getY())]);
 				Jeu.gameWorld.getEtageCoos().setX(Jeu.gameWorld.getEtageCoos().getX() + 1);
 			}
-			else if(x==1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2 && this.getRenderMap()[x-1][y] == 23 && Jeu.gameWorld.getPlayer().getKey() > 0 && Jeu.gameWorld.getMapEnCours().getListeEnnemi().isEmpty())
-			{
-				this.setRenderMap(x-1, y, -4);
-				this.generateCollisionMap();
-				Jeu.gameWorld.getPlayer().setKey(Jeu.gameWorld.getPlayer().getKey()-1);
-			}
+			
 		}
 	}
 	
