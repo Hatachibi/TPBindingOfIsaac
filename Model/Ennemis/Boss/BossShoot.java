@@ -39,9 +39,9 @@ public class BossShoot extends Ennemi{
 		this.munitions.drawBalle();
 		this.drawEntite();
 		Texture.bdvBoss.bind();
-		Render.getInstance().drawPicture(300, 100, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
+		Render.getInstance().drawPicture(300, 20, Texture.bdvBoss.getWidth()*2, Texture.bdvBoss.getHeight()*2);
 		Texture.bdvBoss.unbind();
-		Render.getInstance().drawSquare(340, 105, (float) (this.getLife()*215/75), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
+		Render.getInstance().drawSquare(340, 25, (float) (this.getLife()*215/75), (float) ((float)Texture.bdvBoss.getHeight()), new float[] {1f, 0f, 0f, 1f});
 	}
 
 	@Override
@@ -72,7 +72,6 @@ public class BossShoot extends Ennemi{
 		if(this.getLife() < 25){
 			this.phase = 2;
 		}
-		System.out.println(Fenetre.getInstance().getFPS());
 		if(tick == Fenetre.getInstance().getFPS()*3) {
 			tick = 0;
 		}

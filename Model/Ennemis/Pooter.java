@@ -60,23 +60,19 @@ public class Pooter extends Ennemi{
 	@Override
 	public void IAEnnemi(Personnage p) {
 		munitions.update();
-		if(Math.random() > 0.5) {
-			this.url = "src/main/resources/animation6Pooter.png";
-			this.goToRandom(Fenetre.getInstance().getFPS()/2, Fenetre.getInstance().getFPS()/2);
-		} else {
-			if(tick == Fenetre.getInstance().getFPS()/2) {
-				try {
-					Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/ennemi_shot.wav", false);
-				} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-					e.printStackTrace();
-				} 
-				Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
-				Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
-				munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));
-			}
-			this.url = "src/main/resources/animation5Pooter.png";
-			this.goToPlayer(p);
+		this.url = "src/main/resources/animation6Pooter.png";
+		this.goToRandom(Fenetre.getInstance().getFPS()/2, Fenetre.getInstance().getFPS()/2);
+		if(tick == Fenetre.getInstance().getFPS()/2) {
+			try {
+				Jeu.music("/com/projetpo/bindingofisaac/module/libMusic/ennemi_shot.wav", false);
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} 
+			Vector2 v = new Vector2(p.getPosition().getX() - position.getX(), p.getPosition().getY() - position.getY());
+			Vector2 v2 = new Vector2(v.getX()/v.euclidianNorm(), v.getY()/v.euclidianNorm());
+			munitions.addBalle(new Balle(25, 25, position.getX(), position.getY(), v2, "src/main/resources/enemybullets.png", 3));
 		}
+		tick++;
 		if(tick == 90) {
 			tick = 0;
 		}
