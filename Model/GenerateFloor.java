@@ -47,7 +47,7 @@ public abstract class GenerateFloor {
 			int x;
 			int y;
 			do {
-				x = new Random().nextInt(6)+1;
+				x = new Random().nextInt(11)+1;
 				y = new Random().nextInt(6)+1;
 			}while((x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==1) || (x==RoomInfos.NB_HEIGHT_TILES-2 && y==(RoomInfos.NB_WIDTH_TILES-1)/2) || (x==(RoomInfos.NB_HEIGHT_TILES-1)/2 && y==RoomInfos.NB_WIDTH_TILES-2) || (x==1 && y==(RoomInfos.NB_WIDTH_TILES-1)/2));
 			
@@ -58,7 +58,7 @@ public abstract class GenerateFloor {
 			int x;
 			int y;
 			do {
-				x = new Random().nextInt(6)+1;
+				x = new Random().nextInt(11)+1;
 				y = new Random().nextInt(6)+1;
 			}while((x==4 && y==1) || (x==7 && y==4) || (x==4 && y==7) || (x==1 && y==4));
 			
@@ -100,7 +100,7 @@ public abstract class GenerateFloor {
 		while(cptRooms != nbRooms)
 		{
 			int direction = new Random().nextInt(5);
-			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux),new Random().nextInt(nbMaxSpikes), new Random().nextInt(nbMaxEnnemis), false);
+			Carte c = generateRandomCarte(new Random().nextInt(nbMaxCailloux),new Random().nextInt(nbMaxSpikes), new Random().nextInt(nbMaxEnnemis)+1, false);
 			int aleaRetourBase = new Random().nextInt(4);
 			if(aleaRetourBase == 3)
 			{
@@ -119,7 +119,7 @@ public abstract class GenerateFloor {
 			{
 				c = secretMap();
 			}
-			if(etage[dernierX][dernierY].isNormalRoom() && etage[dernierX][dernierY] != null)
+			if(etage[dernierX][dernierY] != null && etage[dernierX][dernierY].isNormalRoom())
 			{
 				switch(direction) 
 				{
@@ -283,9 +283,21 @@ public abstract class GenerateFloor {
 							dernierX = 4;
 						}
 						break;
-					}
 				}
 			}
+			else
+			{
+				int alea = new Random().nextInt(1);
+				if(alea == 0)
+				{
+					dernierY++;
+				}
+				else
+				{
+					dernierX++;
+				}
+			}
+		}
 		/*for(int i = 0; i<etage.length; i++)
 		{
 			if(etage[i] != null)

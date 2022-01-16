@@ -93,13 +93,29 @@ public class GameWorld {
 	 */
 	public void drawMiniMap() {
 		int coef = 2;
-		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre- 58.5*coef), 465, (float)(58.5*coef - 5*coef),(float) (58.5*coef - 5.85*coef), new float[]{1f, 1f, 1f, 0.5f});
+		Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre- 58.5*coef), 465, (float)(58.5*coef - 5*coef),(float) (58.5*coef - 5.85*coef), new float[]{0f, 0f,0f, 0.2f});
 		for(int i=0; i<9; i++) {
 			for(int j=0; j<9; j++) {
 				if(etage[i][j] != null && etage[i][j].getcarte().isVisited()) {
-					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 1f, 1f, 0.5f});
+					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{0f, 0f, 0f, 0.7f});
+					if(etage[i+1][j] != null)
+					{
+						Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*(i+1)), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{0f, 0f, 0f, 0.5f});
+					}
+					if(etage[i-1][j] != null)
+					{
+						Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*(i-1)), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{0f, 0f, 0f, 0.5f});
+					}
+					if(etage[i][j+1] != null)
+					{
+						Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*(j+1)), (float)5.85*coef, (float)5.85*coef, new float[]{0f, 0f, 0f, 0.5f});
+					}
+					if(etage[i][j-1] != null)
+					{
+						Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*(j-1)), (float)5.85*coef, (float)5.85*coef, new float[]{0f, 0f, 0f, 0.5f});
+					}
 				}
-				if(etage[i][j] != null && etage[i][j].getcarte().isBossRoom()) {
+				if(etage[i][j] != null && etage[i][j].getcarte().isBossRoom() && etage[i][j].getcarte().isVisited()) {
 					Render.getInstance().drawSquare((float)(Fenetre.WidthFenetre - 2*5.85*coef - 5.85*coef*i), (float)(465 + 5.85*coef*j), (float)5.85*coef, (float)5.85*coef, new float[]{1f, 0f, 1f, 0.5f});
 				}
 			}
