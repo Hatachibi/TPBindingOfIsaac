@@ -91,6 +91,10 @@ public class Texture {
     public static Texture murGauche = loadTexture("src/main/resources/murGauche.png");
     public static Texture murHaut = loadTexture("src/main/resources/murHaut.png");
     public static Texture murBas = loadTexture("src/main/resources/murBas.png");
+    public static Texture fakemurDroite = loadTexture("src/main/resources/fakemurDroite.png");
+    public static Texture fakemurGauche = loadTexture("src/main/resources/fakemurGauche.png");
+    public static Texture fakemurHaut = loadTexture("src/main/resources/fakemurHaut.png");
+    public static Texture fakemurBas = loadTexture("src/main/resources/fakemurBas.png");
     public static Texture rock = loadTexture("src/main/resources/Rock.png");
     public static Texture closeDoor_up = loadTexture("src/main/resources/closed_door_up.png");
     public static Texture closeDoor_down = loadTexture("src/main/resources/closed_door_down.png");
@@ -104,6 +108,10 @@ public class Texture {
     public static Texture bot_openDoor = loadTexture("src/main/resources/bot_opened_door.png");
     public static Texture right_openDoor = loadTexture("src/main/resources/right_opened_door.png");
     public static Texture left_openDoor = loadTexture("src/main/resources/left_opened_door.png");
+    public static Texture top_openSecretDoor = loadTexture("src/main/resources/top_opened_secretdoor.png");
+    public static Texture bot_openSecretDoor = loadTexture("src/main/resources/bot_opened_secretdoor.png");
+    public static Texture right_openSecretDoor = loadTexture("src/main/resources/right_opened_secretdoor.png");
+    public static Texture left_openSecretDoor = loadTexture("src/main/resources/left_opened_secretdoor.png");
     public static Texture closeBossDoor_up = loadTexture("src/main/resources/closed_bossdoor_up.png");
     public static Texture closeBossDoor_down = loadTexture("src/main/resources/closed_bossdoor_down.png");
     public static Texture closeBossDoor_right = loadTexture("src/main/resources/closed_bossdoor_right.png");

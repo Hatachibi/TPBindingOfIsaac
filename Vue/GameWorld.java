@@ -18,7 +18,7 @@ public class GameWorld {
 	private Personnage player;
 	private boolean first;
 	private int floor = 0;
-	public static final int DEFAULT_NB_ROOMS = 6;
+	public static final int DEFAULT_NB_ROOMS = 7;
 	public static final int DEFAULT_NB_MAX_ROCKS = 2;
 	public static final int DEFAULT_NB_MAX_SPIKES = 2;
 	public static final int DEFAULT_NB_MAX_ENNEMIS = 2;

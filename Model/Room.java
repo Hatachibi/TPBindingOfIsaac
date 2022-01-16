@@ -58,6 +58,16 @@ public class Room {
 	 */
 	private boolean isShopRoom;
 	
+	/**
+	 * Boolean qui indique si la pièce est une salle secrète
+	 */
+	private boolean isSecretRoom;
+	
+	/**
+	 * Boolean qui indique si la pièce est une salle normale.
+	 */
+	private boolean isNormalRoom;
+	
 	/*
 	 * Liste des bombes à afficher
 	 */
@@ -74,6 +84,8 @@ public class Room {
 		this.addEnnemis();
 		this.isBossRoom = carte.isBossRoom();
 		this.isShopRoom = carte.isShopRoom();
+		this.isSecretRoom = carte.isSecretRoom();
+		this.isNormalRoom = carte.isNormalRoom();
 	}
 	
 	/**
@@ -249,6 +261,14 @@ public class Room {
 
 	public boolean isShopRoom() {
 		return isShopRoom;
+	}
+
+	public boolean isSecretRoom() {
+		return isSecretRoom;
+	}
+
+	public boolean isNormalRoom() {
+		return isNormalRoom;
 	}
 	
 }

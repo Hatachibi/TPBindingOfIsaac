@@ -107,16 +107,20 @@ public abstract class GenerateFloor {
 			{
 				dernierX = (RoomInfos.NB_TILES-1)/2;
 				dernierY = (RoomInfos.NB_TILES-1)/2;
-			} 
-			if(cptRooms == nbRooms - 2)
+			}
+			if(cptRooms == nbRooms - 3)
 			{
 				c = mapShop();
 			}
-			if(cptRooms == nbRooms - 1)
+			if(cptRooms == nbRooms - 2)
 			{
 				c = bossMap();
 			}
-			if(etage[dernierX][dernierY] != null && etage[dernierX][dernierY].isShopRoom() != true && etage[dernierX][dernierY].isBossRoom() != true)
+			if(cptRooms == nbRooms - 1)
+			{
+				c = secretMap();
+			}
+			if(etage[dernierX][dernierY].isNormalRoom() && etage[dernierX][dernierY] != null)
 			{
 				switch(direction) 
 				{
@@ -137,6 +141,10 @@ public abstract class GenerateFloor {
 								else if(c.isShopRoom())
 								{
 									etage[dernierX][dernierY].getcarte().generateDownLockedDoor();
+								}
+								else if(c.isSecretRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateDownFakeWall();
 								}
 								else
 								{
@@ -174,6 +182,10 @@ public abstract class GenerateFloor {
 								{
 									etage[dernierX][dernierY].getcarte().generateUpLockedDoor();
 								}
+								else if(c.isSecretRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateUpFakeWall();
+								}
 								else
 								{
 									etage[dernierX][dernierY].getcarte().generateUpDoor();
@@ -209,6 +221,10 @@ public abstract class GenerateFloor {
 								else if(c.isShopRoom())
 								{
 									etage[dernierX][dernierY].getcarte().generateLeftLockedDoor();
+								}
+								else if(c.isSecretRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateLeftFakeWall();
 								}
 								else
 								{
@@ -246,6 +262,10 @@ public abstract class GenerateFloor {
 								{
 									etage[dernierX][dernierY].getcarte().generateRightLockedDoor();
 								}
+								else if(c.isSecretRoom())
+								{
+									etage[dernierX][dernierY].getcarte().generateRightFakeWall();
+								}
 								else
 								{
 									etage[dernierX][dernierY].getcarte().generateRightDoor();
@@ -267,7 +287,19 @@ public abstract class GenerateFloor {
 					}
 				}
 			}
-		
+		/*for(int i = 0; i<etage.length; i++)
+		{
+			if(etage[i] != null)
+			{
+				for(int j = 0; j<etage[i].length; j++)
+				{
+					if(etage[i][j] != null)
+					{
+						etage[i][j].getcarte().setVisited(true);
+					}
+				}
+			}
+		}*/
 		return etage;
 	}
 
@@ -357,6 +389,32 @@ public abstract class GenerateFloor {
 			shop.getObjet().add(new ObjetsInventaire(tab[i], 30, 30, new Vector2(130*(i+1) + 100, 292.5), ""));
 		}
 		return shop;
+	}
+	
+	private static Carte secretMap() {
+		Carte secret = new Carte(3);
+		secret.setRenderMap(0, 0, 4);
+		secret.setRenderMap(0, RoomInfos.NB_WIDTH_TILES-1, 1);
+		secret.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, 0, 3);
+		secret.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, RoomInfos.NB_WIDTH_TILES-1, 2);
+		for(int i = 0; i<secret.getRenderMap().length; i++)
+		{
+			if(i != 0 && i != RoomInfos.NB_HEIGHT_TILES-1)
+			{
+				secret.setRenderMap(i, 0, 5);
+				if(i<RoomInfos.NB_WIDTH_TILES-1)
+				{
+					secret.setRenderMap(0, i, 6);
+					secret.setRenderMap(RoomInfos.NB_HEIGHT_TILES-1, i, 8);
+				}
+				secret.setRenderMap(i, RoomInfos.NB_WIDTH_TILES-1, 7);
+				
+			}
+		}
+		secret.generateCollisionMap();
+		int item = (int) (1+Math.random()*9);
+		secret.getObjet().add(new ObjetsInventaire(item, 30, 30, new Vector2(130*(2) + 100, 292.5), ""));
+		return secret;
 	}
 	
 	private static Carte mapStart() {
