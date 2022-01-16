@@ -108,11 +108,11 @@ public abstract class GenerateFloor {
 				dernierX = (RoomInfos.NB_TILES-1)/2;
 				dernierY = (RoomInfos.NB_TILES-1)/2;
 			}
-			if(cptRooms == nbRooms - 3)
+			if(cptRooms == nbRooms - 2)
 			{
 				c = mapShop();
 			}
-			if(cptRooms == nbRooms - 2)
+			if(cptRooms == nbRooms - 3)
 			{
 				c = bossMap();
 			}
@@ -127,7 +127,7 @@ public abstract class GenerateFloor {
 					case 1:
 						if(dernierY>1)
 						{
-							while(dernierY!=0 && etage[dernierX][(dernierY-1)] != null)
+							while(dernierY!=0 && etage[dernierX][(dernierY-1)] != null && !etage[dernierX][dernierY].isNormalRoom())
 							{
 								dernierY--;
 							}
@@ -167,7 +167,7 @@ public abstract class GenerateFloor {
 					case 2:
 						if(dernierY<8)
 						{
-							while(dernierY!=8 && etage[dernierX][(dernierY+1)] != null)
+							while(dernierY!=8 && etage[dernierX][(dernierY+1)] != null && !etage[dernierX][dernierY].isNormalRoom())
 							{
 								dernierY++;
 							}
@@ -207,7 +207,7 @@ public abstract class GenerateFloor {
 					case 3:
 						if(dernierX>1)
 						{
-							while(dernierX!=0 && etage[(dernierX-1)][dernierY] != null)
+							while(dernierX!=0 && etage[(dernierX-1)][dernierY] != null && !etage[dernierX][dernierY].isNormalRoom())
 							{
 								dernierX--;
 							}
@@ -247,7 +247,7 @@ public abstract class GenerateFloor {
 					case 4:
 						if(dernierX<8)
 						{
-							while(dernierX!=8 && etage[(dernierX+1)][dernierY] != null)
+							while(dernierX!=8 && etage[(dernierX+1)][dernierY] != null && !etage[dernierX][dernierY].isNormalRoom())
 							{
 								dernierX++;
 							}
